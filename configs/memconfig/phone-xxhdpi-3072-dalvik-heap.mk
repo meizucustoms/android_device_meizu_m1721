@@ -17,9 +17,9 @@
 # Provides overrides to configure the Dalvik heap for a 3G phone
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapstartsize=24m \
-    dalvik.vm.heapgrowthlimit=320m \
-    dalvik.vm.heapsize=768m \
+    dalvik.vm.heapstartsize=8 \
+    dalvik.vm.heapgrowthlimit=384m \
+    dalvik.vm.heapsize=1024m \
     dalvik.vm.heaptargetutilization=0.75 \
     dalvik.vm.heapminfree=2m \
     dalvik.vm.heapmaxfree=8m
