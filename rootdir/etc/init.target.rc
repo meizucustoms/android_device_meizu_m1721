@@ -44,7 +44,7 @@ on fs
 on init
     write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
 
-# Add a cpuset for the camera daemon
+    # Add a cpuset for the camera daemon
     mkdir /dev/cpuset/camera-daemon 0750 cameraserver cameraserver
     write /dev/cpuset/camera-daemon/cpus 0-7
     write /dev/cpuset/camera-daemon/mems 0
