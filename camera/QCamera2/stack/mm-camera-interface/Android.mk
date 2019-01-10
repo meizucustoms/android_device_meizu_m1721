@@ -55,7 +55,7 @@ LOCAL_CFLAGS += -include bionic/libc/kernel/common/linux/socket.h
 LOCAL_CFLAGS += -include bionic/libc/kernel/common/linux/un.h
 endif
 
-LOCAL_CFLAGS += -Wall -Wextra -Werror
+LOCAL_CFLAGS += -Wall -Wextra -Wno-error -Wno-implicit-function-declaration
 ifneq (,$(filter $(strip $(TARGET_KERNEL_VERSION)),4.9 4.14 4.19))
 LOCAL_CFLAGS += -DUSE_4_9_DEFS
 endif
