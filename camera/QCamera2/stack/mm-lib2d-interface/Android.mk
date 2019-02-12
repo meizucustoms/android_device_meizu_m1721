@@ -39,7 +39,6 @@ LOCAL_SRC_FILES := \
     src/mm_lib2d.c
 
 LOCAL_MODULE           := libmmlib2d_interface
-LOCAL_PRELINK_MODULE   := false
 LOCAL_SHARED_LIBRARIES := libdl libcutils liblog libmmcamera_interface
 ifneq ($(TARGET_KERNEL_VERSION),$(filter $(TARGET_KERNEL_VERSION),3.18 4.4 4.9))
 LOCAL_SHARED_LIBRARIES += libion
