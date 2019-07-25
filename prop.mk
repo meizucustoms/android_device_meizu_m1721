@@ -126,6 +126,7 @@ debug.stagefright.omx_default_rank.sw-audio=1 \
 debug.stagefright.omx_default_rank=0 \
 media.msm8956hw=0 \
 media.stagefright.audio.sink=280 \
+mm.enable.sec.smoothstreaming=true \
 media.stagefright.thumbnail.prefer_hw_codecs=true \
 mmp.enable.3g2=true \
 vendor.audio.hw.aac.encoder=true \
