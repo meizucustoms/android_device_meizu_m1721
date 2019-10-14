@@ -9,8 +9,8 @@ service vendor.fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.
 
 service vendor.gx_fpd /vendor/bin/goodixfingerprintd
      class core
-     user root
-     group system root
+     user system
+     group system
      writepid /dev/cpuset/system-background/tasks
 
 on boot
