@@ -204,6 +204,7 @@ VENDOR_SECURITY_PATCH := 2020-01-01
 include device/qcom/sepolicy/legacy-um/legacy-um.mk
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/private
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
+TARGET_EXCLUDE_QCOM_SEPOLICY := true
 
 # Treble
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
