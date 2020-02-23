@@ -95,6 +95,9 @@ vendor.gralloc.enable_fb_ubwc=1
 PRODUCT_PROPERTY_OVERRIDES += \
 persist.vendor.dpm.feature=0
 
+debug.sf.hwc.canUseABC=1
+debug.sf.disable_backpressure=1
+
 # DRM
 PRODUCT_PROPERTY_OVERRIDES += \
 drm.service.enabled=true
