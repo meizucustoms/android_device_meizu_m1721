@@ -6165,3 +6165,5 @@ echo 130 > /proc/sys/vm/swappiness
 mkswap /dev/block/vbswap0
 swapon /dev/block/vbswap0
 
+# Enable SIGKILL memory reap
+echo 1 > /proc/sys/vm/reap_mem_on_sigkill
