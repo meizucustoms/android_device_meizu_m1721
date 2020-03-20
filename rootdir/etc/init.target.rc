@@ -35,6 +35,9 @@ on fs
     mount_all /vendor/etc/fstab.qcom
     write /proc/sys/vm/swappiness 100
 
+    # GnssConfiguration doesn't actually look at gps.conf, just the debug file
+    mount none /system/etc/gps.conf /system/etc/gps_debug.conf bind
+
     chown root system /mnt/vendor/persist
     chmod 0771 /mnt/vendor/persist
     mkdir /mnt/vendor/persist/data 0700 system system
