@@ -372,11 +372,23 @@ PRODUCT_COPY_FILES += \
 # Wifi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
-    libcld80211 \
-    libwpa_client \
+    vendor.qti.hardware.wifi@1.0 \
+    vendor.qti.hardware.wifi.hostapd@1.1 \
+    vendor.qti.hardware.wifi.supplicant@2.0
+
+PRODUCT_PACKAGES += \
+    dhcpcd.conf \
     hostapd \
     libqmiservices_shim \
+    hostapd_cli \
+    libcld80211 \
+    libqsap_sdk \
+    libQWiFiSoftApCfg \
     libwifi-hal-qcom \
+    libwpa_client \
+    wificond \
+    wifilogd \
+    wpa_cli \
     wpa_supplicant \
     wpa_supplicant.conf
 
