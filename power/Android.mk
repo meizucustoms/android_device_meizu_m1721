@@ -6,8 +6,8 @@ ifneq ($(TARGET_TAP_TO_WAKE_NODE),)
     LOCAL_CFLAGS += -DTAP_TO_WAKE_NODE=\"$(TARGET_TAP_TO_WAKE_NODE)\"
 endif
 
-LOCAL_MODULE := android.hardware.power@1.2-service.sakura
-LOCAL_INIT_RC := android.hardware.power@1.2-service.sakura.rc
+LOCAL_MODULE := android.hardware.power@1.2-service.m1721
+LOCAL_INIT_RC := android.hardware.power@1.2-service.m1721.rc
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_MODULE_TAGS := optional
 

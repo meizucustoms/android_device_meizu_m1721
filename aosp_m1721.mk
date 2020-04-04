@@ -22,8 +22,8 @@ $(call inherit-product-if-exists, vendor/xiaomi/MiuiCamera/sakura.mk)
 # Installs gsi keys into ramdisk, to boot a GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
-# Inherit from sakura device
-$(call inherit-product, device/xiaomi/sakura/device.mk)
+# Inherit from m1721 device
+$(call inherit-product, device/meizu/m1721/device.mk)
 
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
@@ -34,16 +34,16 @@ TARGET_GAPPS_ARCH := arm64
 $(call inherit-product, vendor/aosp/config/common_full_phone.mk)
 
 # Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := sakura
-PRODUCT_NAME := aosp_sakura
-PRODUCT_BRAND := Xiaomi
-PRODUCT_MODEL := Redmi 6 Pro
-PRODUCT_MANUFACTURER := Xiaomi
-TARGET_VENDOR := Xiaomi
-BOARD_VENDOR := Xiaomi
+PRODUCT_DEVICE := m1721
+PRODUCT_NAME := aosp_m1721
+PRODUCT_BRAND := Meizu
+PRODUCT_MODEL := M6 Note
+PRODUCT_MANUFACTURER := Meizu
+TARGET_VENDOR := Meizu
+BOARD_VENDOR := Meizu
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRODUCT_NAME="sakura" \
-    TARGET_DEVICE="sakura"
+    PRODUCT_NAME="m1721" \
+    TARGET_DEVICE="m1721"
 
-PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
+PRODUCT_GMS_CLIENTID_BASE := android-meizu

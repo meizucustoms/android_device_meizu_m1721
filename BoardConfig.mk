@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/xiaomi/sakura
+DEVICE_PATH := device/meizu/m1721
 
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
@@ -49,7 +49,7 @@ BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE :=  2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
-TARGET_KERNEL_SOURCE := kernel/xiaomi/sakura
+TARGET_KERNEL_SOURCE := kernel/meizu/m1721
 TARGET_KERNEL_VERSION := 4.9
 TARGET_KERNEL_CLANG_COMPILE := true
 
@@ -159,8 +159,8 @@ TARGET_USES_MEDIA_EXTENSIONS := true
 TARGET_PROVIDES_LIBPLATFORMCONFIG := true
 
 # Vendor init
-TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_sakura
-TARGET_RECOVERY_DEVICE_MODULES := libinit_sakura
+TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_m1721
+TARGET_RECOVERY_DEVICE_MODULES := libinit_m1721
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
@@ -230,8 +230,8 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 WIFI_HIDL_FEATURE_AWARE := true
 
 # Inherit from the proprietary version
--include vendor/xiaomi/sakura/BoardConfigVendor.mk
+-include vendor/meizu/m1721/BoardConfigVendor.mk
 -include vendor/xiaomi/msm8953-common/BoardConfigVendor.mk
 
 # OTA Assert
-TARGET_OTA_ASSERT_DEVICE := sakura,sakura_india
+TARGET_OTA_ASSERT_DEVICE := m1721
