@@ -163,10 +163,6 @@ PRODUCT_PACKAGES += \
     libgenlock \
     libtinyxml
 
-# Device-specific settings
-PRODUCT_PACKAGES += \
-    XiaomiParts
-
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
@@ -389,7 +385,7 @@ PRODUCT_PACKAGES += \
 
 # USB HAL
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service.xiaomi_8996
+    android.hardware.usb@1.0-service.m1721
 
 # Vibrator
 PRODUCT_PACKAGES += \
