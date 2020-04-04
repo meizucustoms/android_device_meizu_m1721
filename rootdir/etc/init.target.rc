@@ -252,11 +252,21 @@ service logger /system/bin/logcat -b all -D -f /cache/boot_log.txt
     disabled
     oneshot
 
+service dmesglogger /system/bin/dmesg -C > /cache/dmesg.txt
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+
 on post-fs-data
-    # Clear existing log and start the service
+    # Clear existing log and start the services
     rm /cache/boot_log.txt
+    rm /cache/dmesg.txt
     start logger
+    start dmesglogger
 
 on property:sys.boot_completed=1
-    # Stop the logger service
+    # Stop the logger services
     stop logger
+    stop dmesglogger
