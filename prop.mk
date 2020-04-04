@@ -138,6 +138,11 @@ vendor.vidc.enc.disable.pq=true \
 vendor.vidc.enc.disable_bframes=1 \
 vendor.video.disable.ubwc=1
 
+# ParanoidDoze
+PRODUCT_PROPERTY_OVERRIDES += \
+ro.sensor.proximity=true \
+ro.sensor.pickup=xiaomi.sensor.pickup
+
 # Perf
 PRODUCT_PROPERTY_OVERRIDES += \
 ro.vendor.extension_library=libqti-perfd-client.so \
