@@ -7,8 +7,8 @@
 
 set -e
 
-DEVICE=sakura
-VENDOR=xiaomi
+DEVICE=m1721
+VENDOR=meizu
 
 INITIAL_COPYRIGHT_YEAR=2019
 
