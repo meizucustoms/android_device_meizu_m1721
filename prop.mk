@@ -168,20 +168,20 @@ persist.data.mode=concurrent
 
 # Nitz
 PRODUCT_PROPERTY_OVERRIDES += \
-persist.rild.nitz_plmn= \
-persist.rild.nitz_long_ons_0= \
-persist.rild.nitz_long_ons_1= \
-persist.rild.nitz_long_ons_2= \
-persist.rild.nitz_long_ons_3= \
-persist.rild.nitz_short_ons_0= \
-persist.rild.nitz_short_ons_1= \
-persist.rild.nitz_short_ons_2= \
-persist.rild.nitz_short_ons_3=
+persist.rild.nitz_plmn="" \
+persist.rild.nitz_long_ons_0="" \
+persist.rild.nitz_long_ons_1="" \
+persist.rild.nitz_long_ons_2="" \
+persist.rild.nitz_long_ons_3="" \
+persist.rild.nitz_short_ons_0="" \
+persist.rild.nitz_short_ons_1="" \
+persist.rild.nitz_short_ons_2="" \
+persist.rild.nitz_short_ons_3=""
 
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
 rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
-rild.libargs=-d /dev/smd0 \
+rild.libargs=-d[SPACE]/dev/smd0 \
 DEVICE_PROVISIONED=1 \
 ril.subscription.types=NV,RUIM \
 persist.radio.flexmap_type=nw_mode \
