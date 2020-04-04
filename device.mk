@@ -15,7 +15,7 @@
 #
 
 $(call inherit-product, vendor/meizu/m1721/m1721-vendor.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_o_mr1.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_n.mk)
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
 # Set boot SPL
