@@ -231,7 +231,7 @@ WIFI_HIDL_FEATURE_AWARE := true
 
 # Inherit from the proprietary version
 -include vendor/meizu/m1721/BoardConfigVendor.mk
--include vendor/xiaomi/msm8953-common/BoardConfigVendor.mk
+-include vendor/meizu/msm8953-common/BoardConfigVendor.mk
 
 # OTA Assert
 TARGET_OTA_ASSERT_DEVICE := m1721
