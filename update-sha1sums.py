@@ -19,8 +19,8 @@
 from hashlib import sha1
 import sys
 
-device='sakura'
-vendor='xiaomi'
+device='m1721'
+vendor='meizu'
 
 lines = [ line for line in open('proprietary-files.txt', 'r') ]
 vendorPath = '../../../vendor/' + vendor + '/' + device + '/proprietary'
@@ -59,6 +59,9 @@ def update():
       line = line.split('|')[0]
       filePath = line.split(':')[1] if len(line.split(':')) == 2 else line
 
+      if line.find(';') != -1:
+	filePath = line.split(';:')[0]
+
       if filePath[0] == '-':
         file = open('%s/%s' % (vendorPath, filePath[1:]), 'rb').read()
       else:
@@ -77,3 +80,4 @@ with open('proprietary-files.txt', 'w') as file:
     file.write(line)
 
   file.close()
+
