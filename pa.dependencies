@@ -16,5 +16,29 @@
     "target_path": "packages/resources/devicesettings",
     "branch": "lineage-17.1",
     "remote": "github"
+  },
+  {
+    "remote": "github"
+    "repository": "AOSPA/android_hardware_qcom_audio",
+    "target_path": "hardware/qcom/audio",
+    "revision": "quartz-89xx"
+  },
+  {
+    "remote": "github"
+    "repository": "AOSPA/android_hardware_qcom_display",
+    "target_path": "hardware/qcom/display",
+    "revision": "quartz-89xx"
+  },
+  {
+    "remote": "github"
+    "repository": "AOSPA/android_hardware_qcom_media",
+    "target_path": "hardware/qcom/media",
+    "revision": "quartz-89xx"
+  },
+  {
+    "remote": "aospa",
+    "repository": "android_device_qcom_common",
+    "target_path": "device/qcom/common",
+    "revision": "quartz"
   }
 ]
