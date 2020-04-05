@@ -295,7 +295,8 @@ PRODUCT_COPY_FILES += \
 
 # QMI
 PRODUCT_PACKAGES += \
-    libjson
+    libjson \
+    libqti_vndfwk_detect
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -418,6 +419,20 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:$(TARGET_COPY_OUT_SYSTEM)/etc/firmware/wlan/prima/WCNSS_cfg.dat \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
+
+# Fingerprint
+PRODUCT_PACKAGES += \
+    android.hardware.biometrics.fingerprint@2.1
+
+#Keymaster
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0-service \
+    android.hardware.keymaster@3.0-impl
+
+#Gatekeeper
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0-impl \
+    android.hardware.gatekeeper@1.0-service
 
 # Wallpapers
 PRODUCT_PACKAGES += \
