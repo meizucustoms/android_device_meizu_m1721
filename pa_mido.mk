@@ -22,7 +22,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 $(call inherit-product, device/xiaomi/mido/device.mk)
 
 # Inherit some common AOSPA stuff.
-include device/qcom/common/common.mk
 include vendor/pa/config/common_full_phone.mk
 
 # Device identifier. This must come after all inclusions
