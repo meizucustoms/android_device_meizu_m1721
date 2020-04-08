@@ -1,8 +1,1 @@
 allow ueventd fpc_sysfs:file rw_file_perms;
-allow ueventd debugfs:dir { open read relabelfrom };
-allow ueventd debugfs:file getattr;
-allow ueventd debugfs_wakeup_sources:file getattr;
-allow ueventd qti_debugfs:dir relabelto;
-allow ueventd vfat:file { getattr open read };
-allow ueventd wifi_vendor_data_file:dir { search };
-allow ueventd wifi_vendor_data_file:file { read open getattr };

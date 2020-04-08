@@ -1,2 +1,0 @@
-allow zygote cgroup:file create;
-allow zygote self:capability kill;

@@ -80,4 +80,3 @@ with open('proprietary-files.txt', 'w') as file:
     file.write(line)
 
   file.close()
-

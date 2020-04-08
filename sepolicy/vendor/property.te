@@ -1,20 +1,5 @@
-# Fingerprint
-type fingerprint_status_prop, property_type;
-
-# Post Boot
-type sys_post_boot_prop, property_type;
-
-# Mlipay
-type ifaa_prop, property_type;
-
-# Sensors
-type sensors_panel_prop, property_type;
-
-# Spectrum
-type spectrum_prop, property_type;
-
-# Thermal engine
-type thermal_engine_prop, property_type;
+# Camera
+type vendor_camera_prop, property_type;
 
 # Dirac
 type dirac_prop, property_type;

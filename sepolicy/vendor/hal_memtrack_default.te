@@ -1,2 +1,0 @@
-allow hal_memtrack_default sysfs:file { getattr open read };
-allow hal_memtrack_default sysfs_kgsl:lnk_file read;

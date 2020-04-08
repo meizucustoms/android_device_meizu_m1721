@@ -1,13 +1,14 @@
 # /data/goodix labeling
 type_transition tee system_data_file:{ dir file } gx_fpd_data_file;
 
-allow tee gx_fpd_data_file:dir create_dir_perms;
-allow tee gx_fpd_data_file:file create_file_perms;
+typeattribute tee data_between_core_and_vendor_violators;
+
+# allow storing goodix data
+allow tee mnt_vendor_file:dir search;
+allow tee { persist_drm_file gx_fpd_data_file }:dir create_dir_perms;
+allow tee { persist_drm_file gx_fpd_data_file }:file create_file_perms;
 allow tee system_data_file:dir create_dir_perms;
+#allow tee system_file:file rx_file_perms;
+
 allow tee fingerprintd_data_file:dir create_dir_perms;
 allow tee fingerprintd_data_file:file create_file_perms;
-
-# Set the sys.listeners.registered property
-set_prop(tee, system_prop)
-
-allow tee system_file:file { execute getattr open read };

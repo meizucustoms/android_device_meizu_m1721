@@ -1,1 +1,0 @@
-allow dataservice_app bootloader_boot_reason_prop:file read;

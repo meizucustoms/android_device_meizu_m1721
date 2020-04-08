@@ -1,0 +1,45 @@
+# Binaries
+/system/bin/chargeonlymode                      u:object_r:charger_exec:s0
+
+# Camera
+/data/vendor/qcam(/.*)?                         u:object_r:vendor_camera_data_file:s0
+
+# Fpc Fingerprint
+/data/fpc(/.*)?					u:object_r:fpc_data_file:s0
+/dev/socket/fpce(/.*)?				u:object_r:fpce_socket:s0
+/sys/devices/soc/soc:fpc1020(/.*)?		u:object_r:fpc_sysfs:s0
+
+# Glove Mode
+/sys/class/tp_glove/device(/.*)?		u:object_r:proc_touchpanel:s0
+/sys/devices/virtual/tp_glove(/.*)?		u:object_r:proc_touchpanel:s0
+
+# Goodix Fingerprint
+/dev/goodix_fp                                  u:object_r:gx_fpd_device:s0
+/data/gf_data(/.*)?                             u:object_r:gx_fpd_data_file:s0
+/data/system/fingerprint(/.*)?                  u:object_r:gx_fpd_data_file:s0
+/(vendor|system/vendor)/bin/gx_fpd              u:object_r:gx_fpd_exec:s0
+/(vendor|system/vendor)/bin/init\.goodix\.sh	u:object_r:init_fingerprint_exec:s0
+
+# HALs
+/(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service\.xiaomi_mido		u:object_r:hal_fingerprint_mido_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.ir@1\.0-service\.xiaomi_mido					u:object_r:hal_ir_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service\.xiaomi_mido                           u:object_r:hal_light_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.xiaomi_mido                     u:object_r:hal_lineage_touch_default_exec:s0
+
+# Ir
+/dev/lirc[0-9]*					u:object_r:lirc_device:s0
+
+# Legacy root dirs
+/firmware(/.*)?                                 u:object_r:firmware_file:s0
+
+# Rild
+/(vendor|system/vendor)/radio/qcril_database/qcril.db			u:object_r:rild_file:s0
+
+# Sensors
+/(mnt/vendor)/persist/sensors(/.*)?                                     u:object_r:persist_sensors_file:s0
+
+# Sys files
+/sys/devices/soc/78b6000\.i2c/i2c-2/2-[0-9a-f]+/leds(/.*)?		u:object_r:sysfs_leds:s0
+/sys/devices/soc/78b7000\.i2c/i2c-3/3-[0-9a-f]+/disable_keys            u:object_r:proc_touchpanel:s0
+/sys/devices/soc/leds-qpnp-[0-9]+/leds(/.*)?				u:object_r:sysfs_leds:s0
+/sys/devices/soc/78b7000\.i2c/i2c-3/3-[0-9a-f]+/enable_dt2w		u:object_r:proc_touchpanel:s0

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The LineageOS Project
+ * Copyright (C) 2019 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,30 +24,17 @@
 
 #define LEDS            "/sys/class/leds/"
 
+#define BUTTON_LED      LEDS "button-backlight/"
 #define LCD_LED         LEDS "lcd-backlight/"
-#define WHITE_LED       LEDS "red/"
+#define RED_LED         LEDS "red/"
+#define GREEN_LED       LEDS "green/"
+#define BLUE_LED        LEDS "blue/"
 
 #define BLINK           "blink"
 #define BRIGHTNESS      "brightness"
-#define MAX_BRIGHTNESS  "max_brightness"
-#define DUTY_PCTS       "duty_pcts"
-#define PAUSE_HI        "pause_hi"
-#define PAUSE_LO        "pause_lo"
-#define RAMP_STEP_MS    "ramp_step_ms"
-#define START_IDX       "start_idx"
 
-/*
- * 15 duty percent steps.
- */
-#define RAMP_STEPS 15
-/*
- * Each step will stay on for 150ms by default.
- */
-#define RAMP_STEP_DURATION 150
-/*
- * Each value represents a duty percent (0 - 100) for the led pwm.
- */
-static int32_t BRIGHTNESS_RAMP[RAMP_STEPS] = {0, 12, 25, 37, 50, 72, 85, 100, 85, 72, 50, 37, 25, 12, 0};
+#define MAX_LED_BRIGHTNESS    255
+#define MAX_LCD_BRIGHTNESS    255
 
 namespace {
 /*
@@ -66,25 +53,6 @@ static void set(std::string path, std::string value) {
 
 static void set(std::string path, int value) {
     set(path, std::to_string(value));
-}
-
-static int get(std::string path) {
-    std::ifstream file(path);
-    int value;
-
-    if (!file.is_open()) {
-        ALOGW("failed to read from %s", path.c_str());
-        return 0;
-    }
-
-    file >> value;
-    return value;
-}
-
-static int getMaxBrightness(std::string path) {
-    int value = get(path);
-    ALOGW("Got max brightness %d", value);
-    return value;
 }
 
 static uint32_t getBrightness(const LightState& state) {
@@ -119,57 +87,82 @@ static inline uint32_t getScaledBrightness(const LightState& state, uint32_t max
 }
 
 static void handleBacklight(const LightState& state) {
-    uint32_t brightness = getScaledBrightness(state, getMaxBrightness(LCD_LED MAX_BRIGHTNESS));
+    uint32_t brightness = getScaledBrightness(state, MAX_LCD_BRIGHTNESS);
     set(LCD_LED BRIGHTNESS, brightness);
 }
 
-/*
- * Scale each value of the brightness ramp according to the
- * brightness of the color.
- */
-static std::string getScaledRamp(uint32_t brightness) {
-    std::string ramp, pad;
-
-    for (auto const& step : BRIGHTNESS_RAMP) {
-        ramp += pad + std::to_string(step * brightness / 0xFF);
-        pad = ",";
-    }
-
-    return ramp;
+static void handleButtons(const LightState& state) {
+     uint32_t brightness = getScaledBrightness(state, MAX_LED_BRIGHTNESS);
+     set(BUTTON_LED BRIGHTNESS, brightness);
 }
 
 static void handleNotification(const LightState& state) {
-    uint32_t whiteBrightness = getScaledBrightness(state, getMaxBrightness(WHITE_LED MAX_BRIGHTNESS));
+    int blink, onMs, offMs, red, green, blue;
+    uint32_t alpha;
 
-    /* Disable blinking */
-    set(WHITE_LED BLINK, 0);
+    // Extract brightness from AARRGGBB
+    alpha = (state.color >> 24) & 0xff;
+    red = (state.color >> 16) & 0xff;
+    green = (state.color >> 8) & 0xff;
+    blue = state.color & 0xff;
 
-    if (state.flashMode == Flash::TIMED) {
+    // Scale RGB brightness if Alpha brightness is not 0xFF
+    if (alpha != 0xff) {
+        red = (red * alpha) / 0xff;
+        green = (green * alpha) / 0xff;
+        blue = (blue * alpha) / 0xff;
+    }
+
+    switch (state.flashMode) {
+        case Flash::TIMED:
+            onMs = state.flashOnMs;
+            offMs = state.flashOffMs;
+            break;
+        case Flash::NONE:
+        default:
+            onMs = 0;
+            offMs = 0;
+            break;
+    }
+
+    if (onMs > 0 && offMs > 0) {
         /*
-         * If the flashOnMs duration is not long enough to fit ramping up
-         * and down at the default step duration, step duration is modified
-         * to fit.
+         * if ON time == OFF time
+         *   use blink mode 2
+         * else
+         *   use blink mode 1
          */
-        int32_t stepDuration = RAMP_STEP_DURATION;
-        int32_t pauseHi = state.flashOnMs - (stepDuration * RAMP_STEPS * 2);
-        int32_t pauseLo = state.flashOffMs;
-
-        if (pauseHi < 0) {
-            //stepDuration = state.flashOnMs / (RAMP_STEPS * 2);
-            pauseHi = 0;
+        if (onMs == offMs) {
+            blink = 2;
+        } else {
+            blink = 1;
         }
-
-        /* White */
-        set(WHITE_LED START_IDX, 0 * RAMP_STEPS);
-        set(WHITE_LED DUTY_PCTS, getScaledRamp(whiteBrightness));
-        set(WHITE_LED PAUSE_LO, pauseLo);
-        set(WHITE_LED PAUSE_HI, pauseHi);
-        set(WHITE_LED RAMP_STEP_MS, stepDuration);
-
-        /* Enable blinking */
-        set(WHITE_LED BLINK, 1);
     } else {
-        set(WHITE_LED BRIGHTNESS, whiteBrightness);
+        blink = 0;
+    }
+
+    /* Disable blinking. */
+    set(RED_LED BLINK, 0);
+    set(GREEN_LED BLINK, 0);
+    set(BLUE_LED BLINK, 0);
+
+    /* Enable blinking */
+    if (blink){
+        if (red)
+            set(RED_LED BLINK, blink);
+        if (green)
+            set(GREEN_LED BLINK, blink);
+        if (blue)
+            set(BLUE_LED BLINK, blink);
+    } else {
+        if (red == 0 && green == 0 && blue == 0) {
+            set(RED_LED BLINK, 0);
+            set(GREEN_LED BLINK, 0);
+            set(BLUE_LED BLINK, 0);
+        }
+        set(RED_LED BRIGHTNESS, red);
+        set(GREEN_LED BRIGHTNESS, green);
+        set(BLUE_LED BRIGHTNESS, blue);
     }
 }
 
@@ -183,6 +176,7 @@ static std::vector<LightBackend> backends = {
     { Type::NOTIFICATIONS, handleNotification },
     { Type::BATTERY, handleNotification },
     { Type::BACKLIGHT, handleBacklight },
+    { Type::BUTTONS, handleButtons },
 };
 
 }  // anonymous namespace

@@ -1,2 +1,0 @@
-allow adbd vendor_file:file getattr;
-allow adbd oemfs:dir search;

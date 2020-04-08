@@ -1,3 +1,0 @@
-allow radio system_app_data_file:dir getattr;
-allow radio vendor_file:file { execute getattr open read };
-allow radio adb_data_file:file { getattr open read };

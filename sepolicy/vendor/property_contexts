@@ -1,37 +1,4 @@
-# Camera
-persist.camera.debug.logfile                                  u:object_r:persist_camera_prop:s0
-
-# Fingerprint
-persist.sys.fp.                                               u:object_r:fingerprint_prop:s0
-persist.vendor.sys.fp.                                        u:object_r:fingerprint_prop:s0
-ro.boot.fp.                                                   u:object_r:fingerprint_prop:s0
-ro.boot.fpsensor                                              u:object_r:fingerprint_prop:s0
-
-# Mlipay
-persist.vendor.sys.pay.ifaa                                   u:object_r:ifaa_prop:s0
-
-# Netmgrd
-persist.net.doxlat                                            u:object_r:vendor_xlat_prop:s0
-
-# Post Boot
-sys.post_boot.parsed                                          u:object_r:vendor_mpctl_prop:s0
-
-# Radio
-sys.fake_bs_flag0                                             u:object_r:system_radio_prop:s0
-sys.fake_bs_flag1                                             u:object_r:system_radio_prop:s0
-
-# Sensors
-sys.panel.                                                    u:object_r:sensors_panel_prop:s0
-
-# Spectrum
-persist.spectrum.profile                                      u:object_r:spectrum_prop:s0
-
-# Qseecomd
-sys.listeners.registered                                      u:object_r:vendor_tee_listener_prop:s0
-
-# Thermal engine
-persist.sys.thermal.                                          u:object_r:thermal_engine_prop:s0
-sys.thermal.                                                  u:object_r:thermal_engine_prop:s0
-
-# Dirac
-persist.audio.dirac.                                          u:object_r:dirac_prop:s0
+persist.audio.dirac             u:object_r:dirac_prop:s0
+persist.net.doxlat              u:object_r:vendor_xlat_prop:s0
+persist.vendor.camera.dbglog    u:object_r:camera_prop:s0
+wifi.active.interface           u:object_r:wifi_prop:s0

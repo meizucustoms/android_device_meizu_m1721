@@ -11,9 +11,9 @@
 | Shipped Android Version | 7.1.2                             |
 | Storage                 | 16/32/64 GB                       |
 | MicroSD                 | Up to 256 GB                      |
-| Battery                 | 4000 mAh (non-removable)          |
-| Display                 | 1080 x 1920 pixels                |
-
-## Device Picture
-
-![M6N](https://cs5-2.4pda.to/12114811.jpg "M6N")
+| Battery                 | 5000 mAh (non-removable)          |
+| Dimensions              | 151 x 76 x 8.5 mm                 |
+| Display                 | 1920x1080 pixels, 5.5 (~401 PPI)  |
+| Rear Camera             | 13 MP, 5 MP, LED flash            |
+| Front Camera            | 15 MP                             |
+| Release Date            | December 2017                     |

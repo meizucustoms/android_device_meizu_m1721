@@ -1,5 +1,0 @@
-allow surfaceflinger device:chr_file ioctl;
-allow surfaceflinger sysfs_kgsl:lnk_file read;
-allow surfaceflinger vendor_file:file { execute getattr open read };
-allow surfaceflinger sysfs_kgsl:file { getattr read open };
-allow surfaceflinger firmware_file:dir search;

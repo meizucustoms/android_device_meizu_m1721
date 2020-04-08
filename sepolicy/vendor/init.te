@@ -1,65 +1,16 @@
+allow init wcnss_device:chr_file write;
+allow qti_init_shell {
+    fm_prop
+}:property_service set;
+
+# Allow init to bind mount loader config for media swcodec
+allow init system_file:file mounton;
+
 # adsprpcd
 allow init adsprpcd_file:filesystem { mount relabelfrom relabelto };
 
-# leds
+# LEDs
 allow init sysfs_leds:lnk_file read;
 
-# offmode charging daemon
-allow init rootfs:file mounton;
-
-allow init self:capability2 block_suspend;
-allow init socket_device:sock_file { create setattr unlink };
-allow init sysfs:file { open read write };
-allow init self:netlink_route_socket read;
-allow init self:socket write;
-allow init self:tcp_socket { bind create setopt };
-allow init self:udp_socket ioctl;
-allow init sysfs:file { open write };
-allow init tmpfs:lnk_file create;
-allow init vendor_toolbox_exec:file execute_no_trans;
-allow init vfat:file { open read };
-allow init cgroup:file create;
-
-allow init fsck:process noatsecure;
-allow init hal_gatekeeper_qti:process noatsecure;
-allow init hal_keymaster_qti:process noatsecure;
-allow init hal_wifi_supplicant_default:process noatsecure;
-allow init sysfs:dir write;
-allow init system_file:file { execute_no_trans mounton };
-allow init ueventd:process noatsecure;
-allow init vendor_init:process noatsecure;
-allow init proc:file setattr;
-allow init hwservicemanager:process noatsecure;
-allow init servicemanager:process noatsecure;
-allow init sysfs:dir add_name;
-allow init vdc:process noatsecure;
-allow init vndservicemanager:process noatsecure;
-allow init vold:process noatsecure;
-
-allow init bootanim:process noatsecure;
-allow init bootstat:process noatsecure;
-allow init gatekeeperd:process noatsecure;
-allow init hal_audio_default:process noatsecure;
-allow init hal_fingerprint_default:process noatsecure;
-allow init hal_imsrtp:process noatsecure;
-allow init ims:process noatsecure;
-allow init init_fingerprint:process noatsecure;
-allow init kernel:system module_request;
-allow init logd:process noatsecure;
-allow init netd:process noatsecure;
-allow init rild:process noatsecure;
 allow init sysfs:file setattr;
-allow init tombstoned:process noatsecure;
-allow init tzdatacheck:process noatsecure;
-allow init usbd:process noatsecure;
-allow init zygote:process noatsecure;
-allow init adbd:process { noatsecure };
-allow init vendor_file:file mounton;
-allow init sysfs_battery_supply:file setattr;
-allow init hal_keymaster_hwservice:hwservice_manager add;
-allow init hal_power_stats_hwservice:hwservice_manager add;
-allow init hidl_base_hwservice:hwservice_manager add;
-allow init hwservicemanager:binder { call transfer };
-allow init vendor_file:file { execute execute_no_trans };
-allow init firmware_file:filesystem getattr;
-allow init nativetest_data_file:dir search;
+

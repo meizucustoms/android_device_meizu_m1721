@@ -1,3 +1,0 @@
-allow bluetooth bootloader_boot_reason_prop:file read;
-allow bluetooth cnd_vendor_prop:file read;
-allow bluetooth boottime_prop:file read;

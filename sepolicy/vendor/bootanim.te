@@ -1,4 +1,0 @@
-allow bootanim device:chr_file { ioctl read write };
-allow bootanim system_data_file:dir read;
-allow bootanim sysfs_kgsl:dir search;
-allow bootanim sysfs_kgsl:lnk_file read;

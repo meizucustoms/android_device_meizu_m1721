@@ -1,5 +1,0 @@
-allow isolated_app bluetooth_prop:file read;
-allow isolated_app boottime_prop:file read;
-allow isolated_app bootloader_boot_reason_prop:file { read };
-allow isolated_app cnd_vendor_prop:file { read };
-allow isolated_app app_data_file:dir { getattr };

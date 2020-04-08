@@ -1,2 +1,0 @@
-allow hal_wifi_default kernel:system module_request;
-allow hal_wifi_default proc_net:file write;

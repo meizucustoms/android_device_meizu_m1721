@@ -28,7 +28,6 @@
 #
 on early-init
     write /proc/sys/kernel/sched_boost 1
-    symlink /data/tombstones /tombstones
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
@@ -40,49 +39,28 @@ on fs
     mkdir /mnt/vendor/persist/data 0700 system system
     mkdir /mnt/vendor/persist/bms 0700 root system
     restorecon_recursive /mnt/vendor/persist
-	
-    chmod 0664 /sys/class/thermal/thermal_message/sconfig
-    chown system system /sys/class/thermal/thermal_message/sconfig
 
 on init
-    write /dev/stune/foreground/schedtune.sched_boost_no_override 1
-    write /dev/stune/top-app/schedtune.sched_boost_no_override 1
-    write /dev/stune/schedtune.colocate 0
-    write /dev/stune/background/schedtune.colocate 0
-    write /dev/stune/foreground/schedtune.colocate 0
-    write /dev/stune/top-app/schedtune.colocate 1
     write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
 
-    # Charger
-    mount none /sbin/chargeonlymode /sbin/charger bind
+# Add a cpuset for the camera daemon
+    mkdir /dev/cpuset/camera-daemon 0750 cameraserver cameraserver
+    write /dev/cpuset/camera-daemon/cpus 0-7
+    write /dev/cpuset/camera-daemon/mems 0
+    chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
+    chmod 0660 /dev/cpuset/camera-daemon/tasks
 
 on post-fs
-    # set RLIMIT_MEMLOCK to 64MB
-    setrlimit 8 67108864 67108864
     start vendor.qseecomd
     wait_for_prop vendor.sys.listeners.registered true
     write /dev/ipa 1
 
 on post-fs-data
-    mkdir /data/tombstones 0771 system system
-    mkdir /tombstones/modem 0771 system system
-    mkdir /tombstones/lpass 0771 system system
-    mkdir /tombstones/wcnss 0771 system system
-    mkdir /tombstones/dsps 0771 system system
-    mkdir /persist/data/sfs 0700 system system
-    mkdir /persist/data/tz 0700 system system
-    mkdir /persist/qti_fp 0700 system system
-    mkdir /data/misc/seemp 0700 system system
-    mkdir /data/misc/audio_pp 0771 media audio
-    mkdir /data/vendor/thermal 0771 root system
-    mkdir /data/vendor/thermal/config 0771 root system
-
 #Create folder for mm-qcamera-daemon
-mkdir /data/vendor/camera 0770 camera camera
-mkdir /data/misc/camera 0770 camera camera
+mkdir /data/vendor/qcam/ 0770 camera camera
 
 #start camera server as daemon
-service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
+service qcamerasvr /vendor/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
@@ -116,7 +94,7 @@ service vendor.qseecomd /vendor/bin/qseecomd
    group root
    writepid /dev/cpuset/system-background/tasks
 
-service thermal-engine /system/vendor/bin/thermal-engine
+service thermal-engine /vendor/bin/thermal-engine
    class main
    user root
    socket thermal-send-client stream 0666 system system
@@ -126,12 +104,12 @@ service thermal-engine /system/vendor/bin/thermal-engine
    group root
    writepid /dev/cpuset/system-background/tasks
 
-service adsprpcd /system/vendor/bin/adsprpcd
+service adsprpcd /vendor/bin/adsprpcd
    class main
    user media
    group media
 
-service wcnss-service /system/vendor/bin/wcnss_service
+service wcnss-service /vendor/bin/wcnss_service
     class late_start
     user system
     group system wifi radio
@@ -155,13 +133,13 @@ service vendor.imsdatadaemon /vendor/bin/imsdatadaemon
 on property:vendor.ims.QMI_DAEMON_STATUS=1
     start vendor.imsdatadaemon
 
-service vendor.ims_rtp_daemon /system/vendor/bin/ims_rtp_daemon
+service vendor.ims_rtp_daemon /vendor/bin/ims_rtp_daemon
    class main
    user radio
    group radio vendor_qti_diag inet log
    writepid /dev/cpuset/system-background/tasks
 
-service vendor.imsrcsservice /system/vendor/bin/imsrcsd
+service vendor.imsrcsservice /vendor/bin/imsrcsd
    class main
    user radio
    group radio diag inet log wakelock
@@ -170,20 +148,34 @@ service vendor.imsrcsservice /system/vendor/bin/imsrcsd
 on property:vendor.ims.DATA_DAEMON_STATUS=1
    restart vendor.ims_rtp_daemon
 
-on property:init.svc.hwcomposer-2-1=stopped
+on property:init.svc.surfaceflinger=stopped
     stop ppd
 
-on property:init.svc.hwcomposer-2-1=running
+on property:init.svc.surfaceflinger=running
     start ppd
 
-on property:init.svc.hwcomposer-2-1=restarting
+on property:init.svc.surfaceflinger=restarting
     stop ppd
 
-service energy-awareness /system/vendor/bin/energy-awareness
+on property:init.svc.zygote=stopped
+    stop ppd
+
+on property:init.svc.zygote=running
+    start ppd
+
+on property:init.svc.zygote=restarting
+    stop ppd
+
+service energy-awareness /vendor/bin/energy-awareness
     class main
     user root
     group system
     oneshot
+
+service vendor.hvdcp_opti /vendor/bin/hvdcp_opti
+    class main
+    user root
+    group system wakelock
 
 on charger
     write /sys/devices/system/cpu/cpu2/online 0
@@ -194,49 +186,15 @@ on charger
     start thermal-engine
 
 on boot
-    # Update cpusets on boot and we want better load balancing
+# Update cpusets on boot and we want better load balancing
     write /dev/cpuset/top-app/cpus 0-7
     write /dev/cpuset/foreground/cpus 0-6
     write /dev/cpuset/background/cpus 0-1
     write /dev/cpuset/system-background/cpus 0-3
     write /dev/cpuset/restricted/cpus 0-3
 
-    # add a cpuset for the camera daemon
-    # we want all cores for camera
-    mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0-7
-    write /dev/cpuset/camera-daemon/mems 0
-    chown system system /dev/cpuset/camera-daemon
-    chown system system /dev/cpuset/camera-daemon/tasks
-    chmod 0664 /dev/cpuset/camera-daemon/tasks
-    chown system system /sys/kernel/hbtp/display_pwr
-
 # access permission for wlan
     chown system system /mnt/vendor/persist/WCNSS_qcom_wlan_nv.bin
-
-#USB controller configuration
-    write /sys/module/g_android/parameters/mtp_tx_req_len 131072
-    write /sys/module/g_android/parameters/mtp_rx_req_len 131072
-    write /sys/class/android_usb/android0/f_rndis_qc/rndis_transports BAM2BAM_IPA
-    setprop vendor.usb.rndis.func.name "rndis_bam"
-    setprop vendor.usb.rmnet.func.name "rmnet_bam"
-    setprop vendor.usb.rmnet.inst.name "rmnet"
-    setprop vendor.usb.dpl.inst.name "dpl"
-
-# Power HAL
-    mount none /system/lib/hw/power.qcom.so /vendor/lib/hw/power.qcom.so bind
-    mount none /system/lib64/hw/power.qcom.so /vendor/lib64/hw/power.qcom.so bind
-
-on boot
-    # DT2W Node
-    chown system system /proc/touchpanel/wakeup_gesture
-    chmod 0660 /proc/touchpanel/wakeup_gesture
-
-# Camera Blobs
-    mount none /system/lib/android.frameworks.sensorservice@1.0-v27.so /vendor/lib/android.frameworks.sensorservice@1.0-v27.so bind
-    mount none /system/lib/libvidhance_gyro.so /vendor/lib/libvidhance_gyro.so bind
-    mount none /system/lib/hw/camera.msm8953.so /vendor/lib/hw/camera.msm8953.so bind
-    mount none /system/lib64/android.frameworks.sensorservice@1.0-v27.so /vendor/lib64/android.frameworks.sensorservice@1.0-v27.so bind
 
 service ppd /vendor/bin/mm-pp-dpps
     class late_start
@@ -245,28 +203,27 @@ service ppd /vendor/bin/mm-pp-dpps
     socket pps stream 0660 system system
     disabled
 
-service logger /system/bin/logcat -b all -D -f /cache/boot_log.txt
+service logger /system/bin/logcat -b all -D -f /cache/rdlogs/boot_log.txt
     class main
     user root
     group root system
     disabled
     oneshot
 
-service dmesglogger /system/bin/dmesg -C > /cache/dmesg.txt
+service dmesglogger /vendor/bin/dmesg > /cache/rdlogs/dmesg.txt
     class main
     user root
     group root system
     disabled
     oneshot
-
+    
 on post-fs-data
     # Clear existing log and start the services
-    rm /cache/boot_log.txt
-    rm /cache/dmesg.txt
+    rm /cache/rdlogs/boot_log.txt
+    rm /cache/rdlogs/dmesg.txt
     start logger
-    start dmesglogger
 
 on property:sys.boot_completed=1
     # Stop the logger services
     stop logger
-    stop dmesglogger
+    start dmesglogger

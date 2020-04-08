@@ -1,6 +1,0 @@
-allow untrusted_app_25 bluetooth_prop:file { read };
-allow untrusted_app_25 bootloader_boot_reason_prop:file { read };
-allow untrusted_app_25 boottime_prop:file { read };
-allow untrusted_app_25 ctl_bootanim_prop:file { read };
-allow untrusted_app_25 ctl_bugreport_prop:file { read };
-allow untrusted_app_25 cnd_vendor_prop:file { read };
