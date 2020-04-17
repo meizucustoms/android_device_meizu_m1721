@@ -14,6 +14,8 @@
 | Battery                 | 4000 mAh (non-removable)          |
 | Display                 | 1080 x 1920 pixels                |
 
+ANDREI PIDOR
+
 ## Device Picture
 
 ![M6N](https://cs5-2.4pda.to/12114811.jpg "M6N")
