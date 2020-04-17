@@ -32,42 +32,39 @@
 DEST_PATH="/data/vendor/wifi"
 FILES_MOVED="/data/vendor/wifi/moved"
 SRC_PATH="/data/misc/wifi"
+FILES_TO_MOVE=('hostapd_default.conf' 'hostapd.accept' 'hostapd.deny')
 
 function copy_file() {
-    echo "=== Copying $1 to $2 ..."
-    if [ ! -f "$1" ]
-    then
-        echo "    return as $1 not exist";
-        return;
+    echo "=== Copying "$1" to "$2" ..."
+    if [ ! -f "$1" ]; then
+        echo "    return as $1 not exist"
+        return
     fi
 
-    if [ ! -d "$2" ]
-    then
-        echo "    dest path is not exist, making dir $2";
+    if [ ! -d "$2" ]; then
+        echo "    dest path is not exist, making dir $2"
         mkdir -p $2 -m 700
     fi
 
-    if [ ! -d "$2" ]
-    then
+    if [ ! -d "$2" ]; then
         echo "    mkdir failed"
-        return;
+        return
     fi
 
-    echo "    copied $1 success"
-    cp $1 $2
+    echo "    copied "$1" successfully"
+    cp -rf "$1" "$2"
 }
 
 if [ ! -f "$FILES_MOVED" ]; then
-    copy_file "$SRC_PATH/p2p_supplicant.conf"  "$DEST_PATH/wpa/"
-    copy_file "$SRC_PATH/hostapd_default.conf" "$DEST_PATH/hostapd/"
-    copy_file "$SRC_PATH/hostapd.accept"       "$DEST_PATH/hostapd/"
-    copy_file "$SRC_PATH/hostapd.deny"         "$DEST_PATH/hostapd/"
+    copy_file "$SRC_PATH/p2p_supplicant.conf" "$DEST_PATH/wpa/"
+    for index in "${FILES_TO_MOVE[@]}"; do
+        copy_file "$SRC_PATH/"$index"" "$DEST_PATH/hostapd/"
+    done
 
-    find $DEST_PATH -print0 | while IFS= read -r -d '' file
-         do
-             chgrp wifi "$file"
-             echo "    chgrp wifi $file"
-         done
+    find $DEST_PATH -print0 | while IFS= read -r -d '' file; do
+        chgrp wifi "$file"
+        echo "    chgrp wifi "$file""
+    done
     restorecon -R "$DEST_PATH"
-    echo 1 > "$FILES_MOVED"
+    touch "$FILES_MOVED"
 fi
