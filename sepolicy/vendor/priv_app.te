@@ -1,0 +1,4 @@
+# Supress audit messages for apps trying to access firmware.
+dontaudit priv_app adsprpcd_file:filesystem getattr;
+dontaudit priv_app firmware_file:filesystem getattr;
+dontaudit priv_app mnt_vendor_file:dir search;
