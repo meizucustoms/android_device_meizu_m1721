@@ -643,19 +643,11 @@ service fingerprintd /system/bin/fingerprintd
     writepid /dev/cpuset/system-background/tasks
     disabled
 
-service gx_fpd /system/bin/gx_fpd
-     class core
+service goodixfpd /system/bin/goodixfingerprintd
+     class late_start
      user root
-     group system system
-     writepid /dev/cpuset/system-background/tasks
-
-on property:sys.fp.vendor=switchf
-    stop gx_fpd
-    setprop sys.fp.vendor searchf
-    start fingerprintd
-    setprop fpc.fp.miui.token 0
-    setprop ro.boot.fpsensor fpc
-    setprop ro.hardware.fingerprint searchf
+     seclabel u:r:goodixfpd:s0
+     group system sdcard_rw
 
 on property:sys.fp.onstart=1
    start fingerprintd

@@ -1,1 +1,4 @@
-goodix.fp                        u:object_r:gx_fpd_service:s0
+# add for goodix chip
+goodix.fp                                      u:object_r:goodixfingerprintd_service:s0
+android.hardware.fingerprint.IGoodixFingerprintDaemon u:object_r:goodixfingerprintd_service:s0
+com.goodix.FingerprintService u:object_r:goodixfingerprintd_service:s0

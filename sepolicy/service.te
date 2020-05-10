@@ -1,1 +1,1 @@
-type gx_fpd_service, service_manager_type;
+type goodixfingerprintd_service, service_manager_type;

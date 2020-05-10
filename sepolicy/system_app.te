@@ -1,0 +1,1 @@
+allow system_app goodixfingerprintd : binder { call transfer } ;

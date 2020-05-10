@@ -1,7 +1,7 @@
 #!/system/bin/sh
 # Copyright (c) 2009-2013, The Linux Foundation. All rights reserved.
 #
-# Redistribution and use in source and binary forms, with or without
+# Redistribution and use in source and binary forms, w  ith or without
 # modification, are permitted provided that the following conditions are met:
 #     * Redistributions of source code must retain the above copyright
 #       notice, this list of conditions and the following disclaimer.

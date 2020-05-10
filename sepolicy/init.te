@@ -1,0 +1,2 @@
+allow init goodixfingerprintd : process { transition noatsecure siginh rlimitinh } ; 
+dontaudit init goodixfingerprintd : process noatsecure ; 
