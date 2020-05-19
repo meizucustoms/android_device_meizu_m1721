@@ -159,7 +159,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/ist30xx_ts_input.kl:system/usr/keylayout/ist30xx_ts_input.kl \
     $(LOCAL_PATH)/keylayout/msm8953-snd-card-mtp_Button_Jack.kl:system/usr/keylayout/msm8953-snd-card-mtp_Button_Jack.kl \
     $(LOCAL_PATH)/keylayout/uinput-fpc.kl:system/usr/keylayout/uinput-fpc.kl \
-    $(LOCAL_PATH)/keylayout/fp-keys.kl:system/usr/keylayout/fp-keys.kl
+    $(LOCAL_PATH)/keylayout/fp-keys.kl:system/usr/keylayout/fp-keys.kl \
+    $(LOCAL_PATH)/keylayout/gf-keys.kl:system/usr/keylayout/gf-keys.kl
 
 # IPA Manager
 PRODUCT_PACKAGES += \
