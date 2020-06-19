@@ -1,0 +1,5 @@
+allow dataservice_app {
+  hal_perf_hwservice
+}:hwservice_manager find;
+
+binder_call(dataservice_app, hal_perf_default)

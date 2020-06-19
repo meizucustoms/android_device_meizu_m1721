@@ -1,0 +1,2 @@
+binder_call(bluetooth, hal_perf_default)
+allow bluetooth hal_perf_hwservice:hwservice_manager { find };
