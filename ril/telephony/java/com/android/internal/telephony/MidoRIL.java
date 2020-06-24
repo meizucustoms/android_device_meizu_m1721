@@ -23,17 +23,17 @@ import android.os.Parcel;
 import static com.android.internal.telephony.RILConstants.*;
 
 /**
- * Custom Qualcomm RIL for Xiaomi Redmi Note 4
+ * Custom Qualcomm RIL for Meizu M6 Note
  *
  * {@hide}
  */
-public class MidoRIL extends RIL implements CommandsInterface {
+public class MeizuRIL extends RIL implements CommandsInterface {
 
-    public MidoRIL(Context context, int preferredNetworkType, int cdmaSubscription) {
+    public MeizuRIL(Context context, int preferredNetworkType, int cdmaSubscription) {
         this(context, preferredNetworkType, cdmaSubscription, null);
     }
 
-    public MidoRIL(Context context, int preferredNetworkType,
+    public MeizuRIL(Context context, int preferredNetworkType,
             int cdmaSubscription, Integer instanceId) {
         super(context, preferredNetworkType, cdmaSubscription, instanceId);
     }
