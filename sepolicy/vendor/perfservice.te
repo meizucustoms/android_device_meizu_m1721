@@ -1,0 +1,1 @@
+allow perfservice same_process_hal_file:file { open read getattr execute };

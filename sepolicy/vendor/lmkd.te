@@ -1,0 +1,2 @@
+allow lmkd hwservicemanager:binder transfer;
+allow lmkd same_process_hal_file:file { open read getattr execute };

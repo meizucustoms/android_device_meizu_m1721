@@ -1,0 +1,1 @@
+allow ims sysfs:file { open read };

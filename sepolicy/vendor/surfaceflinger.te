@@ -1,0 +1,5 @@
+allow surfaceflinger hal_perf_hwservice:hwservice_manager find;
+binder_call(surfaceflinger, hal_perf_default)
+
+allow surfaceflinger sysfs_kgsl:lnk_file read;
+allow surfaceflinger sysfs_kgsl:file { open read getattr };
