@@ -67,11 +67,11 @@ PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     libantradio
 
-# Audio
+# Audio; msm8953 primary HAL is proprietary
 PRODUCT_PACKAGES += \
     audiod \
     audio.a2dp.default \
-    audio.primary.msm8953.meizu \
+    audio.primary.default \
     audio.r_submix.default \
     audio.usb.default \
     libaudio-resampler \

@@ -1,4 +1,4 @@
-# first vendor files pull
+# main proprietary files
 vendor/app/ims/lib/arm64/libimscamera_jni.so
 vendor/app/ims/lib/arm64/libimsmedia_jni.so
 vendor/bin/mm-pp-dpps
@@ -2527,7 +2527,7 @@ bin/wcnss_service
 bin/xtwifi-client
 bin/xtwifi-inet-agent
 
-# add files
+# fingerprint
 lib64/libgf_hal.so
 lib64/libgf_algo.so
 lib64/libgf_ca.so
@@ -2536,3 +2536,7 @@ lib64/hw/fingerprint.default.so
 
 # meizu camera
 framework/com.meizu.camera.jar
+
+# audio HAL
+lib64/hw/audio.primary.msm8953.so
+lib/hw/audio.primary.msm8953.so
