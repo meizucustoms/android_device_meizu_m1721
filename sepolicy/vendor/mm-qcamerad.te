@@ -8,3 +8,4 @@ allow mm-qcamerad system_server:unix_stream_socket { read write };
 allow mm-qcamerad camera_prop:file { getattr open read };
 
 set_prop(mm-qcamerad, camera_prop)
+get_prop(mm-qcamerad, vendor_audio_prop)

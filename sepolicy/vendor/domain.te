@@ -5,3 +5,5 @@ allow domain sysfs_kgsl:dir search;
 dontaudit domain device:file w_file_perms;
 dontaudit domain sysfs:file r_file_perms;
 dontaudit domain vendor_file:file r_file_perms;
+
+dontaudit domain domain:capability { dac_override dac_read_search };
