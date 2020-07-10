@@ -102,8 +102,6 @@ PRODUCT_COPY_FILES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    camera.msm8953 \
-    libmm-qcamera \
     Snap
 
 # Display
@@ -174,10 +172,6 @@ PRODUCT_COPY_FILES += \
 # IRSC
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
-
-# Lights
-PRODUCT_PACKAGES += \
-    lights.msm8953
 
 # Media 
 PRODUCT_COPY_FILES += \

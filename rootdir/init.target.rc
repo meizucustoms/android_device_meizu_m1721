@@ -231,28 +231,27 @@ on boot
 	chown system system /dev/cpuset/camera-daemon/tasks
 	chmod 0664 /dev/cpuset/camera-daemon/tasks
 
-service logger /system/bin/logcat -b all -D -f /cache/boot_log.txt
-    class main
-    user root
-    group root system
-    disabled
-    oneshot
-
-service dmesglogger /system/bin/dmesg -C > /cache/dmesg.txt
-    class main
-    user root
-    group root system
-    disabled
-    oneshot
-
-on post-fs-data
-    # Clear existing log and start the services
-    rm /cache/boot_log.txt
-    rm /cache/dmesg.txt
-    start logger
-    start dmesglogger
-
-on property:sys.boot_completed=1
-    # Stop the logger services
-    stop logger
-    stop dmesglogger
+#
+# Meizu changes
+#
+    
+on boot
+    # mx-led, add by liuyang3.wt,20170329.
+    chown system system /sys/class/leds/mx-led/brightness
+    chown system system /sys/class/leds/mx-led/blink
+    chmod 0664 /sys/class/leds/mx-led/brightness
+    chmod 0664 /sys/class/leds/mx-led/blink
+    # flash-led, add by xiejianhua.wt,20170405
+    chmod 0666 /sys/class/flashlightdrv/kd_camera_flashlight/flash1
+    chown media system /sys/class/flashlightdrv/kd_camera_flashlight/flash1
+    chmod 0666 /sys/class/flashlightdrv/kd_camera_flashlight/flash2
+    chown media system /sys/class/flashlightdrv/kd_camera_flashlight/flash2
+    chmod 0666 /sys/class/flashlightdrv/kd_camera_flashlight/flash3
+    chown media system /sys/class/flashlightdrv/kd_camera_flashlight/flash3
+    chmod 0666 /sys/class/flashlightdrv/kd_camera_flashlight/flash4
+    chown media system /sys/class/flashlightdrv/kd_camera_flashlight/flash4
+    chmod 0666 /sys/class/flashlightdrv/kd_camera_flashlight/flash5
+    chown media system /sys/class/flashlightdrv/kd_camera_flashlight/flash5
+    # goodix, add by quandeliang.wt,20170407
+    chown system system /proc/gt9xx_config
+    chmod 0664 /proc/gt9xx_config
