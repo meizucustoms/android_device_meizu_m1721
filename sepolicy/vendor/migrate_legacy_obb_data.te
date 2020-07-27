@@ -1,1 +1,0 @@
-allow migrate_legacy_obb_data migrate_legacy_obb_data:capability { sys_admin };

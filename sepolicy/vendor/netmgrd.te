@@ -1,2 +1,3 @@
 set_prop(netmgrd, vendor_xlat_prop)
 allow netmgrd sysfs:file read;
+dontaudit netmgrd system_file:file execute;
