@@ -206,9 +206,9 @@ function 8953_sched_dcvs_hmp()
     echo 1 > /sys/devices/system/cpu/cpu0/online
     echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     echo "19000 1401600:39000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-    echo 85 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+    echo 80 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
     echo 20000 > /sys/devices/system/cpu/cpufreq/interactive/timer_rate
-    echo 1401600 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    echo 180400 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
     echo 0 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
     echo "85 1401600:80" > /sys/devices/system/cpu/cpufreq/interactive/target_loads
     echo 39000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
