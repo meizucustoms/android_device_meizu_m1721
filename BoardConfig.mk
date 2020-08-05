@@ -22,7 +22,6 @@ TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
-TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := generic
 TARGET_CPU_VARIANT_RUNTIME := cortex-a53
 
@@ -38,7 +37,6 @@ TARGET_BOARD_PLATFORM_GPU := qcom-adreno506
 BUILD_BROKEN_DUP_RULES := true
 
 TARGET_BOARD_SUFFIX := _64
-TARGET_USES_64_BIT_BINDER := true
 
 TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
 
@@ -94,28 +92,14 @@ BOARD_HAVE_BLUETOOTH_QCOM := true
 # Camera
 BOARD_QTI_CAMERA_32BIT_ONLY := true
 TARGET_TS_MAKEUP := true
-TARGET_USES_QTI_CAMERA_DEVICE := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 
-# CNE and DPM
-BOARD_USES_QCNE := true
-
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true
-
-# Dexpreopt
-ifeq ($(HOST_OS),linux)
-  ifneq ($(TARGET_BUILD_VARIANT),eng)
-    ifeq ($(WITH_DEXPREOPT),)
-      WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := false
-      WITH_DEXPREOPT := true
-    endif
-  endif
-endif
 
 # Display
 TARGET_SCREEN_DENSITY := 420
@@ -144,7 +128,6 @@ BOARD_ROOT_EXTRA_SYMLINKS := \
     /vendor/firmware_mnt:/firmware \
     /mnt/vendor/persist:/persist
 TARGET_COPY_OUT_VENDOR := vendor
-TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
 
 # FM
 BOARD_HAVE_QCOM_FM := true
@@ -200,10 +183,8 @@ TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
 VENDOR_SECURITY_PATCH := 2020-01-01
 
 # SELinux
-include device/qcom/sepolicy/legacy-um/legacy-um.mk
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/private
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
-TARGET_EXCLUDE_QCOM_SEPOLICY := true
 
 # Treble
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true

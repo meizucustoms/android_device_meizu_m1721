@@ -196,18 +196,12 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.0-impl \
     android.hardware.health@2.0-service
 
-# HIDL
-PRODUCT_PACKAGES += \
-    android.hidl.base@1.0
-
 # HW crypto
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.cryptfshw@1.0-service-qti.qsee
 
 # IMS
 PRODUCT_PACKAGES += \
-    ims-ext-common \
-    ims_ext_common.xml \
     libui_shim
 
 # Input
@@ -313,12 +307,7 @@ PRODUCT_PACKAGES += \
     android.hardware.secure_element@1.0 \
     librmnetctl \
     libcnefeatureconfig \
-    libxml2 \
-    qti-telephony-hidl-wrapper \
-    qti_telephony_hidl_wrapper.xml \
-    qti-telephony-utils \
-    qti_telephony_utils.xml \
-    telephony-ext
+    libxml2
 
 # Sensors
 PRODUCT_PACKAGES += \
@@ -363,8 +352,7 @@ PRODUCT_PACKAGES += \
 
 # Whitelisted apps
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/privapp-permissions-qti.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-qti.xml \
-    $(LOCAL_PATH)/configs/qti_whitelist.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/qti_whitelist.xml
+    $(LOCAL_PATH)/configs/privapp-permissions-qti.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-qti.xml
 
 # Wifi
 PRODUCT_PACKAGES += \
