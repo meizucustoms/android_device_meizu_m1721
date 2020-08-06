@@ -51,13 +51,31 @@ on post-fs-data
     mkdir /persist/data/tz 0700 system system
     mkdir /data/misc/dts 0770 media audio
     mkdir /data/misc/hbtp 0750 system system
+    
+    # mx-led, add by liuyang3.wt,20170329.
+    chown system system /sys/class/leds/mx-led/brightness
+    chown system system /sys/class/leds/mx-led/blink
+    chmod 0664 /sys/class/leds/mx-led/brightness
+    chmod 0664 /sys/class/leds/mx-led/blink
 
 #start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
-    writepid /dev/cpuset/system-background/tasks
+    disabled
+
+#start remosaic server as daemon
+service remosaic_daemon /system/bin/remosaic_daemon
+    #class late_start
+    user root
+    group root
+    oneshot
+    disabled
+    seclabel  u:r:mm-qcamerad:s0
+
+on property:sys.boot_completed=1
+   #start remosaic_daemon
 
 on init
    write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
@@ -234,13 +252,8 @@ on boot
 #
 # Meizu changes
 #
-    
+
 on boot
-    # mx-led, add by liuyang3.wt,20170329.
-    chown system system /sys/class/leds/mx-led/brightness
-    chown system system /sys/class/leds/mx-led/blink
-    chmod 0664 /sys/class/leds/mx-led/brightness
-    chmod 0664 /sys/class/leds/mx-led/blink
     # flash-led, add by xiejianhua.wt,20170405
     chmod 0666 /sys/class/flashlightdrv/kd_camera_flashlight/flash1
     chown media system /sys/class/flashlightdrv/kd_camera_flashlight/flash1
@@ -252,6 +265,3 @@ on boot
     chown media system /sys/class/flashlightdrv/kd_camera_flashlight/flash4
     chmod 0666 /sys/class/flashlightdrv/kd_camera_flashlight/flash5
     chown media system /sys/class/flashlightdrv/kd_camera_flashlight/flash5
-    # goodix, add by quandeliang.wt,20170407
-    chown system system /proc/gt9xx_config
-    chmod 0664 /proc/gt9xx_config

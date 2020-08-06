@@ -88,7 +88,7 @@ ro.sys.fw.bservice_limit=5
 ro.sys.fw.bservice_age=5000
 
 # Fingerprint
-persist.qfp=false
+debug.fp.info=1
 
 # Fm
 ro.fm.transmitter=false

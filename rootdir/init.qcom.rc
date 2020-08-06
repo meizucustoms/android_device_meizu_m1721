@@ -27,6 +27,7 @@
 
 import init.qcom.usb.rc
 import init.target.rc
+import init.fingerprint.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
@@ -117,13 +118,13 @@ on boot
     mkdir /persist/alarm 0770 system system
     mkdir /persist/time 0770 system system
     restorecon_recursive /persist
+    mkdir /persist/dualcam 0770 cameraserver system
 
     #Create NETMGR daemon socket area
     mkdir /dev/socket/netmgr 0750 radio radio
 
     #Remove SUID bit for iproute2 ip tool
     chmod 0755 /system/bin/ip
-
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
@@ -174,11 +175,7 @@ on boot
 
     # bond0 used by FST Manager
     chown wifi wifi /sys/class/net/bond0/bonding/queue_id
-
-    # Fingerprint
-    chown system system /dev/goodix_fp
-    chmod 0644 /dev/goodix_fp
-
+    
     chown system system /sys/devices/soc/soc:fpc1020/compatible_all
     chmod 0664 /sys/devices/soc/soc:fpc1020/compatible_all
     chown system system /sys/devices/soc/soc:fpc1020/irq
@@ -193,15 +190,7 @@ on boot
     # Glove Mode
     chown system system /sys/class/tp_glove/device/glove_enable
     chmod 0660 /sys/class/tp_glove/device/glove_enable
-
-    # Notification LED
-    chown system system /sys/class/leds/red/blink
-    chown system system /sys/class/leds/green/blink
-    chown system system /sys/class/leds/blue/blink
-    chown system system /sys/class/leds/red/brightness
-    chown system system /sys/class/leds/green/brightness
-    chown system system /sys/class/leds/blue/brightness
-
+    
     # Allow access to emmc rawdump block partition and dload sysfs node
     chown root system /dev/block/bootdevice/by-name/rawdump -p /dev/block/
     chmod 0660 /dev/block/bootdevice/by-name/rawdump -p /dev/block/
@@ -210,12 +199,6 @@ on boot
 
 # msm specific files that need to be created on /data
 on post-fs-data
-    #Create directories for Fingerprint
-    mkdir /data/misc/stargate 0770 system system
-    mkdir /data/misc/stargate/bg_estimation 0770 system system
-    mkdir /data/misc/stargate/calib_test 0770 system system
-    mkdir /data/misc/stargate/database 0770 system system
-
     # Create directory for TZ Apps
     mkdir /data/misc/qsee 0770 system system
 
@@ -634,27 +617,6 @@ service qseeproxydaemon /system/vendor/bin/qseeproxydaemon
 
 on charger
     setprop persist.sys.usb.config charging
-
-service fingerprintd /system/bin/fingerprintd
-    class late_start
-    user system
-    group system sdcard_rw
-    system system
-    writepid /dev/cpuset/system-background/tasks
-    disabled
-
-service goodixfpd /system/bin/goodixfingerprintd
-     class late_start
-     user root
-     seclabel u:r:goodixfpd:s0
-     group system sdcard_rw
-
-on property:sys.fp.onstart=1
-   start fingerprintd
-   setprop goodix.fp.miui.analyse 1
-   setprop goodix.fp.miui.token 0
-   setprop ro.boot.fpsensor gdx
-   setprop ro.hardware.fingerprint goodix
 
 on property:vold.decrypt=trigger_restart_min_framework
     start time_daemon

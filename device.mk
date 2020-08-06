@@ -120,10 +120,6 @@ PRODUCT_PACKAGES += \
     ethertypes \
     libebtc
 
-# Fingerprint
-PRODUCT_PACKAGES += \
-    fingerprintd
-
 # FM
 PRODUCT_PACKAGES += \
     FMRadio \
