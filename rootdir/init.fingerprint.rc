@@ -25,60 +25,27 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # 
 
-#
-# Services
-#
-
 service goodixfpd /system/bin/goodixfingerprintd
     class late_start
     user root
     group root system sdcard_rw media_rw
-    disabled
 
 service fingerprintd /system/bin/fingerprintd
     class late_start
     user system
     group system
-    disabled
-
-#
-# commands to do on init; post-fs-data; boot
-#
 
 on init
     chown system system /dev/goodix_fp
-    chmod 0644 /dev/goodix_fp
-    
+
 on post-fs-data
     # For fingerprint
-    mkdir /data/fingerprint/ 0766 system system	
-    chown system system /dev/goodix_fp
-    # Create directories for Fingerprint
+    mkdir /data/fingerprint/ 0766 system system
     mkdir /data/misc/stargate 0770 system system
     mkdir /data/misc/stargate/bg_estimation 0770 system system
     mkdir /data/misc/stargate/calib_test 0770 system system
     mkdir /data/misc/stargate/database 0770 system system
-    
-    chmod 777 /system/bin/fingerprintd
-    chmod 777 /system/bin/goodixfingerprintd
-    chown system system /dev/goodix_fp
-    chown system system /system/bin/fingerprintd
-    chown system system /system/bin/goodixfingerprintd
-    
-on boot
-    chown system system /proc/gt9xx_config
-    chmod 0664 /proc/gt9xx_config
-    # FOR DEBUGGING
-    setprop sys.fp.load_drivers 1
-    
-#
-# FOR DEBUGGING
-#
 
-on property:sys.fp.load_drivers=1
-    start fingerprintd
-    start goodixfpd
-    
-on property:sys.fp.load_drivers=0
+on property:debug.fp.stop=1
     stop fingerprintd
     stop goodixfpd
