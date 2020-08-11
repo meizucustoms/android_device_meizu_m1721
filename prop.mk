@@ -225,3 +225,8 @@ wifi.interface=wlan0
 # Wifi-Display
 PRODUCT_PROPERTY_OVERRIDES += \
 persist.sys.wfd.virtual=0
+
+# Disable VSync for CPU Rendered Apps
+PRODUCT_PROPERTY_OVERRIDES += \
+debug.cpurend.vsync=false
+
