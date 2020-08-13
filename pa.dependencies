@@ -1,0 +1,20 @@
+[
+  {
+    "remote": "github",
+    "repository": "zeelog/android_kernel_xiaomi_mido",
+    "target_path": "kernel/xiaomi/mido",
+    "revision": "lineage-17.1"
+  },
+  {
+    "remote": "github",
+    "repository": "zeelog/proprietary_vendor_xiaomi",
+    "target_path": "vendor/xiaomi",
+    "revision": "lineage-17.1"
+  },
+  {
+    "repository": "LineageOS/android_packages_resources_devicesettings",
+    "target_path": "packages/resources/devicesettings",
+    "branch": "lineage-17.1",
+    "remote": "github"
+  }
+]
