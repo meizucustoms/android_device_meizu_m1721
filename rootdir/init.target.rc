@@ -254,6 +254,7 @@ on boot
 #
 
 on boot
+    start qcamerasvr
     # flash-led, add by xiejianhua.wt,20170405
     chmod 0666 /sys/class/flashlightdrv/kd_camera_flashlight/flash1
     chown media system /sys/class/flashlightdrv/kd_camera_flashlight/flash1
