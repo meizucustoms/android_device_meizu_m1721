@@ -214,10 +214,6 @@ function 8953_sched_dcvs_hmp()
     echo 39000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
     echo 40000 > /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
     echo 19 > /proc/sys/kernel/sched_upmigrate_min_nice
-
-    echo "0:1401600" > /sys/module/cpu_boost/parameters/input_boost_freq
-    echo 250 > /sys/module/cpu_boost/parameters/input_boost_ms
-
 }
 
 function 8917_sched_dcvs_hmp()
