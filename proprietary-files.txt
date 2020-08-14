@@ -1809,7 +1809,6 @@ vendor/lib/mmi_bluetooth.so
 vendor/lib/mmi_camera.so
 vendor/lib/mmi_cpu.so
 vendor/lib/mmi_flashlight.so
-vendor/lib/mmi_fm.so
 vendor/lib/mmi_gps.so
 vendor/lib/mmi_hall.so
 vendor/lib/mmi_key.so
@@ -2096,7 +2095,6 @@ vendor/lib64/mmi_battery.so
 vendor/lib64/mmi_bluetooth.so
 vendor/lib64/mmi_cpu.so
 vendor/lib64/mmi_flashlight.so
-vendor/lib64/mmi_fm.so
 vendor/lib64/mmi_gps.so
 vendor/lib64/mmi_hall.so
 vendor/lib64/mmi_key.so
