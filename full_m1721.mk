@@ -18,7 +18,7 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# Inherit from mido device
+# Inherit from m1721 device
 $(call inherit-product, device/meizu/m1721/device.mk)
 
 # Device identifier. This must come after all inclusions
