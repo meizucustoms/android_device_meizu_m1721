@@ -21,6 +21,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_SHARED_LIBRARIES := liblog
 LOCAL_SRC_FILES := lights.c
+LOCAL_CFLAGS := $(common_flags) -Wnounused-parameter
 LOCAL_MODULE := lights.msm8953
 LOCAL_MODULE_TAGS := optional
 

@@ -66,6 +66,10 @@ PRODUCT_PACKAGES += \
     AntHalService \
     com.dsi.ant.antradio_library \
     libantradio
+    
+# Lights
+PRODUCT_PACKAGES += \
+    lights.msm8953
 
 # Audio; msm8953 primary HAL is proprietary
 PRODUCT_PACKAGES += \
@@ -120,11 +124,6 @@ PRODUCT_PACKAGES += \
     ethertypes \
     libebtc
 
-# FM
-PRODUCT_PACKAGES += \
-    FMRadio \
-    libfmjni
-
 # Fs_config
 PRODUCT_PACKAGES += \
     fs_config_files
@@ -144,7 +143,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/etc/xtwifi.conf:system/etc/xtwifi.conf \
 
 # Input
-# TODO: working mBack
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/ft5435_ts.kl:system/usr/keylayout/ft5435_ts.kl \
     $(LOCAL_PATH)/keylayout/gf3208.kl:system/usr/keylayout/gf3208.kl \
