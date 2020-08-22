@@ -1,0 +1,1 @@
+allow proc_qtaguid_stat proc_qtaguid_stat:file { read };

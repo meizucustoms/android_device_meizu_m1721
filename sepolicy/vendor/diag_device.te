@@ -1,0 +1,1 @@
+allow diag_device diag_device:chr_file { read };
