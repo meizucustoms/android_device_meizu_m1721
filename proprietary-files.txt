@@ -975,27 +975,27 @@ vendor/lib/libvqzip.so|c2cf1d2938c7af82bf011c8d371dfa8ae6cb038e
 
 # Perf - from LA.UM.8.6.r1-04400-89xx.0
 product/lib/vendor.qti.hardware.perf@1.0.so|b4969fa797d1957ad8f35d4f84615608f0e9cc2e
-product/lib/vendor.qti.hardware.perf@2.0.so|71592601eed5e022f4979293d68deb98e688a3d4
+product/lib/vendor.qti.hardware.perf@2.1.so|71592601eed5e022f4979293d68deb98e688a3d4
 product/lib64/vendor.qti.hardware.perf@1.0.so|8858021553ea41933cdaaa4a68e9d4d15609db46
-product/lib64/vendor.qti.hardware.perf@2.0.so|9353709cc2e2af8c4edd3967b5362ede79a72805
+product/lib64/vendor.qti.hardware.perf@2.1.so|9353709cc2e2af8c4edd3967b5362ede79a72805
 vendor/bin/energy-awareness|def07e366347c7f0a7778b748acb49557ab21d2a
 vendor/bin/msm_irqbalance|b5e55b4b0934b65b7dd5d2201f9a70f6f77a4e7c
-vendor/bin/hw/vendor.qti.hardware.perf@2.0-service|6e45f0e5ee264d6b272daf50481770bf013b602e
-vendor/etc/init/vendor.qti.hardware.perf@2.0-service.rc|cc8658db5e19f8e5e575fb986e7d38147e675f8d
+vendor/bin/hw/vendor.qti.hardware.perf@2.1-service|6e45f0e5ee264d6b272daf50481770bf013b602e
+vendor/etc/init/vendor.qti.hardware.perf@2.1-service.rc|cc8658db5e19f8e5e575fb986e7d38147e675f8d
 vendor/lib64/libperfconfig.so|15414e449302575cd9bae3c1e4464e6e695bd5b3
 vendor/lib64/libperfgluelayer.so|5dc01df9fb465e67cb0f1e7a225dee85e660cc4a
 vendor/lib64/libqti-perfd.so|a0757a68b49b33b6893e586153a8967c1ca8bd3d
 vendor/lib64/libqti-perfd-client.so|0cf43512b08ee761fafa86d09bdea4f7b78fcea9
 vendor/lib64/libqti-util.so|55219f860b7a39dbcc2947e382355fd71ad8087d
 vendor/lib64/vendor.qti.hardware.perf@1.0.so|8858021553ea41933cdaaa4a68e9d4d15609db46
-vendor/lib64/vendor.qti.hardware.perf@2.0.so|9353709cc2e2af8c4edd3967b5362ede79a72805
+vendor/lib64/vendor.qti.hardware.perf@2.1.so|9353709cc2e2af8c4edd3967b5362ede79a72805
 vendor/lib/libperfconfig.so|98bdc89aea45719484980e4c22c7af75926650e9
 vendor/lib/libperfgluelayer.so|1226abb3e16d659d2786e1dfad03020b91ee822b
 vendor/lib/libqti-perfd.so|69290801f8ba06428fd6c0a408dd9820a744081f
 vendor/lib/libqti-perfd-client.so|0bfd938e82f79e0a28b2ab6c4755b089cb1785b6
 vendor/lib/libqti-util.so|5baec080c5c5c26778d2242bfc0e570ca92b7724
 vendor/lib/vendor.qti.hardware.perf@1.0.so|b4969fa797d1957ad8f35d4f84615608f0e9cc2e
-vendor/lib/vendor.qti.hardware.perf@2.0.so|71592601eed5e022f4979293d68deb98e688a3d4
+vendor/lib/vendor.qti.hardware.perf@2.1.so|71592601eed5e022f4979293d68deb98e688a3d4
 
 # Perf (configs) - from LA.UM.8.6.r1-04400-89xx.0
 vendor/etc/perf/commonresourceconfigs.xml|89d443b2b67d58fff1ef34c33e3f1c393164cf5d
