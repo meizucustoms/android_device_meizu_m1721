@@ -1188,9 +1188,10 @@ vendor/lib64/sensors.ssc.so|3780d51a1c58845510d41c8266a3793cc62b50d9
 
 # Thermal - from LA.UM.8.6.r1-04400-89xx.0
 vendor/bin/thermal-engine|4ab3c410fbcf9f8cae711ea4ba16cd2797712de6
--vendor/lib/libthermalclient.so|6077e27e15d9e3e43fa57d6d5405c49284f48949
--vendor/lib64/libthermalclient.so|12b26d4242b1a8913ddcb511f42a1debb83689af
+vendor/lib/libthermalclient.so|6077e27e15d9e3e43fa57d6d5405c49284f48949
+vendor/lib64/libthermalclient.so|12b26d4242b1a8913ddcb511f42a1debb83689af
 vendor/lib64/libthermalioctl.so|24b22582f3f77769c5fbca06fcc1d3b6533cdf40
+vendor/lib64/libthermalfeature.so|829b2fc0aa8c863d4b4b331e0a2c00663e01efe6
 
 # Time services - from LA.UM.8.6.r1-04400-89xx.0
 -vendor/app/TimeService/TimeService.apk;:timeservice_app_cert-legacy-um|c935b678fdaed033513f044f6492361c3370f9f0
@@ -1209,7 +1210,7 @@ vendor/lib/vndk-sp/libcutils.so|846d5769b71abca5b8fa185d4cf83a5cf1afed3c
 vendor/lib/vndk/libprocessgroup.so|d2b88fec1e836193252456335e93afe058d84515
 
 # Wi-Fi - from LA.UM.8.6.r1-04400-89xx.0
-vendor/bin/wcnss_service|a77181f3c611aca3fcd6ce4681d0038b1544d172
+vendor/bin/wcnss_service|ee6851b84b3325e87911f871c0e69baa1ea4f3c2
 vendor/firmware/wlan/prima/WCNSS_cfg.dat|1672af1c3d4f04804f31d4b79a6e59ea4a8b1926
 vendor/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin|5e97baa4957609519835074071c879fbaf462266
 
