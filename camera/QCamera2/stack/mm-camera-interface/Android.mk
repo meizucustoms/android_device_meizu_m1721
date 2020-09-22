@@ -3,9 +3,6 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_HEADER_LIBRARIES := libhardware_headers
-LOCAL_HEADER_LIBRARIES += media_plugin_headers
-
 MM_CAM_FILES := \
 src/mm_camera_interface.c \
 src/mm_camera.c \
@@ -35,9 +32,6 @@ ifneq (,$(filter msm8996 sdm660 msm8998 apq8098_latv $(TRINKET),$(TARGET_BOARD_P
 endif
 
 LOCAL_CFLAGS += -D_ANDROID_ -DQCAMERA_REDEFINE_LOG
-LOCAL_COPY_HEADERS_TO := mm-camera-interface
-LOCAL_COPY_HEADERS += ../common/cam_intf.h
-LOCAL_COPY_HEADERS += ../common/cam_types.h
 LOCAL_CFLAGS  += -DFDLEAK_FLAG
 LOCAL_CFLAGS  += -DMEMLEAK_FLAG
 LOCAL_LDFLAGS += -Wl,--wrap=open -Wl,--wrap=close -Wl,--wrap=socket -Wl,--wrap=pipe -Wl,--wrap=mmap -Wl,--wrap=__open_2
@@ -69,6 +63,11 @@ LOCAL_MODULE           := libmmcamera_interface
 LOCAL_SHARED_LIBRARIES := libdl libcutils liblog \
                           libhal_dbg
 
+LOCAL_SHARED_LIBRARIES := libdl libcutils liblog
+LOCAL_HEADER_LIBRARIES := libhardware_headers
+LOCAL_HEADER_LIBRARIES += camera_common_headers
+LOCAL_HEADER_LIBRARIES += media_plugin_headers
+LOCAL_HEADER_LIBRARIES += generated_kernel_headers
 LOCAL_MODULE_TAGS := optional
 LOCAL_VENDOR_MODULE := true
 
