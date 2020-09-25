@@ -28,6 +28,7 @@
 import init.qcom.usb.rc
 import init.target.rc
 import init.fingerprint.rc
+import init.camera.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
@@ -117,7 +118,6 @@ on boot
     mkdir /persist/misc 0770 system system
     mkdir /persist/alarm 0770 system system
     mkdir /persist/time 0770 system system
-    mkdir /persist/dualcam 0770 cameraserver system
     restorecon_recursive /persist
 
     #Create NETMGR daemon socket area
@@ -201,9 +201,6 @@ on boot
 on post-fs-data
     # Create directory for TZ Apps
     mkdir /data/misc/qsee 0770 system system
-
-    #Create folder for mm-qcamera-daemon
-    mkdir /data/misc/camera 0770 camera camera
 
     mkdir /data/media 0770 media_rw media_rw
     chown media_rw media_rw /data/media
