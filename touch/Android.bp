@@ -13,8 +13,8 @@
 // limitations under the License.
 
 cc_binary {
-    name: "vendor.lineage.touch@1.0-service.xiaomi_mido",
-    init_rc: ["vendor.lineage.touch@1.0-service.xiaomi_mido.rc"],
+    name: "vendor.lineage.touch@1.0-service.m1721",
+    init_rc: ["vendor.lineage.touch@1.0-service.m1721.rc"],
     defaults: ["hidl_defaults"],
     relative_install_path: "hw",
     vendor: true,

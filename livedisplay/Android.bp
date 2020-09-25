@@ -13,7 +13,7 @@
 // limitations under the License.
 
 cc_defaults {
-    name: "livedisplay_mido_defaults",
+    name: "livedisplay_m1721_defaults",
     defaults: ["hidl_defaults"],
     relative_install_path: "hw",
     srcs: [
@@ -32,8 +32,8 @@ cc_defaults {
 }
 
 cc_binary {
-    name: "vendor.lineage.livedisplay@2.0-service.xiaomi_mido",
-    init_rc: ["vendor.lineage.livedisplay@2.0-service.xiaomi_mido.rc"],
+    name: "vendor.lineage.livedisplay@2.0-service.m1721",
+    init_rc: ["vendor.lineage.livedisplay@2.0-service.m1721.rc"],
     defaults: ["livedisplay_mido_defaults"],
     vendor: true,
 }

@@ -22,7 +22,7 @@
 
 #include <fstream>
 
-#define LEDS            "/sys/class/leds/"
+#define LEDS            "/sys/class/mx-led/"
 
 #define BUTTON_LED      LEDS "button-backlight/"
 #define LCD_LED         LEDS "lcd-backlight/"
