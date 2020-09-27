@@ -33,8 +33,6 @@ on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
     mount_all /vendor/etc/fstab.qcom
-    # GnssConfiguration doesn't actually look at gps.conf, just the debug file
-    mount none /system/etc/gps.conf /system/etc/gps_debug.conf bind
 
     chown root system /mnt/vendor/persist
     chmod 0771 /mnt/vendor/persist
@@ -72,7 +70,7 @@ service qcamerasvr /vendor/bin/mm-qcamera-daemon
 service vendor.per_mgr /vendor/bin/pm-service
     class core
     user system
-    group system net_raw
+    group system
     ioprio rt 4
     writepid /dev/cpuset/system-background/tasks
 
@@ -112,10 +110,43 @@ service adsprpcd /vendor/bin/adsprpcd
    group media
 
 service wcnss-service /vendor/bin/wcnss_service
-    class main
+    class late_start
     user system
     group system wifi radio
     oneshot
+
+service vendor.imsqmidaemon /vendor/bin/imsqmidaemon
+    class main
+    user radio
+    socket ims_qmid stream 0660 system radio
+    group radio log diag
+    writepid /dev/cpuset/system-background/tasks
+
+service vendor.imsdatadaemon /vendor/bin/imsdatadaemon
+    class main
+    user radio
+    socket ims_datad stream 0660 system radio
+    group radio wifi inet log diag
+    writepid /dev/cpuset/system-background/tasks
+    disabled
+
+on property:vendor.ims.QMI_DAEMON_STATUS=1
+    start vendor.imsdatadaemon
+
+service vendor.ims_rtp_daemon /vendor/bin/ims_rtp_daemon
+   class main
+   user radio
+   group radio vendor_qti_diag inet log
+   writepid /dev/cpuset/system-background/tasks
+
+service vendor.imsrcsservice /vendor/bin/imsrcsd
+   class main
+   user radio
+   group radio diag inet log wakelock
+   writepid /dev/cpuset/system-background/tasks
+
+on property:vendor.ims.DATA_DAEMON_STATUS=1
+   restart vendor.ims_rtp_daemon
 
 on property:init.svc.surfaceflinger=stopped
     stop ppd
@@ -171,3 +202,28 @@ service ppd /vendor/bin/mm-pp-dpps
     group system graphics
     socket pps stream 0660 system system
     disabled
+
+service logger /system/bin/logcat -b all -D -f /cache/rdlogs/boot_log.txt
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+
+service dmesglogger /vendor/bin/dmesg > /cache/rdlogs/dmesg.txt
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+    
+on post-fs-data
+    # Clear existing log and start the services
+    rm /cache/rdlogs/boot_log.txt
+    rm /cache/rdlogs/dmesg.txt
+    start logger
+
+on property:sys.boot_completed=1
+    # Stop the logger services
+    stop logger
+    start dmesglogger

@@ -22,13 +22,12 @@
 
 #include <fstream>
 
-#define LEDS            "/sys/class/mx-led/"
+#define LEDS            "/sys/class/leds/"
 
 #define BUTTON_LED      LEDS "button-backlight/"
 #define LCD_LED         LEDS "lcd-backlight/"
-#define RED_LED         LEDS "red/"
-#define GREEN_LED       LEDS "green/"
-#define BLUE_LED        LEDS "blue/"
+
+#define LED         LEDS "mx-led/"
 
 #define BLINK           "blink"
 #define BRIGHTNESS      "brightness"
@@ -96,11 +95,12 @@ static void handleButtons(const LightState& state) {
      set(BUTTON_LED BRIGHTNESS, brightness);
 }
 
-static void handleNotification(const LightState& state) {
-    int blink, onMs, offMs, red, green, blue;
-    uint32_t alpha;
-
-    // Extract brightness from AARRGGBB
+static int getWhiteBrightness(const LightState& state) {
+	int red, green, blue, real;
+	uint32_t alpha;
+	double temp;
+	
+	// Extract brightness from AARRGGBB
     alpha = (state.color >> 24) & 0xff;
     red = (state.color >> 16) & 0xff;
     green = (state.color >> 8) & 0xff;
@@ -112,6 +112,22 @@ static void handleNotification(const LightState& state) {
         green = (green * alpha) / 0xff;
         blue = (blue * alpha) / 0xff;
     }
+	
+	temp = (red + green + blue) / 3;
+	real = (int) (temp + (temp > 0 ? .5 : -.5));
+	
+	if (real > 0xff) {
+		ALOGW("realBrightness is more than 0xff (0x%02x) - setting to 0xff.\n", (unsigned int)real);
+		real = 0xff;
+	}
+	
+	return real;
+}
+
+static void handleNotification(const LightState& state) {
+    int blink, onMs, offMs, brightness;
+    
+    brightness = getWhiteBrightness(state);
 
     switch (state.flashMode) {
         case Flash::TIMED:
@@ -126,43 +142,21 @@ static void handleNotification(const LightState& state) {
     }
 
     if (onMs > 0 && offMs > 0) {
-        /*
-         * if ON time == OFF time
-         *   use blink mode 2
-         * else
-         *   use blink mode 1
-         */
-        if (onMs == offMs) {
-            blink = 2;
-        } else {
-            blink = 1;
-        }
+		blink = 1;
     } else {
         blink = 0;
     }
 
     /* Disable blinking. */
-    set(RED_LED BLINK, 0);
-    set(GREEN_LED BLINK, 0);
-    set(BLUE_LED BLINK, 0);
+    set(LED BLINK, 0);
 
     /* Enable blinking */
-    if (blink){
-        if (red)
-            set(RED_LED BLINK, blink);
-        if (green)
-            set(GREEN_LED BLINK, blink);
-        if (blue)
-            set(BLUE_LED BLINK, blink);
+    if (blink) {
+        set(LED BLINK, 1);
     } else {
-        if (red == 0 && green == 0 && blue == 0) {
-            set(RED_LED BLINK, 0);
-            set(GREEN_LED BLINK, 0);
-            set(BLUE_LED BLINK, 0);
-        }
-        set(RED_LED BRIGHTNESS, red);
-        set(GREEN_LED BRIGHTNESS, green);
-        set(BLUE_LED BRIGHTNESS, blue);
+        if (brightness == 0)
+            set(LED BLINK, 0);
+        set(LED BRIGHTNESS, brightness);
     }
 }
 

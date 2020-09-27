@@ -328,15 +328,9 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/kmsg                                               0620   root       system
 
 # LED class devices
-/sys/class/leds/red      delay_on     0640    system    system
-/sys/class/leds/red      delay_off    0640    system    system
-/sys/class/leds/red      breath       0640    system    system
-/sys/class/leds/green    delay_on     0640    system    system
-/sys/class/leds/green    delay_off    0640    system    system
-/sys/class/leds/green    breath       0640    system    system
-/sys/class/leds/blue     delay_on     0640    system    system
-/sys/class/leds/blue     delay_off    0640    system    system
-/sys/class/leds/blue     breath       0640    system    system
+/sys/class/leds/mx-led      delay_on     0640    system    system
+/sys/class/leds/mx-led      delay_off    0640    system    system
+/sys/class/leds/mx-led      breath       0640    system    system
 
 # NPU device
 /dev/msm_npu             0644   system     system
@@ -377,14 +371,4 @@ firmware_directories /vendor/firmware_mnt/image/
 /sys/class/graphics/fb0     mode                     0664    system  graphics
 /sys/class/graphics/fb0     msm_cmd_autorefresh_en   0664    system  graphics
 /sys/class/graphics/fb0     dynamic_bitclk           0664    system  graphics
-/sys/class/kgsl/kgsl-3d0    pwrscale                 0664    root  system
-/sys/class/kgsl/kgsl-3d0    devfreq/governor         0664    root  system
-/sys/class/kgsl/kgsl-3d0    force_rail_on            0664    root  system
-/sys/class/kgsl/kgsl-3d0    force_bus_on             0664    root  system
-/sys/class/kgsl/kgsl-3d0    force_clk_on             0664    root  system
-/sys/class/kgsl/kgsl-3d0    bus_split                0664    root  system
 /sys/devices/virtual/hdcp/msm_hdcp  min_level_change 0664    system  graphics
-
-# lirc
-/dev/lirc0                0660   system     system
-/dev/peel_ir              0660   system     system

@@ -1,1 +1,6 @@
-[]
+[
+ {
+   "repository": "android_kernel_meizu_m1721",
+   "target_path": "kernel/meizu/m1721"
+ }
+]
