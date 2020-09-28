@@ -11,9 +11,9 @@
 | Shipped Android Version | 7.1.2                             |
 | Storage                 | 16/32/64 GB                       |
 | MicroSD                 | Up to 256 GB                      |
-| Battery                 | 5000 mAh (non-removable)          |
-| Dimensions              | 151 x 76 x 8.5 mm                 |
-| Display                 | 1920x1080 pixels, 5.5 (~401 PPI)  |
-| Rear Camera             | 13 MP, 5 MP, LED flash            |
-| Front Camera            | 15 MP                             |
-| Release Date            | December 2017                     |
+| Battery                 | 4000 mAh (non-removable)          |
+| Dimensions              | 154.6 x 75.2 x 8.4 mm             |
+| Display                 | 1920x1080 pixels, 5.5 (~403 PPI)  |
+| Rear Camera             | 12 MP, 5 MP, LED flash            |
+| Front Camera            | 16 MP                             |
+| Release Date            | Septemmber 2017                   |
