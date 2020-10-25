@@ -18,8 +18,8 @@ ifneq ($(TARGET_KERNEL_VERSION),$(filter $(TARGET_KERNEL_VERSION),3.18 4.4 4.9))
             $(TOP)/system/core/libion/kernel-headers
   endif
 endif
-LOCAL_C_INCLUDES+= $(kernel_includes)
-LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps)
+
+LOCAL_HEADER_LIBRARIES += generated_kernel_headers
 
 IMGLIB_HEADER_PATH := $(TARGET_OUT_INTERMEDIATES)/include/mm-camera/imglib
 
