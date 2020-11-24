@@ -143,6 +143,7 @@ LOCAL_HEADER_LIBRARIES += libcutils_headers
 LOCAL_HEADER_LIBRARIES += libsystem_headers
 LOCAL_HEADER_LIBRARIES += libhardware_headers
 LOCAL_HEADER_LIBRARIES += camera_common_headers
+LOCAL_HEADER_LIBRARIES += display_headers
 
 #HAL 1.0 Include paths
 LOCAL_C_INCLUDES += \
@@ -170,8 +171,6 @@ endif
 LOCAL_CFLAGS += -DUSE_CAMERA_METABUFFER_UTILS
 
 #LOCAL_STATIC_LIBRARIES := libqcamera2_util
-LOCAL_C_INCLUDES += \
-        $(TARGET_OUT_HEADERS)/qcom/display
 LOCAL_C_INCLUDES += \
         $(call project-path-for,qcom-display)/libqservice
 LOCAL_SHARED_LIBRARIES := liblog libhardware libutils libcutils libdl libsync
