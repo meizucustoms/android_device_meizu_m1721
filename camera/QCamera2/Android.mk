@@ -162,9 +162,13 @@ LOCAL_CFLAGS += -DUSE_CAMERA_METABUFFER_UTILS
 
 #LOCAL_STATIC_LIBRARIES := libqcamera2_util
 LOCAL_C_INCLUDES += \
+<<<<<<< HEAD
         $(TARGET_OUT_HEADERS)/qcom/display
 LOCAL_C_INCLUDES += \
         hardware/qcom/display/libqservice
+=======
+        $(call project-path-for,qcom-display)/libqservice
+>>>>>>> 8d72a938 (m1721: camera: Switch to display_headers lib include)
 LOCAL_SHARED_LIBRARIES := liblog libhardware libutils libcutils libdl libsync
 LOCAL_SHARED_LIBRARIES += libmmcamera_interface libmmjpeg_interface libui libcamera_metadata
 LOCAL_SHARED_LIBRARIES += libqdMetaData libqservice libbinder
@@ -192,6 +196,7 @@ endif
 ifneq (,$(filter $(TRINKET) msm8937_32go-userdebug, $(TARGET_BOARD_PLATFORM)))
 LOCAL_CFLAGS += -DSUPPORT_ONLY_HAL3
 endif
+LOCAL_HEADER_LIBRARIES += display_headers
 LOCAL_HEADER_LIBRARIES += camera_common_headers
 LOCAL_HEADER_LIBRARIES += media_plugin_headers
 
