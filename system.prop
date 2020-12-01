@@ -49,6 +49,12 @@ camera.display.lmax=1280x720
 camera.lowpower.record.enable=1
 camera.hal1.packagelist=com.skype.raider,com.google.android.talk
 camera.aux.packagelist=org.codeaurora.snapcam
+media.camera.ts.monotonic=1
+persist.camera.gyro.disable=0
+persist.camera.isp.clock.optmz=0
+persist.camera.stats.test=5
+persist.camera.feature.cac=1
+persist.camera.imglib.cac3=2
 
 # SVI
 ro.qualcomm.svi=1
@@ -150,7 +156,7 @@ rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
 rild.libargs=-d /dev/smd0
 ril.subscription.types=RUIM
 DEVICE_PROVISIONED=1
-ro.telephony.ril_class=MidoRIL
+ro.telephony.ril_class=M1721RIL
 ro.telephony.default_network=22,20
 ro.telephony.call_ring.multiple=false
 persist.radio.DROPSETENABLE=1
@@ -200,4 +206,3 @@ wifi.interface=wlan0
 # system props for the cne module
 #
 persist.cne.feature=1
-

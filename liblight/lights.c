@@ -35,8 +35,14 @@
 
 #include <hardware/lights.h>
 
-#define LIGHT_ATTENTION	1
-#define LIGHT_NOTIFY 	2
+#define MSC_FLASHLIGHT_NOTIFICATIONS         "/data/meizusucks/settings/flashligntNotifications"
+#define LEDS                                 "/sys/class/leds/"
+#define LED                                  LEDS "mx-led/"
+#define FLASHLIGHT                           LEDS "torch-led/"
+#define BLINK                                "blink"
+#define BRIGHTNESS                           "brightness"
+#define LIGHT_ATTENTION 										 2
+#define LIGHT_NOTIFY 												 1
 
 /******************************************************************************/
 
@@ -100,39 +106,52 @@ void init_globals(void)
 	memset(g_notify, 0, sizeof(*g_notify));
 }
 
-static int rgb_to_brightness(struct light_state_t const *state)
-{
-	/* use max of the RGB components for brightness */
-	int color = state->color & 0x00ffffff;
-	int red = (color >> 16) & 0x000000ff;
-	int green = (color >> 8) & 0x000000ff;
-	int blue = color & 0x000000ff;
+static int getWhiteBrightness(struct light_state_t const* state) {
+	int red, green, blue, real;
+	double temp;
 
-	int brightness = red;
-	if (green > brightness)
-		brightness = green;
-	if (blue > brightness)
-		brightness = blue;
+  // Extract brightness from RRGGBB
+  red = (state->color >> 16) & 0xff;
+  green = (state->color >> 8) & 0xff;
+  blue = state->color & 0xff;
 
-	return brightness;
+  // Get white brightness
+	temp = (red + green + blue) / 3;
+	real = (int) (temp + (temp > 0 ? .5 : -.5));
+
+	if (real > 0xff) {
+		ALOGW("realBrightness is more than 0xff (0x%02x) - setting to 0xff.\n", (unsigned int)real);
+		real = 0xff;
+	}
+
+	return real;
 }
 
 static int
 set_notification_light(struct light_state_t const* state)
 {
-	unsigned int brightness = rgb_to_brightness(state);
-	int blink = state->flashOnMS;
-    
-    if (blink > 1) {
-        ALOGW("%s: blink %d, set to 1", __func__, blink);
-        blink = 1;
-    }
+	unsigned int brightness = getWhiteBrightness(state);
+	int onMs = state->flashOnMS;
+	int offMs = state->flashOnMS;
+	int blink;
 
-	ALOGW("set_notification_light colorRGB=%08X, onMS=%d, offMS=%d\n",
-			state->color, state->flashOnMS, state->flashOffMS);
+	if (onMs > 0 && offMs > 0) {
+		blink = 1;
+	} else {
+		blink = 0;
+	}
 
-	write_int("/sys/class/leds/mx-led/brightness", brightness);
-	write_int("/sys/class/leds/mx-led/blink", blink);
+	ALOGW("set_notification_light colorRGB=%08X, onMS=%d, offMS=%d, ledBrightness=0x%02x, blink=%d\n",
+			state->color, state->flashOnMS, state->flashOffMS, brightness, blink);
+
+	/* Enable blinking */
+  if (blink) {
+      write_int(LED BLINK, 1);
+  } else {
+      if (brightness == 0)
+          write_int(LED BLINK, 0);
+      write_int(LED BRIGHTNESS, brightness);
+  }
 
 	return 0;
 }
@@ -269,7 +288,7 @@ struct hw_module_t HAL_MODULE_INFO_SYM = {
 	.version_major = 1,
 	.version_minor = 0,
 	.id = LIGHTS_HARDWARE_MODULE_ID,
-	.name = "Nvidia lights Module",
-	.author = "Motorola, Inc.",
+	.name = "Lights Module",
+	.author = "Roman Rihter",
 	.methods = &lights_module_methods,
 };

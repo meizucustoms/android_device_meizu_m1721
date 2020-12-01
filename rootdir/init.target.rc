@@ -40,7 +40,7 @@ on fs
 
     wait /dev/block/bootdevice/by-name/oem
     mount ext4 /dev/block/bootdevice/by-name/oem /oem ro nosuid nodev barrier=1
-    
+
 on post-fs-data
     mkdir /data/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
@@ -51,7 +51,7 @@ on post-fs-data
     mkdir /persist/data/tz 0700 system system
     mkdir /data/misc/dts 0770 media audio
     mkdir /data/misc/hbtp 0750 system system
-    
+
     # mx-led, add by liuyang3.wt,20170329.
     chown system system /sys/class/leds/mx-led/brightness
     chown system system /sys/class/leds/mx-led/blink
@@ -212,6 +212,18 @@ service energy-awareness /system/bin/energy-awareness
     user root
     group system
     oneshot
+
+######## LOGGER #########
+
+service logger /system/bin/logcat -b all > /sdcard/boot_log.txt
+    user root
+    group root system
+    oneshot
+
+on property:sys.boot_completed=1
+    stop logger
+
+######## LOGGER END #####
 
 on boot
 	write /dev/cpuset/top-app/cpus 0-7
