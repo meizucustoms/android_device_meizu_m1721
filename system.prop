@@ -85,6 +85,9 @@ vendor.video.disable.ubwc=1
 # Qualcomm
 ro.vendor.qti.va_aosp.support=1
 
+# Shutdown
+ro.build.shutdown_timeout=2
+
 # SurfaceFlinger
 debug.sf.early_phase_offset_ns=1500000
 debug.sf.early_app_phase_offset_ns=1500000
