@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service.xiaomi_mido"
-#define LOG_VERBOSE "android.hardware.biometrics.fingerprint@2.1-service.xiaomi_mido"
+#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service.m1721"
+#define LOG_VERBOSE "android.hardware.biometrics.fingerprint@2.1-service.m1721"
 
 #include <hardware/hw_auth_token.h>
 #include <hardware/hardware.h>
@@ -202,11 +202,8 @@ Return<RequestStatus> BiometricsFingerprint::setActiveGroup(uint32_t gid,
     if (access(storePath.c_str(), W_OK)) {
         return RequestStatus::SYS_EINVAL;
     }
-    int ret = mDevice->set_active_group(mDevice, gid, storePath.c_str());
-    /* set active group hack for goodix */
-    if ((ret > 0) && is_goodix)
-        ret = 0;
-    return ErrorFilter(ret);
+    mDevice->set_active_group(mDevice, gid, storePath.c_str());
+    return ErrorFilter(0);
 }
 
 Return<RequestStatus> BiometricsFingerprint::authenticate(uint64_t operationId,

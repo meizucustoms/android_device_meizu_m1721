@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service.xiaomi_mido"
+#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service.m1721"
 
 #include <binder/ProcessState.h>
 
@@ -35,35 +35,23 @@ using android::hardware::configureRpcThreadpool;
 using android::hardware::joinRpcThreadpool;
 using android::sp;
 
-bool is_goodix = false;
-
 static constexpr char kGoodixFpDev[] = "/dev/goodix_fp";
 
 int main() {
-    char vend[PROPERTY_VALUE_MAX];
-    property_get("ro.hardware.fingerprint", vend, "none");
-
-    if (!strcmp(vend, "none")) {
-    	ALOGE("ro.hardware.fingerprint not set! Killing " LOG_TAG " binder service!");
-        return 1;
-    } else if (!strcmp(vend, "goodix")) {
-        ALOGI("is_goodix = true");
-        is_goodix = true;
-    }
+    ALOGI("is_goodix = true");
+    is_goodix = true;
 
     ALOGI("Start biometrics");
     android::sp<IBiometricsFingerprint> bio = BiometricsFingerprint::getInstance();
 
-    if (is_goodix) {
-        if (access(kGoodixFpDev, F_OK) != 0) {
-            ALOGE("Cannot access %s (%s)", kGoodixFpDev, strerror(errno));
-            return 1;
-        }
-
-        // the conventional HAL might start binder services
-        android::ProcessState::initWithDriver("/dev/binder");
-        android::ProcessState::self()->startThreadPool();
+    if (access(kGoodixFpDev, F_OK) != 0) {
+        ALOGE("Cannot access %s (%s)", kGoodixFpDev, strerror(errno));
+        return 1;
     }
+
+    // the conventional HAL might start binder services
+    android::ProcessState::initWithDriver("/dev/binder");
+    android::ProcessState::self()->startThreadPool();
 
     /* process Binder transaction as a single-threaded program. */
     configureRpcThreadpool(1, true /* callerWillJoin */);

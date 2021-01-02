@@ -20,6 +20,6 @@
 # function: add_lunch_combo generic-eng
 
 for var in eng user userdebug; do
-  add_lunch_combo aosp_mido-$var
+  add_lunch_combo aosp_m1721-$var
 done
 
