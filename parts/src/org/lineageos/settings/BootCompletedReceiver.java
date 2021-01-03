@@ -28,7 +28,7 @@ import org.lineageos.settings.doze.DozeUtils;
 public class BootCompletedReceiver extends BroadcastReceiver {
 
     private static final boolean DEBUG = false;
-    private static final String TAG = "XiaomiParts";
+    private static final String TAG = "MeizuParts";
 
     @Override
     public void onReceive(final Context context, Intent intent) {

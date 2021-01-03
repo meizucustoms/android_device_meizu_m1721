@@ -55,7 +55,7 @@
         </activity>
 
         <service android:name=".doze.DozeService"
-                 android:permission="XiaomiDozeService">
+                 android:permission="MeizuDozeService">
         </service>
 
         <activity

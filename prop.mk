@@ -1,5 +1,5 @@
 #
-# system.prop for mido
+# system.prop for m1721
 #
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
