@@ -1,4 +1,8 @@
-# add for goodix chip
-goodix.fp                                      u:object_r:goodixfingerprintd_service:s0
-android.hardware.fingerprint.IGoodixFingerprintDaemon u:object_r:goodixfingerprintd_service:s0
-com.goodix.FingerprintService u:object_r:goodixfingerprintd_service:s0
+# Fingerprint
+goodix.fp                                                 u:object_r:goodixfingerprintd_service:s0
+android.hardware.fingerprint.IGoodixFingerprintDaemon     u:object_r:goodixfingerprintd_service:s0
+com.goodix.FingerprintService                             u:object_r:goodixfingerprintd_service:s0
+
+# Camera remosaic daemon
+remosaic_daemon                                           u:object_r:remosaic_service:s0
+android.samsung.IRemosaicDaemon                           u:object_r:remosaic_service:s0

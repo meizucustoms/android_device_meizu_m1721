@@ -1,10 +1,10 @@
 # Goodix Fingerprint
-/dev/ttyACM[0-9]*	u:object_r:goodixfingerprintd_device:s0
-/dev/goodix_fp*	u:object_r:goodixfingerprintd_device:s0
-/data/fingerprint(/.*)?	u:object_r:goodixfingerprintd_data_file:s0
+/dev/ttyACM[0-9]*	            u:object_r:goodixfingerprintd_device:s0
+/dev/goodix_fp*	                u:object_r:goodixfingerprintd_device:s0
+/data/fingerprint(/.*)?	        u:object_r:goodixfingerprintd_data_file:s0
 /data/fingerprint/gxfp(/.*)?	u:object_r:goodixfingerprintd_data_file:s0
 /data/system/fingerprint(/.*)?	u:object_r:goodixfingerprintd_data_file:s0
-/dev/gf66xx-spi	u:object_r:goodixfingerprintd_device:s0
+/dev/gf66xx-spi	                u:object_r:goodixfingerprintd_device:s0
 /system/bin/goodixfingerprintd	u:object_r:goodixfingerprintd_exec:s0
 
 # Glove Mode
@@ -17,5 +17,8 @@
 /data/misc/netmgr/log\.txt			        u:object_r:netmgrd_data_file:s0
 
 # aw2013
-/sys/devices/soc/7af6000.i2c/i2c-6/6-0045/leds/mx-led/blink	u:object_r:sysfs_leds:s0
+/sys/devices/soc/7af6000.i2c/i2c-6/6-0045/leds/mx-led/blink	        u:object_r:sysfs_leds:s0
 /sys/devices/soc/7af6000.i2c/i2c-6/6-0045/leds/mx-led/brightness	u:object_r:sysfs_leds:s0
+
+# Remosaic daemon
+/system/bin/remosaic_daemon                 u:object_r:remosaic_daemon_exec:s0

@@ -29,9 +29,17 @@
 
 # Start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
-    #class late_start
+    class late_start
     user camera
     group camera system inet input graphics
+
+# Start remosaic server as daemon
+service remosaic_daemon /system/bin/remosaic_daemon
+    user root
+    group root
+    oneshot
+    disabled
+    seclabel  u:r:mm-qcamerad:s0
 
 ##########################################################
 
@@ -39,20 +47,20 @@ on post-fs-data
 	# Create folder for mm-qcamera-daemon
 	mkdir /data/misc/camera 0770 camera camera
 
-on boot
-	mkdir /persist/dualcam 0770 cameraserver system
+    # Create folder for dualcam
+    mkdir /persist/dualcam 0770 cameraserver system
 
+on boot
     # Add a cpuset for the camera daemon
     mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0-7
+    write /dev/cpuset/camera-daemon/cpus 0-4
     write /dev/cpuset/camera-daemon/mems 0
     chown system system /dev/cpuset/camera-daemon
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
 
-    # Avoid some mm-qcamera-daemon modules loading
-    setprop persist.camera.gyro.disable 0
-    setprop persist.camera.global.debug 2
+    # Camera2API
+    setprop persist.camera.HAL3.enabled 1
 
-    # Start camera daemon only after props have been set.
-    start qcamerasvr
+on property:sys.boot_completed=1
+    start remosaic_daemon
