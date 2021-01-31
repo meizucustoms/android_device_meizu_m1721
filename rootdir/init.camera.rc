@@ -53,14 +53,11 @@ on post-fs-data
 on boot
     # Add a cpuset for the camera daemon
     mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0-4
+    write /dev/cpuset/camera-daemon/cpus 0-3
     write /dev/cpuset/camera-daemon/mems 0
     chown system system /dev/cpuset/camera-daemon
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
-
-    # Camera2API
-    setprop persist.camera.HAL3.enabled 1
 
 on property:sys.boot_completed=1
     start remosaic_daemon
