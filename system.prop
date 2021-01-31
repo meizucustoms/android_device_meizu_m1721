@@ -14,8 +14,8 @@ ro.qc.sdk.audio.fluencetype=fluence
 persist.audio.fluence.voicecall=true
 persist.audio.fluence.voicerec=true
 persist.audio.fluence.speaker=true
-audio.offload.disable = true
-tunnel.audio.encode = false
+audio.offload.disable=true
+tunnel.audio.encode=false
 audio.offload.buffer.size.kb=64
 audio.offload.min.duration.secs=30
 audio.offload.video=true
@@ -37,6 +37,10 @@ persist.speaker.prot.enable=false
 audio.offload.multiaac.enable=true
 audio.dolby.ds2.hardbypass=true
 flac.sw.decoder.24bit.support=true
+
+# Audio: dual microphone
+ro.config.dualmic＝true
+hw.secondary_mic=1
 
 # Bluetooth
 bluetooth.hfp.client=1
@@ -146,9 +150,7 @@ rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
 rild.libargs=-d /dev/smd0
 ril.subscription.types=RUIM
 DEVICE_PROVISIONED=1
-ro.telephony.ril_class=M1721RIL
 ro.telephony.default_network=22,20
-ro.telephony.call_ring.multiple=false
 persist.radio.DROPSETENABLE=1
 persist.radio.flexmap_type=nw_mode
 persist.radio.multisim.config=dsds
@@ -172,12 +174,19 @@ persist.radio.sw_mbn_update=0
 persist.radio.hw_mbn_update=0
 service.qti.ims.enabled=1
 telephony.lteOnCdmaDevice=1
+persist.radio.report_codec=0
+persist.radio.fourgOff=1
+persist.radio.force_on_dc=true
+persist.radio.facnotsup_as_nonw=1
+
+# Radio: better sound quality
+ro.ril.enable.amr.wideband=1
 
 # SdcardFs
 ro.sys.sdcardfs=true
 
-# Set cutoff voltage to 3400mV
-ro.cutoff_voltage_mv=3400
+# Set cutoff voltage to 3100mV
+ro.cutoff_voltage_mv=3100
 
 # SVI
 ro.qualcomm.svi=1
