@@ -1,4 +1,4 @@
-# Copyright (c) 2020-2021 MeizuCustoms. All rights reserved.
+# Copyright (c) 2021 MeizuCustoms. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -25,44 +25,6 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-import init.msfl.rc
-
-##########################################################
-
-# Start camera server as daemon
-service qcamerasvr /system/bin/mm-qcamera-daemon
-    class late_start
-    user camera
-    group camera system inet input graphics
-
-# Start remosaic server as daemon
-service remosaic_daemon /system/bin/remosaic_daemon
-    user root
-    group root
-    oneshot
-    disabled
-    seclabel  u:r:mm-qcamerad:s0
-
-##########################################################
-
-on post-fs-data
-	# Create folder for mm-qcamera-daemon
-	mkdir /data/misc/camera 0770 camera camera
-
-    # Create folder for dualcam
-    mkdir /persist/dualcam 0770 cameraserver system
-
 on boot
-    # Add a cpuset for the camera daemon
-    mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0-3
-    write /dev/cpuset/camera-daemon/mems 0
-    chown system system /dev/cpuset/camera-daemon
-    chown system system /dev/cpuset/camera-daemon/tasks
-    chmod 0664 /dev/cpuset/camera-daemon/tasks
-
-    # Camera log
-    setprop ro.persist.camera.global.debug 2
-
-on property:sys.boot_completed=1
-    start remosaic_daemon
+    # For MS Flashlight app
+    chmod 777 /d/msfl
