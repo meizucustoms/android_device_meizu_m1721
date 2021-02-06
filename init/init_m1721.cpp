@@ -85,14 +85,14 @@ void check_device()
         heapsize = "512m";
         heapminfree = "4m";
         heapmaxfree = "8m";
-	    large_cache_height = "2048";
+	      large_cache_height = "2048";
     } else if (sys.totalram > 2048ull * 1024 * 1024) {
         // from - phone-xxhdpi-3072-dalvik-heap.mk
         heapstartsize = "8m";
         heapgrowthlimit = "288m";
         heapsize = "768m";
         heapminfree = "512k";
-	    heapmaxfree = "8m";
+	      heapmaxfree = "8m";
         large_cache_height = "1024";
     } else {
         // from - phone-xxhdpi-2048-dalvik-heap.mk
@@ -115,7 +115,7 @@ void vendor_load_properties()
     property_set("dalvik.vm.heapsize", heapsize);
     property_set("dalvik.vm.heaptargetutilization", "0.75");
     property_set("dalvik.vm.heapminfree", heapminfree);
-    property_set("dalvik.vm.heapmaxfree", heapmaxfree);
+    property_set("ro.kernel.android.checkjni", "0");
 
     property_set("ro.hwui.texture_cache_size", "72");
     property_set("ro.hwui.layer_cache_size", "48");
@@ -128,5 +128,4 @@ void vendor_load_properties()
     property_set("ro.hwui.text_small_cache_height", "1024");
     property_set("ro.hwui.text_large_cache_width", "2048");
     property_set("ro.hwui.text_large_cache_height", large_cache_height);
-    property_set("persist.camera.global.debug", "1");
 }
