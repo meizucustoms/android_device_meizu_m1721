@@ -2,7 +2,6 @@ allow servicemanager goodixfingerprintd : process getattr ;
 allow servicemanager goodixfingerprintd : binder transfer ;
 allow servicemanager goodixfingerprintd : file { read open } ;
 allow servicemanager goodixfingerprintd : dir search ;
-allow servicemanager init:binder transfer;
 allow servicemanager init:dir search;
 allow servicemanager init:file { open read };
 allow servicemanager init:process getattr;

@@ -1,4 +1,12 @@
 type goodixfingerprintd, domain;
+type goodixfingerprintd_exec, file_type, exec_type;
+
+# goodixfingerprintd
+init_daemon_domain(goodixfingerprintd)
+binder_use(goodixfingerprintd)
+use_keystore(goodixfingerprintd)
+binder_call(goodixfingerprintd, system_server);
+set_prop(goodixfingerprintd, system_prop)
 
 allow debuggerd goodixfingerprintd:process { getattr ptrace };
 allow fingerprintd goodixfingerprintd:binder { transfer call };
@@ -23,7 +31,7 @@ allow system_app goodixfingerprintd:fd use;
 allow system_server goodixfingerprintd:binder { transfer call };
 allow system_server goodixfingerprintd:fd use;
 
-type goodixfingerprintd_exec, file_type, exec_type;
-
 allow goodixfingerprintd goodixfingerprintd_exec:file { read open getattr entrypoint execute };
 allow init goodixfingerprintd_exec:file { read getattr open execute };
+
+allow goodixfingerprintd goodixfingerprintd_service:service_manager add;

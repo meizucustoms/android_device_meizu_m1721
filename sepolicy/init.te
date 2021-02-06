@@ -1,12 +1,7 @@
 allow init goodixfingerprintd : process { transition noatsecure siginh rlimitinh } ; 
 dontaudit init goodixfingerprintd : process noatsecure ; 
-allow init fingerprint_service:service_manager find;
 allow init fingerprintd:binder call;
 allow init goodixfingerprintd_device:chr_file { ioctl write };
-allow init goodixfingerprintd_exec:file execute_no_trans;
-allow init goodixfingerprintd_service:service_manager add;
-allow init permission_service:service_manager find;
-allow init power_service:service_manager find;
 allow init self:netlink_socket { bind create read write };
 allow init servicemanager:binder { call transfer };
 allow init system_server:binder call;

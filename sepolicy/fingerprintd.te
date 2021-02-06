@@ -6,4 +6,3 @@ allow fingerprintd tee_device:chr_file rw_file_perms;
 allow fingerprintd uhid_device:chr_file rw_file_perms;
 set_prop(fingerprintd, system_prop)
 r_dir_file(fingerprintd, firmware_file)
-allow fingerprintd init:binder { call transfer };
