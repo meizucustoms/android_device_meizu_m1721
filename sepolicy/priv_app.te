@@ -1,0 +1,18 @@
+allow priv_app adbsecure_prop:file { getattr open };
+allow priv_app adbtcp_prop:file { getattr open };
+allow priv_app boot_mode_prop:file { getattr open };
+allow priv_app device:dir { open read };
+allow priv_app media_msm8953_version_prop:file { getattr open };
+allow priv_app mmc_prop:file open;
+allow priv_app mpdecision_prop:file { getattr open };
+allow priv_app recovery_prop:file { getattr open };
+allow priv_app safemode_prop:file { getattr open };
+allow priv_app spcomlib_prop:file { getattr open };
+allow priv_app sys_usb_configfs_prop:file { getattr open };
+allow priv_app sys_usb_controller_prop:file { getattr open };
+allow priv_app sys_usb_tethering_prop:file { getattr open };
+allow priv_app userinit_prop:file { getattr open };
+allow priv_app device_logging_prop:file { getattr open };
+allow priv_app logpersistd_logging_prop:file { getattr open };
+allow priv_app mmc_prop:file getattr;
+
