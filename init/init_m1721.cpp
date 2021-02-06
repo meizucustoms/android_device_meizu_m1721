@@ -115,7 +115,7 @@ void vendor_load_properties()
     property_set("dalvik.vm.heapsize", heapsize);
     property_set("dalvik.vm.heaptargetutilization", "0.75");
     property_set("dalvik.vm.heapminfree", heapminfree);
-    property_set("ro.kernel.android.checkjni", "0");
+    property_set("dalvik.vm.heapmaxfree", heapmaxfree);
 
     property_set("ro.hwui.texture_cache_size", "72");
     property_set("ro.hwui.layer_cache_size", "48");
