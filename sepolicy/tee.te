@@ -5,3 +5,5 @@ allow tee goodixfingerprintd_data_file:dir create_dir_perms;
 allow tee goodixfingerprintd_data_file:file create_file_perms;
 allow tee system_data_file:dir create_dir_perms;
 allow tee goodixfingerprintd_data_file : dir { ioctl read write create getattr lock add_name remove_name search open } ;
+allow tee persist_file:dir { add_name remove_name write };
+allow tee persist_file:file { create open read unlink write };

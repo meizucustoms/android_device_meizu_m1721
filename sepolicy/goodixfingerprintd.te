@@ -35,3 +35,13 @@ allow goodixfingerprintd goodixfingerprintd_exec:file { read open getattr entryp
 allow init goodixfingerprintd_exec:file { read getattr open execute };
 
 allow goodixfingerprintd goodixfingerprintd_service:service_manager add;
+allow goodixfingerprintd debug_prop:property_service set;
+allow goodixfingerprintd fingerprint_service:service_manager find;
+allow goodixfingerprintd fingerprintd:binder call;
+allow goodixfingerprintd ion_device:chr_file { ioctl open read };
+allow goodixfingerprintd media_rw_data_file:file { getattr open read };
+allow goodixfingerprintd media_rw_data_file:dir search;
+allow goodixfingerprintd permission_service:service_manager find;
+allow goodixfingerprintd power_service:service_manager find;
+allow goodixfingerprintd system_data_file:file { getattr open read };
+allow goodixfingerprintd tee_device:chr_file { ioctl open read write };

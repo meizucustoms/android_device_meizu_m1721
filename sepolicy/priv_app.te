@@ -16,3 +16,4 @@ allow priv_app device_logging_prop:file { getattr open };
 allow priv_app logpersistd_logging_prop:file { getattr open };
 allow priv_app mmc_prop:file getattr;
 
+allow priv_app rfs_system_file:dir getattr;
