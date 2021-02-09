@@ -19,3 +19,4 @@ allow untrusted_app sysfs:file { getattr open read };
 allow untrusted_app system_data_file:file getattr;
 allow untrusted_app userinit_prop:file { getattr open };
 allow untrusted_app self:udp_socket ioctl;
+allow untrusted_app input_device:dir search;

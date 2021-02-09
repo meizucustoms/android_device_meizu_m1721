@@ -17,3 +17,10 @@ allow priv_app logpersistd_logging_prop:file { getattr open };
 allow priv_app mmc_prop:file getattr;
 
 allow priv_app rfs_system_file:dir getattr;
+
+allow priv_app bluetooth_data_file:dir getattr;
+allow priv_app cache_private_backup_file:dir getattr;
+allow priv_app configfs:dir read;
+allow priv_app mnt_media_rw_file:dir getattr;
+allow priv_app radio_data_file:dir getattr;
+allow priv_app system_app_data_file:dir getattr;
