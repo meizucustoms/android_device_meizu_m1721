@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/xiaomi/mido
+DEVICE_PATH := device/meizu/m1721
 
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
@@ -41,13 +41,13 @@ TARGET_BOARD_SUFFIX := _64
 TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
 
 # Kernel
-TARGET_KERNEL_CONFIG := mido_defconfig
+TARGET_KERNEL_CONFIG := m1721_defconfig
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78af000 loop.max_part=7 androidboot.usbconfigfs=false
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE :=  2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
-TARGET_KERNEL_SOURCE := kernel/xiaomi/mido
+TARGET_KERNEL_SOURCE := kernel/meizu/msm8953
 TARGET_KERNEL_CLANG_COMPILE := true
 TARGET_KERNEL_VERSION := 3.18
 
@@ -144,8 +144,8 @@ DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE   := $(DEVICE_PATH)/compatibility_matrix.xml
 
 # Init
-TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_mido
-TARGET_RECOVERY_DEVICE_MODULES := libinit_mido
+TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_m1721
+TARGET_RECOVERY_DEVICE_MODULES := libinit_m1721
 
 # Keylayouts
 TARGET_USES_HARDWARE_KEYS := true
@@ -212,4 +212,4 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 DISABLE_EAP_PROXY := true
 
 # Inherit from the proprietary version
--include vendor/xiaomi/mido/BoardConfigVendor.mk
+-include vendor/meizu/m1721/BoardConfigVendor.mk
