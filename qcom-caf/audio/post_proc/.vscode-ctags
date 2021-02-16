@@ -1,0 +1,607 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/tdrk/ms/device/meizu/m1721/qcom-caf/audio/post_proc/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20210110.0/
+AHAL_GAIN_DEPENDENT_INTERFACE_FUNCTION	volume_listener.c	/^#define AHAL_GAIN_DEPENDENT_INTERFACE_FUNCTION /;"	d	file:
+AHAL_GAIN_GET_MAPPING_TABLE	volume_listener.c	/^#define AHAL_GAIN_GET_MAPPING_TABLE /;"	d	file:
+ALARM	volume_listener.c	/^    ALARM,$/;"	e	enum:STREAM_TYPE	file:
+ALOGVV	effect_api.c	/^#define ALOGVV /;"	d	file:
+ALOGVV	effect_api.c	/^#define ALOGVV(/;"	d	file:
+ANDROID_EFFECTS_HW_ACC_H	EffectsHwAcc.h	/^#define ANDROID_EFFECTS_HW_ACC_H$/;"	d
+ARRAY_SIZE	effect_api.c	/^#define ARRAY_SIZE(/;"	d	file:
+ASPHERE_ACTIVE	asphere.c	/^    ASPHERE_ACTIVE = 0,$/;"	e	enum:__anonde4cf4fe0103	file:
+ASPHERE_ERROR	asphere.c	/^    ASPHERE_ERROR$/;"	e	enum:__anonde4cf4fe0103	file:
+ASPHERE_MIXER_NAME	asphere.c	/^#define ASPHERE_MIXER_NAME /;"	d	file:
+ASPHERE_SUSPENDED	asphere.c	/^    ASPHERE_SUSPENDED,$/;"	e	enum:__anonde4cf4fe0103	file:
+AUDIO_ASPHERE_EVENT_NODE	asphere.c	/^#define AUDIO_ASPHERE_EVENT_NODE /;"	d	file:
+AUDIO_DEVICE_CAL_TYPE	bass_boost.c	/^        AUDIO_DEVICE_CAL_TYPE = 0,$/;"	e	enum:__anonf1d2a9050103	file:
+AUDIO_EFFECT_LIBRARY_INFO_SYM	bundle.c	/^audio_effect_library_t AUDIO_EFFECT_LIBRARY_INFO_SYM = {$/;"	v	typeref:typename:audio_effect_library_t
+AUDIO_EFFECT_LIBRARY_INFO_SYM	volume_listener.c	/^audio_effect_library_t AUDIO_EFFECT_LIBRARY_INFO_SYM = {$/;"	v	typeref:typename:audio_effect_library_t
+AUDIO_PARAMETER_KEY_ASPHERE_ENABLE	asphere.c	/^#define AUDIO_PARAMETER_KEY_ASPHERE_ENABLE /;"	d	file:
+AUDIO_PARAMETER_KEY_ASPHERE_STATUS	asphere.c	/^#define AUDIO_PARAMETER_KEY_ASPHERE_STATUS /;"	d	file:
+AUDIO_PARAMETER_KEY_ASPHERE_STRENGTH	asphere.c	/^#define AUDIO_PARAMETER_KEY_ASPHERE_STRENGTH /;"	d	file:
+AUDIO_STREAM_CAL_TYPE	bass_boost.c	/^        AUDIO_STREAM_CAL_TYPE,$/;"	e	enum:__anonf1d2a9050103	file:
+BASSBOOST	effect_util.c	/^    BASSBOOST,$/;"	e	enum:__anonbdb78a200103	file:
+BASS_BOOST	bass_boost.h	/^    BASS_BOOST = 0,      \/\/ index of bassboost$/;"	e	enum:__anonf1d2a90a0103
+BASS_COUNT	bass_boost.h	/^    BASS_COUNT       \/\/ totol number of bass type$/;"	e	enum:__anonf1d2a90a0103
+BASS_INVALID	bass_boost.h	/^    BASS_INVALID = -1,$/;"	e	enum:__anonf1d2a90a0103
+BASS_PBE	bass_boost.h	/^    BASS_PBE,        \/\/ index of PBE$/;"	e	enum:__anonf1d2a90a0103
+EFFECT_CMD_HW_ACC	bundle.h	/^#define EFFECT_CMD_HW_ACC /;"	d
+EFFECT_ENABLE_PARAM	effect_util.h	/^    EFFECT_ENABLE_PARAM,$/;"	e	enum:__anonbdb78a250203
+EFFECT_FILE	effect_util.c	/^#define EFFECT_FILE /;"	d	file:
+EFFECT_NO_OP	effect_util.h	/^#define EFFECT_NO_OP /;"	d
+EFFECT_SET_PARAM	effect_util.h	/^    EFFECT_SET_PARAM = 0,$/;"	e	enum:__anonbdb78a250203
+EFFECT_STATE_ACTIVE	bundle.c	/^    EFFECT_STATE_ACTIVE,$/;"	e	enum:__anon232a80d00103	file:
+EFFECT_STATE_INITIALIZED	bundle.c	/^    EFFECT_STATE_INITIALIZED,$/;"	e	enum:__anon232a80d00103	file:
+EFFECT_STATE_UNINITIALIZED	bundle.c	/^    EFFECT_STATE_UNINITIALIZED,$/;"	e	enum:__anon232a80d00103	file:
+EFFECT_TYPE_BB	effect_util.h	/^    EFFECT_TYPE_BB,$/;"	e	enum:__anonbdb78a250103
+EFFECT_TYPE_EQ	effect_util.h	/^    EFFECT_TYPE_EQ = 0,$/;"	e	enum:__anonbdb78a250103
+EFFECT_TYPE_VIRT	effect_util.h	/^    EFFECT_TYPE_VIRT,$/;"	e	enum:__anonbdb78a250103
+EFFECT_UTIL_H_	effect_util.h	/^#define EFFECT_UTIL_H_$/;"	d
+EQUALIZER	effect_util.c	/^    EQUALIZER,$/;"	e	enum:__anonbdb78a200103	file:
+EffectsBufferProvider	EffectsHwAcc.cpp	/^EffectsHwAcc::EffectsBufferProvider::EffectsBufferProvider()$/;"	f	class:android::EffectsHwAcc::EffectsBufferProvider
+EffectsBufferProvider	EffectsHwAcc.h	/^    class EffectsBufferProvider : public AudioBufferProvider {$/;"	c	class:android::EffectsHwAcc
+EffectsHwAcc	EffectsHwAcc.cpp	/^EffectsHwAcc::EffectsHwAcc(uint32_t sampleRate)$/;"	f	class:android::EffectsHwAcc
+EffectsHwAcc	EffectsHwAcc.h	/^class EffectsHwAcc {$/;"	c	namespace:android
+FRAME_SIZE	EffectsHwAcc.cpp	/^#define FRAME_SIZE(/;"	d	file:
+HWACCELERATOR_OUTPUT_CHANNELS	hw_accelerator.h	/^#define HWACCELERATOR_OUTPUT_CHANNELS /;"	d
+HW_ACCELERATOR	effect_api.c	/^    HW_ACCELERATOR$/;"	e	enum:eff_mode	file:
+HW_ACCELERATOR_EFFECT_H_	hw_accelerator.h	/^#define HW_ACCELERATOR_EFFECT_H_$/;"	d
+INVALID_PRESET	equalizer.h	/^#define INVALID_PRESET	/;"	d
+LIB_ACDB_LOADER	bass_boost.c	/^#define LIB_ACDB_LOADER /;"	d	file:
+LOCAL_CFLAGS	Android.mk	/^LOCAL_CFLAGS := -DLIB_AUDIO_HAL="\/vendor\/lib\/hw\/audio.primary."$(TARGET_BOARD_PLATFORM)".so"$/;"	m
+LOCAL_C_INCLUDES	Android.mk	/^LOCAL_C_INCLUDES := \\$/;"	m
+LOCAL_HEADER_LIBRARIES	Android.mk	/^LOCAL_HEADER_LIBRARIES := libhardware_headers \\$/;"	m
+LOCAL_MODULE	Android.mk	/^LOCAL_MODULE:= libhwacceffectswrapper$/;"	m
+LOCAL_MODULE	Android.mk	/^LOCAL_MODULE:= libqcompostprocbundle$/;"	m
+LOCAL_MODULE	Android.mk	/^LOCAL_MODULE:= libvolumelistener$/;"	m
+LOCAL_MODULE_RELATIVE_PATH	Android.mk	/^LOCAL_MODULE_RELATIVE_PATH := soundfx$/;"	m
+LOCAL_MODULE_TAGS	Android.mk	/^LOCAL_MODULE_TAGS := optional$/;"	m
+LOCAL_PATH	Android.mk	/^LOCAL_PATH:= $(call my-dir)$/;"	m
+LOCAL_SHARED_LIBRARIES	Android.mk	/^LOCAL_SHARED_LIBRARIES := \\$/;"	m
+LOCAL_SRC_FILES	Android.mk	/^LOCAL_SRC_FILES := EffectsHwAcc.cpp$/;"	m
+LOCAL_SRC_FILES	Android.mk	/^LOCAL_SRC_FILES:= \\$/;"	m
+LOCAL_VENDOR_MODULE	Android.mk	/^LOCAL_VENDOR_MODULE := true$/;"	m
+LOG_TAG	EffectsHwAcc.cpp	/^#define LOG_TAG /;"	d	file:
+LOG_TAG	asphere.c	/^#define LOG_TAG /;"	d	file:
+LOG_TAG	bass_boost.c	/^#define LOG_TAG /;"	d	file:
+LOG_TAG	bundle.c	/^#define LOG_TAG /;"	d	file:
+LOG_TAG	effect_api.c	/^#define LOG_TAG /;"	d	file:
+LOG_TAG	effect_util.c	/^#define LOG_TAG /;"	d	file:
+LOG_TAG	equalizer.c	/^#define LOG_TAG /;"	d	file:
+LOG_TAG	hw_accelerator.c	/^#define LOG_TAG /;"	d	file:
+LOG_TAG	reverb.c	/^#define LOG_TAG /;"	d	file:
+LOG_TAG	virtualizer.c	/^#define LOG_TAG /;"	d	file:
+LOG_TAG	volume_listener.c	/^#define LOG_TAG /;"	d	file:
+MAX_GAIN_LEVELS	volume_listener.c	/^#define MAX_GAIN_LEVELS /;"	d	file:
+MAX_LENGTH_OF_INTEGER_IN_STRING	effect_util.c	/^#define MAX_LENGTH_OF_INTEGER_IN_STRING /;"	d	file:
+MAX_STREAM_TYPES	volume_listener.c	/^    MAX_STREAM_TYPES,$/;"	e	enum:STREAM_TYPE	file:
+MIXER_CARD	bundle.h	/^#define MIXER_CARD /;"	d
+MUSIC	volume_listener.c	/^    MUSIC,$/;"	e	enum:STREAM_TYPE	file:
+NOTIFICATION	volume_listener.c	/^    NOTIFICATION,$/;"	e	enum:STREAM_TYPE	file:
+NUM_EQ_BANDS	equalizer.h	/^#define NUM_EQ_BANDS /;"	d
+OFFLOAD	effect_api.c	/^    OFFLOAD,$/;"	e	enum:eff_mode	file:
+OFFLOAD_ASPHERE_H_	asphere.h	/^#define OFFLOAD_ASPHERE_H_$/;"	d
+OFFLOAD_EFFECT_API_H_	effect_api.h	/^#define OFFLOAD_EFFECT_API_H_$/;"	d
+OFFLOAD_EFFECT_BASS_BOOST_H_	bass_boost.h	/^#define OFFLOAD_EFFECT_BASS_BOOST_H_$/;"	d
+OFFLOAD_EFFECT_BUNDLE_H	bundle.h	/^#define OFFLOAD_EFFECT_BUNDLE_H$/;"	d
+OFFLOAD_EQUALIZER_H_	equalizer.h	/^#define OFFLOAD_EQUALIZER_H_$/;"	d
+OFFLOAD_PRESET_START_OFFSET_FOR_OPENSL	effect_api.c	/^#define OFFLOAD_PRESET_START_OFFSET_FOR_OPENSL /;"	d	file:
+OFFLOAD_REVERB_H_	reverb.h	/^#define OFFLOAD_REVERB_H_$/;"	d
+OFFLOAD_SEND_BASSBOOST_ENABLE_FLAG	effect_api.h	/^#define OFFLOAD_SEND_BASSBOOST_ENABLE_FLAG /;"	d
+OFFLOAD_SEND_BASSBOOST_MODE	effect_api.h	/^#define OFFLOAD_SEND_BASSBOOST_MODE /;"	d
+OFFLOAD_SEND_BASSBOOST_STRENGTH	effect_api.h	/^#define OFFLOAD_SEND_BASSBOOST_STRENGTH /;"	d
+OFFLOAD_SEND_EQ_BANDS_LEVEL	effect_api.h	/^#define OFFLOAD_SEND_EQ_BANDS_LEVEL /;"	d
+OFFLOAD_SEND_EQ_ENABLE_FLAG	effect_api.h	/^#define OFFLOAD_SEND_EQ_ENABLE_FLAG /;"	d
+OFFLOAD_SEND_EQ_PRESET	effect_api.h	/^#define OFFLOAD_SEND_EQ_PRESET /;"	d
+OFFLOAD_SEND_HPX_STATE_OFF	effect_api.h	/^#define OFFLOAD_SEND_HPX_STATE_OFF /;"	d
+OFFLOAD_SEND_HPX_STATE_ON	effect_api.h	/^#define OFFLOAD_SEND_HPX_STATE_ON /;"	d
+OFFLOAD_SEND_PBE_CONFIG	effect_api.h	/^#define OFFLOAD_SEND_PBE_CONFIG /;"	d
+OFFLOAD_SEND_PBE_ENABLE_FLAG	effect_api.h	/^#define OFFLOAD_SEND_PBE_ENABLE_FLAG /;"	d
+OFFLOAD_SEND_REVERB_DECAY_HF_RATIO	effect_api.h	/^#define OFFLOAD_SEND_REVERB_DECAY_HF_RATIO /;"	d
+OFFLOAD_SEND_REVERB_DECAY_TIME	effect_api.h	/^#define OFFLOAD_SEND_REVERB_DECAY_TIME /;"	d
+OFFLOAD_SEND_REVERB_DELAY	effect_api.h	/^#define OFFLOAD_SEND_REVERB_DELAY /;"	d
+OFFLOAD_SEND_REVERB_DENSITY	effect_api.h	/^#define OFFLOAD_SEND_REVERB_DENSITY /;"	d
+OFFLOAD_SEND_REVERB_DIFFUSION	effect_api.h	/^#define OFFLOAD_SEND_REVERB_DIFFUSION /;"	d
+OFFLOAD_SEND_REVERB_ENABLE_FLAG	effect_api.h	/^#define OFFLOAD_SEND_REVERB_ENABLE_FLAG /;"	d
+OFFLOAD_SEND_REVERB_GAIN_ADJUST	effect_api.h	/^#define OFFLOAD_SEND_REVERB_GAIN_ADJUST	/;"	d
+OFFLOAD_SEND_REVERB_LEVEL	effect_api.h	/^#define OFFLOAD_SEND_REVERB_LEVEL /;"	d
+OFFLOAD_SEND_REVERB_MODE	effect_api.h	/^#define OFFLOAD_SEND_REVERB_MODE /;"	d
+OFFLOAD_SEND_REVERB_PRESET	effect_api.h	/^#define OFFLOAD_SEND_REVERB_PRESET /;"	d
+OFFLOAD_SEND_REVERB_REFLECTIONS_DELAY	effect_api.h	/^#define OFFLOAD_SEND_REVERB_REFLECTIONS_DELAY /;"	d
+OFFLOAD_SEND_REVERB_REFLECTIONS_LEVEL	effect_api.h	/^#define OFFLOAD_SEND_REVERB_REFLECTIONS_LEVEL /;"	d
+OFFLOAD_SEND_REVERB_ROOM_HF_LEVEL	effect_api.h	/^#define OFFLOAD_SEND_REVERB_ROOM_HF_LEVEL /;"	d
+OFFLOAD_SEND_REVERB_ROOM_LEVEL	effect_api.h	/^#define OFFLOAD_SEND_REVERB_ROOM_LEVEL	/;"	d
+OFFLOAD_SEND_REVERB_WET_MIX	effect_api.h	/^#define OFFLOAD_SEND_REVERB_WET_MIX /;"	d
+OFFLOAD_SEND_SOFT_VOLUME_ENABLE_FLAG	effect_api.h	/^#define OFFLOAD_SEND_SOFT_VOLUME_ENABLE_FLAG /;"	d
+OFFLOAD_SEND_SOFT_VOLUME_GAIN_2CH	effect_api.h	/^#define OFFLOAD_SEND_SOFT_VOLUME_GAIN_2CH /;"	d
+OFFLOAD_SEND_SOFT_VOLUME_GAIN_MASTER	effect_api.h	/^#define OFFLOAD_SEND_SOFT_VOLUME_GAIN_MASTER /;"	d
+OFFLOAD_SEND_TRANSITION_SOFT_VOLUME_ENABLE_FLAG	effect_api.h	/^#define OFFLOAD_SEND_TRANSITION_SOFT_VOLUME_ENABLE_FLAG /;"	d
+OFFLOAD_SEND_TRANSITION_SOFT_VOLUME_GAIN_2CH	effect_api.h	/^#define OFFLOAD_SEND_TRANSITION_SOFT_VOLUME_GAIN_2CH /;"	d
+OFFLOAD_SEND_TRANSITION_SOFT_VOLUME_GAIN_MASTER	effect_api.h	/^#define OFFLOAD_SEND_TRANSITION_SOFT_VOLUME_GAIN_MASTER /;"	d
+OFFLOAD_SEND_VIRTUALIZER_ENABLE_FLAG	effect_api.h	/^#define OFFLOAD_SEND_VIRTUALIZER_ENABLE_FLAG /;"	d
+OFFLOAD_SEND_VIRTUALIZER_GAIN_ADJUST	effect_api.h	/^#define OFFLOAD_SEND_VIRTUALIZER_GAIN_ADJUST /;"	d
+OFFLOAD_SEND_VIRTUALIZER_OUT_TYPE	effect_api.h	/^#define OFFLOAD_SEND_VIRTUALIZER_OUT_TYPE /;"	d
+OFFLOAD_SEND_VIRTUALIZER_STRENGTH	effect_api.h	/^#define OFFLOAD_SEND_VIRTUALIZER_STRENGTH /;"	d
+OFFLOAD_VIRTUALIZER_H_	virtualizer.h	/^#define OFFLOAD_VIRTUALIZER_H_$/;"	d
+PBE_CONF_APP_ID	bass_boost.c	/^#define PBE_CONF_APP_ID /;"	d	file:
+PCM_DEV_ID	effect_util.h	/^#define PCM_DEV_ID /;"	d
+PRESET_CUSTOM	equalizer.h	/^#define PRESET_CUSTOM	/;"	d
+PRIMARY_HAL_PATH	volume_listener.c	/^#define PRIMARY_HAL_PATH /;"	d	file:
+PRINT_STREAM_TYPE	volume_listener.c	/^#define PRINT_STREAM_TYPE(/;"	d	file:
+RETRY_NUMBER	bundle.h	/^#define RETRY_NUMBER /;"	d
+RETRY_US	bundle.h	/^#define RETRY_US /;"	d
+REVERB_DEFAULT_PRESET	reverb.h	/^#define REVERB_DEFAULT_PRESET /;"	d
+REVERB_MAX_LATENCY	reverb.c	/^#define REVERB_MAX_LATENCY /;"	d	file:
+RING	volume_listener.c	/^    RING,$/;"	e	enum:STREAM_TYPE	file:
+SOUND_CARD	bundle.h	/^#define SOUND_CARD /;"	d
+STR	volume_listener.c	/^#define STR(/;"	d	file:
+STREAM_TYPE	volume_listener.c	/^enum STREAM_TYPE {$/;"	g	file:
+VC_CALL	volume_listener.c	/^    VC_CALL,$/;"	e	enum:STREAM_TYPE	file:
+VIRTUALIZER	effect_util.c	/^    VIRTUALIZER,$/;"	e	enum:__anonbdb78a200103	file:
+VIRUALIZER_MAX_LATENCY	virtualizer.c	/^#define VIRUALIZER_MAX_LATENCY /;"	d	file:
+VOL_FLAG	volume_listener.c	/^#define VOL_FLAG /;"	d	file:
+VOL_LISTENER_STATE_ACTIVE	volume_listener.c	/^    VOL_LISTENER_STATE_ACTIVE,$/;"	e	enum:__anon74225b530103	file:
+VOL_LISTENER_STATE_INITIALIZED	volume_listener.c	/^    VOL_LISTENER_STATE_INITIALIZED,$/;"	e	enum:__anon74225b530103	file:
+VOL_LISTENER_STATE_UNINITIALIZED	volume_listener.c	/^    VOL_LISTENER_STATE_UNINITIALIZED,$/;"	e	enum:__anon74225b530103	file:
+XSTR	volume_listener.c	/^#define XSTR(/;"	d	file:
+__anon232a80d00103	bundle.c	/^enum {$/;"	g	file:
+__anon74225b530103	volume_listener.c	/^enum {$/;"	g	file:
+__anonbdb78a200103	effect_util.c	/^enum {$/;"	g	file:
+__anonbdb78a250103	effect_util.h	/^enum {$/;"	g
+__anonbdb78a250203	effect_util.h	/^enum {$/;"	g
+__anonde4cf4fe0103	asphere.c	/^enum {$/;"	g	file:
+__anonf1d2a9050103	bass_boost.c	/^enum {$/;"	g	file:
+__anonf1d2a90a0103	bass_boost.h	/^enum {$/;"	g
+acdb_audio_cal_cfg	bass_boost.c	/^typedef struct acdb_audio_cal_cfg {$/;"	s	file:
+acdb_audio_cal_cfg_t	bass_boost.c	/^} acdb_audio_cal_cfg_t;$/;"	t	typeref:struct:acdb_audio_cal_cfg	file:
+acdb_dev_id	bass_boost.c	/^        int32_t acdb_dev_id;$/;"	m	struct:acdb_audio_cal_cfg	typeref:typename:int32_t	file:
+acdb_get_audio_cal_t	bass_boost.c	/^typedef int (*acdb_get_audio_cal_t) (void *, void *, uint32_t*);$/;"	t	typeref:typename:int (*)(void *,void *,uint32_t *)	file:
+active_index	bass_boost.h	/^    int                 active_index;$/;"	m	struct:bass_context_s	typeref:typename:int
+active_outputs_list	bundle.c	/^struct listnode active_outputs_list;$/;"	v	typeref:struct:listnode
+add_effect_to_output	bundle.c	/^void add_effect_to_output(output_context_t * output, effect_context_t *context)$/;"	f	typeref:typename:void
+android	EffectsHwAcc.cpp	/^namespace android {$/;"	n	file:
+android	EffectsHwAcc.h	/^namespace android {$/;"	n
+app_type	bass_boost.c	/^        uint32_t app_type;$/;"	m	struct:acdb_audio_cal_cfg	typeref:typename:uint32_t	file:
+asphere	asphere.c	/^static struct asphere_module asphere;$/;"	v	typeref:struct:asphere_module	file:
+asphere_create_app_notification_node	asphere.c	/^static int asphere_create_app_notification_node(void)$/;"	f	typeref:typename:int	file:
+asphere_get_parameters	asphere.c	/^void asphere_get_parameters(struct str_parms *query,$/;"	f	typeref:typename:void
+asphere_get_parameters	asphere.h	/^#define asphere_get_parameters(/;"	d
+asphere_get_values_from_mixer	asphere.c	/^static int asphere_get_values_from_mixer(void)$/;"	f	typeref:typename:int	file:
+asphere_init	asphere.c	/^static int asphere_init() {$/;"	f	typeref:typename:int	file:
+asphere_init_once	asphere.c	/^static void asphere_init_once() {$/;"	f	typeref:typename:void	file:
+asphere_module	asphere.c	/^struct asphere_module {$/;"	s	file:
+asphere_notify_app	asphere.c	/^static int asphere_notify_app(void)$/;"	f	typeref:typename:int	file:
+asphere_once	asphere.c	/^pthread_once_t asphere_once = PTHREAD_ONCE_INIT;$/;"	v	typeref:typename:pthread_once_t
+asphere_set_parameters	asphere.c	/^void asphere_set_parameters(struct str_parms *parms)$/;"	f	typeref:typename:void
+asphere_set_parameters	asphere.h	/^#define asphere_set_parameters(/;"	d
+asphere_set_values_to_mixer	asphere.c	/^static int asphere_set_values_to_mixer(void)$/;"	f	typeref:typename:int	file:
+aux_env_reverb_descriptor	reverb.c	/^const effect_descriptor_t aux_env_reverb_descriptor = {$/;"	v	typeref:typename:const effect_descriptor_t
+aux_preset_reverb_descriptor	reverb.c	/^const effect_descriptor_t aux_preset_reverb_descriptor = {$/;"	v	typeref:typename:const effect_descriptor_t
+auxiliary	reverb.h	/^    bool auxiliary;$/;"	m	struct:reverb_context_s	typeref:typename:bool
+band_levels	equalizer.h	/^    int band_levels[NUM_EQ_BANDS];$/;"	m	struct:equalizer_context_s	typeref:typename:int[]
+bass_context_s	bass_boost.h	/^typedef struct bass_context_s {$/;"	s
+bass_context_t	bass_boost.h	/^} bass_context_t;$/;"	t	typeref:struct:bass_context_s
+bass_disable	bass_boost.c	/^int bass_disable(effect_context_t *context)$/;"	f	typeref:typename:int
+bass_enable	bass_boost.c	/^int bass_enable(effect_context_t *context)$/;"	f	typeref:typename:int
+bass_get_parameter	bass_boost.c	/^int bass_get_parameter(effect_context_t *context, effect_param_t *p,$/;"	f	typeref:typename:int
+bass_init	bass_boost.c	/^int bass_init(effect_context_t *context)$/;"	f	typeref:typename:int
+bass_reset	bass_boost.c	/^int bass_reset(effect_context_t *context)$/;"	f	typeref:typename:int
+bass_set_device	bass_boost.c	/^int bass_set_device(effect_context_t *context, uint32_t device)$/;"	f	typeref:typename:int
+bass_set_mode	bass_boost.c	/^int bass_set_mode(effect_context_t *context,  int32_t hw_acc_fd)$/;"	f	typeref:typename:int
+bass_set_parameter	bass_boost.c	/^int bass_set_parameter(effect_context_t *context, effect_param_t *p,$/;"	f	typeref:typename:int
+bass_start	bass_boost.c	/^int bass_start(effect_context_t *context, output_context_t *output)$/;"	f	typeref:typename:int
+bass_stop	bass_boost.c	/^int bass_stop(effect_context_t *context, output_context_t *output)$/;"	f	typeref:typename:int
+bassboost_context_s	bass_boost.h	/^typedef struct bassboost_context_s {$/;"	s
+bassboost_context_t	bass_boost.h	/^} bassboost_context_t;$/;"	t	typeref:struct:bassboost_context_s
+bassboost_ctxt	bass_boost.h	/^    bassboost_context_t bassboost_ctxt;$/;"	m	struct:bass_context_s	typeref:typename:bassboost_context_t
+bassboost_descriptor	bass_boost.c	/^const effect_descriptor_t bassboost_descriptor = {$/;"	v	typeref:typename:const effect_descriptor_t
+bassboost_disable	bass_boost.c	/^int bassboost_disable(effect_context_t *context)$/;"	f	typeref:typename:int
+bassboost_enable	bass_boost.c	/^int bassboost_enable(effect_context_t *context)$/;"	f	typeref:typename:int
+bassboost_get_strength	bass_boost.c	/^int bassboost_get_strength(bassboost_context_t *context)$/;"	f	typeref:typename:int
+bassboost_init	bass_boost.c	/^int bassboost_init(effect_context_t *context)$/;"	f	typeref:typename:int
+bassboost_reset	bass_boost.c	/^int bassboost_reset(effect_context_t *context)$/;"	f	typeref:typename:int
+bassboost_send_params	effect_api.c	/^static int bassboost_send_params(eff_mode_t mode, void *ctl,$/;"	f	typeref:typename:int	file:
+bassboost_set_device	bass_boost.c	/^int bassboost_set_device(effect_context_t *context, uint32_t device)$/;"	f	typeref:typename:int
+bassboost_set_mode	bass_boost.c	/^int bassboost_set_mode(effect_context_t *context, int32_t hw_acc_fd)$/;"	f	typeref:typename:int
+bassboost_set_strength	bass_boost.c	/^int bassboost_set_strength(bassboost_context_t *context, uint32_t strength)$/;"	f	typeref:typename:int
+bassboost_start	bass_boost.c	/^int bassboost_start(effect_context_t *context, output_context_t *output)$/;"	f	typeref:typename:int
+bassboost_stop	bass_boost.c	/^int bassboost_stop(effect_context_t *context, output_context_t *output __unused)$/;"	f	typeref:typename:int
+cal_type	bass_boost.c	/^        uint32_t cal_type;$/;"	m	struct:acdb_audio_cal_cfg	typeref:typename:uint32_t	file:
+cfg	hw_accelerator.h	/^    struct msm_hwacc_effects_config cfg;$/;"	m	struct:hw_accelerator_context_s	typeref:struct:msm_hwacc_effects_config
+check_and_set_gain_dep_cal	volume_listener.c	/^static void check_and_set_gain_dep_cal()$/;"	f	typeref:typename:void	file:
+clamp16	volume_listener.c	/^static inline int16_t clamp16(int32_t sample)$/;"	f	typeref:typename:int16_t	file:
+command	bundle.h	/^    int (*command)(effect_context_t *context, uint32_t cmdCode, uint32_t cmdSize,$/;"	m	struct:effect_ops_s	typeref:typename:int (*)(effect_context_t * context,uint32_t cmdCode,uint32_t cmdSize,void * pCmdData,uint32_t * replySize,void * pReplyData)
+common	bass_boost.h	/^    effect_context_t    common;$/;"	m	struct:bass_context_s	typeref:typename:effect_context_t
+common	bass_boost.h	/^    effect_context_t common;$/;"	m	struct:bassboost_context_s	typeref:typename:effect_context_t
+common	bass_boost.h	/^    effect_context_t common;$/;"	m	struct:pbe_context_s	typeref:typename:effect_context_t
+common	equalizer.h	/^    effect_context_t common;$/;"	m	struct:equalizer_context_s	typeref:typename:effect_context_t
+common	hw_accelerator.h	/^    effect_context_t common;$/;"	m	struct:hw_accelerator_context_s	typeref:typename:effect_context_t
+common	reverb.h	/^    effect_context_t common;$/;"	m	struct:reverb_context_s	typeref:typename:effect_context_t
+common	virtualizer.h	/^    effect_context_t common;$/;"	m	struct:virtualizer_context_s	typeref:typename:effect_context_t
+config	bundle.h	/^    effect_config_t config;$/;"	m	struct:effect_context_s	typeref:typename:effect_config_t
+config	volume_listener.c	/^    effect_config_t config;$/;"	m	struct:vol_listener_context_s	typeref:typename:effect_config_t	file:
+create_effect_state_node	effect_util.c	/^void create_effect_state_node(int device_id)$/;"	f	typeref:typename:void
+created_effects_list	bundle.c	/^struct listnode created_effects_list;$/;"	v	typeref:struct:listnode
+ctl	bass_boost.h	/^    struct mixer_ctl *ctl;$/;"	m	struct:bassboost_context_s	typeref:struct:mixer_ctl *
+ctl	bass_boost.h	/^    struct mixer_ctl *ctl;$/;"	m	struct:pbe_context_s	typeref:struct:mixer_ctl *
+ctl	bundle.h	/^    struct mixer_ctl *ctl;$/;"	m	struct:output_context_s	typeref:struct:mixer_ctl *
+ctl	equalizer.h	/^    struct mixer_ctl *ctl;$/;"	m	struct:equalizer_context_s	typeref:struct:mixer_ctl *
+ctl	reverb.h	/^    struct mixer_ctl *ctl;$/;"	m	struct:reverb_context_s	typeref:struct:mixer_ctl *
+ctl	virtualizer.h	/^    struct mixer_ctl *ctl;$/;"	m	struct:virtualizer_context_s	typeref:struct:mixer_ctl *
+cur_preset	reverb.h	/^    uint16_t cur_preset;$/;"	m	struct:reverb_context_s	typeref:typename:uint16_t
+current_gain_dep_cal_level	volume_listener.c	/^static int current_gain_dep_cal_level = -1;$/;"	v	typeref:typename:int	file:
+current_vol	volume_listener.c	/^static float current_vol = 0.0;$/;"	v	typeref:typename:float	file:
+decayHFRatio	reverb.h	/^    int16_t     decayHFRatio;$/;"	m	struct:reverb_settings_s	typeref:typename:int16_t
+decayTime	reverb.h	/^    uint32_t    decayTime;$/;"	m	struct:reverb_settings_s	typeref:typename:uint32_t
+density	reverb.h	/^    int16_t     density;$/;"	m	struct:reverb_settings_s	typeref:typename:int16_t
+desc	bundle.h	/^    const effect_descriptor_t *desc;$/;"	m	struct:effect_context_s	typeref:typename:const effect_descriptor_t *
+desc	volume_listener.c	/^    const effect_descriptor_t *desc;$/;"	m	struct:vol_listener_context_s	typeref:typename:const effect_descriptor_t *	file:
+descriptors	bundle.c	/^const effect_descriptor_t *descriptors[] = {$/;"	v	typeref:typename:const effect_descriptor_t * []
+descriptors	volume_listener.c	/^static const effect_descriptor_t *descriptors[] = {$/;"	v	typeref:typename:const effect_descriptor_t * []	file:
+dev_id	bass_boost.c	/^        uint32_t dev_id;$/;"	m	struct:acdb_audio_cal_cfg	typeref:typename:uint32_t	file:
+dev_id	volume_listener.c	/^    uint32_t dev_id;$/;"	m	struct:vol_listener_context_s	typeref:typename:uint32_t	file:
+device	bass_boost.h	/^    uint32_t device;$/;"	m	struct:bassboost_context_s	typeref:typename:uint32_t
+device	bass_boost.h	/^    uint32_t device;$/;"	m	struct:pbe_context_s	typeref:typename:uint32_t
+device	equalizer.h	/^    uint32_t device;$/;"	m	struct:equalizer_context_s	typeref:typename:uint32_t
+device	hw_accelerator.h	/^    uint32_t device;$/;"	m	struct:hw_accelerator_context_s	typeref:typename:uint32_t
+device	reverb.h	/^    uint32_t device;$/;"	m	struct:reverb_context_s	typeref:typename:uint32_t
+device	virtualizer.h	/^    audio_devices_t device;$/;"	m	struct:virtualizer_context_s	typeref:typename:audio_devices_t
+diffusion	reverb.h	/^    int16_t     diffusion;$/;"	m	struct:reverb_settings_s	typeref:typename:int16_t
+disable	bundle.h	/^    int (*disable)(effect_context_t *context);$/;"	m	struct:effect_ops_s	typeref:typename:int (*)(effect_context_t * context)
+dump_list_l	volume_listener.c	/^static void dump_list_l()$/;"	f	typeref:typename:void	file:
+dumping_enabled	volume_listener.c	/^static bool dumping_enabled = false;$/;"	v	typeref:typename:bool	file:
+eff_mode	effect_api.c	/^typedef enum eff_mode {$/;"	g	file:
+eff_mode_t	effect_api.c	/^} eff_mode_t;$/;"	t	typeref:enum:eff_mode	file:
+effect_command	bundle.c	/^int effect_command(effect_handle_t self, uint32_t cmdCode, uint32_t cmdSize,$/;"	f	typeref:typename:int
+effect_context_s	bundle.h	/^struct effect_context_s {$/;"	s
+effect_context_t	bundle.h	/^typedef struct effect_context_s effect_context_t;$/;"	t	typeref:struct:effect_context_s
+effect_exists	bundle.c	/^bool effect_exists(effect_context_t *context)$/;"	f	typeref:typename:bool
+effect_get_descriptor	bundle.c	/^int effect_get_descriptor(effect_handle_t   self,$/;"	f	typeref:typename:int
+effect_interface	bundle.c	/^const struct effect_interface_s effect_interface = {$/;"	v	typeref:typename:const struct effect_interface_s
+effect_interface	volume_listener.c	/^static const struct effect_interface_s effect_interface = {$/;"	v	typeref:typename:const struct effect_interface_s	file:
+effect_interface	volume_listener.c	/^static const struct effect_interface_s effect_interface;$/;"	v	typeref:typename:const struct effect_interface_s	file:
+effect_is_active	bundle.c	/^bool effect_is_active(effect_context_t * ctxt) {$/;"	f	typeref:typename:bool
+effect_lib_create	bundle.c	/^int effect_lib_create(const effect_uuid_t *uuid,$/;"	f	typeref:typename:int
+effect_lib_get_descriptor	bundle.c	/^int effect_lib_get_descriptor(const effect_uuid_t *uuid,$/;"	f	typeref:typename:int
+effect_lib_release	bundle.c	/^int effect_lib_release(effect_handle_t handle)$/;"	f	typeref:typename:int
+effect_list_node	volume_listener.c	/^    struct listnode effect_list_node;$/;"	m	struct:vol_listener_context_s	typeref:struct:listnode	file:
+effect_needs_asphere_concurrency_handling	asphere.c	/^static bool effect_needs_asphere_concurrency_handling(effect_context_t *context)$/;"	f	typeref:typename:bool	file:
+effect_ops_s	bundle.h	/^struct effect_ops_s {$/;"	s
+effect_ops_t	bundle.h	/^typedef struct effect_ops_s effect_ops_t;$/;"	t	typeref:struct:effect_ops_s
+effect_process	bundle.c	/^int effect_process(effect_handle_t self,$/;"	f	typeref:typename:int
+effects_enabled	bundle.c	/^bool effects_enabled()$/;"	f	typeref:typename:bool
+effects_list	bundle.h	/^    struct listnode effects_list;$/;"	m	struct:output_context_s	typeref:struct:listnode
+effects_list_node	bundle.h	/^    struct listnode effects_list_node;$/;"	m	struct:effect_context_s	typeref:struct:listnode
+enable	bundle.h	/^    int (*enable)(effect_context_t *context);$/;"	m	struct:effect_ops_s	typeref:typename:int (*)(effect_context_t * context)
+enable_gcov	asphere.c	/^static void enable_gcov()$/;"	f	typeref:typename:void	file:
+enable_gcov	bass_boost.c	/^static void enable_gcov()$/;"	f	typeref:typename:void	file:
+enable_gcov	equalizer.c	/^void enable_gcov()$/;"	f	typeref:typename:void
+enable_gcov	hw_accelerator.c	/^static void enable_gcov()$/;"	f	typeref:typename:void	file:
+enable_gcov	reverb.c	/^static void enable_gcov()$/;"	f	typeref:typename:void	file:
+enable_gcov	virtualizer.c	/^static void enable_gcov()$/;"	f	typeref:typename:void	file:
+enable_gcov	volume_listener.c	/^static void enable_gcov()$/;"	f	typeref:typename:void	file:
+enabled	asphere.c	/^    bool enabled;$/;"	m	struct:asphere_module	typeref:typename:bool	file:
+enabled_by_client	reverb.h	/^    bool enabled_by_client;$/;"	m	struct:reverb_context_s	typeref:typename:bool
+enabled_by_client	virtualizer.h	/^    bool enabled_by_client;$/;"	m	struct:virtualizer_context_s	typeref:typename:bool
+eq_send_params	effect_api.c	/^static int eq_send_params(eff_mode_t mode, void *ctl, struct eq_params *eq,$/;"	f	typeref:typename:int	file:
+equalizer_band_freq_range	equalizer.c	/^static const uint32_t equalizer_band_freq_range[NUM_EQ_BANDS][2] = {$/;"	v	typeref:typename:const uint32_t[][2]	file:
+equalizer_band_presets_freq	equalizer.c	/^const uint16_t equalizer_band_presets_freq[NUM_EQ_BANDS] = {$/;"	v	typeref:typename:const uint16_t[]
+equalizer_band_presets_level	equalizer.c	/^static const int16_t equalizer_band_presets_level[] = {$/;"	v	typeref:typename:const int16_t[]	file:
+equalizer_context_s	equalizer.h	/^typedef struct equalizer_context_s {$/;"	s
+equalizer_context_t	equalizer.h	/^} equalizer_context_t;$/;"	t	typeref:struct:equalizer_context_s
+equalizer_descriptor	equalizer.c	/^const effect_descriptor_t equalizer_descriptor = {$/;"	v	typeref:typename:const effect_descriptor_t
+equalizer_disable	equalizer.c	/^int equalizer_disable(effect_context_t *context)$/;"	f	typeref:typename:int
+equalizer_enable	equalizer.c	/^int equalizer_enable(effect_context_t *context)$/;"	f	typeref:typename:int
+equalizer_get_band	equalizer.c	/^int equalizer_get_band(equalizer_context_t *context, uint32_t freq)$/;"	f	typeref:typename:int
+equalizer_get_band_freq_range	equalizer.c	/^int equalizer_get_band_freq_range(equalizer_context_t *context, int32_t band,$/;"	f	typeref:typename:int
+equalizer_get_band_level	equalizer.c	/^int equalizer_get_band_level(equalizer_context_t *context, int32_t band)$/;"	f	typeref:typename:int
+equalizer_get_center_frequency	equalizer.c	/^int equalizer_get_center_frequency(equalizer_context_t *context, int32_t band)$/;"	f	typeref:typename:int
+equalizer_get_num_presets	equalizer.c	/^int equalizer_get_num_presets(equalizer_context_t *context)$/;"	f	typeref:typename:int
+equalizer_get_parameter	equalizer.c	/^int equalizer_get_parameter(effect_context_t *context, effect_param_t *p,$/;"	f	typeref:typename:int
+equalizer_get_preset	equalizer.c	/^int equalizer_get_preset(equalizer_context_t *context)$/;"	f	typeref:typename:int
+equalizer_get_preset_name	equalizer.c	/^const char * equalizer_get_preset_name(equalizer_context_t *context,$/;"	f	typeref:typename:const char *
+equalizer_init	equalizer.c	/^int equalizer_init(effect_context_t *context)$/;"	f	typeref:typename:int
+equalizer_preset_names	equalizer.c	/^static const char *equalizer_preset_names[] = {$/;"	v	typeref:typename:const char * []	file:
+equalizer_reset	equalizer.c	/^int equalizer_reset(effect_context_t *context)$/;"	f	typeref:typename:int
+equalizer_set_band_level	equalizer.c	/^int equalizer_set_band_level(equalizer_context_t *context, int32_t band,$/;"	f	typeref:typename:int
+equalizer_set_device	equalizer.c	/^int equalizer_set_device(effect_context_t *context,  uint32_t device)$/;"	f	typeref:typename:int
+equalizer_set_mode	equalizer.c	/^int equalizer_set_mode(effect_context_t *context, int32_t hw_acc_fd)$/;"	f	typeref:typename:int
+equalizer_set_parameter	equalizer.c	/^int equalizer_set_parameter(effect_context_t *context, effect_param_t *p,$/;"	f	typeref:typename:int
+equalizer_set_preset	equalizer.c	/^int equalizer_set_preset(equalizer_context_t *context, int preset)$/;"	f	typeref:typename:int
+equalizer_start	equalizer.c	/^int equalizer_start(effect_context_t *context, output_context_t *output)$/;"	f	typeref:typename:int
+equalizer_stop	equalizer.c	/^int equalizer_stop(effect_context_t *context, output_context_t *output __unused)$/;"	f	typeref:typename:int
+fd	hw_accelerator.h	/^    int fd;$/;"	m	struct:hw_accelerator_context_s	typeref:typename:int
+forced_device	virtualizer.h	/^    audio_devices_t forced_device;$/;"	m	struct:virtualizer_context_s	typeref:typename:audio_devices_t
+getNextBuffer	EffectsHwAcc.cpp	/^status_t EffectsHwAcc::EffectsBufferProvider::getNextBuffer($/;"	f	class:android::EffectsHwAcc::EffectsBufferProvider	typeref:typename:status_t
+get_config	bundle.c	/^void get_config(effect_context_t *context, effect_config_t *config)$/;"	f	typeref:typename:void
+get_custom_gain_table	volume_listener.c	/^static int (*get_custom_gain_table)(struct amp_db_and_gain_table *, int);$/;"	v	typeref:typename:int (*)(struct amp_db_and_gain_table *,int)	file:
+get_output	bundle.c	/^output_context_t *get_output(audio_io_handle_t output)$/;"	f	typeref:typename:output_context_t *
+get_parameter	bundle.h	/^    int (*get_parameter)(effect_context_t *context, effect_param_t *param, uint32_t *size);$/;"	m	struct:effect_ops_s	typeref:typename:int (*)(effect_context_t * context,effect_param_t * param,uint32_t * size)
+handle	bundle.h	/^    audio_io_handle_t handle;$/;"	m	struct:output_context_s	typeref:typename:audio_io_handle_t
+handle_asphere_on_effect_enabled	asphere.c	/^void handle_asphere_on_effect_enabled(bool enable,$/;"	f	typeref:typename:void
+handle_asphere_on_effect_enabled	asphere.h	/^#define handle_asphere_on_effect_enabled(/;"	d
+hpx_send_params	effect_api.c	/^static int hpx_send_params(eff_mode_t mode, void *ctl,$/;"	f	typeref:typename:int	file:
+hw_acc_bassboost_send_params	effect_api.c	/^int hw_acc_bassboost_send_params(int fd, struct bass_boost_params *bassboost,$/;"	f	typeref:typename:int
+hw_acc_enabled	bundle.h	/^    bool hw_acc_enabled;$/;"	m	struct:effect_context_s	typeref:typename:bool
+hw_acc_eq_send_params	effect_api.c	/^int hw_acc_eq_send_params(int fd, struct eq_params *eq,$/;"	f	typeref:typename:int
+hw_acc_fd	bass_boost.h	/^    int hw_acc_fd;$/;"	m	struct:bassboost_context_s	typeref:typename:int
+hw_acc_fd	bass_boost.h	/^    int hw_acc_fd;$/;"	m	struct:pbe_context_s	typeref:typename:int
+hw_acc_fd	equalizer.h	/^    int hw_acc_fd;$/;"	m	struct:equalizer_context_s	typeref:typename:int
+hw_acc_fd	reverb.h	/^    int hw_acc_fd;$/;"	m	struct:reverb_context_s	typeref:typename:int
+hw_acc_fd	virtualizer.h	/^    int hw_acc_fd;$/;"	m	struct:virtualizer_context_s	typeref:typename:int
+hw_acc_hpx_send_params	effect_api.c	/^int hw_acc_hpx_send_params(int fd, unsigned param_send_flags)$/;"	f	typeref:typename:int
+hw_acc_pbe_send_params	effect_api.c	/^int hw_acc_pbe_send_params(int fd, struct pbe_params *pbe,$/;"	f	typeref:typename:int
+hw_acc_reverb_send_params	effect_api.c	/^int hw_acc_reverb_send_params(int fd, struct reverb_params *reverb,$/;"	f	typeref:typename:int
+hw_acc_virtualizer_send_params	effect_api.c	/^int hw_acc_virtualizer_send_params(int fd,$/;"	f	typeref:typename:int
+hw_accelerator_context_s	hw_accelerator.h	/^typedef struct hw_accelerator_context_s {$/;"	s
+hw_accelerator_context_t	hw_accelerator.h	/^} hw_accelerator_context_t;$/;"	t	typeref:struct:hw_accelerator_context_s
+hw_accelerator_descriptor	hw_accelerator.c	/^const effect_descriptor_t hw_accelerator_descriptor = {$/;"	v	typeref:typename:const effect_descriptor_t
+hw_accelerator_disable	hw_accelerator.c	/^int hw_accelerator_disable(effect_context_t *context)$/;"	f	typeref:typename:int
+hw_accelerator_enable	hw_accelerator.c	/^int hw_accelerator_enable(effect_context_t *context)$/;"	f	typeref:typename:int
+hw_accelerator_get_parameter	hw_accelerator.c	/^int hw_accelerator_get_parameter(effect_context_t *context,$/;"	f	typeref:typename:int
+hw_accelerator_init	hw_accelerator.c	/^int hw_accelerator_init(effect_context_t *context)$/;"	f	typeref:typename:int
+hw_accelerator_process	hw_accelerator.c	/^int hw_accelerator_process(effect_context_t *context, audio_buffer_t *in_buf,$/;"	f	typeref:typename:int
+hw_accelerator_release	hw_accelerator.c	/^int hw_accelerator_release(effect_context_t *context)$/;"	f	typeref:typename:int
+hw_accelerator_reset	hw_accelerator.c	/^int hw_accelerator_reset(effect_context_t *context)$/;"	f	typeref:typename:int
+hw_accelerator_set_device	hw_accelerator.c	/^int hw_accelerator_set_device(effect_context_t *context, uint32_t device)$/;"	f	typeref:typename:int
+hw_accelerator_set_mode	hw_accelerator.c	/^int hw_accelerator_set_mode(effect_context_t *context, int32_t frame_count)$/;"	f	typeref:typename:int
+hw_accelerator_set_parameter	hw_accelerator.c	/^int hw_accelerator_set_parameter(effect_context_t *context, effect_param_t *p,$/;"	f	typeref:typename:int
+init	bundle.h	/^    int (*init)(effect_context_t *context);$/;"	m	struct:effect_ops_s	typeref:typename:int (*)(effect_context_t * context)
+init_once	bundle.c	/^static void init_once() {$/;"	f	typeref:typename:void	file:
+init_once	volume_listener.c	/^static void init_once()$/;"	f	typeref:typename:void	file:
+init_status	asphere.c	/^    int init_status;$/;"	m	struct:asphere_module	typeref:typename:int	file:
+init_status	bundle.c	/^int init_status;$/;"	v	typeref:typename:int
+init_status	volume_listener.c	/^static int init_status;$/;"	v	typeref:typename:int	file:
+initialized	volume_listener.c	/^static bool initialized = false;$/;"	v	typeref:typename:bool	file:
+ins_env_reverb_descriptor	reverb.c	/^const effect_descriptor_t ins_env_reverb_descriptor = {$/;"	v	typeref:typename:const effect_descriptor_t
+ins_preset_reverb_descriptor	reverb.c	/^const effect_descriptor_t ins_preset_reverb_descriptor = {$/;"	v	typeref:typename:const effect_descriptor_t
+instance_id	bass_boost.c	/^        uint16_t instance_id;$/;"	m	struct:acdb_audio_cal_cfg	typeref:typename:uint16_t	file:
+intial_buffer_done	hw_accelerator.h	/^    bool intial_buffer_done;$/;"	m	struct:hw_accelerator_context_s	typeref:typename:bool
+itfe	bundle.h	/^    const struct effect_interface_s *itfe;$/;"	m	struct:effect_context_s	typeref:typename:const struct effect_interface_s *
+itfe	volume_listener.c	/^    const struct effect_interface_s *itfe;$/;"	m	struct:vol_listener_context_s	typeref:typename:const struct effect_interface_s *	file:
+left_vol	volume_listener.c	/^    float left_vol;$/;"	m	struct:vol_listener_context_s	typeref:typename:float	file:
+lib_init	bundle.c	/^int lib_init()$/;"	f	typeref:typename:int
+lib_init	volume_listener.c	/^static int lib_init()$/;"	f	typeref:typename:int	file:
+lock	asphere.c	/^    pthread_mutex_t lock;$/;"	m	struct:asphere_module	typeref:typename:pthread_mutex_t	file:
+lock	bundle.c	/^pthread_mutex_t lock;$/;"	v	typeref:typename:pthread_mutex_t
+mBufferProvider	EffectsHwAcc.h	/^    EffectsBufferProvider* mBufferProvider;$/;"	m	class:android::EffectsHwAcc	typeref:typename:EffectsBufferProvider *
+mEffectsConfig	EffectsHwAcc.h	/^        effect_config_t    mEffectsConfig;$/;"	m	class:android::EffectsHwAcc::EffectsBufferProvider	typeref:typename:effect_config_t
+mEffectsHandle	EffectsHwAcc.h	/^        effect_handle_t    mEffectsHandle;$/;"	m	class:android::EffectsHwAcc::EffectsBufferProvider	typeref:typename:effect_handle_t
+mEnabled	EffectsHwAcc.h	/^    bool mEnabled;$/;"	m	class:android::EffectsHwAcc	typeref:typename:bool
+mFd	EffectsHwAcc.h	/^    int32_t mFd;$/;"	m	class:android::EffectsHwAcc	typeref:typename:int32_t
+mInputBuffer	EffectsHwAcc.h	/^        void *mInputBuffer;$/;"	m	class:android::EffectsHwAcc::EffectsBufferProvider	typeref:typename:void *
+mInputBufferFrameCountOffset	EffectsHwAcc.h	/^        uint32_t mInputBufferFrameCountOffset;$/;"	m	class:android::EffectsHwAcc::EffectsBufferProvider	typeref:typename:uint32_t
+mInputSampleRate	EffectsHwAcc.h	/^    uint32_t mInputSampleRate;$/;"	m	class:android::EffectsHwAcc	typeref:typename:uint32_t
+mOutputBuffer	EffectsHwAcc.h	/^        void *mOutputBuffer;$/;"	m	class:android::EffectsHwAcc::EffectsBufferProvider	typeref:typename:void *
+mOutputSampleRate	EffectsHwAcc.h	/^    uint32_t mOutputSampleRate;$/;"	m	class:android::EffectsHwAcc	typeref:typename:uint32_t
+mTrackBufferProvider	EffectsHwAcc.h	/^        AudioBufferProvider* mTrackBufferProvider;$/;"	m	class:android::EffectsHwAcc::EffectsBufferProvider	typeref:typename:AudioBufferProvider *
+mTrackInputBufferProvider	EffectsHwAcc.h	/^        AudioBufferProvider* mTrackInputBufferProvider;$/;"	m	class:android::EffectsHwAcc::EffectsBufferProvider	typeref:typename:AudioBufferProvider *
+map_eq_opensl_preset_2_offload_preset	effect_api.c	/^const int map_eq_opensl_preset_2_offload_preset[] = {$/;"	v	typeref:typename:const int[]
+map_reverb_opensl_preset_2_offload_preset	effect_api.c	/^const int map_reverb_opensl_preset_2_offload_preset$/;"	v	typeref:typename:const int[][2]
+mixer	bundle.h	/^    struct mixer *mixer;$/;"	m	struct:output_context_s	typeref:struct:mixer *
+module_id	bass_boost.c	/^        uint32_t module_id;$/;"	m	struct:acdb_audio_cal_cfg	typeref:typename:uint32_t	file:
+next_preset	reverb.h	/^    uint16_t next_preset;$/;"	m	struct:reverb_context_s	typeref:typename:uint16_t
+offload_bass	bass_boost.h	/^    struct bass_boost_params offload_bass;$/;"	m	struct:bassboost_context_s	typeref:struct:bass_boost_params
+offload_bassboost_get_enable_flag	effect_api.c	/^int offload_bassboost_get_enable_flag(struct bass_boost_params *bassboost)$/;"	f	typeref:typename:int
+offload_bassboost_send_params	effect_api.c	/^int offload_bassboost_send_params(struct mixer_ctl *ctl,$/;"	f	typeref:typename:int
+offload_bassboost_set_device	effect_api.c	/^void offload_bassboost_set_device(struct bass_boost_params *bassboost,$/;"	f	typeref:typename:void
+offload_bassboost_set_enable_flag	effect_api.c	/^void offload_bassboost_set_enable_flag(struct bass_boost_params *bassboost,$/;"	f	typeref:typename:void
+offload_bassboost_set_mode	effect_api.c	/^void offload_bassboost_set_mode(struct bass_boost_params *bassboost,$/;"	f	typeref:typename:void
+offload_bassboost_set_strength	effect_api.c	/^void offload_bassboost_set_strength(struct bass_boost_params *bassboost,$/;"	f	typeref:typename:void
+offload_close_mixer	effect_api.c	/^void offload_close_mixer(struct mixer **mixer)$/;"	f	typeref:typename:void
+offload_effects_bundle_get_parameters	bundle.c	/^void offload_effects_bundle_get_parameters(struct str_parms *query,$/;"	f	typeref:typename:void
+offload_effects_bundle_hal_start_output	bundle.c	/^int offload_effects_bundle_hal_start_output(audio_io_handle_t output, int pcm_id, struct mixer */;"	f	typeref:typename:int
+offload_effects_bundle_hal_stop_output	bundle.c	/^int offload_effects_bundle_hal_stop_output(audio_io_handle_t output, int pcm_id)$/;"	f	typeref:typename:int
+offload_effects_bundle_set_hpx_state	bundle.c	/^int offload_effects_bundle_set_hpx_state(bool hpx_state)$/;"	f	typeref:typename:int
+offload_effects_bundle_set_parameters	bundle.c	/^void offload_effects_bundle_set_parameters(struct str_parms *parms)$/;"	f	typeref:typename:void
+offload_enabled	bundle.h	/^    bool offload_enabled;$/;"	m	struct:effect_context_s	typeref:typename:bool
+offload_eq	equalizer.h	/^    struct eq_params offload_eq;$/;"	m	struct:equalizer_context_s	typeref:struct:eq_params
+offload_eq_get_enable_flag	effect_api.c	/^int offload_eq_get_enable_flag(struct eq_params *eq)$/;"	f	typeref:typename:int
+offload_eq_send_params	effect_api.c	/^int offload_eq_send_params(struct mixer_ctl *ctl, struct eq_params *eq,$/;"	f	typeref:typename:int
+offload_eq_set_bands_level	effect_api.c	/^void offload_eq_set_bands_level(struct eq_params *eq, int num_bands,$/;"	f	typeref:typename:void
+offload_eq_set_device	effect_api.c	/^void offload_eq_set_device(struct eq_params *eq, uint32_t device)$/;"	f	typeref:typename:void
+offload_eq_set_enable_flag	effect_api.c	/^void offload_eq_set_enable_flag(struct eq_params *eq, bool enable)$/;"	f	typeref:typename:void
+offload_eq_set_preset	effect_api.c	/^void offload_eq_set_preset(struct eq_params *eq, int preset)$/;"	f	typeref:typename:void
+offload_hpx_send_params	effect_api.c	/^int offload_hpx_send_params(struct mixer_ctl *ctl, unsigned param_send_flags)$/;"	f	typeref:typename:int
+offload_pbe	bass_boost.h	/^    struct pbe_params offload_pbe;$/;"	m	struct:pbe_context_s	typeref:struct:pbe_params
+offload_pbe_get_enable_flag	effect_api.c	/^int offload_pbe_get_enable_flag(struct pbe_params *pbe)$/;"	f	typeref:typename:int
+offload_pbe_send_params	effect_api.c	/^int offload_pbe_send_params(struct mixer_ctl *ctl,$/;"	f	typeref:typename:int
+offload_pbe_set_device	effect_api.c	/^void offload_pbe_set_device(struct pbe_params *pbe,$/;"	f	typeref:typename:void
+offload_pbe_set_enable_flag	effect_api.c	/^void offload_pbe_set_enable_flag(struct pbe_params *pbe,$/;"	f	typeref:typename:void
+offload_reverb	reverb.h	/^    struct reverb_params offload_reverb;$/;"	m	struct:reverb_context_s	typeref:struct:reverb_params
+offload_reverb_get_enable_flag	effect_api.c	/^int offload_reverb_get_enable_flag(struct reverb_params *reverb)$/;"	f	typeref:typename:int
+offload_reverb_send_params	effect_api.c	/^int offload_reverb_send_params(struct mixer_ctl *ctl,$/;"	f	typeref:typename:int
+offload_reverb_set_decay_hf_ratio	effect_api.c	/^void offload_reverb_set_decay_hf_ratio(struct reverb_params *reverb,$/;"	f	typeref:typename:void
+offload_reverb_set_decay_time	effect_api.c	/^void offload_reverb_set_decay_time(struct reverb_params *reverb, int decay_time)$/;"	f	typeref:typename:void
+offload_reverb_set_delay	effect_api.c	/^void offload_reverb_set_delay(struct reverb_params *reverb, int delay)$/;"	f	typeref:typename:void
+offload_reverb_set_density	effect_api.c	/^void offload_reverb_set_density(struct reverb_params *reverb, int density)$/;"	f	typeref:typename:void
+offload_reverb_set_device	effect_api.c	/^void offload_reverb_set_device(struct reverb_params *reverb, uint32_t device)$/;"	f	typeref:typename:void
+offload_reverb_set_diffusion	effect_api.c	/^void offload_reverb_set_diffusion(struct reverb_params *reverb, int diffusion)$/;"	f	typeref:typename:void
+offload_reverb_set_enable_flag	effect_api.c	/^void offload_reverb_set_enable_flag(struct reverb_params *reverb, bool enable)$/;"	f	typeref:typename:void
+offload_reverb_set_gain_adjust	effect_api.c	/^void offload_reverb_set_gain_adjust(struct reverb_params *reverb,$/;"	f	typeref:typename:void
+offload_reverb_set_mode	effect_api.c	/^void offload_reverb_set_mode(struct reverb_params *reverb, int mode)$/;"	f	typeref:typename:void
+offload_reverb_set_preset	effect_api.c	/^void offload_reverb_set_preset(struct reverb_params *reverb, int preset)$/;"	f	typeref:typename:void
+offload_reverb_set_reflections_delay	effect_api.c	/^void offload_reverb_set_reflections_delay(struct reverb_params *reverb,$/;"	f	typeref:typename:void
+offload_reverb_set_reflections_level	effect_api.c	/^void offload_reverb_set_reflections_level(struct reverb_params *reverb,$/;"	f	typeref:typename:void
+offload_reverb_set_reverb_level	effect_api.c	/^void offload_reverb_set_reverb_level(struct reverb_params *reverb,$/;"	f	typeref:typename:void
+offload_reverb_set_room_hf_level	effect_api.c	/^void offload_reverb_set_room_hf_level(struct reverb_params *reverb,$/;"	f	typeref:typename:void
+offload_reverb_set_room_level	effect_api.c	/^void offload_reverb_set_room_level(struct reverb_params *reverb, int room_level)$/;"	f	typeref:typename:void
+offload_reverb_set_wet_mix	effect_api.c	/^void offload_reverb_set_wet_mix(struct reverb_params *reverb, int wet_mix)$/;"	f	typeref:typename:void
+offload_soft_volume_send_params	effect_api.c	/^int offload_soft_volume_send_params(struct mixer_ctl *ctl,$/;"	f	typeref:typename:int
+offload_soft_volume_set_enable	effect_api.c	/^void offload_soft_volume_set_enable(struct soft_volume_params *vol, bool enable)$/;"	f	typeref:typename:void
+offload_soft_volume_set_gain_2ch	effect_api.c	/^void offload_soft_volume_set_gain_2ch(struct soft_volume_params *vol,$/;"	f	typeref:typename:void
+offload_soft_volume_set_gain_master	effect_api.c	/^void offload_soft_volume_set_gain_master(struct soft_volume_params *vol, int gain)$/;"	f	typeref:typename:void
+offload_transition_soft_volume_send_params	effect_api.c	/^int offload_transition_soft_volume_send_params(struct mixer_ctl *ctl,$/;"	f	typeref:typename:int
+offload_transition_soft_volume_set_enable	effect_api.c	/^void offload_transition_soft_volume_set_enable(struct soft_volume_params *vol,$/;"	f	typeref:typename:void
+offload_transition_soft_volume_set_gain_2ch	effect_api.c	/^void offload_transition_soft_volume_set_gain_2ch(struct soft_volume_params *vol,$/;"	f	typeref:typename:void
+offload_transition_soft_volume_set_gain_master	effect_api.c	/^void offload_transition_soft_volume_set_gain_master(struct soft_volume_params *vol,$/;"	f	typeref:typename:void
+offload_update_mixer_and_effects_ctl	effect_api.c	/^int offload_update_mixer_and_effects_ctl(int card, int device_id,$/;"	f	typeref:typename:int
+offload_virt	virtualizer.h	/^    struct virtualizer_params offload_virt;$/;"	m	struct:virtualizer_context_s	typeref:struct:virtualizer_params
+offload_virtualizer_get_enable_flag	effect_api.c	/^int offload_virtualizer_get_enable_flag(struct virtualizer_params *virtualizer)$/;"	f	typeref:typename:int
+offload_virtualizer_send_params	effect_api.c	/^int offload_virtualizer_send_params(struct mixer_ctl *ctl,$/;"	f	typeref:typename:int
+offload_virtualizer_set_device	effect_api.c	/^void offload_virtualizer_set_device(struct virtualizer_params *virtualizer,$/;"	f	typeref:typename:void
+offload_virtualizer_set_enable_flag	effect_api.c	/^void offload_virtualizer_set_enable_flag(struct virtualizer_params *virtualizer,$/;"	f	typeref:typename:void
+offload_virtualizer_set_gain_adjust	effect_api.c	/^void offload_virtualizer_set_gain_adjust(struct virtualizer_params *virtualizer,$/;"	f	typeref:typename:void
+offload_virtualizer_set_out_type	effect_api.c	/^void offload_virtualizer_set_out_type(struct virtualizer_params *virtualizer,$/;"	f	typeref:typename:void
+offload_virtualizer_set_strength	effect_api.c	/^void offload_virtualizer_set_strength(struct virtualizer_params *virtualizer,$/;"	f	typeref:typename:void
+once	bundle.c	/^pthread_once_t once = PTHREAD_ONCE_INIT;$/;"	v	typeref:typename:pthread_once_t
+once	volume_listener.c	/^pthread_once_t once = PTHREAD_ONCE_INIT;$/;"	v	typeref:typename:pthread_once_t
+ops	bundle.h	/^    effect_ops_t ops;$/;"	m	struct:effect_context_s	typeref:typename:effect_ops_t
+out_handle	bundle.h	/^    audio_io_handle_t out_handle;$/;"	m	struct:effect_context_s	typeref:typename:audio_io_handle_t
+output_context_s	bundle.h	/^struct output_context_s {$/;"	s
+output_context_t	bundle.h	/^typedef struct output_context_s output_context_t;$/;"	t	typeref:struct:output_context_s
+output_node	bundle.h	/^    struct listnode output_node;$/;"	m	struct:effect_context_s	typeref:struct:listnode
+outputs_list_node	bundle.h	/^    struct listnode outputs_list_node;$/;"	m	struct:output_context_s	typeref:struct:listnode
+paramList	effect_util.c	/^static const char *paramList[10] = {$/;"	v	typeref:typename:const char * [10]	file:
+param_id	bass_boost.c	/^        uint32_t param_id;$/;"	m	struct:acdb_audio_cal_cfg	typeref:typename:uint32_t	file:
+pbe_context_s	bass_boost.h	/^typedef struct pbe_context_s {$/;"	s
+pbe_context_t	bass_boost.h	/^} pbe_context_t;$/;"	t	typeref:struct:pbe_context_s
+pbe_ctxt	bass_boost.h	/^    pbe_context_t       pbe_ctxt;$/;"	m	struct:bass_context_s	typeref:typename:pbe_context_t
+pbe_disable	bass_boost.c	/^int pbe_disable(effect_context_t *context)$/;"	f	typeref:typename:int
+pbe_enable	bass_boost.c	/^int pbe_enable(effect_context_t *context)$/;"	f	typeref:typename:int
+pbe_init	bass_boost.c	/^int pbe_init(effect_context_t *context)$/;"	f	typeref:typename:int
+pbe_load_config	bass_boost.c	/^static int pbe_load_config(struct pbe_params *params)$/;"	f	typeref:typename:int	file:
+pbe_reset	bass_boost.c	/^int pbe_reset(effect_context_t *context)$/;"	f	typeref:typename:int
+pbe_send_params	effect_api.c	/^static int pbe_send_params(eff_mode_t mode, void *ctl,$/;"	f	typeref:typename:int	file:
+pbe_set_device	bass_boost.c	/^int pbe_set_device(effect_context_t *context, uint32_t device)$/;"	f	typeref:typename:int
+pbe_set_mode	bass_boost.c	/^int pbe_set_mode(effect_context_t *context, int32_t hw_acc_fd)$/;"	f	typeref:typename:int
+pbe_start	bass_boost.c	/^int pbe_start(effect_context_t *context, output_context_t *output)$/;"	f	typeref:typename:int
+pbe_stop	bass_boost.c	/^int pbe_stop(effect_context_t *context, output_context_t *output  __unused)$/;"	f	typeref:typename:int
+pcm_device_id	bundle.h	/^    int pcm_device_id;$/;"	m	struct:output_context_s	typeref:typename:int
+persist	bass_boost.c	/^        uint32_t persist;$/;"	m	struct:acdb_audio_cal_cfg	typeref:typename:uint32_t	file:
+prepareEffects	EffectsHwAcc.cpp	/^status_t EffectsHwAcc::prepareEffects(AudioBufferProvider **inputBufferProvider,$/;"	f	class:android::EffectsHwAcc	typeref:typename:status_t
+preset	equalizer.h	/^    int preset;$/;"	m	struct:equalizer_context_s	typeref:typename:int
+preset	reverb.h	/^    bool preset;$/;"	m	struct:reverb_context_s	typeref:typename:bool
+process	bundle.h	/^    int (*process)(effect_context_t *context, audio_buffer_t *in, audio_buffer_t *out);$/;"	m	struct:effect_ops_s	typeref:typename:int (*)(effect_context_t * context,audio_buffer_t * in,audio_buffer_t * out)
+ref_ctl	bundle.h	/^    struct mixer_ctl *ref_ctl;$/;"	m	struct:output_context_s	typeref:struct:mixer_ctl *
+reflectionsDelay	reverb.h	/^    uint32_t    reflectionsDelay;$/;"	m	struct:reverb_settings_s	typeref:typename:uint32_t
+reflectionsLevel	reverb.h	/^    int16_t     reflectionsLevel;$/;"	m	struct:reverb_settings_s	typeref:typename:int16_t
+release	bundle.h	/^    int (*release)(effect_context_t *context);$/;"	m	struct:effect_ops_s	typeref:typename:int (*)(effect_context_t * context)
+releaseBuffer	EffectsHwAcc.cpp	/^void EffectsHwAcc::EffectsBufferProvider::releaseBuffer($/;"	f	class:android::EffectsHwAcc::EffectsBufferProvider	typeref:typename:void
+remove_effect_from_output	bundle.c	/^void remove_effect_from_output(output_context_t * output,$/;"	f	typeref:typename:void
+remove_effect_state_node	effect_util.c	/^void remove_effect_state_node(int device_id)$/;"	f	typeref:typename:void
+reserved	bass_boost.c	/^        uint16_t reserved;$/;"	m	struct:acdb_audio_cal_cfg	typeref:typename:uint16_t	file:
+reset	bundle.h	/^    int (*reset)(effect_context_t *context);$/;"	m	struct:effect_ops_s	typeref:typename:int (*)(effect_context_t * context)
+reverbDelay	reverb.h	/^    uint32_t    reverbDelay;$/;"	m	struct:reverb_settings_s	typeref:typename:uint32_t
+reverbLevel	reverb.h	/^    int16_t     reverbLevel;$/;"	m	struct:reverb_settings_s	typeref:typename:int16_t
+reverb_auxiliary_init	reverb.c	/^void reverb_auxiliary_init(reverb_context_t *context)$/;"	f	typeref:typename:void
+reverb_context_s	reverb.h	/^typedef struct reverb_context_s {$/;"	s
+reverb_context_t	reverb.h	/^} reverb_context_t;$/;"	t	typeref:struct:reverb_context_s
+reverb_disable	reverb.c	/^int reverb_disable(effect_context_t *context)$/;"	f	typeref:typename:int
+reverb_enable	reverb.c	/^int reverb_enable(effect_context_t *context)$/;"	f	typeref:typename:int
+reverb_get_decay_hf_ratio	reverb.c	/^int16_t reverb_get_decay_hf_ratio(reverb_context_t *context)$/;"	f	typeref:typename:int16_t
+reverb_get_decay_time	reverb.c	/^uint32_t reverb_get_decay_time(reverb_context_t *context)$/;"	f	typeref:typename:uint32_t
+reverb_get_density	reverb.c	/^int16_t reverb_get_density(reverb_context_t *context)$/;"	f	typeref:typename:int16_t
+reverb_get_diffusion	reverb.c	/^int16_t reverb_get_diffusion(reverb_context_t *context)$/;"	f	typeref:typename:int16_t
+reverb_get_parameter	reverb.c	/^int reverb_get_parameter(effect_context_t *context, effect_param_t *p,$/;"	f	typeref:typename:int
+reverb_get_reflections_delay	reverb.c	/^uint32_t reverb_get_reflections_delay(reverb_context_t *context)$/;"	f	typeref:typename:uint32_t
+reverb_get_reflections_level	reverb.c	/^int16_t reverb_get_reflections_level(reverb_context_t *context)$/;"	f	typeref:typename:int16_t
+reverb_get_reverb_delay	reverb.c	/^uint32_t reverb_get_reverb_delay(reverb_context_t *context)$/;"	f	typeref:typename:uint32_t
+reverb_get_reverb_level	reverb.c	/^int16_t reverb_get_reverb_level(reverb_context_t *context)$/;"	f	typeref:typename:int16_t
+reverb_get_room_hf_level	reverb.c	/^int16_t reverb_get_room_hf_level(reverb_context_t *context)$/;"	f	typeref:typename:int16_t
+reverb_get_room_level	reverb.c	/^int16_t reverb_get_room_level(reverb_context_t *context)$/;"	f	typeref:typename:int16_t
+reverb_init	reverb.c	/^int reverb_init(effect_context_t *context)$/;"	f	typeref:typename:int
+reverb_insert_init	reverb.c	/^void reverb_insert_init(reverb_context_t *context)$/;"	f	typeref:typename:void
+reverb_load_preset	reverb.c	/^void reverb_load_preset(reverb_context_t *context)$/;"	f	typeref:typename:void
+reverb_preset_init	reverb.c	/^void reverb_preset_init(reverb_context_t *context)$/;"	f	typeref:typename:void
+reverb_presets	reverb.c	/^static const reverb_settings_t reverb_presets[] = {$/;"	v	typeref:typename:const reverb_settings_t[]	file:
+reverb_reset	reverb.c	/^int reverb_reset(effect_context_t *context)$/;"	f	typeref:typename:int
+reverb_send_params	effect_api.c	/^static int reverb_send_params(eff_mode_t mode, void *ctl,$/;"	f	typeref:typename:int	file:
+reverb_set_all_properties	reverb.c	/^void reverb_set_all_properties(reverb_context_t *context,$/;"	f	typeref:typename:void
+reverb_set_decay_hf_ratio	reverb.c	/^void reverb_set_decay_hf_ratio(reverb_context_t *context, int16_t decay_hf_ratio)$/;"	f	typeref:typename:void
+reverb_set_decay_time	reverb.c	/^void reverb_set_decay_time(reverb_context_t *context, uint32_t decay_time)$/;"	f	typeref:typename:void
+reverb_set_density	reverb.c	/^void reverb_set_density(reverb_context_t *context, int16_t density)$/;"	f	typeref:typename:void
+reverb_set_device	reverb.c	/^int reverb_set_device(effect_context_t *context, uint32_t device)$/;"	f	typeref:typename:int
+reverb_set_diffusion	reverb.c	/^void reverb_set_diffusion(reverb_context_t *context, int16_t diffusion)$/;"	f	typeref:typename:void
+reverb_set_mode	reverb.c	/^int reverb_set_mode(effect_context_t *context, int32_t hw_acc_fd)$/;"	f	typeref:typename:int
+reverb_set_parameter	reverb.c	/^int reverb_set_parameter(effect_context_t *context, effect_param_t *p,$/;"	f	typeref:typename:int
+reverb_set_preset	reverb.c	/^void reverb_set_preset(reverb_context_t *context, int16_t preset)$/;"	f	typeref:typename:void
+reverb_set_reflections_delay	reverb.c	/^void reverb_set_reflections_delay(reverb_context_t *context, uint32_t delay)$/;"	f	typeref:typename:void
+reverb_set_reflections_level	reverb.c	/^void reverb_set_reflections_level(reverb_context_t *context, int16_t level)$/;"	f	typeref:typename:void
+reverb_set_reverb_delay	reverb.c	/^void reverb_set_reverb_delay(reverb_context_t *context, uint32_t delay)$/;"	f	typeref:typename:void
+reverb_set_reverb_level	reverb.c	/^void reverb_set_reverb_level(reverb_context_t *context, int16_t reverb_level)$/;"	f	typeref:typename:void
+reverb_set_room_hf_level	reverb.c	/^void reverb_set_room_hf_level(reverb_context_t *context, int16_t room_hf_level)$/;"	f	typeref:typename:void
+reverb_set_room_level	reverb.c	/^void reverb_set_room_level(reverb_context_t *context, int16_t room_level)$/;"	f	typeref:typename:void
+reverb_settings	reverb.h	/^    reverb_settings_t reverb_settings;$/;"	m	struct:reverb_context_s	typeref:typename:reverb_settings_t
+reverb_settings_s	reverb.h	/^typedef struct reverb_settings_s {$/;"	s
+reverb_settings_t	reverb.h	/^}  __attribute__((packed)) reverb_settings_t;$/;"	t	typeref:struct:reverb_settings_s
+reverb_start	reverb.c	/^int reverb_start(effect_context_t *context, output_context_t *output)$/;"	f	typeref:typename:int
+reverb_stop	reverb.c	/^int reverb_stop(effect_context_t *context, output_context_t *output __unused)$/;"	f	typeref:typename:int
+right_vol	volume_listener.c	/^    float right_vol;$/;"	m	struct:vol_listener_context_s	typeref:typename:float	file:
+roomHFLevel	reverb.h	/^    int16_t     roomHFLevel;$/;"	m	struct:reverb_settings_s	typeref:typename:int16_t
+roomLevel	reverb.h	/^    int16_t     roomLevel;$/;"	m	struct:reverb_settings_s	typeref:typename:int16_t
+sampling_rate	bass_boost.c	/^        uint32_t sampling_rate;$/;"	m	struct:acdb_audio_cal_cfg	typeref:typename:uint32_t	file:
+send_gain_dep_cal	volume_listener.c	/^static bool (*send_gain_dep_cal)(int);$/;"	v	typeref:typename:bool (*)(int)	file:
+session_id	volume_listener.c	/^    uint32_t session_id;$/;"	m	struct:vol_listener_context_s	typeref:typename:uint32_t	file:
+setBufferProvider	EffectsHwAcc.cpp	/^void EffectsHwAcc::setBufferProvider(AudioBufferProvider **trackInputBufferProvider,$/;"	f	class:android::EffectsHwAcc	typeref:typename:void
+setSampleRate	EffectsHwAcc.cpp	/^void EffectsHwAcc::setSampleRate(uint32_t inpSR, uint32_t outSR)$/;"	f	class:android::EffectsHwAcc	typeref:typename:void
+set_config	bundle.c	/^int set_config(effect_context_t *context, effect_config_t *config)$/;"	f	typeref:typename:int
+set_device	bundle.h	/^    int (*set_device)(effect_context_t *context, uint32_t device);$/;"	m	struct:effect_ops_s	typeref:typename:int (*)(effect_context_t * context,uint32_t device)
+set_hw_acc_mode	bundle.h	/^    int (*set_hw_acc_mode)(effect_context_t *context, int32_t value);$/;"	m	struct:effect_ops_s	typeref:typename:int (*)(effect_context_t * context,int32_t value)
+set_parameter	bundle.h	/^    int (*set_parameter)(effect_context_t *context, effect_param_t *param, uint32_t size);$/;"	m	struct:effect_ops_s	typeref:typename:int (*)(effect_context_t * context,effect_param_t * param,uint32_t size)
+snd_dev_id	bass_boost.c	/^        uint32_t snd_dev_id;$/;"	m	struct:acdb_audio_cal_cfg	typeref:typename:uint32_t	file:
+start	bundle.h	/^    int (*start)(effect_context_t *context, output_context_t *output);$/;"	m	struct:effect_ops_s	typeref:typename:int (*)(effect_context_t * context,output_context_t * output)
+state	bundle.h	/^    uint32_t state;$/;"	m	struct:effect_context_s	typeref:typename:uint32_t
+state	volume_listener.c	/^    uint32_t state;$/;"	m	struct:vol_listener_context_s	typeref:typename:uint32_t	file:
+status	asphere.c	/^    int status;$/;"	m	struct:asphere_module	typeref:typename:int	file:
+stop	bundle.h	/^    int (*stop)(effect_context_t *context, output_context_t *output);$/;"	m	struct:effect_ops_s	typeref:typename:int (*)(effect_context_t * context,output_context_t * output)
+stream_type	volume_listener.c	/^    uint32_t stream_type;$/;"	m	struct:vol_listener_context_s	typeref:typename:uint32_t	file:
+strength	asphere.c	/^    int strength;$/;"	m	struct:asphere_module	typeref:typename:int	file:
+strength	bass_boost.h	/^    int strength;$/;"	m	struct:bassboost_context_s	typeref:typename:int
+strength	virtualizer.h	/^    int strength;$/;"	m	struct:virtualizer_context_s	typeref:typename:int
+temp_disabled	bass_boost.h	/^    bool temp_disabled;$/;"	m	struct:bassboost_context_s	typeref:typename:bool
+temp_disabled	bass_boost.h	/^    bool temp_disabled;$/;"	m	struct:pbe_context_s	typeref:typename:bool
+temp_disabled	virtualizer.h	/^    bool temp_disabled;$/;"	m	struct:virtualizer_context_s	typeref:typename:bool
+topo_id	bass_boost.c	/^        uint32_t topo_id;$/;"	m	struct:acdb_audio_cal_cfg	typeref:typename:uint32_t	file:
+total_volume_cal_step	volume_listener.c	/^static int total_volume_cal_step = MAX_GAIN_LEVELS;$/;"	v	typeref:typename:int	file:
+unprepareEffects	EffectsHwAcc.cpp	/^void EffectsHwAcc::unprepareEffects(AudioBufferProvider **bufferProvider)$/;"	f	class:android::EffectsHwAcc	typeref:typename:void
+updateHPXState	EffectsHwAcc.cpp	/^void EffectsHwAcc::updateHPXState(uint32_t state)$/;"	f	class:android::EffectsHwAcc	typeref:typename:void
+update_effects_node	effect_util.c	/^void update_effects_node(int device_id, int effect_type, int enable_or_set, int enable_disable, /;"	f	typeref:typename:void
+verify_context	volume_listener.c	/^static bool verify_context(vol_listener_context_t *context)$/;"	f	typeref:typename:bool	file:
+virtualizer_context_s	virtualizer.h	/^typedef struct virtualizer_context_s {$/;"	s
+virtualizer_context_t	virtualizer.h	/^} virtualizer_context_t;$/;"	t	typeref:struct:virtualizer_context_s
+virtualizer_descriptor	virtualizer.c	/^const effect_descriptor_t virtualizer_descriptor = {$/;"	v	typeref:typename:const effect_descriptor_t
+virtualizer_disable	virtualizer.c	/^int virtualizer_disable(effect_context_t *context)$/;"	f	typeref:typename:int
+virtualizer_enable	virtualizer.c	/^int virtualizer_enable(effect_context_t *context)$/;"	f	typeref:typename:int
+virtualizer_force_virtualization_mode	virtualizer.c	/^int virtualizer_force_virtualization_mode(virtualizer_context_t *context,$/;"	f	typeref:typename:int
+virtualizer_get_parameter	virtualizer.c	/^int virtualizer_get_parameter(effect_context_t *context, effect_param_t *p,$/;"	f	typeref:typename:int
+virtualizer_get_speaker_angles	virtualizer.c	/^void virtualizer_get_speaker_angles(audio_channel_mask_t channel_mask __unused,$/;"	f	typeref:typename:void
+virtualizer_get_strength	virtualizer.c	/^int virtualizer_get_strength(virtualizer_context_t *context)$/;"	f	typeref:typename:int
+virtualizer_get_virtualization_mode	virtualizer.c	/^audio_devices_t virtualizer_get_virtualization_mode(virtualizer_context_t *context) {$/;"	f	typeref:typename:audio_devices_t
+virtualizer_init	virtualizer.c	/^int virtualizer_init(effect_context_t *context)$/;"	f	typeref:typename:int
+virtualizer_is_configuration_supported	virtualizer.c	/^bool virtualizer_is_configuration_supported(audio_channel_mask_t channel_mask,$/;"	f	typeref:typename:bool
+virtualizer_is_device_supported	virtualizer.c	/^bool virtualizer_is_device_supported(audio_devices_t device) {$/;"	f	typeref:typename:bool
+virtualizer_reset	virtualizer.c	/^int virtualizer_reset(effect_context_t *context)$/;"	f	typeref:typename:int
+virtualizer_send_params	effect_api.c	/^static int virtualizer_send_params(eff_mode_t mode, void *ctl,$/;"	f	typeref:typename:int	file:
+virtualizer_set_device	virtualizer.c	/^int virtualizer_set_device(effect_context_t *context, uint32_t device)$/;"	f	typeref:typename:int
+virtualizer_set_mode	virtualizer.c	/^int virtualizer_set_mode(effect_context_t *context, int32_t hw_acc_fd)$/;"	f	typeref:typename:int
+virtualizer_set_parameter	virtualizer.c	/^int virtualizer_set_parameter(effect_context_t *context, effect_param_t *p,$/;"	f	typeref:typename:int
+virtualizer_set_strength	virtualizer.c	/^int virtualizer_set_strength(virtualizer_context_t *context, uint32_t strength)$/;"	f	typeref:typename:int
+virtualizer_start	virtualizer.c	/^int virtualizer_start(effect_context_t *context, output_context_t *output)$/;"	f	typeref:typename:int
+virtualizer_stop	virtualizer.c	/^int virtualizer_stop(effect_context_t *context, output_context_t *output __unused)$/;"	f	typeref:typename:int
+vol_effect_command	volume_listener.c	/^static int vol_effect_command(effect_handle_t self,$/;"	f	typeref:typename:int	file:
+vol_effect_get_descriptor	volume_listener.c	/^static int vol_effect_get_descriptor(effect_handle_t   self,$/;"	f	typeref:typename:int	file:
+vol_effect_list	volume_listener.c	/^struct listnode vol_effect_list;$/;"	v	typeref:struct:listnode
+vol_effect_process	volume_listener.c	/^static int vol_effect_process(effect_handle_t self,$/;"	f	typeref:typename:int	file:
+vol_listener_alarm_descriptor	volume_listener.c	/^const effect_descriptor_t vol_listener_alarm_descriptor = {$/;"	v	typeref:typename:const effect_descriptor_t
+vol_listener_context_s	volume_listener.c	/^struct vol_listener_context_s {$/;"	s	file:
+vol_listener_context_t	volume_listener.c	/^typedef struct vol_listener_context_s vol_listener_context_t;$/;"	t	typeref:struct:vol_listener_context_s	file:
+vol_listener_music_descriptor	volume_listener.c	/^const effect_descriptor_t vol_listener_music_descriptor = {$/;"	v	typeref:typename:const effect_descriptor_t
+vol_listener_notification_descriptor	volume_listener.c	/^const effect_descriptor_t vol_listener_notification_descriptor = {$/;"	v	typeref:typename:const effect_descriptor_t
+vol_listener_ring_descriptor	volume_listener.c	/^const effect_descriptor_t vol_listener_ring_descriptor = {$/;"	v	typeref:typename:const effect_descriptor_t
+vol_listener_voice_call_descriptor	volume_listener.c	/^const effect_descriptor_t vol_listener_voice_call_descriptor = {$/;"	v	typeref:typename:const effect_descriptor_t
+vol_listner_init_lock	volume_listener.c	/^pthread_mutex_t vol_listner_init_lock;$/;"	v	typeref:typename:pthread_mutex_t
+vol_prc_lib_create	volume_listener.c	/^static int vol_prc_lib_create(const effect_uuid_t *uuid,$/;"	f	typeref:typename:int	file:
+vol_prc_lib_get_descriptor	volume_listener.c	/^static int vol_prc_lib_get_descriptor(const effect_uuid_t *uuid,$/;"	f	typeref:typename:int	file:
+vol_prc_lib_release	volume_listener.c	/^static int vol_prc_lib_release(effect_handle_t handle)$/;"	f	typeref:typename:int	file:
+volume_curve_gain_mapping_table	volume_listener.c	/^struct amp_db_and_gain_table  volume_curve_gain_mapping_table[MAX_VOLUME_CAL_STEPS] = {$/;"	v	typeref:struct:amp_db_and_gain_table[]
+~EffectsBufferProvider	EffectsHwAcc.cpp	/^EffectsHwAcc::EffectsBufferProvider::~EffectsBufferProvider()$/;"	f	class:android::EffectsHwAcc::EffectsBufferProvider
+~EffectsHwAcc	EffectsHwAcc.cpp	/^EffectsHwAcc::~EffectsHwAcc()$/;"	f	class:android::EffectsHwAcc

@@ -19,10 +19,10 @@
 set -e
 
 # Required!
-DEVICE=mido
-VENDOR=xiaomi
+DEVICE=m1721
+VENDOR=meizu
 
-INITIAL_COPYRIGHT_YEAR=2017
+INITIAL_COPYRIGHT_YEAR=2018
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"

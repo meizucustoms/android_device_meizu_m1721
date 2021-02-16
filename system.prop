@@ -1,5 +1,5 @@
 #
-# system.prop for mido
+# system.prop for m1721
 #
 
 rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
