@@ -127,6 +127,18 @@ on boot
     # Create hvdcp_opti directory
     mkdir /mnt/vendor/persist/hvdcp_opti 0770 root system
 
+    # Speaker calibration stored in proinfo (by-num: 51)
+    chmod 777 /dev/block/mmcblk0p51
+    chown root system /dev/block/mmcblk0p51
+
+    # Opalum files
+    chown root audio /sys/devices/system/opsl-cali/opsl-cali0/count
+    chmod 0660 /sys/devices/system/opsl-cali/opsl-cali0/count
+    chown root audio /sys/devices/system/opsl-cali/opsl-cali0/ambient
+    chmod 0660 /sys/devices/system/opsl-cali/opsl-cali0/ambient
+    chown root audio /sys/devices/system/opsl-cali/opsl-cali0/temp-acc
+    chmod 0660 /sys/devices/system/opsl-cali/opsl-cali0/temp-acc
+
 # msm specific files that need to be created on /data
 on post-fs-data
     mkdir /data/vendor/misc 01771 system system

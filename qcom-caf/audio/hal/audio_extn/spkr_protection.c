@@ -42,7 +42,6 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <dlfcn.h>
-#include <math.h>
 #include <unistd.h>
 #include <pthread.h>
 #include <cutils/properties.h>
@@ -215,7 +214,7 @@ struct speaker_prot_session {
 };
 
 static struct pcm_config pcm_config_skr_prot = {
-    .channels = 4,
+    .channels = 2,
     .rate = 48000,
     .period_size = 256,
     .period_count = 4,
@@ -1970,7 +1969,7 @@ static int cirrus_get_calibration_data(int temp_acc, int count, int ambient) {
     }
 
     ret = fread(speaker_data, sizeof(char), 30, fp);
-    if (ret != 30) {
+    if (ret > 30) {
         ALOGE("%s: CRUS_PROT: Failed to read speaker calibration data (ret %d != 30)", __func__, ret);
         return ret;
     }
@@ -2000,26 +1999,36 @@ static void* cirrus_opalum_update()
     if (ret) {
         ALOGE("%s: CRUS_PROT: failed to get speaker calibration data", __func__);
     } else {
-        fp = fopen(SPEAKER_OPALUM_PATH "temp-acc", "w");
-        if (!fp)
+        fp = fopen(SPEAKER_OPALUM_PATH "temp-acc", "wb");
+        if (!fp) {
+            ALOGE("%s: CRUS_PROT: failed %d", __func__, __LINE__);
+            pthread_exit(0);
             return NULL;
+        }
         fprintf(fp, "%d", temp_acc);
-        fclose(fp); 
+        fclose(fp);
 
-        fp = fopen(SPEAKER_OPALUM_PATH "count", "w");
-        if (!fp)
+        fp = fopen(SPEAKER_OPALUM_PATH "count", "wb");
+        if (!fp) {
+            ALOGE("%s: CRUS_PROT: failed %d", __func__, __LINE__);
+            pthread_exit(0);
             return NULL;
+        }
         fprintf(fp, "%d", 16);
         fclose(fp);
        
-        fp = fopen(SPEAKER_OPALUM_PATH "ambient", "w");
-        if (!fp)
+        fp = fopen(SPEAKER_OPALUM_PATH "ambient", "wb");
+        if (!fp) {
+            ALOGE("%s: CRUS_PROT: failed %d", __func__, __LINE__);
+            pthread_exit(0);
             return NULL;
+        }
         fprintf(fp, "%d", ambient);
         fclose(fp);
     }
     ALOGI("%s: CRUS_PROT: Exit", __func__);
 
+    pthread_exit(0);
     return NULL;
 }
 
@@ -2249,10 +2258,10 @@ int audio_extn_spkr_prot_start_processing(snd_device_t snd_device)
         ALOGE("%s: Invalid sound device returned", __func__);
         return -EINVAL;
     }
-    ALOGD("%s: spkr snd_device(%d: %s)", __func__, snd_device,
-           device_name);
     audio_route_apply_and_update_path(adev->audio_route,
            device_name);
+
+
 
     pthread_mutex_lock(&handle.mutex_spkr_prot);
     if (handle.spkr_processing_state == SPKR_PROCESSING_IN_IDLE) {
@@ -2272,11 +2281,16 @@ int audio_extn_spkr_prot_start_processing(snd_device_t snd_device)
             ret = -ENODEV;
             goto exit;
         }
+
+        ALOGD("%s: spkr snd_device(%d: %s) pcm_dev_tx_id=%d", __func__, snd_device,
+           device_name, pcm_dev_tx_id);
+
         handle.pcm_tx = pcm_open(adev->snd_card,
                                  pcm_dev_tx_id,
                                  PCM_IN, &pcm_config_skr_prot);
         if (handle.pcm_tx && !pcm_is_ready(handle.pcm_tx)) {
-            ALOGE("%s: %s", __func__, pcm_get_error(handle.pcm_tx));
+            ALOGE("%s: snd_device(%d: %s): %s", __func__, snd_device,
+           device_name, pcm_get_error(handle.pcm_tx));
             ret = -EIO;
             goto exit;
         }

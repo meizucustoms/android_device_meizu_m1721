@@ -548,6 +548,8 @@ struct audio_device {
     void *ext_hw_plugin;
     bool use_old_pspd_mix_ctrl;
     amplifier_device_t *amp;
+
+    bool cirrus_ready;
 };
 
 int select_devices(struct audio_device *adev,

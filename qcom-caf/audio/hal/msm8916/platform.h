@@ -19,6 +19,7 @@
 
 #ifndef QCOM_AUDIO_PLATFORM_H
 #define QCOM_AUDIO_PLATFORM_H
+#include <stddef.h>
 #include <sound/voice_params.h>
 
 enum {

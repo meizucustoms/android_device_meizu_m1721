@@ -1027,21 +1027,16 @@ int enable_audio_route(struct audio_device *adev,
 
     ALOGI("%s: CRUS_PROT: device name: %s", __func__, platform_get_snd_device_name(snd_device));
 
-    if (strstr(mixer_path, "speaker")) {
-        if (adev->mode <= AUDIO_MODE_RINGTONE) {
-            ALOGI("%s: CRUS_PROT: Music mode\n", __func__);
-            audio_route_apply_and_update_path(adev->audio_route, "cirrus_config_music");
-        } else if (usecase->type >= PCM_CAPTURE) { // If not Ringtone/Speaker/Current audio mode,
-                                                   // try to check usecase type for voice call.
-            ALOGI("%s: CRUS_PROT: Voice mode\n", __func__);
-            audio_route_apply_and_update_path(adev->audio_route, "cirrus_config_voice");
-        } else {
-            ALOGE("%s: CRUS_PROT: Mode detection error\n", __func__);
-        }
+    if (strstr(platform_get_snd_device_name(snd_device), "speaker")) {
+        ALOGI("%s: CRUS_PROT: Music mode (forced)\n", __func__);
+        // Upload music config to CS35L35
+        audio_route_apply_and_update_path(adev->audio_route, "cirrus_config_music");
 
-        // After mode detection, upload binary config to CS35L35
+        // Upload binary config to CS35L35
         audio_route_apply_and_update_path(adev->audio_route, "cirrus_config_tx_new");
-        cirrus_enable = true;
+                                              
+        // Ready to start output stream
+        adev->cirrus_ready = true;
     } else {
         ALOGI("%s: CRUS_PROT: Not speaker mixer path (%s), skip cirrus init.\n", __func__, mixer_path);
     }
@@ -1074,21 +1069,13 @@ int disable_audio_route(struct audio_device *adev,
 
     ALOGI("%s: CRUS_PROT: device name: %s", __func__, platform_get_snd_device_name(snd_device));
 
-    if (strstr(mixer_path, "speaker")) {
-        if (adev->mode <= AUDIO_MODE_RINGTONE && adev->snd_dev_ref_cnt == (int *)1) {
-            ALOGI("%s: CRUS_PROT: Music mode\n", __func__);
-            audio_route_reset_and_update_path(adev->audio_route, "cirrus_config_music");
-        } else if (usecase->type >= PCM_CAPTURE) { // If not Ringtone/Speaker/Current audio mode,
-                                                   // try to check usecase type for voice call.
-            ALOGI("%s: CRUS_PROT: Voice mode\n", __func__);
-            audio_route_reset_and_update_path(adev->audio_route, "cirrus_config_voice");
-        } else {
-            ALOGE("%s: CRUS_PROT: Mode detection error\n", __func__);
-        }
+    if (strstr(platform_get_snd_device_name(snd_device), "speaker")) {
+        ALOGI("%s: CRUS_PROT: Music mode (forced)\n", __func__);
+        // Upload music config to CS35L35
+        audio_route_reset_and_update_path(adev->audio_route, "cirrus_config_music");
 
-        // After mode detection, upload binary config to CS35L35
+        // Upload binary config to CS35L35
         audio_route_reset_and_update_path(adev->audio_route, "cirrus_config_tx_new");
-        cirrus_enable = false;
     } else {
         ALOGI("%s: CRUS_PROT: Not speaker mixer path (%s), skip cirrus init.\n", __func__, mixer_path);
     }
@@ -3411,19 +3398,27 @@ int start_output_stream(struct stream_out *out)
     }
 
     audio_extn_perf_lock_release(&adev->perf_lock_handle);
+
+    ALOGD("%s: CRUS_PROT: cirrus_ready=%s, out(%s:%d), in(%s:%d)", __func__, adev->cirrus_ready ? "true" : "false", 
+                platform_get_snd_device_name(uc_info->out_snd_device),
+                uc_info->out_snd_device,
+                platform_get_snd_device_name(uc_info->in_snd_device),
+                uc_info->in_snd_device);
+    if (adev->cirrus_ready) {
+        adev->cirrus_ready = false;
+        ALOGD("%s: CRUS_PROT: apply placeholder path...", __func__);
+        audio_route_apply_and_update_path(adev->audio_route, "cirrus_config_placeholder");
+        ALOGD("%s: CRUS_PROT: apply calibration path...", __func__);
+        audio_route_apply_and_update_path(adev->audio_route, "cirrus_config_cali");
+        ALOGD("%s: CRUS_PROT: ok!", __func__);
+    }
+
     ALOGD("%s: exit", __func__);
 
     if (out->ip_hdlr_handle) {
         ret = audio_extn_ip_hdlr_intf_open(out->ip_hdlr_handle, true, out, out->usecase);
         if (ret < 0)
             ALOGE("%s: audio_extn_ip_hdlr_intf_open failed %d",__func__, ret);
-    }
-
-    ALOGI("%s: CRUS_PROT: cirrus is %s\n", __func__, cirrus_enable ? "enabled" : "disabled");
-    if (cirrus_enable) {
-        audio_route_apply_and_update_path(adev->audio_route, "cirrus_config_placeholder");
-        usleep(50000); // To be sure that kernel driver switched config
-        audio_route_apply_and_update_path(adev->audio_route, "cirrus_config_cali");
     }
 
     // consider a scenario where on pause lower layers are tear down.

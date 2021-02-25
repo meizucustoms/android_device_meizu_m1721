@@ -3,17 +3,13 @@
 #
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
-af.fast_track_multiplier=2 \
-audio.offload.disable=true \
-audio.offload.min.duration.secs=30 \
-audio.offload.video=true \
-persist.vendor.audio.fluence.speaker=true \
+af.fast_track_multiplier=1 \
+audio.offload.video=false \
+persist.vendor.audio.fluence.speaker=false \
 persist.vendor.audio.fluence.voicecall=true \
 persist.vendor.audio.fluence.voicerec=false \
 persist.vendor.audio.hw.binder.size_kbyte=1024 \
 persist.vendor.btstack.enable.splita2dp=false \
-ro.config.media_vol_steps=25 \
-ro.config.vc_call_vol_steps=7 \
 ro.vendor.audio.sdk.fluencetype=fluence \
 ro.vendor.audio.sdk.ssr=false \
 vendor.audio.flac.sw.decoder.24bit=true \
@@ -22,7 +18,9 @@ vendor.audio.offload.gapless.enabled=true \
 vendor.audio.offload.multiaac.enable=true \
 vendor.audio.offload.multiple.enabled=false \
 vendor.audio.offload.track.enable=true \
-vendor.audio.parser.ip.buffer.size=0 \
+vendor.audio.pcm.16bit.enable=true \
+vendor.audio.pcm.24bit.enable=true \
+vendor.audio.parser.ip.buffer.size=262144 \
 vendor.audio.playback.mch.downsample=true \
 vendor.audio.pp.asphere.enabled=false \
 vendor.audio.safx.pbe.enabled=true \
@@ -34,7 +32,8 @@ vendor.voice.conc.fallbackpath=deep-buffer \
 vendor.voice.path.for.pcm.voip=true \
 vendor.voice.playback.conc.disabled=true \
 vendor.voice.record.conc.disabled=false \
-vendor.voice.voip.conc.disabled=true
+vendor.voice.voip.conc.disabled=true \
+persist.vendor.audio.speaker.prot.enable=true
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \

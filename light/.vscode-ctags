@@ -1,0 +1,52 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/tdrk/ms/device/meizu/m1721/light/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20210110.0/
+ANDROID_HARDWARE_LIGHT_V2_0_LIGHT_H	Light.h	/^#define ANDROID_HARDWARE_LIGHT_V2_0_LIGHT_H$/;"	d
+BLINK	Light.cpp	/^#define BLINK /;"	d	file:
+BRIGHTNESS	Light.cpp	/^#define BRIGHTNESS /;"	d	file:
+LCD_LED	Light.cpp	/^#define LCD_LED /;"	d	file:
+LEDS	Light.cpp	/^#define LEDS /;"	d	file:
+LOG_TAG	Light.cpp	/^#define LOG_TAG /;"	d	file:
+LOG_TAG	service.cpp	/^#define LOG_TAG /;"	d	file:
+Light	Light.h	/^class Light : public ILight {$/;"	c	namespace:android::hardware::light::V2_0::implementation
+LightBackend	Light.h	/^    LightBackend(Type type, LightStateHandler handler) : type(type), handler(handler) {$/;"	f	struct:LightBackend
+LightBackend	Light.h	/^struct LightBackend {$/;"	s
+LightStateHandler	Light.h	/^typedef void (*LightStateHandler)(const LightState&);$/;"	t	typeref:typename:void (*)(const LightState &)
+MAX_LCD_BRIGHTNESS	Light.cpp	/^#define MAX_LCD_BRIGHTNESS /;"	d	file:
+MAX_LED_BRIGHTNESS	Light.cpp	/^#define MAX_LED_BRIGHTNESS /;"	d	file:
+MX_LED	Light.cpp	/^#define MX_LED /;"	d	file:
+V2_0	Light.cpp	/^namespace V2_0 {$/;"	n	namespace:android::hardware::light	file:
+V2_0	Light.h	/^namespace V2_0 {$/;"	n	namespace:android::hardware::light
+__anon61a3622e0111	Light.cpp	/^namespace {$/;"	n	file:
+android	Light.cpp	/^namespace android {$/;"	n	file:
+android	Light.h	/^namespace android {$/;"	n
+backends	Light.cpp	/^static std::vector<LightBackend> backends = {$/;"	v	namespace:__anon61a3622e0111	typeref:typename:std::vector<LightBackend>	file:
+getBrightness	Light.cpp	/^static uint32_t getBrightness(const LightState& state) {$/;"	f	namespace:__anon61a3622e0111	typeref:typename:uint32_t	file:
+getScaledBrightness	Light.cpp	/^static inline uint32_t getScaledBrightness(const LightState& state, uint32_t maxBrightness) {$/;"	f	namespace:__anon61a3622e0111	typeref:typename:uint32_t	file:
+getSupportedTypes	Light.cpp	/^Return<void> Light::getSupportedTypes(getSupportedTypes_cb _hidl_cb) {$/;"	f	class:android::hardware::light::V2_0::implementation::Light	typeref:typename:Return<void>
+globalLock	Light.h	/^    std::mutex globalLock;$/;"	m	class:android::hardware::light::V2_0::implementation::Light	typeref:typename:std::mutex
+handleBacklight	Light.cpp	/^static void handleBacklight(const LightState& state) {$/;"	f	namespace:__anon61a3622e0111	typeref:typename:void	file:
+handleNotification	Light.cpp	/^static void handleNotification(const LightState& state) {$/;"	f	namespace:__anon61a3622e0111	typeref:typename:void	file:
+handler	Light.h	/^    LightStateHandler handler;$/;"	m	struct:LightBackend	typeref:typename:LightStateHandler
+hardware	Light.cpp	/^namespace hardware {$/;"	n	namespace:android	file:
+hardware	Light.h	/^namespace hardware {$/;"	n	namespace:android
+implementation	Light.cpp	/^namespace implementation {$/;"	n	namespace:android::hardware::light::V2_0	file:
+implementation	Light.h	/^namespace implementation {$/;"	n	namespace:android::hardware::light::V2_0
+isLit	Light.cpp	/^static inline bool isLit(const LightState& state) {$/;"	f	namespace:__anon61a3622e0111	typeref:typename:bool	file:
+light	Light.cpp	/^namespace light {$/;"	n	namespace:android::hardware	file:
+light	Light.h	/^namespace light {$/;"	n	namespace:android::hardware
+main	service.cpp	/^int main() {$/;"	f	typeref:typename:int
+scaleBrightness	Light.cpp	/^static inline uint32_t scaleBrightness(uint32_t brightness, uint32_t maxBrightness) {$/;"	f	namespace:__anon61a3622e0111	typeref:typename:uint32_t	file:
+set	Light.cpp	/^static void set(std::string path, int value) {$/;"	f	namespace:__anon61a3622e0111	typeref:typename:void	file:
+set	Light.cpp	/^static void set(std::string path, std::string value) {$/;"	f	namespace:__anon61a3622e0111	typeref:typename:void	file:
+setLight	Light.cpp	/^Return<Status> Light::setLight(Type type, const LightState& state) {$/;"	f	class:android::hardware::light::V2_0::implementation::Light	typeref:typename:Return<Status>
+state	Light.h	/^    LightState state;$/;"	m	struct:LightBackend	typeref:typename:LightState
+type	Light.h	/^    Type type;$/;"	m	struct:LightBackend	typeref:typename:Type
