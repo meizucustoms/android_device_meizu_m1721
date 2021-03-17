@@ -3,8 +3,6 @@
  * Not a Contribution.
  *
  * Copyright (C) 2013 The Android Open Source Project
- * 
- * Copyright (C) 2021 MeizuCustoms
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,8 +80,6 @@
 
 #include "sound/compress_params.h"
 #include "sound/asound.h"
-
-static bool cirrus_enable = false;
 
 #ifdef DYNAMIC_LOG_ENABLED
 #include <log_xml_parser.h>
@@ -1009,7 +1005,6 @@ int enable_audio_route(struct audio_device *adev,
 
     audio_extn_dolby_ds2_set_endpoint(adev);
     audio_extn_sound_trigger_update_stream_status(usecase, ST_EVENT_STREAM_BUSY);
-    audio_extn_listen_update_stream_status(usecase, LISTEN_EVENT_STREAM_BUSY);
     audio_extn_utils_send_app_type_cfg(adev, usecase);
     audio_extn_utils_send_audio_calibration(adev, usecase);
     audio_extn_set_custom_mtmx_params(adev, usecase, true);
@@ -1023,16 +1018,21 @@ int enable_audio_route(struct audio_device *adev,
             audio_extn_utils_compress_set_clk_rec_mode(usecase);
     }
 
+    ALOGI("%s: apply mixer and update path: %s", __func__, mixer_path);
+
     audio_route_apply_and_update_path(adev->audio_route, mixer_path);
 
-    ALOGI("%s: CRUS_PROT: device name: %s", __func__, platform_get_snd_device_name(snd_device));
+    ALOGI("%s: CRUS_PROT: snd_device=(%d:%s:acdb %d:interface %s:be_id %d), snd_dev_ref_cnt=%d, adev->mode=%d, usecase->type=%d",
+          __func__, snd_device, platform_get_snd_device_name(snd_device),
+          platform_get_snd_device_acdb_id(snd_device),
+          platform_get_snd_device_backend_interface(snd_device),
+          platform_get_snd_device_backend_index(snd_device),
+          adev->snd_dev_ref_cnt[snd_device], adev->mode, usecase->type);
 
-    if (strstr(platform_get_snd_device_name(snd_device), "speaker")) {
-        ALOGI("%s: CRUS_PROT: Music mode (forced)\n", __func__);
-        // Upload music config to CS35L35
+    if (strstr(platform_get_snd_device_name(snd_device), "speaker") &&
+        ((adev->mode < 2 && adev->snd_dev_ref_cnt[snd_device] == 1) || usecase->type != 0)) {
+        ALOGI("%s: CRUS_PROT: Apply configs\n", __func__);
         audio_route_apply_and_update_path(adev->audio_route, "cirrus_config_music");
-
-        // Upload binary config to CS35L35
         audio_route_apply_and_update_path(adev->audio_route, "cirrus_config_tx_new");
                                               
         // Ready to start output stream
@@ -1067,21 +1067,23 @@ int disable_audio_route(struct audio_device *adev,
     ALOGD("%s: reset and update mixer path: %s", __func__, mixer_path);
     audio_route_reset_and_update_path(adev->audio_route, mixer_path);
 
-    ALOGI("%s: CRUS_PROT: device name: %s", __func__, platform_get_snd_device_name(snd_device));
+    ALOGI("%s: CRUS_PROT: snd_device=(%d:%s:acdb %d:interface %s:be_id %d), snd_dev_ref_cnt=%d, adev->mode=%d, usecase->type=%d",
+          __func__, snd_device, platform_get_snd_device_name(snd_device),
+          platform_get_snd_device_acdb_id(snd_device),
+          platform_get_snd_device_backend_interface(snd_device),
+          platform_get_snd_device_backend_index(snd_device),
+          adev->snd_dev_ref_cnt[snd_device], adev->mode, usecase->type);
 
-    if (strstr(platform_get_snd_device_name(snd_device), "speaker")) {
-        ALOGI("%s: CRUS_PROT: Music mode (forced)\n", __func__);
-        // Upload music config to CS35L35
+    if (strstr(platform_get_snd_device_name(snd_device), "speaker") &&
+        ((adev->mode < 2 && adev->snd_dev_ref_cnt[snd_device] == 1) || usecase->type != 0)) {
+        ALOGI("%s: CRUS_PROT: Music mode\n", __func__);
         audio_route_reset_and_update_path(adev->audio_route, "cirrus_config_music");
-
-        // Upload binary config to CS35L35
         audio_route_reset_and_update_path(adev->audio_route, "cirrus_config_tx_new");
     } else {
-        ALOGI("%s: CRUS_PROT: Not speaker mixer path (%s), skip cirrus init.\n", __func__, mixer_path);
+        ALOGI("%s: CRUS_PROT: Not speaker device, skip cirrus init.\n", __func__);
     }
 
     audio_extn_sound_trigger_update_stream_status(usecase, ST_EVENT_STREAM_FREE);
-    audio_extn_listen_update_stream_status(usecase, LISTEN_EVENT_STREAM_FREE);
     audio_extn_set_custom_mtmx_params(adev, usecase, false);
 
     if ((usecase->type == PCM_PLAYBACK) &&
@@ -1128,6 +1130,7 @@ int enable_snd_device(struct audio_device *adev,
     if (platform_can_enable_spkr_prot_on_device(snd_device) &&
          audio_extn_spkr_prot_is_enabled()) {
         if (platform_get_spkr_prot_acdb_id(snd_device) < 0) {
+            ALOGE("CRUS_PROT: %s@%d uh oh", __func__, __LINE__);
             goto err;
         }
         audio_extn_dev_arbi_acquire(snd_device);
@@ -1140,16 +1143,16 @@ int enable_snd_device(struct audio_device *adev,
                                          snd_device,
                                          &num_devices,
                                          new_snd_devices) == 0) {
+        ALOGI("CRUS_PROT: %s@%d yay", __func__, __LINE__);
         for (i = 0; i < num_devices; i++) {
             enable_snd_device(adev, new_snd_devices[i]);
         }
     } else {
         ALOGD("%s: snd_device(%d: %s)", __func__, snd_device, device_name);
 
-
         if ((SND_DEVICE_OUT_BT_A2DP == snd_device) &&
             (audio_extn_a2dp_start_playback() < 0)) {
-            ALOGE(" fail to configure A2dp control path ");
+            ALOGE("%s: fail to configure A2dp control path ", __func__);
             goto err;
         }
 
@@ -1168,6 +1171,7 @@ int enable_snd_device(struct audio_device *adev,
                                             ST_EVENT_SND_DEVICE_FREE);
             audio_extn_listen_update_device_status(snd_device,
                                         LISTEN_EVENT_SND_DEVICE_FREE);
+            ALOGE("CRUS_PROT: %s@%d uh oh", __func__, __LINE__);
             goto err;
         }
         audio_extn_dev_arbi_acquire(snd_device);
@@ -3406,8 +3410,6 @@ int start_output_stream(struct stream_out *out)
                 uc_info->in_snd_device);
     if (adev->cirrus_ready) {
         adev->cirrus_ready = false;
-        ALOGD("%s: CRUS_PROT: apply placeholder path...", __func__);
-        audio_route_apply_and_update_path(adev->audio_route, "cirrus_config_placeholder");
         ALOGD("%s: CRUS_PROT: apply calibration path...", __func__);
         audio_route_apply_and_update_path(adev->audio_route, "cirrus_config_cali");
         ALOGD("%s: CRUS_PROT: ok!", __func__);
@@ -8053,7 +8055,7 @@ static int adev_open(const hw_module_t *module, const char *name,
     adev->perf_lock_opts[1] = 0x20E;
     adev->perf_lock_opts_size = 2;
     adev->dsp_bit_width_enforce_mode = 0;
-    adev->use_old_pspd_mix_ctrl = false;
+    adev->use_old_pspd_mix_ctrl = true;
 
     /* Loads platform specific libraries dynamically */
     adev->platform = platform_init(adev);
@@ -8261,22 +8263,6 @@ static int adev_open(const hw_module_t *module, const char *name,
                                   sizeof(struct audio_device_config_param));
     if (adev->device_cfg_params == NULL)
         ALOGE("%s: Memory allocation failed for Device config params", __func__);
-
-    /*
-     * Check if new PSPD matrix mixer control is supported. If not
-     * supported, then set flag so that old mixer ctrl is sent while
-     * sending pspd coefficients on older kernel version. Query mixer
-     * control for default pcm id and channel value one.
-     */
-    snprintf(mixer_ctl_name, sizeof(mixer_ctl_name),
-            "AudStr %d ChMixer Weight Ch %d", 0, 1);
-
-    ctl = mixer_get_ctl_by_name(adev->mixer, mixer_ctl_name);
-    if (!ctl) {
-        ALOGE("%s: ERROR. Could not get ctl for mixer cmd - %s",
-              __func__, mixer_ctl_name);
-        adev->use_old_pspd_mix_ctrl = true;
-    }
 
     ALOGV("%s: exit", __func__);
     return 0;

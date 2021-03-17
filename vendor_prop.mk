@@ -32,8 +32,7 @@ vendor.voice.conc.fallbackpath=deep-buffer \
 vendor.voice.path.for.pcm.voip=true \
 vendor.voice.playback.conc.disabled=true \
 vendor.voice.record.conc.disabled=false \
-vendor.voice.voip.conc.disabled=true \
-persist.vendor.audio.speaker.prot.enable=true
+vendor.voice.voip.conc.disabled=true
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \

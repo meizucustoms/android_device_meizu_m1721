@@ -125,7 +125,7 @@
 #define MIN_COMPRESS_OFFLOAD_FRAGMENT_SIZE (2 * 1024)
 #define COMPRESS_OFFLOAD_FRAGMENT_SIZE_FOR_AV_STREAMING (2 * 1024)
 #define COMPRESS_OFFLOAD_FRAGMENT_SIZE (32 * 1024)
-#define DEFAULT_RX_BACKEND "SLIMBUS_0_RX"
+#define DEFAULT_RX_BACKEND "QUAT_MI2S_RX"
 
 /*
  * This file will have a maximum of 38 bytes:
@@ -1886,7 +1886,7 @@ static void send_codec_cal(acdb_loader_get_calibration_t acdb_loader_get_calibra
         if (type == WCD9XXX_MAD_CAL)
             continue;
 
-        if((plat_data->is_vbat_speaker) && (WCD9XXX_VBAT_CAL == type)) {
+        if (plat_data->is_vbat_speaker && type == WCD9XXX_VBAT_CAL) {
            ret = send_vbat_adc_data_to_acdb(plat_data, cal_name_info[type]);
            if (ret < 0)
                ALOGE("%s error in sending vbat adc data to acdb", __func__);
@@ -3009,8 +3009,10 @@ void platform_add_backend_name(char *mixer_path, snd_device_t snd_device,
         return;
     }
 
-    const char * suffix = backend_tag_table[snd_device];
+    ALOGI("%s: snd_device(%d:%s acdb:%d interface:%s) add backend %s", __func__, snd_device, platform_get_snd_device_name(snd_device),
+        platform_get_snd_device_acdb_id(snd_device), platform_get_snd_device_backend_interface(snd_device), backend_tag_table[snd_device]);
 
+    const char * suffix = backend_tag_table[snd_device];
     if (suffix != NULL) {
         strlcat(mixer_path, " ", MIXER_PATH_MAX_LENGTH);
         strlcat(mixer_path, suffix, MIXER_PATH_MAX_LENGTH);
@@ -8177,7 +8179,7 @@ int ramp_speaker_gain(struct audio_device *adev, bool ramp_up, int target_ramp_u
 
 int platform_set_swap_mixer(struct audio_device *adev, bool swap_channels)
 {
-    const char *mixer_ctl_name = "Swap channel";
+    const char *mixer_ctl_name = "Cirrus GB Channel Swap";
     struct mixer_ctl *ctl;
     struct platform_data *my_data = (struct platform_data *)adev->platform;
 

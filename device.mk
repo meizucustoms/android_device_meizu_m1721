@@ -160,7 +160,7 @@ PRODUCT_PACKAGES += \
 
 # Device-specific settings
 PRODUCT_PACKAGES += \
-    Xiaom1721ze
+    MeizuDoze
 
 # DRM
 PRODUCT_PACKAGES += \

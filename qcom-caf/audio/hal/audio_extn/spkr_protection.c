@@ -42,6 +42,7 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <dlfcn.h>
+#include <math.h>
 #include <unistd.h>
 #include <pthread.h>
 #include <cutils/properties.h>
@@ -55,6 +56,8 @@
 #include <log_utils.h>
 #endif
 
+#ifdef SPKR_PROT_ENABLED
+
 /*Range of spkr temparatures -30C to 80C*/
 #define MIN_SPKR_TEMP_Q6 (-30 * (1 << 6))
 #define MAX_SPKR_TEMP_Q6 (80 * (1 << 6))
@@ -65,11 +68,6 @@
 #define WCD_RIGHT_BOOST_MAX_STATE "SPKR Right Boost Max State"
 #define WSA_LEFT_BOOST_LEVEL "SpkrLeft Boost Level"
 #define WSA_RIGHT_BOOST_LEVEL "SpkrRight Boost Level"
-
-/* Cirrus */
-#define SPEAKER_CALIBRATION_FILE "/sys/devices/speaker/calibration_data"
-#define SPEAKER_OPALUM_PATH      "/sys/devices/system/opsl-cali/opsl-cali0/"
-
 /* Min and max resistance value in lookup table. */
 #define MIN_RESISTANCE_LOOKUP (3.2)
 #define MAX_RESISTANCE_LOOKUP (8)
@@ -172,7 +170,6 @@ struct speaker_prot_session {
     int thermal_client_handle;
     pthread_mutex_t mutex_spkr_prot;
     pthread_t spkr_calibration_thread;
-    pthread_t cirrus_thread;
     pthread_t spkr_v_vali_thread;
     pthread_mutex_t spkr_prot_thermalsync_mutex;
     pthread_cond_t spkr_prot_thermalsync;
@@ -214,7 +211,7 @@ struct speaker_prot_session {
 };
 
 static struct pcm_config pcm_config_skr_prot = {
-    .channels = 2,
+    .channels = 4,
     .rate = 48000,
     .period_size = 256,
     .period_count = 4,
@@ -1957,81 +1954,6 @@ int audio_extn_fbsp_get_parameters(struct str_parms *query,
     return err;
 }
 
-static int cirrus_get_calibration_data(int temp_acc, int count, int ambient) {
-    char speaker_data[30];
-    int ret;
-    FILE *fp;
-
-    fp = fopen(SPEAKER_CALIBRATION_FILE, "rb");
-    if (!fp) {
-        ALOGE("%s: CRUS_PROT: Failed to open speaker calibration file", __func__);
-        return -EFAULT;
-    }
-
-    ret = fread(speaker_data, sizeof(char), 30, fp);
-    if (ret > 30) {
-        ALOGE("%s: CRUS_PROT: Failed to read speaker calibration data (ret %d != 30)", __func__, ret);
-        return ret;
-    }
-
-    fclose(fp);
-
-    ret = sscanf(speaker_data, "%d,%d,%d", &temp_acc, &count, &ambient); 
-    if (ret != 3) {
-        ALOGE("%s: CRUS_PROT: Failed to sscanf (ret = %d)", __func__, ret);
-        return ret;
-    }
-
-    ALOGI("%s: CRUS_PROT: temp_acc = %d, count = %d, ambient = %d", __func__, temp_acc, count, ambient);
-
-    return 0;
-}
-
-static void* cirrus_opalum_update()
-{
-    int temp_acc = 0, count = 0, ambient = 0, ret = 0;
-    char temp[16];
-    FILE *fp;
-
-    ALOGI("%s: CRUS_PROT: Enter", __func__);
-
-    ret = cirrus_get_calibration_data(temp_acc, count, ambient);
-    if (ret) {
-        ALOGE("%s: CRUS_PROT: failed to get speaker calibration data", __func__);
-    } else {
-        fp = fopen(SPEAKER_OPALUM_PATH "temp-acc", "wb");
-        if (!fp) {
-            ALOGE("%s: CRUS_PROT: failed %d", __func__, __LINE__);
-            pthread_exit(0);
-            return NULL;
-        }
-        fprintf(fp, "%d", temp_acc);
-        fclose(fp);
-
-        fp = fopen(SPEAKER_OPALUM_PATH "count", "wb");
-        if (!fp) {
-            ALOGE("%s: CRUS_PROT: failed %d", __func__, __LINE__);
-            pthread_exit(0);
-            return NULL;
-        }
-        fprintf(fp, "%d", 16);
-        fclose(fp);
-       
-        fp = fopen(SPEAKER_OPALUM_PATH "ambient", "wb");
-        if (!fp) {
-            ALOGE("%s: CRUS_PROT: failed %d", __func__, __LINE__);
-            pthread_exit(0);
-            return NULL;
-        }
-        fprintf(fp, "%d", ambient);
-        fclose(fp);
-    }
-    ALOGI("%s: CRUS_PROT: Exit", __func__);
-
-    pthread_exit(0);
-    return NULL;
-}
-
 void audio_extn_spkr_prot_init(void *adev)
 {
     char value[PROPERTY_VALUE_MAX];
@@ -2052,6 +1974,7 @@ void audio_extn_spkr_prot_init(void *adev)
        handle.spkr_prot_enable = true;
     if (!handle.spkr_prot_enable) {
         ALOGD("%s: Speaker protection disabled", __func__);
+        return;
     }
     handle.adev_handle = adev;
     handle.spkr_prot_mode = MSM_SPKR_PROT_DISABLED;
@@ -2137,9 +2060,6 @@ void audio_extn_spkr_prot_init(void *adev)
         handle.thermal_handle = NULL;
         handle.spkr_prot_enable = false;
     }
-
-    ALOGI("%s: CRUS_PROT: created Opalum calibration data update thread", __func__);
-    pthread_create(&handle.cirrus_thread, NULL, cirrus_opalum_update, NULL);
 
     if (handle.spkr_prot_enable) {
         char platform[PROPERTY_VALUE_MAX];
@@ -2258,10 +2178,10 @@ int audio_extn_spkr_prot_start_processing(snd_device_t snd_device)
         ALOGE("%s: Invalid sound device returned", __func__);
         return -EINVAL;
     }
+    ALOGD("%s: spkr snd_device(%d: %s)", __func__, snd_device,
+           device_name);
     audio_route_apply_and_update_path(adev->audio_route,
            device_name);
-
-
 
     pthread_mutex_lock(&handle.mutex_spkr_prot);
     if (handle.spkr_processing_state == SPKR_PROCESSING_IN_IDLE) {
@@ -2281,16 +2201,11 @@ int audio_extn_spkr_prot_start_processing(snd_device_t snd_device)
             ret = -ENODEV;
             goto exit;
         }
-
-        ALOGD("%s: spkr snd_device(%d: %s) pcm_dev_tx_id=%d", __func__, snd_device,
-           device_name, pcm_dev_tx_id);
-
         handle.pcm_tx = pcm_open(adev->snd_card,
                                  pcm_dev_tx_id,
                                  PCM_IN, &pcm_config_skr_prot);
         if (handle.pcm_tx && !pcm_is_ready(handle.pcm_tx)) {
-            ALOGE("%s: snd_device(%d: %s): %s", __func__, snd_device,
-           device_name, pcm_get_error(handle.pcm_tx));
+            ALOGE("%s: %s", __func__, pcm_get_error(handle.pcm_tx));
             ret = -EIO;
             goto exit;
         }
@@ -2356,3 +2271,4 @@ bool audio_extn_spkr_prot_is_enabled()
 {
     return handle.spkr_prot_enable;
 }
+#endif /*SPKR_PROT_ENABLED*/

@@ -1,0 +1,1233 @@
+<14>[   12.128786] init: Service 'exec 3 (/system/bin/fsverity_init)' (pid 494) exited with status 0 waiting took 0.055000 seconds
+<14>[   12.128945] init: Switched to default mount namespace
+<14>[   12.133101] init: starting service 'apexd'...
+<14>[   12.164418] apexd: Marking APEXd as starting
+<14>[   12.164858] apexd: Scanning /system/apex for embedded keys
+<14>[   12.166010] apexd: Scanning /product/apex for embedded keys
+<14>[   12.166067] apexd: ... does not exist. Skipping
+<14>[   12.166098] apexd: Populating APEX database from mounts...
+<11>[   12.166273] apexd: Failed to walk /product/apex : Can't open /product/apex for reading : No such file or directory
+<14>[   12.166759] apexd: Found "/apex/com.android.tzdata@290000000"
+<14>[   12.166809] apexd: Found "/apex/com.android.runtime@1"
+<14>[   12.166924] apexd: 2 packages restored.
+<14>[   12.166975] apexd: Scanning /data/apex/sessions looking for sessions to be activated.
+<14>[   12.167450] apexd: Scanning /data/apex/active looking for APEX packages.
+<14>[   12.167978] apexd: Activated 0 packages. Skipped: 0
+<14>[   12.168007] apexd: Scanning /system/apex looking for APEX packages.
+<14>[   12.168271] apexd: Found /system/apex/com.android.media
+<15>[   12.168398] apexd: Creating mount point: /apex/com.android.media@290000000
+<14>[   12.168551] apexd: Successfully bind-mounted flattened package /system/apex/com.android.media on /apex/com.android.media@290000000
+<15>[   12.168589] apexd: Creating bind-mount for /apex/com.android.media for /apex/com.android.media@290000000
+<15>[   12.168621] apexd: Creating mountpoint /apex/com.android.media
+<15>[   12.168667] apexd: Bind-mounting /apex/com.android.media@290000000 to /apex/com.android.media
+<15>[   12.168722] apexd: Successfully activated /system/apex/com.android.media package_name: com.android.media version: 290000000
+<14>[   12.168748] apexd: Found /system/apex/com.android.tzdata
+<14>[   12.168868] apexd: Skipping activation of /system/apex/com.android.tzdata same package with higher version 290000000 is already active
+<14>[   12.168893] apexd: Found /system/apex/com.android.conscrypt
+<15>[   12.169007] apexd: Creating mount point: /apex/com.android.conscrypt@299900000
+<14>[   12.169105] apexd: Successfully bind-mounted flattened package /system/apex/com.android.conscrypt on /apex/com.android.conscrypt@299900000
+<15>[   12.169139] apexd: Creating bind-mount for /apex/com.android.conscrypt for /apex/com.android.conscrypt@299900000
+<15>[   12.169167] apexd: Creating mountpoint /apex/com.android.conscrypt
+<15>[   12.169211] apexd: Bind-mounting /apex/com.android.conscrypt@299900000 to /apex/com.android.conscrypt
+<15>[   12.169257] apexd: Successfully activated /system/apex/com.android.conscrypt package_name: com.android.conscrypt version: 299900000
+<14>[   12.169276] apexd: Found /system/apex/com.android.media.swcodec
+<15>[   12.169395] apexd: Creating mount point: /apex/com.android.media.swcodec@290000000
+<14>[   12.169486] apexd: Successfully bind-mounted flattened package /system/apex/com.android.media.swcodec on /apex/com.android.media.swcodec@290000000
+<15>[   12.169518] apexd: Creating bind-mount for /apex/com.android.media.swcodec for /apex/com.android.media.swcodec@290000000
+<15>[   12.169550] apexd: Creating mountpoint /apex/com.android.media.swcodec
+<15>[   12.169592] apexd: Bind-mounting /apex/com.android.media.swcodec@290000000 to /apex/com.android.media.swcodec
+<15>[   12.169636] apexd: Successfully activated /system/apex/com.android.media.swcodec package_name: com.android.media.swcodec version: 290000000
+<14>[   12.169664] apexd: Found /system/apex/com.android.runtime.release
+<14>[   12.169792] apexd: Skipping activation of /system/apex/com.android.runtime.release same package with higher version 1 is already active
+<14>[   12.169820] apexd: Found /system/apex/com.android.resolv
+<15>[   12.169932] apexd: Creating mount point: /apex/com.android.resolv@290000000
+<14>[   12.170057] apexd: Successfully bind-mounted flattened package /system/apex/com.android.resolv on /apex/com.android.resolv@290000000
+<15>[   12.170090] apexd: Creating bind-mount for /apex/com.android.resolv for /apex/com.android.resolv@290000000
+<15>[   12.170127] apexd: Creating mountpoint /apex/com.android.resolv
+<15>[   12.170166] apexd: Bind-mounting /apex/com.android.resolv@290000000 to /apex/com.android.resolv
+<15>[   12.170209] apexd: Successfully activated /system/apex/com.android.resolv package_name: com.android.resolv version: 290000000
+<14>[   12.170238] apexd: Activated 4 packages. Skipped: 2
+<14>[   12.170265] apexd: Scanning /product/apex looking for APEX packages.
+<11>[   12.170318] apexd: Failed to activate packages from /product/apex : Failed to scan /product/apex : Can't open /product/apex for reading : No such file or directory
+<14>[   12.170830] apexd: Marking APEXd as ready
+<14>[   12.204404] init: start_waiting_for_property("apexd.status", "ready"): already set
+<14>[   12.205402] init: Parsing file /apex/com.android.media.swcodec@290000000/etc/init.rc...
+<14>[   12.205952] init: starting service 'exec 4 (/system/bin/vdc --wait cryptfs init_user0)'...
+<14>[   12.207662] init: SVC_EXEC service 'exec 4 (/system/bin/vdc --wait cryptfs init_user0)' pid 502 (uid 0 gid 0+0 context default) started; waiting...
+<15>[   12.223223] vdc: Waited 0ms for vold
+<14>[   12.259620] init: Service 'exec 4 (/system/bin/vdc --wait cryptfs init_user0)' (pid 502) exited with status 0 waiting took 0.052000 seconds
+<14>[   12.262072] selinux: SELinux: Skipping restorecon on directory(/data)\x0a
+<14>[   12.262594] init: starting service 'exec 5 (/system/bin/tzdatacheck /apex/com.android.runtime/etc/tz /data/misc/zoneinfo)'...
+<14>[   12.264297] init: SVC_EXEC service 'exec 5 (/system/bin/tzdatacheck /apex/com.android.runtime/etc/tz /data/misc/zoneinfo)' pid 505 (uid 1000 gid 1000+0 context default) started; waiting...
+<14>[   12.275846] init: Service 'exec 5 (/system/bin/tzdatacheck /apex/com.android.runtime/etc/tz /data/misc/zoneinfo)' (pid 505) exited with status 0 waiting took 0.011000 seconds
+<14>[   12.276428] init: processing action (post-fs-data) from (/init.usb.rc:6)
+<14>[   12.278807] init: processing action (post-fs-data) from (/vendor/etc/init/hw/init.qcom.rc:143)
+<14>[   12.301258] init: processing action (post-fs-data) from (/vendor/etc/init/hw/init.target.rc:60)
+<14>[   12.301827] init: processing action (post-fs-data) from (/system/etc/init/adb_root.rc:6)
+<14>[   12.303016] init: processing action (post-fs-data) from (/system/etc/init/art_apex_boot_integrity.rc:19)
+<14>[   12.303319] init: starting service 'exec 6 (/system/bin/art_apex_boot_integrity)'...
+<14>[   12.305049] init: SVC_EXEC service 'exec 6 (/system/bin/art_apex_boot_integrity)' pid 506 (uid 0 gid 0+0 context default) started; waiting...
+<14>[   12.371434] init: Service 'exec 6 (/system/bin/art_apex_boot_integrity)' (pid 506) exited with status 0 waiting took 0.066000 seconds
+<14>[   12.371542] init: processing action (post-fs-data) from (/system/etc/init/bootstat.rc:9)
+<14>[   12.374084] init: processing action (post-fs-data) from (/system/etc/init/gsid.rc:10)
+<14>[   12.375941] init: processing action (post-fs-data) from (/system/etc/init/incidentd.rc:21)
+<14>[   12.376507] init: processing action (post-fs-data) from (/system/etc/init/iorapd.rc:27)
+<14>[   12.377052] init: processing action (post-fs-data) from (/system/etc/init/lineage-ssh.rc:1)
+<14>[   12.378452] init: processing action (post-fs-data) from (/system/etc/init/lineage-system.rc:5)
+<14>[   12.378927] init: processing action (post-fs-data) from (/system/etc/init/lineage-updates.rc:1)
+<14>[   12.379571] init: processing action (post-fs-data) from (/system/etc/init/logtagd.rc:4)
+<14>[   12.387063] init: processing action (post-fs-data) from (/system/etc/init/perfetto.rc:67)
+<14>[   12.387114] init: processing action (post-fs-data) from (/system/etc/init/recovery-persist.rc:1)
+<14>[   12.387926] init: starting service 'exec 7 (/system/bin/recovery-persist)'...
+<14>[   12.389639] init: processing action (post-fs-data) from (/system/etc/init/statsd.rc:25)
+<14>[   12.392848] init: processing action (post-fs-data) from (/product/etc/init/dpmd.rc:7)
+<14>[   12.394134] init: processing action (post-fs-data) from (/vendor/etc/init/dataqti.rc:8)
+<14>[   12.394778] init: processing action (post-fs-data) from (/vendor/etc/init/hostapd.android.rc:9)
+<14>[   12.395558] init: processing action (post-fs-data) from (/vendor/etc/init/ipacm.rc:29)
+<14>[   12.395971] init: processing action (post-fs-data) from (/vendor/etc/init/netmgrd.rc:16)
+<14>[   12.397766] init: processing action (post-fs-data) from (/vendor/etc/init/port-bridge.rc:11)
+<14>[   12.398274] init: processing action (load_persist_props_action) from (/init.rc:315)
+<12>[   12.398449] init: Couldn't load property file '/data/local.prop': open() failed: No such file or directory: No such file or directory
+<14>[   12.401009] init: Wait for property 'ro.persistent_properties.ready=true' took 2ms
+<14>[   12.401243] init: starting service 'logd-reinit'...
+<14>[   12.403577] init: processing action (load_persist_props_action) from (/system/etc/init/flags_health_check.rc:1)
+<14>[   12.405663] init: starting service 'exec 8 (/system/bin/flags_health_check BOOT_FAILURE)'...
+<14>[   12.407474] init: SVC_EXEC service 'exec 8 (/system/bin/flags_health_check BOOT_FAILURE)' pid 513 (uid 1000 gid 1000+0 context default) started; waiting...
+<14>[   12.407655] init: Service 'exec 7 (/system/bin/recovery-persist)' (pid 511) exited with status 0
+<30>[   12.415300] logd.daemon: reinit
+<14>[   12.415949] init: Service 'logd-reinit' (pid 512) exited with status 0
+<14>[   12.433705] init: Service 'exec 8 (/system/bin/flags_health_check BOOT_FAILURE)' (pid 513) exited with status 0 waiting took 0.026000 seconds
+<14>[   12.433857] init: processing action (load_persist_props_action) from (/system/etc/init/logcatd.rc:31)
+<14>[   12.434191] init: processing action (ro.crypto.state=unencrypted && zygote-start) from (/init.rc:638)
+<14>[   12.434229] init: Command 'exec_start update_verifier_nonencrypted' action=ro.crypto.state=unencrypted && zygote-start (/init.rc:640) took 0ms and failed: Service not found
+<14>[   12.434537] init: starting service 'netd'...
+<14>[   12.436920] init: Created socket '/dev/socket/dnsproxyd', mode 660, user 0, group 3003
+<14>[   12.436939] init: starting service 'zygote'...
+<14>[   12.437423] init: Created socket '/dev/socket/mdns', mode 660, user 0, group 1000
+<14>[   12.437798] init: Created socket '/dev/socket/fwmarkd', mode 660, user 0, group 3003
+<14>[   12.439463] init: starting service 'zygote_secondary'...
+<14>[   12.439476] init: Created socket '/dev/socket/zygote', mode 660, user 0, group 1000
+<14>[   12.439875] init: Created socket '/dev/socket/usap_pool_primary', mode 660, user 0, group 1000
+<14>[   12.441926] init: processing action (zygote-start) from (/system/etc/init/bootstat.rc:72)
+<14>[   12.441927] init: Created socket '/dev/socket/zygote_secondary', mode 660, user 0, group 1000
+<14>[   12.442334] init: Created socket '/dev/socket/usap_pool_secondary', mode 660, user 0, group 1000
+<14>[   12.442406] init: starting service 'exec 9 (/system/bin/bootstat --set_system_boot_reason)'...
+<14>[   12.444340] init: processing action (firmware_mounts_complete) from (/init.rc:321)
+<14>[   12.444437] init: processing action (early-boot) from (/vendor/etc/init/hw/init.qcom.rc:40)
+<6>[   12.444971] adsp-loader soc:qcom,msm-adsp-loader: adsp_loader_do: scheduling work to load ADSP fw
+<6>[   12.445621] sensors-ssc soc:qcom,msm-ssc-sensors: slpi_loader_do: scheduling work to load SLPI fw
+<3>[   12.445669] sensors-ssc soc:qcom,msm-ssc-sensors: slpi_load_fw: pil get failed,
+<3>[   12.445675] sensors-ssc soc:qcom,msm-ssc-sensors: slpi_load_fw: SLPI image loading failed
+<14>[   12.445928] init: starting service 'exec 10 (/vendor/bin/init.qcom.early_boot.sh)'...
+<14>[   12.448071] init: SVC_EXEC service 'exec 10 (/vendor/bin/init.qcom.early_boot.sh)' pid 520 (uid 0 gid 0+0 context u:r:qti_init_shell:s0) started; waiting...
+<14>[   12.448866] ueventd: firmware: loading 'adsp.mdt' for '/devices/soc/c200000.qcom,lpass/firmware/adsp.mdt'
+<6>[   12.492365] subsys-pil-tz c200000.qcom,lpass: adsp: loading from 0x000000008d600000 to 0x000000008e700000
+<14>[   12.492367] ueventd: loading /devices/soc/c200000.qcom,lpass/firmware/adsp.mdt took 43ms
+<14>[   12.510345] ueventd: firmware: loading 'adsp.b02' for '/devices/soc/c200000.qcom,lpass/firmware/adsp.b02'
+<14>[   12.511570] ueventd: loading /devices/soc/c200000.qcom,lpass/firmware/adsp.b02 took 1ms
+<14>[   12.515398] ueventd: firmware: loading 'adsp.b03' for '/devices/soc/c200000.qcom,lpass/firmware/adsp.b03'
+<14>[   12.520689] ueventd: loading /devices/soc/c200000.qcom,lpass/firmware/adsp.b03 took 5ms
+<14>[   12.524331] ueventd: firmware: loading 'adsp.b04' for '/devices/soc/c200000.qcom,lpass/firmware/adsp.b04'
+<14>[   12.545667] init: Service 'exec 9 (/system/bin/bootstat --set_system_boot_reason)' (pid 519) exited with status 0
+<14>[   12.560069] ueventd: loading /devices/soc/c200000.qcom,lpass/firmware/adsp.b04 took 35ms
+<14>[   12.563988] ueventd: firmware: loading 'adsp.b05' for '/devices/soc/c200000.qcom,lpass/firmware/adsp.b05'
+<14>[   12.570756] ueventd: loading /devices/soc/c200000.qcom,lpass/firmware/adsp.b05 took 6ms
+<14>[   12.577660] ueventd: firmware: loading 'adsp.b06' for '/devices/soc/c200000.qcom,lpass/firmware/adsp.b06'
+<14>[   12.577705] init: Service 'exec 10 (/vendor/bin/init.qcom.early_boot.sh)' (pid 520) exited with status 0 waiting took 0.130000 seconds
+<14>[   12.580006] ueventd: loading /devices/soc/c200000.qcom,lpass/firmware/adsp.b06 took 2ms
+<14>[   12.583608] init: processing action (early-boot) from (/system/etc/init/installd.rc:5)
+<14>[   12.583902] ueventd: firmware: loading 'adsp.b07' for '/devices/soc/c200000.qcom,lpass/firmware/adsp.b07'
+<14>[   12.585673] ueventd: loading /devices/soc/c200000.qcom,lpass/firmware/adsp.b07 took 1ms
+<14>[   12.589216] ueventd: firmware: loading 'adsp.b08' for '/devices/soc/c200000.qcom,lpass/firmware/adsp.b08'
+<14>[   12.590764] ueventd: loading /devices/soc/c200000.qcom,lpass/firmware/adsp.b08 took 1ms
+<14>[   12.594527] ueventd: firmware: loading 'adsp.b09' for '/devices/soc/c200000.qcom,lpass/firmware/adsp.b09'
+<14>[   12.595676] ueventd: loading /devices/soc/c200000.qcom,lpass/firmware/adsp.b09 took 1ms
+<14>[   12.599330] ueventd: firmware: loading 'adsp.b10' for '/devices/soc/c200000.qcom,lpass/firmware/adsp.b10'
+<14>[   12.606872] ueventd: loading /devices/soc/c200000.qcom,lpass/firmware/adsp.b10 took 7ms
+<14>[   12.610445] ueventd: firmware: loading 'adsp.b11' for '/devices/soc/c200000.qcom,lpass/firmware/adsp.b11'
+<14>[   12.611845] ueventd: loading /devices/soc/c200000.qcom,lpass/firmware/adsp.b11 took 1ms
+<14>[   12.615690] ueventd: firmware: loading 'adsp.b12' for '/devices/soc/c200000.qcom,lpass/firmware/adsp.b12'
+<14>[   12.617404] ueventd: loading /devices/soc/c200000.qcom,lpass/firmware/adsp.b12 took 1ms
+<14>[   12.620942] ueventd: firmware: loading 'adsp.b13' for '/devices/soc/c200000.qcom,lpass/firmware/adsp.b13'
+<14>[   12.621866] init: processing action (boot) from (/init.rc:664)
+<14>[   12.624249] ueventd: loading /devices/soc/c200000.qcom,lpass/firmware/adsp.b13 took 3ms
+<11>[   12.625626] init: property 'dev.mnt.blk.data' doesn't exist while expanding '/sys/fs/f2fs/${dev.mnt.blk.data}/cp_interval'
+<14>[   12.625679] init: Command 'write /sys/fs/f2fs/${dev.mnt.blk.data}/cp_interval 200' action=boot (/init.rc:693) took 0ms and failed: cannot expand '/sys/fs/f2fs/${dev.mnt.blk.data}/cp_interval'
+<11>[   12.625702] init: property 'dev.mnt.blk.data' doesn't exist while expanding '/sys/fs/f2fs/${dev.mnt.blk.data}/gc_urgent_sleep_time'
+<14>[   12.625737] init: Command 'write /sys/fs/f2fs/${dev.mnt.blk.data}/gc_urgent_sleep_time 50' action=boot (/init.rc:694) took 0ms and failed: cannot expand '/sys/fs/f2fs/${dev.mnt.blk.data}/gc_urgent_sleep_time'
+<11>[   12.625760] init: property 'dev.mnt.blk.data' doesn't exist while expanding '/sys/devices/virtual/block/${dev.mnt.blk.data}/queue/discard_max_bytes'
+<14>[   12.625793] init: Command 'write /sys/devices/virtual/block/${dev.mnt.blk.data}/queue/discard_max_bytes 134217728' action=boot (/init.rc:699) took 0ms and failed: cannot expand '/sys/devices/virtual/block/${dev.mnt.blk.data}/queue/discard_max_bytes'
+<14>[   12.628422] init: starting service 'vendor.audio-hal-2-0'...
+<14>[   12.631847] init: starting service 'hidl_memory'...
+<14>[   12.634670] init: starting service 'vendor.bluetooth-1-0-qti'...
+<14>[   12.637853] init: starting service 'vendor.camera-provider-2-4'...
+<14>[   12.641304] init: starting service 'vendor.cas-hal-1-1'...
+<14>[   12.644800] init: starting service 'vendor.configstore-hal'...
+<14>[   12.648243] init: starting service 'vendor.drm-widevine-hal-1-2'...
+<14>[   12.651751] init: starting service 'vendor.gatekeeper-1-0'...
+<14>[   12.655094] init: starting service 'gnss_service'...
+<14>[   12.658973] init: starting service 'vendor.gralloc-2-0'...
+<14>[   12.662608] init: starting service 'vendor.hwcomposer-2-1'...
+<14>[   12.666082] init: starting service 'health-hal-2-0'...
+<14>[   12.668178] init: Opened file '/dev/kmsg', flags 1
+<14>[   12.669503] init: starting service 'vendor.light-hal-2-0'...
+<14>[   12.673687] init: starting service 'vendor.memtrack-hal-1-0'...
+<14>[   12.677274] init: starting service 'vendor.power-hal-1-2'...
+<14>[   12.681202] init: starting service 'vendor.sensors-hal-1-0'...
+<14>[   12.685022] init: starting service 'vendor.thermal-hal-1-0'...
+<14>[   12.689419] init: starting service 'vendor.usb-hal-1-0'...
+<14>[   12.692975] init: starting service 'vendor.vibrator-1-0'...
+<14>[   12.706134] init: starting service 'display-color-hal-1-0'...
+<14>[   12.717820] init: starting service 'vendor.touch-hal-1-0'...
+<14>[   12.723075] init: starting service 'vendor.trust-hal-1-0'...
+<38>[   12.728401] type=1400 audit(9273182.010:3): avc: denied { read } for comm="android.hardwar" name="type" dev="sysfs" ino=28910 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   12.728706] type=1400 audit(9273182.010:3): avc: denied { read } for comm="android.hardwar" name="type" dev="sysfs" ino=28910 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   12.728723] type=1400 audit(9273182.010:4): avc: denied { open } for comm="android.hardwar" path="/sys/devices/soc/qpnp-fg-18/power_supply/bms/type" dev="sysfs" ino=28910 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   12.728786] type=1400 audit(9273182.010:4): avc: denied { open } for comm="android.hardwar" path="/sys/devices/soc/qpnp-fg-18/power_supply/bms/type" dev="sysfs" ino=28910 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   12.728799] type=1400 audit(9273182.010:5): avc: denied { getattr } for comm="android.hardwar" path="/sys/devices/soc/qpnp-fg-18/power_supply/bms/type" dev="sysfs" ino=28910 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<12>[   12.729312] healthd: BatteryCycleCountPath not found
+<14>[   12.731773] init: starting service 'perf-hal-2-1'...
+<12>[   12.735482] healthd: battery l=72 v=4018 t=31.7 h=2 st=3 c=-356 fc=4060000 chg=u
+<14>[   12.747566] init: starting service 'qdutils_disp-1-0'...
+<14>[   12.751301] init: starting service 'tui_comm-1-0'...
+<14>[   12.758438] init: Command 'class_start hal' action=boot (/init.rc:766) took 130ms and succeeded
+<14>[   12.759050] init: starting service 'irsc_util'...
+<14>[   12.764686] init: starting service 'vendor.sensors.qti'...
+<6>[   12.766381] subsys-pil-tz c200000.qcom,lpass: adsp: Brought out of reset
+<14>[   12.771286] init: starting service 'vendor.per_mgr'...
+<6>[   12.784420] subsys-pil-tz c200000.qcom,lpass: adsp: Power/Clock ready interrupt received
+<6>[   12.784422] subsys-pil-tz c200000.qcom,lpass: Subsystem error monitoring/handling services are up
+<3>[   12.784513] L-Notify: Generel: 7
+<3>[   12.785508] diag: In diag_send_feature_mask_update, control channel is not open, p: 1, 0000000000000000
+<14>[   12.794128] init: starting service 'ashmemd'...
+<14>[   12.807602] init: starting service 'audioserver'...
+<6>[   12.810684] msm8952-asoc-wcd c051000.sound: default codec configured
+<14>[   12.811741] init: starting service 'gpu'...
+<3>[   12.813681] msm8952-asoc-wcd c051000.sound: ASoC: platform (null) not registered
+<3>[   12.813723] msm8952-asoc-wcd c051000.sound: snd_soc_register_card failed (-517)
+<14>[   12.816907] init: starting service 'lmkd'...
+<14>[   12.824524] init: Created socket '/dev/socket/lmkd', mode 660, user 1000, group 1000
+<14>[   12.832633] init: starting service 'surfaceflinger'...
+<6>[   12.835904] msm8952-asoc-wcd c051000.sound: default codec configured
+<11>[   12.836602] init: Failed to bind socket 'pdx/system/vr/display/client': No such file or directory
+<11>[   12.837205] init: Failed to bind socket 'pdx/system/vr/display/manager': No such file or directory
+<11>[   12.837603] init: Failed to bind socket 'pdx/system/vr/display/vsync': No such file or directory
+<3>[   12.840792] wcd-spmi-core msm8x16_wcd_codec-10: Error: regulator not found:cdc-vdd-spkdrv
+<14>[   12.841894] init: starting service 'vendor.rmt_storage'...
+<14>[   12.847010] init: starting service 'vendor.tftp_server'...
+<14>[   12.850168] init: Command 'class_start core' action=boot (/init.rc:768) took 91ms and succeeded
+<14>[   12.850308] init: processing action (boot) from (/init.usb.rc:21)
+<14>[   12.851412] init: Service 'irsc_util' (pid 570) exited with status 0
+<14>[   12.852112] init: processing action (persist.sys.usb.config=* && boot) from (/init.usb.rc:102)
+<14>[   12.852573] init: processing action (boot) from (/vendor/etc/init/hw/init.qcom.rc:83)
+<6>[   12.858505] apr_tal:Q6 Is Up
+<4>[   12.867036] msm-pcm-routing soc:qcom,msm-pcm-routing: ASoC: no dapm match for PRI_TDM_TX_3 --> PRI_TDM_TX_3 --> AUDIO_REF_EC_UL1 MUX
+<3>[   12.867051] msm-pcm-routing soc:qcom,msm-pcm-routing: ASoC: Failed to add route PRI_TDM_TX_3 -> PRI_TDM_TX_3 -> AUDIO_REF_EC_UL1 MUX
+<4>[   12.867344] msm-pcm-routing soc:qcom,msm-pcm-routing: ASoC: no dapm match for PRI_TDM_TX_3 --> PRI_TDM_TX_3 --> AUDIO_REF_EC_UL8 MUX
+<3>[   12.867352] msm-pcm-routing soc:qcom,msm-pcm-routing: ASoC: Failed to add route PRI_TDM_TX_3 -> PRI_TDM_TX_3 -> AUDIO_REF_EC_UL8 MUX
+<11>[   12.870798] rmt_storage:INFO:check_support_using_libmdm: Modem subsystem found on target!
+<38>[   12.872449] type=1400 audit(9273182.010:5): avc: denied { getattr } for comm="android.hardwar" path="/sys/devices/soc/qpnp-fg-18/power_supply/bms/type" dev="sysfs" ino=28910 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   12.872476] type=1400 audit(9273182.153:6): avc: denied { setattr } for comm="init" name="mmcblk0p51" dev="tmpfs" ino=3513 scontext=u:r:vendor_init:s0 tcontext=u:object_r:block_device:s0 tclass=blk_file permissive=1
+<14>[   12.873177] init: processing action (boot) from (/vendor/etc/init/hw/init.qcom.usb.rc:28)
+<11>[   12.873507] rmt_storage:INFO:main: Done with init now waiting for messages!
+<14>[   12.877351] init: processing action (boot) from (/vendor/etc/init/hw/init.target.rc:157)
+<14>[   12.884902] init: processing action (boot) from (/system/etc/init/bootstat.rc:63)
+<14>[   12.885395] init: processing action (boot) from (/system/etc/init/dumpstate.rc:1)
+<14>[   12.885800] init: processing action (boot) from (/system/etc/init/gsid.rc:14)
+<14>[   12.886531] init: starting service 'exec 11 (/system/bin/gsid run-startup-tasks)'...
+<6>[   12.888182] sysmon-qmi: sysmon_clnt_svc_arrive: Connection established between QMI handle and adsp's SSCTL service
+<14>[   12.889642] init: processing action (boot) from (/system/etc/init/lineage-iosched.rc:16)
+<11>[   12.923512] selinux: SELinux: Could not get canonical path for /sys/block/sda/queue restorecon: No such file or directory.\x0a
+<11>[   12.923674] selinux: SELinux: Could not get canonical path for /sys/block/sde/queue restorecon: No such file or directory.\x0a
+<11>[   12.923792] selinux: SELinux: Could not get canonical path for /sys/block/dm-0/queue restorecon: No such file or directory.\x0a
+<14>[   12.923922] init: processing action (boot) from (/vendor/etc/init/android.hardware.biometrics.fingerprint@2.1-service.m1721.rc:17)
+<14>[   12.924302] init: processing action (boot) from (/vendor/etc/init/netmgrd.rc:6)
+<38>[   12.926760] type=1400 audit(9273182.153:6): avc: denied { setattr } for comm="init" name="mmcblk0p51" dev="tmpfs" ino=3513 scontext=u:r:vendor_init:s0 tcontext=u:object_r:block_device:s0 tclass=blk_file permissive=1
+<38>[   12.926794] type=1400 audit(9273182.206:7): avc: denied { read } for comm="health@2.0-serv" name="status" dev="sysfs" ino=33766 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   12.927213] type=1400 audit(9273182.206:7): avc: denied { read } for comm="health@2.0-serv" name="status" dev="sysfs" ino=33766 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   12.927353] type=1400 audit(9273182.206:8): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/status" dev="sysfs" ino=33766 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<14>[   12.927463] init: processing action (boot) from (/vendor/etc/init/port-bridge.rc:6)
+<38>[   12.927511] type=1400 audit(9273182.206:8): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/status" dev="sysfs" ino=33766 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   12.927537] type=1400 audit(9273182.210:9): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/status" dev="sysfs" ino=33766 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<14>[   12.928982] init: processing action (enable_property_trigger) from (<Builtin Action>:0)
+<14>[   12.929368] init: processing action (ro.debuggable=1) from (/init.rc:856)
+<12>[   12.929723] healthd: battery l=72 v=4018 t=31.7 h=2 st=3 c=-356 fc=4060000 chg=u
+<14>[   12.929752] init: Command 'start console' action=ro.debuggable=1 (/init.rc:862) took 0ms and failed: Could not start service: Couldn't open console '/dev/console': No such device
+<14>[   12.929800] init: processing action (sys.usb.config=adb && sys.usb.configfs=0) from (/init.usb.rc:34)
+<3>[   12.931079] enable_store: android_usb: already disabled
+<14>[   12.936132] init: starting service 'adbd'...
+<14>[   12.939946] init: processing action (init.svc.vendor.per_mgr=running) from (/vendor/etc/init/hw/init.target.rc:86)
+<14>[   12.940643] init: starting service 'vendor.per_proxy'...
+<14>[   12.940969] init: Created socket '/dev/socket/adbd', mode 660, user 1000, group 1000
+<14>[   12.946282] init: processing action (init.svc.surfaceflinger=running) from (/vendor/etc/init/hw/init.target.rc:123)
+<14>[   12.947305] init: starting service 'ppd'...
+<14>[   12.951465] init: Created socket '/dev/socket/pps', mode 660, user 1000, group 1000
+<14>[   12.951796] init: processing action (init.svc.zygote=running) from (/vendor/etc/init/hw/init.target.rc:132)
+<14>[   12.952175] init: processing action (ro.iorapd.enable=false) from (/system/etc/init/iorapd.rc:24)
+<14>[   12.953916] init: processing action (persist.sys.io.scheduler=*) from (/system/etc/init/lineage-iosched.rc:41)
+<14>[   12.957411] init: processing action (persist.logd.logpersistd=logcatd) from (/system/etc/init/logcatd.rc:27)
+<14>[   12.958081] init: processing action (nonencrypted) from (/init.rc:770)
+<14>[   12.958863] init: starting service 'vendor.ril-daemon2'...
+<14>[   12.962499] init: starting service 'thermal-engine'...
+<14>[   12.966477] init: Created socket '/dev/socket/thermal-send-client', mode 666, user 1000, group 1000
+<14>[   12.967145] init: starting service 'adsprpcd'...
+<14>[   12.967292] init: Created socket '/dev/socket/thermal-recv-client', mode 660, user 1000, group 1000
+<14>[   12.968513] init: Created socket '/dev/socket/thermal-recv-passive-client', mode 666, user 1000, group 1000
+<14>[   12.968951] init: Created socket '/dev/socket/thermal-send-rule', mode 660, user 1000, group 1000
+<3>[   12.968957] wcd-spmi-core msm8x16_wcd_codec-10: ASoC: mux RX3 MIX1 INP3 has no paths
+<3>[   12.969148] wcd-spmi-core msm8x16_wcd_codec-10: ASoC: mux RX2 MIX1 INP3 has no paths
+<14>[   12.971012] init: starting service 'wcnss-service'...
+<14>[   12.975464] init: starting service 'energy-awareness'...
+<14>[   12.979475] init: starting service 'vendor.hvdcp_opti'...
+<6>[   12.986386] subsys-restart: __subsystem_get(): Changing subsys fw_name to modem
+<6>[   12.987251] IPA received MPSS BEFORE_POWERUP
+<3>[   12.987699] ipa ipa2_uc_state_check:301 uC is not loaded
+<3>[   12.987730] ipa ipa_sps_irq_control_all:945 EP (5) not allocated.
+<6>[   12.988759] IPA BEFORE_POWERUP handling is complete
+<14>[   12.993618] init: starting service 'adb_root'...
+<14>[   13.001373] ueventd: firmware: loading 'a530_pm4.fw' for '/devices/soc/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/a530_pm4.fw'
+<14>[   13.004417] ueventd: firmware: loading 'modem.mdt' for '/devices/soc/4080000.qcom,mss/firmware/modem.mdt'
+<14>[   13.005755] init: starting service 'bpfloader'...
+<14>[   13.009286] init: starting service 'cameraserver'...
+<14>[   13.014397] init: starting service 'drm'...
+<6>[   13.015024] 'opened /dev/adsprpc-smd c 228 0'
+<6>[   13.015913] pil-q6v5-mss 4080000.qcom,mss: modem: loading from 0x0000000086c00000 to 0x000000008c200000
+<14>[   13.015944] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.mdt took 11ms
+<14>[   13.020228] ueventd: loading /devices/soc/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/a530_pm4.fw took 19ms
+<14>[   13.031231] init: starting service 'idmap2d'...
+<11>[   13.041679] MAIN_MGR: hvdcp_opti Version: 3:0:0
+<14>[   13.045128] init: starting service 'incidentd'...
+<38>[   13.060566] type=1400 audit(9273182.210:9): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/status" dev="sysfs" ino=33766 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.060608] type=1400 audit(9273182.340:10): avc: denied { read write } for comm="thermal-engine" name="system_temp_level" dev="sysfs" ino=33785 scontext=u:r:thermal-engine:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.060766] type=1400 audit(9273182.340:10): avc: denied { read write } for comm="thermal-engine" name="system_temp_level" dev="sysfs" ino=33785 scontext=u:r:thermal-engine:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.060863] type=1400 audit(9273182.340:11): avc: denied { open } for comm="thermal-engine" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/system_temp_level" dev="sysfs" ino=33785 scontext=u:r:thermal-engine:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<14>[   13.062270] ueventd: firmware: loading 'mba.mbn' for '/devices/soc/4080000.qcom,mss/firmware/mba.mbn'
+<14>[   13.063806] ueventd: firmware: loading 'a530_pfp.fw' for '/devices/soc/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/a530_pfp.fw'
+<14>[   13.068716] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/mba.mbn took 6ms
+<14>[   13.069172] ueventd: loading /devices/soc/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/a530_pfp.fw took 5ms
+<14>[   13.074173] init: starting service 'installd'...
+<14>[   13.079544] init: starting service 'keystore'...
+<14>[   13.082149] ueventd: firmware: loading 'msadp' for '/devices/soc/4080000.qcom,mss/firmware/msadp'
+<11>[   13.082721] ueventd: firmware: could not find firmware for msadp
+<38>[   13.083117] type=1400 audit(9273182.340:11): avc: denied { open } for comm="thermal-engine" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/system_temp_level" dev="sysfs" ino=33785 scontext=u:r:thermal-engine:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.083144] type=1400 audit(9273182.360:12): avc: denied { write } for comm="hvdcp_opti" name="dp_dm" dev="sysfs" ino=33791 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<4>[   13.083227] pil-q6v5-mss 4080000.qcom,mss: Debug policy not present - msadp. Continue.
+<38>[   13.083610] type=1400 audit(9273182.360:12): avc: denied { write } for comm="hvdcp_opti" name="dp_dm" dev="sysfs" ino=33791 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.083639] type=1400 audit(9273182.360:13): avc: denied { open } for comm="hvdcp_opti" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/dp_dm" dev="sysfs" ino=33791 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<6>[   13.084047] msm_crus_pb_add_controls: platform->dev = ffffffc0ad6c9c10
+<38>[   13.084242] type=1400 audit(9273182.360:13): avc: denied { open } for comm="hvdcp_opti" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/dp_dm" dev="sysfs" ino=33791 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.084276] type=1400 audit(9273182.360:14): avc: denied { read } for comm="hvdcp_opti" name="allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.084479] type=1400 audit(9273182.360:14): avc: denied { read } for comm="hvdcp_opti" name="allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.084500] type=1400 audit(9273182.363:15): avc: denied { read } for comm="audio@2.0-servi" name="sound_trigger_platform_info.xml" dev="mmcblk0p53" ino=507 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+<38>[   13.084573] type=1400 audit(9273182.363:15): avc: denied { read } for comm="audio@2.0-servi" name="sound_trigger_platform_info.xml" dev="mmcblk0p53" ino=507 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+<38>[   13.084586] type=1400 audit(9273182.363:16): avc: denied { open } for comm="audio@2.0-servi" path="/vendor/etc/sound_trigger_platform_info.xml" dev="mmcblk0p53" ino=507 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+<38>[   13.084643] type=1400 audit(9273182.363:16): avc: denied { open } for comm="audio@2.0-servi" path="/vendor/etc/sound_trigger_platform_info.xml" dev="mmcblk0p53" ino=507 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+<38>[   13.084657] type=1400 audit(9273182.363:17): avc: denied { getattr } for comm="audio@2.0-servi" path="/vendor/etc/sound_trigger_platform_info.xml" dev="mmcblk0p53" ino=507 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+<14>[   13.085461] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/msadp took 3ms
+<14>[   13.087798] init: starting service 'mediadrm'...
+<4>[   13.092736] cs35l35_codec_probe@766 ++
+<3>[   13.096293] msm8952-asoc-wcd c051000.sound: control 3:0:0:IEC958 Playback PCM Stream:0 is already present
+<3>[   13.096306] msm-hdmi-dba-codec-rx soc:qcom,msm-hdmi-dba-codec-rx: ASoC: Failed to add IEC958 Playback PCM Stream: -16
+<3>[   13.096312] msm_dba_get_probed_device: Device not found (adv7533, 0)
+<3>[   13.096315] msm_dba_register_client: Device not found (adv7533, 0)
+<3>[   13.096320] msm_hdmi_dba_codec_rx_init_dba: error in registering audio client 0
+<11>[   13.107856] hvdcpd: Registered Legacy
+<6>[   13.112472] pil-q6v5-mss 4080000.qcom,mss: Loading MBA and DP (if present) from 0x00000000f3000000 to 0x00000000f3100000 size 100000
+<14>[   13.115003] init: starting service 'mediaextractor'...
+<14>[   13.123838] ueventd: firmware: loading 'a506_zap.mdt' for '/devices/soc/soc:qcom,kgsl-hyp/firmware/a506_zap.mdt'
+<14>[   13.129258] ueventd: loading /devices/soc/soc:qcom,kgsl-hyp/firmware/a506_zap.mdt took 5ms
+<14>[   13.129320] init: starting service 'mediametrics'...
+<6>[   13.134133] subsys-pil-tz soc:qcom,kgsl-hyp: a506_zap: loading from 0x000000008f000000 to 0x000000008f002000
+<3>[   13.134685] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.134699] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   13.134704] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.134708] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   13.134714] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.134718] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   13.134722] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.134726] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   13.134731] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.134734] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   13.134740] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.134744] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   13.134749] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.134753] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   13.134758] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.134762] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   13.139831] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.139856] msm_thermal:hotplug_init_cpu_offlined Unable to read TSENS sensor:-19.
+<3>[   13.139926] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.139933] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   13.139940] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.139944] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   13.139950] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.139954] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   13.139959] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.139962] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   13.139967] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.139971] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   13.139976] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.139979] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   13.139985] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.139989] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   13.139994] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   13.139998] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<14>[   13.145951] init: starting service 'media'...
+<6>[   13.146252] msm_thermal:set_enabled enabled = 0
+<14>[   13.158368] init: starting service 'statsd'...
+<14>[   13.167516] init: starting service 'storaged'...
+<14>[   13.173627] init: Created socket '/dev/socket/statsdw', mode 222, user 1066, group 1066
+<14>[   13.178098] init: starting service 'wificond'...
+<14>[   13.193237] init: Opened file '/d/mmc0/mmc0:0001/ext_csd', flags 0
+<14>[   13.198935] init: starting service 'vendor.media.omx'...
+<14>[   13.201921] ueventd: firmware: loading 'a506_zap.b02' for '/devices/soc/soc:qcom,kgsl-hyp/firmware/a506_zap.b02'
+<14>[   13.207799] ueventd: loading /devices/soc/soc:qcom,kgsl-hyp/firmware/a506_zap.b02 took 6ms
+<6>[   13.214403] subsys-pil-tz soc:qcom,kgsl-hyp: a506_zap: Brought out of reset
+<14>[   13.214662] init: starting service 'vendor.cnd'...
+<3>[   13.215844] msm8952-asoc-wcd c051000.sound: ASoC: no sink widget found for SpkrMono WSA_IN
+<3>[   13.215862] msm8952-asoc-wcd c051000.sound: ASoC: Failed to add route WSA_SPK OUT -> direct -> SpkrMono WSA_IN
+<6>[   13.215869] cs35l35_late_probe(): enter
+<6>[   13.215879] cs35l35_late_probe(): found cs35l35
+<6>[   13.215882] cs35l35_late_probe(): get speaker calibration data from proinfo
+<6>[   13.215885] msm_cirrus_get_speaker_calibration_data: enter
+<14>[   13.228880] init: starting service 'wifidisplayhalservice'...
+<14>[   13.253642] init: starting service 'dpmQmiMgr'...
+<6>[   13.254347] pil-q6v5-mss 4080000.qcom,mss: MBA boot done
+<6>[   13.268228] msm_cirrus_get_speaker_calibration_data: exit
+<6>[   13.268240] cs35l35_late_probe(): set speaker calibration data from crus_gb_cali_data
+<6>[   13.268244] msm_cirrus_set_speaker_calibration_data: enter
+<6>[   13.268247] msm_cirrus_set_speaker_calibration_data: exit
+<6>[   13.268262] cs35l35_late_probe(): exit
+<14>[   13.275942] init: starting service 'vendor.ims_rtp_daemon'...
+<6>[   13.281800] input: msm8953-snd-card-mtp Headset Jack as /devices/soc/c051000.sound/sound/card0/input5
+<6>[   13.286097] input: msm8953-snd-card-mtp Button Jack as /devices/soc/c051000.sound/sound/card0/input6
+<14>[   13.298326] init: starting service 'vendor.imsqmidaemon'...
+<14>[   13.305736] init: starting service 'vendor.imsrcsservice'...
+<14>[   13.310647] init: Created socket '/dev/socket/ims_qmid', mode 660, user 1000, group 1001
+<14>[   13.317602] init: starting service 'time_daemon'...
+<14>[   13.345129] init: starting service 'vendor.netmgrd'...
+<14>[   13.362941] init: starting service 'vendor.port-bridge'...
+<14>[   13.388190] init: starting service 'ril-daemon'...
+<14>[   13.422011] init: starting service 'media.swcodec'...
+<14>[   13.440286] init: Command 'class_start main' action=nonencrypted (/init.rc:771) took 482ms and succeeded
+<14>[   13.441289] init: starting service 'vendor.atfwd'...
+<14>[   13.454241] init: starting service 'loc_launcher'...
+<14>[   13.481554] init: starting service 'qcom-sh'...
+<6>[   13.500904] android_work: android_work: sent uevent USB_STATE=CONNECTED
+<6>[   13.504646] android_work: android_work: sent uevent USB_STATE=DISCONNECTED
+<14>[   13.517276] init: starting service 'qcamerasvr'...
+<14>[   13.532228] init: starting service 'gatekeeperd'...
+<14>[   13.546456] init: starting service 'tombstoned'...
+<14>[   13.564514] init: starting service 'usbd'...
+<14>[   13.582227] init: starting service 'dpmd'...
+<11>[   13.590091] init: Could not start service 'goodixfpd' as part of class 'late_start': Cannot find '/system/bin/goodixfingerprintd': No such file or directory
+<14>[   13.591973] init: starting service 'goodix_script'...
+<6>[   13.597770] android_work: android_work: sent uevent USB_STATE=CONNECTED
+<6>[   13.599593] android_usb gadget: high-speed config #1: 86000c8.android_usb
+<6>[   13.599693] msm-dwc3 7000000.ssusb: Avail curr from USB = 500
+<14>[   13.602002] init: Created socket '/dev/socket/tombstoned_crash', mode 666, user 1000, group 1000
+<12>[   13.602280] healthd: battery l=72 v=4013 t=31.7 h=2 st=4 c=-393 fc=4060000 chg=u
+<14>[   13.603835] ueventd: firmware: loading 'modem.b02' for '/devices/soc/4080000.qcom,mss/firmware/modem.b02'
+<38>[   13.607497] type=1400 audit(9273182.363:17): avc: denied { getattr } for comm="audio@2.0-servi" path="/vendor/etc/sound_trigger_platform_info.xml" dev="mmcblk0p53" ino=507 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+<38>[   13.607540] type=1400 audit(1615583177.316:18): avc: denied { read } for comm="health@2.0-serv" name="present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.607689] type=1400 audit(1615583177.316:18): avc: denied { read } for comm="health@2.0-serv" name="present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.607707] type=1400 audit(1615583177.316:19): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.607773] type=1400 audit(1615583177.316:19): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.607787] type=1400 audit(1615583177.316:20): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.607847] type=1400 audit(1615583177.316:20): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.607860] type=1400 audit(1615583177.316:21): avc: denied { read } for comm="hvdcp_opti" name="allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.607925] type=1400 audit(1615583177.316:21): avc: denied { read } for comm="hvdcp_opti" name="allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<14>[   13.608109] init: Created socket '/dev/socket/tombstoned_intercept', mode 666, user 1000, group 1000
+<38>[   13.608901] type=1400 audit(1615583177.316:22): avc: denied { open } for comm="hvdcp_opti" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<14>[   13.609027] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b02 took 5ms
+<14>[   13.609118] init: Created socket '/dev/socket/dpmd', mode 660, user 0, group 1001
+<14>[   13.611775] init: Created socket '/dev/socket/tcm', mode 660, user 0, group 3003
+<14>[   13.611972] init: Created socket '/dev/socket/tombstoned_java_trace', mode 666, user 1000, group 1000
+<12>[   13.613956] healthd: battery l=72 v=4013 t=31.7 h=2 st=2 c=-393 fc=4060000 chg=u
+<14>[   13.614517] init: Created socket '/dev/socket/dpmwrapper', mode 660, user 0, group 3003
+<14>[   13.639030] init: starting service 'vendor.ipacm'...
+<14>[   13.651466] init: starting service 'vendor.livedisplay-hal-2-0-sdm'...
+<6>[   13.653786] android_work: android_work: sent uevent USB_STATE=CONFIGURED
+<14>[   13.658588] init: Command 'class_start late_start' action=nonencrypted (/init.rc:772) took 217ms and succeeded
+<14>[   13.665915] init: Service 'exec 11 (/system/bin/gsid run-startup-tasks)' (pid 609) exited with status 0
+<14>[   13.666609] init: Service 'bpfloader' (pid 644) exited with status 0
+<14>[   13.671229] init: Service 'vendor.port-bridge' (pid 765) exited with status 1
+<14>[   13.678251] init: processing action (sys.usb.config=adb && sys.usb.configfs=0) from (/init.usb.rc:34)
+<3>[   13.696042] dwc3 7000000.dwc3: request 0000000000000000 was not queued to ep0out
+<38>[   13.706200] type=1400 audit(1615583177.316:22): avc: denied { open } for comm="hvdcp_opti" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.706284] type=1400 audit(1615583177.416:23): avc: denied { read } for comm="hvdcp_opti" name="allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.706428] type=1400 audit(1615583177.416:23): avc: denied { read } for comm="hvdcp_opti" name="allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.706448] type=1400 audit(1615583177.416:24): avc: denied { open } for comm="hvdcp_opti" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.706513] type=1400 audit(1615583177.416:24): avc: denied { open } for comm="hvdcp_opti" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.706526] type=1400 audit(1615583177.416:25): avc: denied { read } for comm="health@2.0-serv" name="present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.706586] type=1400 audit(1615583177.416:25): avc: denied { read } for comm="health@2.0-serv" name="present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.706599] type=1400 audit(1615583177.416:26): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.706654] type=1400 audit(1615583177.416:26): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.706668] type=1400 audit(1615583177.416:27): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.710012] type=1400 audit(1615583177.416:27): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.710106] type=1400 audit(1615583177.422:28): avc: denied { read } for comm="health@2.0-serv" name="type" dev="sysfs" ino=20859 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<12>[   13.711787] healthd: battery l=72 v=4013 t=31.7 h=2 st=2 c=-393 fc=4060000 chg=u
+<14>[   13.731062] init: Service 'usbd' (pid 865) exited with status 0
+<38>[   13.731329] type=1400 audit(1615583177.422:28): avc: denied { read } for comm="health@2.0-serv" name="type" dev="sysfs" ino=20859 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.731367] type=1400 audit(1615583177.422:29): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/msm-bcl-19/power_supply/fg_adc/type" dev="sysfs" ino=20859 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.731537] type=1400 audit(1615583177.422:29): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/msm-bcl-19/power_supply/fg_adc/type" dev="sysfs" ino=20859 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   13.731555] type=1400 audit(1615583177.426:30): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/msm-bcl-19/power_supply/fg_adc/type" dev="sysfs" ino=20859 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<14>[   13.733198] init: Service 'goodix_script' (pid 875) exited with status 0
+<14>[   13.741060] init: processing action (sys.usb.config=adb && sys.usb.configfs=0) from (/init.usb.rc:34)
+<3>[   13.742225] dwc3 7000000.dwc3: request 0000000000000000 was not queued to ep0out
+<14>[   13.789022] init: processing action (sys.io.scheduler=*) from (/system/etc/init/lineage-iosched.rc:34)
+<3>[   13.848657] kp log: xfrm_state_flush failed with err[-3]
+<3>[   13.848750] kp log: cnt not set
+<3>[   13.848755] kp log: xfrm_policy_flush failed with err [-3]
+<14>[   13.870856] init: Command 'write /sys/block/mmcblk0/queue/scheduler ${sys.io.scheduler}' action=sys.io.scheduler=* (/system/etc/init/lineage-iosched.rc:35) took 81ms and succeeded
+<14>[   13.872717] init: Service 'energy-awareness' (pid 635) exited with status 0
+<3>[   13.876843] ipa ipa2_nat_del_cmd:797 Nat table not initialized
+<3>[   13.886006] dwc3_gadget_suspend_interrupt(): state:0. Ignore SUSPEND.
+<14>[   13.901596] init: Service 'qcom-sh' (pid 814) exited with status 0
+<3>[   13.920262] dwc3 7000000.dwc3: request 0000000000000000 was not queued to ep0out
+<14>[   13.970923] ueventd: firmware: loading 'modem.b04' for '/devices/soc/4080000.qcom,mss/firmware/modem.b04'
+<14>[   13.975227] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b04 took 4ms
+<14>[   13.979242] ueventd: firmware: loading 'modem.b05' for '/devices/soc/4080000.qcom,mss/firmware/modem.b05'
+<14>[   13.982540] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b05 took 3ms
+<14>[   13.986972] ueventd: firmware: loading 'modem.b06' for '/devices/soc/4080000.qcom,mss/firmware/modem.b06'
+<14>[   13.988058] init: processing action (sys.io.scheduler=bfq) from (/system/etc/init/lineage-iosched.rc:59)
+<14>[   13.991841] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b06 took 5ms
+<14>[   13.997545] ueventd: firmware: loading 'modem.b07' for '/devices/soc/4080000.qcom,mss/firmware/modem.b07'
+<14>[   14.000553] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b07 took 3ms
+<3>[   14.000750] msm_qti_pp_get_rms_value_control, back not active to query rms be_idx:3
+<14>[   14.005194] ueventd: firmware: loading 'modem.b08' for '/devices/soc/4080000.qcom,mss/firmware/modem.b08'
+<6>[   14.006849] core_get_license_status: cmdrsp_license_result.result = 0x15 for module 0x1
+<3>[   14.007766] msm_dolby_dap_param_to_get_control_get, port_id not set, do not query ADM
+<3>[   14.008025] msm_dolby_dap_param_visualizer_control_get Incorrect VCNB length
+<3>[   14.009313] msm_voice_sound_focus_get: Error getting Sound Focus Params, err=-22
+<3>[   14.009914] msm_voice_source_tracking_get: Error getting Source Tracking Params, err=-22
+<3>[   14.010699] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.010715] msm_audio_sound_focus_get: Could not get copp idx for port_id=16385
+<3>[   14.010818] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.010822] msm_audio_source_tracking_get: Could not get copp idx for port_id=16385
+<3>[   14.010906] msm_voice_sound_focus_get: Error getting Sound Focus Params, err=-22
+<3>[   14.010996] msm_voice_source_tracking_get: Error getting Source Tracking Params, err=-22
+<3>[   14.011320] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.011325] msm_audio_sound_focus_get: Could not get copp idx for port_id=4101
+<3>[   14.011412] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.011417] msm_audio_source_tracking_get: Could not get copp idx for port_id=4101
+<3>[   14.011498] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.011502] msm_audio_sound_focus_get: Could not get copp idx for port_id=4103
+<3>[   14.011580] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.011583] msm_audio_source_tracking_get: Could not get copp idx for port_id=4103
+<3>[   14.011668] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.011671] msm_audio_sound_focus_get: Could not get copp idx for port_id=36865
+<3>[   14.011758] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.011762] msm_audio_source_tracking_get: Could not get copp idx for port_id=36865
+<6>[   14.012072] core_get_license_status: cmdrsp_license_result.result = 0x15 for module 0x131ff
+<6>[   14.012292] CRUS msm_routing_cirrus_fbport_get: cirrus_fb_port_ctl = 0
+<6>[   14.012423] Starting Cirrus GB Enable Get function call, crus_gb_enable = 0
+<6>[   14.012428] CRUS msm_routing_crus_gb_enable_get: crus_gb_enable = 0
+<6>[   14.012677] Starting Cirrus GB Config Get function call
+<6>[   14.012681] CRUS msm_routing_crus_gb_config_get: crus_config_set = 0
+<6>[   14.013024] Starting Cirrus GB External Config Get function call
+<6>[   14.013029] CRUS msm_routing_crus_ext_config_get: crus_ext_config_set = 0
+<14>[   14.014688] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b08 took 9ms
+<3>[   14.018316] msm_compr_audio_effects_config_get: stream or effects inactive
+<14>[   14.020555] ueventd: firmware: loading 'modem.b09' for '/devices/soc/4080000.qcom,mss/firmware/modem.b09'
+<3>[   14.020805] msm_pcm_volume_ctl_get substream or runtime not found
+<3>[   14.021706] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.022332] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.022980] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.023753] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.024415] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.025040] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.025659] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.026300] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.026995] msm_pcm_volume_ctl_get substream or runtime not found
+<3>[   14.027382] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.028032] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.028694] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.029353] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.030018] msm_compr_audio_effects_config_get: stream or effects inactive
+<38>[   14.032815] type=1400 audit(1615583177.426:30): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/msm-bcl-19/power_supply/fg_adc/type" dev="sysfs" ino=20859 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   14.032857] type=1400 audit(1615583177.746:31): avc: denied { read } for comm="HwBinder:539_2" name="mixer_paths_mtp.xml" dev="mmcblk0p53" ino=434 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+<38>[   14.032985] type=1400 audit(1615583177.746:31): avc: denied { read } for comm="HwBinder:539_2" name="mixer_paths_mtp.xml" dev="mmcblk0p53" ino=434 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+<38>[   14.033027] type=1400 audit(1615583177.746:32): avc: denied { open } for comm="HwBinder:539_2" path="/vendor/etc/mixer_paths_mtp.xml" dev="mmcblk0p53" ino=434 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+<38>[   14.033087] type=1400 audit(1615583177.746:32): avc: denied { open } for comm="HwBinder:539_2" path="/vendor/etc/mixer_paths_mtp.xml" dev="mmcblk0p53" ino=434 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+<38>[   14.033100] type=1400 audit(1615583177.746:33): avc: denied { getattr } for comm="HwBinder:539_2" path="/vendor/etc/mixer_paths_mtp.xml" dev="mmcblk0p53" ino=434 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+<11>[   14.035591] selinux: SELinux: Could not get canonical path for /sys/block/mmcblk1/queue restorecon: No such file or directory.\x0a
+<11>[   14.035664] selinux: SELinux: Could not get canonical path for /sys/block/sda/queue restorecon: No such file or directory.\x0a
+<11>[   14.035709] selinux: SELinux: Could not get canonical path for /sys/block/sde/queue restorecon: No such file or directory.\x0a
+<11>[   14.035757] selinux: SELinux: Could not get canonical path for /sys/block/dm-0/queue restorecon: No such file or directory.\x0a
+<14>[   14.038911] init: processing action (logd.logpersistd=logcatd && logd.logpersistd.enable=true) from (/system/etc/init/logcatd.rc:34)
+<14>[   14.039099] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b09 took 18ms
+<14>[   14.041055] init: starting service 'logcatd'...
+<14>[   14.044143] ueventd: firmware: loading 'modem.b10' for '/devices/soc/4080000.qcom,mss/firmware/modem.b10'
+<14>[   14.050537] init: processing action (init.svc.mediadrm=running) from (/vendor/etc/init/android.hardware.drm@1.2-service.widevine.rc:1)
+<14>[   14.059111] init: Received control message 'interface_start' for 'android.hardware.camera.provider@2.4::ICameraProvider/legacy/0' from pid: 447 (/system/bin/hwservicemanager)
+<14>[   14.059199] init: Received control message 'interface_start' for 'android.hardware.camera.provider@2.4::ICameraProvider/legacy/0' from pid: 447 (/system/bin/hwservicemanager)
+<14>[   14.060562] init: processing action (vendor.ims.QMI_DAEMON_STATUS=1) from (/vendor/etc/init/imsdatadaemon.rc:14)
+<14>[   14.061235] init: starting service 'vendor.imsdatadaemon'...
+<3>[   14.062660] dwc3_gadget_suspend_interrupt(): state:0. Ignore SUSPEND.
+<14>[   14.063734] init: Created socket '/dev/socket/ims_datad', mode 660, user 1000, group 1001
+<14>[   14.070168] init: processing action (ro.vendor.ril.mbn_copy_completed=1) from (/vendor/etc/init/hw/init.qcom.rc:309)
+<6>[   14.082103] CRUS msm_routing_cirrus_fbport_get: cirrus_fb_port_ctl = 0
+<6>[   14.082510] CRUS msm_routing_cirrus_fbport_put: cirrus_fb_port_ctl = 3
+<6>[   14.082905] Starting Cirrus GB Config Get function call
+<6>[   14.082911] CRUS msm_routing_crus_gb_config_get: crus_config_set = 0
+<6>[   14.083296] Starting Cirrus GB Config function call 3
+<6>[   14.083304] CRUS GB Config: Get Current Temp
+<6>[   14.083310] crus_afe_get_param: port = 4102 module = 10596096 param = 0xa1af07 length = 8
+<6>[   14.083314] crus_afe_get_param: Preparing to send apr packet
+<6>[   14.083333] crus_afe_get_param: crus get_param sent packet with param id 0x00a1af07 to module 0x00a1af00.
+<6>[   14.083537] Cirrus AFE CALLBACK: size = 36
+<6>[   14.086743] CRUS CRUS_AFE_GET_PARAM: returned data = [4]: 0, [5]: 0
+<6>[   14.086760] CRUS_GB_CONFIG: current temp updated; Temp-acc = 0, Count = 0
+<6>[   14.087264] Starting Cirrus GB External Config Get function call
+<6>[   14.087272] CRUS msm_routing_crus_ext_config_get: crus_ext_config_set = 0
+<6>[   14.087388] Starting Cirrus GB External Config function call 1
+<14>[   14.093169] ueventd: firmware: loading 'crus_gb_config_default.bin' for '/devices/soc/soc:qcom,msm-pcm-routing/firmware/crus_gb_config_default.bin'
+<31>[   14.100285] logd: logdr: UID=1036 GID=1007 PID=953 b tail=0 logMask=ff pid=0 start=0ns timeout=0ns
+<14>[   14.100443] ueventd: loading /devices/soc/soc:qcom,msm-pcm-routing/firmware/crus_gb_config_default.bin took 7ms
+<6>[   14.100499] CRUS msm_routing_crus_ext_config: length = 7584; dataptr = ffffff800d046000
+<6>[   14.100509] CRUS GB EXT Config: Config TX Default: function not implemented
+<14>[   14.165604] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b10 took 121ms
+<14>[   14.169845] ueventd: firmware: loading 'modem.b11' for '/devices/soc/4080000.qcom,mss/firmware/modem.b11'
+<14>[   14.178591] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b11 took 8ms
+<14>[   14.183275] ueventd: firmware: loading 'modem.b12' for '/devices/soc/4080000.qcom,mss/firmware/modem.b12'
+<6>[   14.204073] msm-dwc3 7000000.ssusb: Avail curr from USB = 0
+<6>[   14.204546] android_work: android_work: sent uevent USB_STATE=DISCONNECTED
+<38>[   14.206407] type=1400 audit(1615583177.746:33): avc: denied { getattr } for comm="HwBinder:539_2" path="/vendor/etc/mixer_paths_mtp.xml" dev="mmcblk0p53" ino=434 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+<12>[   14.206409] healthd: battery l=72 v=4013 t=31.7 h=2 st=2 c=-393 fc=4060000 chg=
+<38>[   14.206448] type=1400 audit(1615583177.919:34): avc: denied { read } for comm="health@2.0-serv" name="present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   14.206608] type=1400 audit(1615583177.919:34): avc: denied { read } for comm="health@2.0-serv" name="present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   14.206626] type=1400 audit(1615583177.919:35): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<12>[   14.207891] healthd: battery l=72 v=4013 t=31.7 h=2 st=2 c=-393 fc=4060000 chg=
+<38>[   14.208061] type=1400 audit(1615583177.919:35): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   14.208095] type=1400 audit(1615583177.919:36): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   14.208206] type=1400 audit(1615583177.919:36): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   14.208219] type=1400 audit(1615583177.919:37): avc: denied { read } for comm="hvdcp_opti" name="allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   14.208281] type=1400 audit(1615583177.919:37): avc: denied { read } for comm="hvdcp_opti" name="allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   14.208295] type=1400 audit(1615583177.919:38): avc: denied { open } for comm="hvdcp_opti" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<12>[   14.210237] healthd: battery l=72 v=4013 t=31.7 h=2 st=3 c=-393 fc=4060000 chg=
+<14>[   14.226313] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b12 took 43ms
+<14>[   14.230910] ueventd: firmware: loading 'modem.b13' for '/devices/soc/4080000.qcom,mss/firmware/modem.b13'
+<3>[   14.237624] wcdcal_hwdep_ioctl_shared: codec didn't set this 0!!
+<3>[   14.237832] wcdcal_hwdep_ioctl_shared: codec didn't set this 3!!
+<3>[   14.237864] wcdcal_hwdep_ioctl_shared: codec didn't set this 4!!
+<3>[   14.237889] wcdcal_hwdep_ioctl_shared: codec didn't set this 5!!
+<14>[   14.253549] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b13 took 22ms
+<3>[   14.257565] core_set_license: Invalid cal block to send
+<3>[   14.262483] msm_qti_pp_get_rms_value_control, back not active to query rms be_idx:3
+<6>[   14.267009] core_get_license_status: cmdrsp_license_result.result = 0x15 for module 0x1
+<3>[   14.267547] msm_dolby_dap_param_to_get_control_get, port_id not set, do not query ADM
+<3>[   14.267644] msm_dolby_dap_param_visualizer_control_get Incorrect VCNB length
+<3>[   14.267948] msm_voice_sound_focus_get: Error getting Sound Focus Params, err=-22
+<3>[   14.268025] msm_voice_source_tracking_get: Error getting Source Tracking Params, err=-22
+<3>[   14.268102] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.268107] msm_audio_sound_focus_get: Could not get copp idx for port_id=16385
+<3>[   14.268182] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.268186] msm_audio_source_tracking_get: Could not get copp idx for port_id=16385
+<3>[   14.268260] msm_voice_sound_focus_get: Error getting Sound Focus Params, err=-22
+<3>[   14.268336] msm_voice_source_tracking_get: Error getting Source Tracking Params, err=-22
+<3>[   14.268418] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.268422] msm_audio_sound_focus_get: Could not get copp idx for port_id=4101
+<3>[   14.268531] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.268536] msm_audio_source_tracking_get: Could not get copp idx for port_id=4101
+<3>[   14.268614] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.268617] msm_audio_sound_focus_get: Could not get copp idx for port_id=4103
+<3>[   14.268694] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.268698] msm_audio_source_tracking_get: Could not get copp idx for port_id=4103
+<3>[   14.268778] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.268781] msm_audio_sound_focus_get: Could not get copp idx for port_id=36865
+<3>[   14.268861] msm_audio_get_copp_idx_from_port_id: Invalid FE, exiting
+<3>[   14.268865] msm_audio_source_tracking_get: Could not get copp idx for port_id=36865
+<6>[   14.269942] core_get_license_status: cmdrsp_license_result.result = 0x15 for module 0x131ff
+<6>[   14.270350] CRUS msm_routing_cirrus_fbport_get: cirrus_fb_port_ctl = 3
+<6>[   14.270476] Starting Cirrus GB Enable Get function call, crus_gb_enable = 0
+<6>[   14.270481] CRUS msm_routing_crus_gb_enable_get: crus_gb_enable = 0
+<6>[   14.270723] Starting Cirrus GB Config Get function call
+<6>[   14.270727] CRUS msm_routing_crus_gb_config_get: crus_config_set = 0
+<6>[   14.270900] Starting Cirrus GB External Config Get function call
+<6>[   14.270904] CRUS msm_routing_crus_ext_config_get: crus_ext_config_set = 1
+<3>[   14.275871] msm_compr_audio_effects_config_get: stream or effects inactive
+<6>[   14.277649] android_work: android_work: sent uevent USB_STATE=CONNECTED
+<3>[   14.278238] msm_pcm_volume_ctl_get substream or runtime not found
+<3>[   14.279198] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.279866] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.280639] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.281285] msm_compr_audio_effects_config_get: stream or effects inactive
+<6>[   14.281449] android_work: android_work: sent uevent USB_STATE=DISCONNECTED
+<3>[   14.281973] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.282586] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.283203] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.283916] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.284467] msm_pcm_volume_ctl_get substream or runtime not found
+<3>[   14.284856] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.285542] msm_compr_audio_effects_config_get: stream or effects inactive
+<14>[   14.285715] ueventd: firmware: loading 'modem.b16' for '/devices/soc/4080000.qcom,mss/firmware/modem.b16'
+<3>[   14.286415] msm_compr_audio_effects_config_get: stream or effects inactive
+<3>[   14.287203] msm_compr_audio_effects_config_get: stream or effects inactive
+<14>[   14.287858] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b16 took 2ms
+<3>[   14.287941] msm_compr_audio_effects_config_get: stream or effects inactive
+<14>[   14.293265] ueventd: firmware: loading 'modem.b17' for '/devices/soc/4080000.qcom,mss/firmware/modem.b17'
+<14>[   14.299335] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b17 took 6ms
+<14>[   14.303669] ueventd: firmware: loading 'modem.b18' for '/devices/soc/4080000.qcom,mss/firmware/modem.b18'
+<14>[   14.306054] init: Received control message 'start' for 'bootanim' from pid: 587 (/system/bin/surfaceflinger)
+<14>[   14.306506] init: starting service 'bootanim'...
+<14>[   14.365385] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b18 took 61ms
+<14>[   14.369713] ueventd: firmware: loading 'modem.b19' for '/devices/soc/4080000.qcom,mss/firmware/modem.b19'
+<14>[   14.371685] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b19 took 2ms
+<14>[   14.375703] ueventd: firmware: loading 'modem.b20' for '/devices/soc/4080000.qcom,mss/firmware/modem.b20'
+<6>[   14.377524] android_work: android_work: sent uevent USB_STATE=CONNECTED
+<6>[   14.379695] android_usb gadget: high-speed config #1: 86000c8.android_usb
+<6>[   14.379768] msm-dwc3 7000000.ssusb: Avail curr from USB = 500
+<12>[   14.381865] healthd: battery l=72 v=4013 t=31.7 h=2 st=2 c=-393 fc=4060000 chg=u
+<12>[   14.383213] healthd: battery l=72 v=4013 t=31.7 h=2 st=2 c=-393 fc=4060000 chg=u
+<14>[   14.384770] ueventd: loading /devices/soc/4080000.qcom,mss/firmware/modem.b20 took 9ms
+<14>[   14.386194] init: Received control message 'interface_start' for 'android.hardware.camera.provider@2.4::ICameraProvider/legacy/0' from pid: 447 (/system/bin/hwservicemanager)
+<6>[   14.433538] android_work: android_work: sent uevent USB_STATE=CONFIGURED
+<6>[   14.451798] msm_pm_qos_add_request: add request
+<6>[   14.471353] msm_cci_init:1438: hw_version = 0x10020005
+<3>[   14.471513] msm_cci_irq:1790 MASTER_0 error 0x10000000
+<3>[   14.471567] msm_cci_i2c_read:959 read_words = 0, exp words = 1
+<3>[   14.471572] msm_cci_i2c_read_bytes:1042 failed rc -22
+<3>[   14.471578] msm_camera_cci_i2c_read: line 47 rc = -22
+<3>[   14.471586] msm_sensor_match_id: s5k3l8_qtech: read id failed
+<3>[   14.471593] msm_sensor_check_id:1401 match id failed rc -22
+<12>[   14.479546] healthd: battery l=72 v=4013 t=31.7 h=2 st=2 c=-393 fc=4060000 chg=u
+<6>[   14.513742] msm_cci_init:1438: hw_version = 0x10020005
+<3>[   14.513903] msm_cci_irq:1790 MASTER_0 error 0x10000000
+<3>[   14.513929] msm_cci_i2c_read:959 read_words = 0, exp words = 1
+<3>[   14.513933] msm_cci_i2c_read_bytes:1042 failed rc -22
+<3>[   14.513937] msm_camera_cci_i2c_read: line 47 rc = -22
+<3>[   14.513940] msm_sensor_match_id: s5k3l8_qtech: read id failed
+<3>[   14.513945] msm_sensor_check_id:1401 match id failed rc -22
+<6>[   14.550950] pil-q6v5-mss 4080000.qcom,mss: modem: Brought out of reset
+<6>[   14.559914] msm_cci_init:1438: hw_version = 0x10020005
+<3>[   14.560085] msm_cci_irq:1790 MASTER_0 error 0x10000000
+<3>[   14.560121] msm_cci_i2c_read:959 read_words = 0, exp words = 1
+<3>[   14.560125] msm_cci_i2c_read_bytes:1042 failed rc -22
+<3>[   14.560129] msm_camera_cci_i2c_read: line 47 rc = -22
+<3>[   14.560136] msm_sensor_match_id: s5k3l8_qtech: read id failed
+<3>[   14.560144] msm_sensor_check_id:1401 match id failed rc -22
+<3>[   14.593390] s5k3l8_qtech power up failed
+<3>[   14.593405] MSM-SENSOR-INIT msm_sensor_driver_cmd:82 msm_sensor_driver_cmd failed (non-fatal) rc -22
+<3>[   14.593414] MSM-SENSOR-INIT msm_sensor_init_subdev_do_ioctl:148 msm_sensor_init_subdev_do_ioctl:148 VIDIOC_MSM_SENSOR_INIT_CFG failed (non-fatal)
+<6>[   14.617073] msm_cci_init:1438: hw_version = 0x10020005
+<3>[   14.617227] msm_cci_irq:1790 MASTER_0 error 0x10000000
+<3>[   14.617253] msm_cci_i2c_read:959 read_words = 0, exp words = 1
+<3>[   14.617258] msm_cci_i2c_read_bytes:1042 failed rc -22
+<3>[   14.617261] msm_camera_cci_i2c_read: line 47 rc = -22
+<3>[   14.617265] msm_sensor_match_id: imx258_qtech: read id failed
+<3>[   14.617269] msm_sensor_check_id:1401 match id failed rc -22
+<6>[   14.632556] pil-q6v5-mss 4080000.qcom,mss: modem: Power/Clock ready interrupt received
+<6>[   14.632581] pil-q6v5-mss 4080000.qcom,mss: Subsystem error monitoring/handling services are up
+<6>[   14.633336] IPA received MPSS AFTER_POWERUP
+<6>[   14.633346] IPA AFTER_POWERUP handling is complete
+<3>[   14.633835] M-Notify: General: 7
+<12>[   14.655375] healthd: battery l=72 v=4013 t=31.7 h=2 st=2 c=-393 fc=4060000 chg=
+<12>[   14.656238] healthd: battery l=72 v=4013 t=31.7 h=2 st=2 c=-393 fc=4060000 chg=
+<12>[   14.657111] healthd: battery l=72 v=4013 t=31.7 h=2 st=2 c=-393 fc=4060000 chg=
+<12>[   14.658036] healthd: battery l=72 v=4013 t=31.7 h=2 st=2 c=-393 fc=4060000 chg=
+<12>[   14.659799] healthd: battery l=72 v=4013 t=31.7 h=2 st=3 c=-393 fc=4060000 chg=
+<6>[   14.663725] msm_cci_init:1438: hw_version = 0x10020005
+<3>[   14.663884] msm_cci_irq:1790 MASTER_0 error 0x10000000
+<3>[   14.663923] msm_cci_i2c_read:959 read_words = 0, exp words = 1
+<3>[   14.663930] msm_cci_i2c_read_bytes:1042 failed rc -22
+<3>[   14.663937] msm_camera_cci_i2c_read: line 47 rc = -22
+<3>[   14.663940] msm_sensor_match_id: imx258_qtech: read id failed
+<3>[   14.663944] msm_sensor_check_id:1401 match id failed rc -22
+<6>[   14.710230] msm_cci_init:1438: hw_version = 0x10020005
+<3>[   14.710393] msm_cci_irq:1790 MASTER_0 error 0x10000000
+<3>[   14.710419] msm_cci_i2c_read:959 read_words = 0, exp words = 1
+<3>[   14.710423] msm_cci_i2c_read_bytes:1042 failed rc -22
+<3>[   14.710427] msm_camera_cci_i2c_read: line 47 rc = -22
+<3>[   14.710431] msm_sensor_match_id: imx258_qtech: read id failed
+<3>[   14.710434] msm_sensor_check_id:1401 match id failed rc -22
+<6>[   14.734887] sysmon-qmi: sysmon_clnt_svc_arrive: Connection established between QMI handle and modem's SSCTL service
+<11>[   14.735141] rmt_storage:INFO:rmt_storage_open_cb: Processing: Open Request for /boot/modem_fs1!
+<11>[   14.736108] rmt_storage:INFO:rmt_storage_open_cb: Processing: Open Request for /boot/modem_fs2!
+<3>[   14.736788] imx258_qtech power up failed
+<3>[   14.736806] MSM-SENSOR-INIT msm_sensor_driver_cmd:82 msm_sensor_driver_cmd failed (non-fatal) rc -22
+<3>[   14.736814] MSM-SENSOR-INIT msm_sensor_init_subdev_do_ioctl:148 msm_sensor_init_subdev_do_ioctl:148 VIDIOC_MSM_SENSOR_INIT_CFG failed (non-fatal)
+<11>[   14.737004] rmt_storage:INFO:rmt_storage_open_cb: Processing: Open Request for /boot/modem_fsg!
+<11>[   14.737683] rmt_storage:INFO:rmt_storage_open_cb: Processing: Open Request for /boot/modem_fsc!
+<11>[   14.738899] rmt_storage:INFO:rmt_storage_alloc_buff_cb: Received req_size: 0! avail: 1572864
+<11>[   14.739540] rmt_storage:INFO:rmt_storage_rw_iovec_cb: Read iovec request received for /boot/modem_fs1
+<11>[   14.739746] rmt_storage:INFO:rmt_storage_client_thread: Calling Read [offset=512, size=512]for /boot/modem_fs1!
+<11>[   14.740182] rmt_storage:INFO:rmt_storage_client_thread: Done Read (bytes = 512) for /boot/modem_fs1!
+<11>[   14.741248] rmt_storage:INFO:rmt_storage_rw_iovec_cb: Read iovec request received for /boot/modem_fs2
+<11>[   14.741373] rmt_storage:INFO:rmt_storage_client_thread: Calling Read [offset=512, size=512]for /boot/modem_fs2!
+<11>[   14.741880] rmt_storage:INFO:rmt_storage_client_thread: Done Read (bytes = 512) for /boot/modem_fs2!
+<11>[   14.743541] rmt_storage:INFO:rmt_storage_rw_iovec_cb: Read iovec request received for /boot/modem_fs1
+<11>[   14.743641] rmt_storage:INFO:rmt_storage_client_thread: Calling Read [offset=1024, size=1571840]for /boot/modem_fs1!
+<11>[   14.759974] rmt_storage:INFO:rmt_storage_client_thread: Done Read (bytes = 1571840) for /boot/modem_fs1!
+<6>[   14.839631] MSM-CPP cpp_init_hardware:1011 CPP HW Version: 0x40030003
+<3>[   14.839645] MSM-CPP cpp_init_hardware:1029 stream_cnt:0
+<6>[   14.842948] apr_tal:Modem Is Up
+<14>[   14.844911] ueventd: firmware: loading 'cpp_firmware_v1_5_0.fw' for '/devices/soc/1b04000.qcom,cpp/firmware/cpp_firmware_v1_5_0.fw'
+<14>[   14.846221] ueventd: loading /devices/soc/1b04000.qcom,cpp/firmware/cpp_firmware_v1_5_0.fw took 1ms
+<3>[   14.855498] diag: In diag_send_feature_mask_update, control channel is not open, p: 0, 0000000000000000
+<6>[   14.875855] Sending QMI_IPA_INIT_MODEM_DRIVER_REQ_V01
+<3>[   14.876777] ipa-wan handle_indication_req:133 not send indication
+<3>[   14.878740] ipa ipa_uc_response_hdlr:461 IPA uC loaded
+<3>[   14.878784] ipa ipa_sps_irq_control_all:945 EP (5) not allocated.
+<6>[   14.879190] QMI_IPA_INIT_MODEM_DRIVER_REQ_V01 response received
+<3>[   14.881764] ipa ipa_sps_irq_control_all:945 EP (5) not allocated.
+<3>[   14.883549] ipa ipa_uc_wdi_event_log_info_handler:311 WDI feature missing 0x1
+<3>[   14.883562] ipa ipa_uc_ntn_event_log_info_handler:39 NTN feature missing 0x1
+<3>[   14.883619] ipa ipa_sps_irq_control_all:945 EP (5) not allocated.
+<4>[   15.328353] KGSL: Abnormal value :0x227de2c (0x22be035) from perf counter : 0x3b0
+<3>[   15.329184] scm_call failed: func id 0x42000c16, ret: -1, syscall returns: 0x0, 0x0, 0x0
+<6>[   15.329197] batched_hyp_assign: Failed to assign memory protection, ret = -5
+<3>[   15.329203] memshare: hyp_assign_phys failed size=2097152 err=-5
+<3>[   15.352927] wcnss_ctrl_write: Invalid command 1
+<38>[   15.352964] type=1400 audit(1615583177.919:38): avc: denied { open } for comm="hvdcp_opti" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<6>[   15.352969] wcnss_wlan triggered by userspace
+<38>[   15.353001] type=1400 audit(1615583179.066:39): avc: denied { open } for comm="wcnss_service" path="/dev/__properties__/u:object_r:serialno_prop:s0" dev="tmpfs" ino=8530 scontext=u:r:wcnss_service:s0 tcontext=u:object_r:serialno_prop:s0 tclass=file permissive=1
+<6>[   15.353600] wcnss_pm_qos_add_request: add request
+<38>[   15.353609] type=1400 audit(1615583179.066:39): avc: denied { open } for comm="wcnss_service" path="/dev/__properties__/u:object_r:serialno_prop:s0" dev="tmpfs" ino=8530 scontext=u:r:wcnss_service:s0 tcontext=u:object_r:serialno_prop:s0 tclass=file permissive=1
+<6>[   15.353621] wcnss_pm_qos_update_request: update request 100
+<38>[   15.353641] type=1400 audit(1615583179.066:40): avc: denied { getattr } for comm="wcnss_service" path="/dev/__properties__/u:object_r:serialno_prop:s0" dev="tmpfs" ino=8530 scontext=u:r:wcnss_service:s0 tcontext=u:object_r:serialno_prop:s0 tclass=file permissive=1
+<3>[   15.354663] wcnss_trigger_config: couldn't get snoc_wcnss
+<6>[   15.356497] wcnss_notif_cb: wcnss notification event: 2
+<14>[   15.414465] ueventd: firmware: loading 'wcnss.mdt' for '/devices/soc/a21b000.qcom,pronto/firmware/wcnss.mdt'
+<14>[   15.416777] ueventd: loading /devices/soc/a21b000.qcom,pronto/firmware/wcnss.mdt took 2ms
+<6>[   15.417156] subsys-pil-tz a21b000.qcom,pronto: wcnss: loading from 0x000000008e700000 to 0x000000008ed43000
+<6>[   15.418984] wcnss_notif_cb: wcnss notification event: 6
+<6>[   15.424990] wcnss: IRIS Reg: 04000004
+<14>[   15.425901] init: Received control message 'stop' for 'dpmd' from pid: 896 (/system/product/bin/dpmd)
+<14>[   15.426048] init: Sending signal 9 to service 'dpmd' (pid 870) process group...
+<14>[   15.457996] libprocessgroup: Successfully killed process cgroup uid 0 pid 870 in 31ms
+<14>[   15.460106] init: Service 'dpmd' (pid 870) received signal 9
+<14>[   15.461084] init: Untracked pid 896 received signal 9
+<14>[   15.461977] init: processing action (vendor.ims.DATA_DAEMON_STATUS=1) from (/vendor/etc/init/ims_rtp_daemon.rc:13)
+<14>[   15.462191] init: Sending signal 9 to service 'vendor.ims_rtp_daemon' (pid 744) process group...
+<14>[   15.467664] libprocessgroup: Successfully killed process cgroup uid 1001 pid 744 in 5ms
+<14>[   15.468832] init: Service 'vendor.ims_rtp_daemon' (pid 744) received signal 9
+<14>[   15.475866] init: Received control message 'stop' for 'vendor.imsrcsservice' from pid: 955 (/vendor/bin/imsdatadaemon)
+<14>[   15.475924] init: Sending signal 9 to service 'vendor.imsrcsservice' (pid 753) process group...
+<14>[   15.481394] libprocessgroup: Successfully killed process cgroup uid 1001 pid 753 in 5ms
+<14>[   15.482018] init: Received control message 'start' for 'vendor.imsrcsservice' from pid: 955 (/vendor/bin/imsdatadaemon)
+<14>[   15.482212] init: Service 'vendor.imsrcsservice' (pid 753) received signal 9
+<14>[   15.498822] ueventd: firmware: loading 'wcnss.b02' for '/devices/soc/a21b000.qcom,pronto/firmware/wcnss.b02'
+<14>[   15.500203] ueventd: loading /devices/soc/a21b000.qcom,pronto/firmware/wcnss.b02 took 1ms
+<14>[   15.504591] ueventd: firmware: loading 'wcnss.b04' for '/devices/soc/a21b000.qcom,pronto/firmware/wcnss.b04'
+<14>[   15.507249] ueventd: loading /devices/soc/a21b000.qcom,pronto/firmware/wcnss.b04 took 2ms
+<14>[   15.511035] ueventd: firmware: loading 'wcnss.b06' for '/devices/soc/a21b000.qcom,pronto/firmware/wcnss.b06'
+<14>[   15.533675] ueventd: loading /devices/soc/a21b000.qcom,pronto/firmware/wcnss.b06 took 22ms
+<14>[   15.540812] ueventd: firmware: loading 'wcnss.b09' for '/devices/soc/a21b000.qcom,pronto/firmware/wcnss.b09'
+<14>[   15.545050] ueventd: loading /devices/soc/a21b000.qcom,pronto/firmware/wcnss.b09 took 4ms
+<14>[   15.549055] ueventd: firmware: loading 'wcnss.b10' for '/devices/soc/a21b000.qcom,pronto/firmware/wcnss.b10'
+<14>[   15.550371] ueventd: loading /devices/soc/a21b000.qcom,pronto/firmware/wcnss.b10 took 1ms
+<14>[   15.554820] ueventd: firmware: loading 'wcnss.b11' for '/devices/soc/a21b000.qcom,pronto/firmware/wcnss.b11'
+<14>[   15.563699] ueventd: loading /devices/soc/a21b000.qcom,pronto/firmware/wcnss.b11 took 9ms
+<14>[   15.568062] ueventd: firmware: loading 'wcnss.b12' for '/devices/soc/a21b000.qcom,pronto/firmware/wcnss.b12'
+<14>[   15.570201] ueventd: loading /devices/soc/a21b000.qcom,pronto/firmware/wcnss.b12 took 2ms
+<6>[   15.628117] subsys-pil-tz a21b000.qcom,pronto: wcnss: Brought out of reset
+<11>[   15.848464] init: Unable to set property 'ro.vendor.ril.svlte1x' to 'false' from uid:1001 gid:1001 pid:774: Read-only property was already set
+<11>[   15.848770] init: Unable to set property 'ro.vendor.ril.svdo' to 'false' from uid:1001 gid:1001 pid:774: Read-only property was already set
+<6>[   16.129426] subsys-pil-tz a21b000.qcom,pronto: wcnss: Power/Clock ready interrupt received
+<6>[   16.132764] wcnss_notif_cb: wcnss notification event: 7
+<6>[   16.142719] subsys-pil-tz a21b000.qcom,pronto: Subsystem error monitoring/handling services are up
+<6>[   16.145633] wcnss_notif_cb: wcnss notification event: 3
+<6>[   16.145655] wcnss_pm_qos_update_request: update request -1
+<6>[   16.145670] wcnss_pm_qos_remove_request: remove request
+<3>[   16.147150] diag: In diag_send_feature_mask_update, control channel is not open, p: 2, 0000000000000000
+<6>[   16.310956] wcnss_wlan_ctrl_probe: SMD ctrl channel up
+<6>[   16.311269] wcnss: version 01050102
+<6>[   16.311280] wcnss: schedule dnld work for pronto
+<6>[   16.311461] wcnss: build version CNSS-PR-4-0-412-125084-2
+<3>[   16.677937] ipa ipa_sps_irq_control_all:945 EP (5) not allocated.
+<3>[   16.679439] ipa ipa_sps_irq_control_all:945 EP (5) not allocated.
+<3>[   16.681511] ipa-wan ipa_wwan_ioctl:1554 get AGG size 8192 count 10
+<3>[   16.682010] ipa ipa_sps_irq_control_all:945 EP (5) not allocated.
+<3>[   16.683807] ipa ipa_assign_policy:3158 get close-by 8192
+<3>[   16.683816] ipa ipa_assign_policy:3164 set rx_buff_sz 7808
+<3>[   16.683822] ipa ipa_assign_policy:3187 set aggr_limit 6
+<3>[   16.695424] ipa-wan ipa_wwan_ioctl:1455 dev(rmnet_data0) register to IPA
+<3>[   16.906065] ipa-wan ipa_wwan_ioctl:1455 dev(rmnet_data1) register to IPA
+<3>[   17.126099] ipa-wan ipa_wwan_ioctl:1455 dev(rmnet_data2) register to IPA
+<3>[   17.368407] ipa-wan ipa_wwan_ioctl:1455 dev(rmnet_data3) register to IPA
+<3>[   17.533008] ipa-wan ipa_wwan_ioctl:1455 dev(rmnet_data4) register to IPA
+<3>[   17.739131] ipa-wan ipa_wwan_ioctl:1455 dev(rmnet_data5) register to IPA
+<3>[   17.970421] ipa-wan ipa_wwan_ioctl:1455 dev(rmnet_data6) register to IPA
+<3>[   18.178127] ipa-wan ipa_wwan_ioctl:1455 dev(rmnet_data7) register to IPA
+<14>[   18.284102] init: starting service 'vendor.ims_rtp_daemon'...
+<14>[   18.309710] init: starting service 'vendor.imsrcsservice'...
+<6>[   18.826824] wcnss: NV download
+<14>[   18.830986] ueventd: firmware: loading 'wlan/prima/WCNSS_qcom_wlan_nv.bin' for '/devices/soc/a000000.qcom,wcnss-wlan/firmware/wlan!prima!WCNSS_qcom_wlan_nv.bin'
+<14>[   18.833889] ueventd: loading /devices/soc/a000000.qcom,wcnss-wlan/firmware/wlan!prima!WCNSS_qcom_wlan_nv.bin took 3ms
+<6>[   18.833922] wcnss: NV bin size: 31719, total_fragments: 11
+<3>[   18.833961] wcnss: no space available for smd frame
+<3>[   18.856784] wcnss: no space available for smd frame
+<3>[   18.880086] wcnss: no space available for smd frame
+<38>[   18.883492] type=1400 audit(1615583179.066:40): avc: denied { getattr } for comm="wcnss_service" path="/dev/__properties__/u:object_r:serialno_prop:s0" dev="tmpfs" ino=8530 scontext=u:r:wcnss_service:s0 tcontext=u:object_r:serialno_prop:s0 tclass=file permissive=1
+<38>[   18.883519] type=1400 audit(1615583182.596:41): avc: denied { read } for comm="health@2.0-serv" name="present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   18.883602] type=1400 audit(1615583182.596:41): avc: denied { read } for comm="health@2.0-serv" name="present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   18.883615] type=1400 audit(1615583182.596:42): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   18.883679] type=1400 audit(1615583182.596:42): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   18.883693] type=1400 audit(1615583182.596:43): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<12>[   18.884513] healthd: battery l=72 v=3983 t=31.7 h=2 st=3 c=-646 fc=4060000 chg=
+<3>[   18.903430] wcnss: no space available for smd frame
+<14>[   19.588571] init: Received control message 'start' for 'idmap2d' from pid: 1191 (system_server)
+<12>[   19.789687] healthd: battery l=72 v=3968 t=32.2 h=2 st=3 c=-722 fc=4060000 chg=
+<12>[   19.790872] healthd: battery l=72 v=3968 t=32.2 h=2 st=3 c=-722 fc=4060000 chg=
+<12>[   19.814650] healthd: battery l=72 v=3968 t=32.2 h=2 st=3 c=-722 fc=4060000 chg=
+<14>[   20.487528] init: processing action (sys.sysctl.extra_free_kbytes=*) from (/init.rc:819)
+<38>[   20.934555] type=1400 audit(1615583182.596:43): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   20.934587] type=1400 audit(1615583184.649:44): avc: denied { write } for comm="light@2.0-servi" name="blink" dev="sysfs" ino=30039 scontext=u:r:hal_light_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   20.934813] type=1400 audit(1615583184.649:44): avc: denied { write } for comm="light@2.0-servi" name="blink" dev="sysfs" ino=30039 scontext=u:r:hal_light_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   20.934830] type=1400 audit(1615583184.649:45): avc: denied { open } for comm="light@2.0-servi" path="/sys/devices/soc/7af6000.i2c/i2c-6/6-0045/leds/mx-led/blink" dev="sysfs" ino=30039 scontext=u:r:hal_light_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   20.934906] type=1400 audit(1615583184.649:45): avc: denied { open } for comm="light@2.0-servi" path="/sys/devices/soc/7af6000.i2c/i2c-6/6-0045/leds/mx-led/blink" dev="sysfs" ino=30039 scontext=u:r:hal_light_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   20.934922] type=1400 audit(1615583184.649:46): avc: denied { getattr } for comm="light@2.0-servi" path="/sys/devices/soc/7af6000.i2c/i2c-6/6-0045/leds/mx-led/blink" dev="sysfs" ino=30039 scontext=u:r:hal_light_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<6>[   20.937097] binder: 446:446 BC_REQUEST_DEATH_NOTIFICATION death notification already set
+<6>[   21.060069] acc_open
+<6>[   21.060089] acc_release
+<14>[   21.147472] init: Received control message 'interface_start' for 'android.hardware.biometrics.fingerprint@2.1::IBiometricsFingerprint/default' from pid: 447 (/system/bin/hwservicemanager)
+<11>[   21.147561] init: Could not find 'android.hardware.biometrics.fingerprint@2.1::IBiometricsFingerprint/default' for ctl.interface_start
+<14>[   21.319494] init: Received control message 'interface_start' for 'android.hardware.wifi@1.0::IWifi/default' from pid: 447 (/system/bin/hwservicemanager)
+<14>[   21.320338] init: starting service 'vendor.wifi_hal_legacy'...
+<14>[   21.322828] init: Received control message 'interface_start' for 'android.hardware.wifi@1.0::IWifi/default' from pid: 447 (/system/bin/hwservicemanager)
+<38>[   21.531644] type=1400 audit(1615583184.649:46): avc: denied { getattr } for comm="light@2.0-servi" path="/sys/devices/soc/7af6000.i2c/i2c-6/6-0045/leds/mx-led/blink" dev="sysfs" ino=30039 scontext=u:r:hal_light_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   21.531676] type=1400 audit(1615583185.246:47): avc: denied { read } for comm="health@2.0-serv" name="present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   21.531833] type=1400 audit(1615583185.246:47): avc: denied { read } for comm="health@2.0-serv" name="present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   21.531853] type=1400 audit(1615583185.246:48): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   21.531927] type=1400 audit(1615583185.246:48): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   21.531943] type=1400 audit(1615583185.246:49): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<12>[   21.532693] healthd: battery l=72 v=3968 t=32.2 h=2 st=3 c=-722 fc=4060000 chg=
+<6>[   21.611794] set glove_id = 0 
+<6>[   21.611972] read glove_id = 0
+<14>[   23.846869] init: Received control message 'interface_start' for 'android.hardware.biometrics.fingerprint@2.1::IBiometricsFingerprint/default' from pid: 447 (/system/bin/hwservicemanager)
+<11>[   23.846937] init: Could not find 'android.hardware.biometrics.fingerprint@2.1::IBiometricsFingerprint/default' for ctl.interface_start
+<14>[   23.861193] init: Received control message 'interface_start' for 'android.hardware.biometrics.fingerprint@2.1::IBiometricsFingerprint/default' from pid: 447 (/system/bin/hwservicemanager)
+<11>[   23.861263] init: Could not find 'android.hardware.biometrics.fingerprint@2.1::IBiometricsFingerprint/default' for ctl.interface_start
+<14>[   23.863340] init: Received control message 'interface_start' for 'android.hardware.biometrics.fingerprint@2.1::IBiometricsFingerprint/default' from pid: 447 (/system/bin/hwservicemanager)
+<11>[   23.863542] init: Could not find 'android.hardware.biometrics.fingerprint@2.1::IBiometricsFingerprint/default' for ctl.interface_start
+<14>[   24.000371] init: Received control message 'interface_start' for 'android.hardware.biometrics.fingerprint@2.1::IBiometricsFingerprint/default' from pid: 447 (/system/bin/hwservicemanager)
+<11>[   24.000442] init: Could not find 'android.hardware.biometrics.fingerprint@2.1::IBiometricsFingerprint/default' for ctl.interface_start
+<14>[   24.005210] init: Received control message 'interface_start' for 'android.hardware.biometrics.fingerprint@2.1::IBiometricsFingerprint/default' from pid: 447 (/system/bin/hwservicemanager)
+<11>[   24.005272] init: Could not find 'android.hardware.biometrics.fingerprint@2.1::IBiometricsFingerprint/default' for ctl.interface_start
+<14>[   29.023153] init: Service 'bootanim' (pid 983) exited with status 0
+<38>[   29.043844] type=1400 audit(1615583185.246:49): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.043875] type=1400 audit(1615583192.759:50): avc: denied { write } for comm="light@2.0-servi" name="blink" dev="sysfs" ino=30039 scontext=u:r:hal_light_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.043999] type=1400 audit(1615583192.759:50): avc: denied { write } for comm="light@2.0-servi" name="blink" dev="sysfs" ino=30039 scontext=u:r:hal_light_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.044014] type=1400 audit(1615583192.759:51): avc: denied { open } for comm="light@2.0-servi" path="/sys/devices/soc/7af6000.i2c/i2c-6/6-0045/leds/mx-led/blink" dev="sysfs" ino=30039 scontext=u:r:hal_light_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.044081] type=1400 audit(1615583192.759:51): avc: denied { open } for comm="light@2.0-servi" path="/sys/devices/soc/7af6000.i2c/i2c-6/6-0045/leds/mx-led/blink" dev="sysfs" ino=30039 scontext=u:r:hal_light_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.044096] type=1400 audit(1615583192.759:52): avc: denied { getattr } for comm="light@2.0-servi" path="/sys/devices/soc/7af6000.i2c/i2c-6/6-0045/leds/mx-led/blink" dev="sysfs" ino=30039 scontext=u:r:hal_light_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<14>[   29.055836] init: processing action (sys.usb.config=none && sys.usb.configfs=0) from (/init.usb.rc:25)
+<14>[   29.055876] init: Sending signal 9 to service 'adbd' (pid 623) process group...
+<6>[   29.065589] sdcardfs version 2.0
+<6>[   29.065602] sdcardfs: dev_name -> /data/media
+<6>[   29.065605] sdcardfs: options -> fsuid=1023,fsgid=1023,multiuser,derive_gid,default_normal,unshared_obb,mask=6,userid=0,gid=1015
+<6>[   29.065610] sdcardfs: mnt -> 0000000000000000
+<6>[   29.065662] sdcardfs: mounted on top of /data/media type ext4
+<7>[   29.065898] SELinux: initialized (dev sdcardfs, type sdcardfs), uses genfs_contexts
+<6>[   29.066506] Remount options were mask=23,gid=9997 for vfsmnt 0000000000000000.
+<6>[   29.066515] sdcardfs : options - debug:1
+<6>[   29.066518] sdcardfs : options - gid:9997
+<6>[   29.066521] sdcardfs : options - mask:23
+<6>[   29.066972] Remount options were mask=7,gid=9997 for vfsmnt 0000000000000000.
+<6>[   29.066979] sdcardfs : options - debug:1
+<6>[   29.066982] sdcardfs : options - gid:9997
+<6>[   29.066984] sdcardfs : options - mask:7
+<6>[   29.067375] Remount options were mask=7,gid=9997 for vfsmnt 0000000000000000.
+<6>[   29.067381] sdcardfs : options - debug:1
+<6>[   29.067385] sdcardfs : options - gid:9997
+<6>[   29.067387] sdcardfs : options - mask:7
+<3>[   29.105368] dwc3 7000000.dwc3: request 0000000000000000 was not queued to ep0out
+<14>[   29.108460] libprocessgroup: Successfully killed process cgroup uid 0 pid 623 in 52ms
+<14>[   29.109189] init: Command 'stop adbd' action=sys.usb.config=none && sys.usb.configfs=0 (/init.usb.rc:26) took 53ms and succeeded
+<14>[   29.113092] init: Service 'adbd' (pid 623) received signal 9
+<14>[   29.114544] init: Untracked pid 1769 received signal 9
+<14>[   29.115463] init: processing action (sys.boot_completed=1) from (/init.rc:810)
+<14>[   29.116196] init: starting service 'exec 12 (/bin/rm -rf /data/per_boot)'...
+<14>[   29.118175] init: SVC_EXEC service 'exec 12 (/bin/rm -rf /data/per_boot)' pid 2218 (uid 1000 gid 1000+0 context default) started; waiting...
+<14>[   29.141061] init: Service 'exec 12 (/bin/rm -rf /data/per_boot)' (pid 2218) exited with status 0 waiting took 0.023000 seconds
+<14>[   29.142500] init: processing action (sys.boot_completed=1) from (/vendor/etc/init/hw/init.qcom.rc:241)
+<14>[   29.143323] Boot completed 
+<14>[   29.145059] init: processing action (sys.boot_completed=1) from (/vendor/etc/init/hw/init.qcom.rc:319)
+<14>[   29.145635] init: starting service 'vendor.qcom-post-boot'...
+<14>[   29.148349] init: processing action (sys.boot_completed=1 && sys.logbootcomplete=1) from (/system/etc/init/bootstat.rc:78)
+<14>[   29.148788] init: starting service 'exec 13 (/system/bin/bootstat --record_boot_complete --record_boot_reason --record_time_since_factory_reset -l)'...
+<14>[   29.150776] init: processing action (sys.boot_completed=1) from (/system/etc/init/flags_health_check.rc:7)
+<14>[   29.162241] init: processing action (sys.boot_completed=1) from (/system/etc/init/logd.rc:32)
+<14>[   29.163669] init: starting service 'logd-auditctl'...
+<14>[   29.166504] init: processing action (sys.boot_completed=1 && sys.wifitracing.started=0) from (/system/etc/init/wifi-events.rc:20)
+<14>[   29.222783] init: Command 'mkdir /sys/kernel/debug/tracing/instances/wifi 711' action=sys.boot_completed=1 && sys.wifitracing.started=0 (/system/etc/init/wifi-events.rc:22) took 56ms and succeeded
+<14>[   29.225334] init: Service 'exec 13 (/system/bin/bootstat --record_boot_complete --record_boot_reason --record_time_since_factory_reset -l)' (pid 2221) exited with status 0
+<14>[   29.225597] init: Service 'logd-auditctl' (pid 2222) exited with status 0
+<6>[   29.243399] msm_thermal:store_cc_enabled Core control disabled
+<6>[   29.299585] msm_thermal:store_cc_enabled Core control enabled
+<3>[   29.299612] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   29.299616] msm_thermal:hotplug_init_cpu_offlined Unable to read TSENS sensor:-19.
+<3>[   29.299622] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   29.299626] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   29.299630] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   29.299634] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   29.299638] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   29.299642] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   29.299646] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   29.299649] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   29.299653] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   29.299657] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   29.299661] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   29.299664] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   29.299668] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   29.299672] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<3>[   29.299676] msm_thermal:therm_get_temp Unable to read thermal zone sensor:-19
+<3>[   29.299679] msm_thermal:sensor_mgr_set_threshold Unable to read temperature for zone:-19. err:-19
+<14>[   29.316116] init: processing action (dev.bootcomplete=1) from (/vendor/etc/init/hw/init.qcom.rc:381)
+<14>[   29.317019] init: Sending signal 9 to service 'ril-daemon' (pid 774) process group...
+<14>[   29.385338] libprocessgroup: Successfully killed process cgroup uid 1001 pid 774 in 68ms
+<14>[   29.386032] init: Command 'restart ril-daemon' action=dev.bootcomplete=1 (/vendor/etc/init/hw/init.qcom.rc:383) took 69ms and succeeded
+<14>[   29.386169] init: Received control message 'interface_start' for 'android.hardware.radio@1.1::IRadio/slot1' from pid: 447 (/system/bin/hwservicemanager)
+<11>[   29.386211] init: Could not find 'android.hardware.radio@1.1::IRadio/slot1' for ctl.interface_start
+<14>[   29.386668] init: processing action (init.svc.adbd=stopped) from (/init.usb.configfs.rc:14)
+<14>[   29.387651] init: Service 'ril-daemon' (pid 774) received signal 9
+<14>[   29.390693] init: processing action (sys.usb.config=mtp,adb) from (/vendor/etc/init/hw/init.qcom.usb.rc:223)
+<3>[   29.391802] enable_store: android_usb: already disabled
+<14>[   29.392320] init: starting service 'ril-daemon'...
+<14>[   29.394693] init: Received control message 'interface_start' for 'android.hardware.radio@1.1::IRadio/slot1' from pid: 447 (/system/bin/hwservicemanager)
+<11>[   29.394754] init: Could not find 'android.hardware.radio@1.1::IRadio/slot1' for ctl.interface_start
+<14>[   29.396011] init: Received control message 'interface_start' for 'android.hardware.radio.config@1.0::IRadioConfig/default' from pid: 447 (/system/bin/hwservicemanager)
+<11>[   29.396060] init: Could not find 'android.hardware.radio.config@1.0::IRadioConfig/default' for ctl.interface_start
+<14>[   29.398061] init: Received control message 'interface_start' for 'android.hardware.radio.config@1.0::IRadioConfig/default' from pid: 447 (/system/bin/hwservicemanager)
+<11>[   29.398115] init: Could not find 'android.hardware.radio.config@1.0::IRadioConfig/default' for ctl.interface_start
+<14>[   29.400629] init: starting service 'adbd'...
+<14>[   29.404424] init: Created socket '/dev/socket/adbd', mode 660, user 1000, group 1000
+<14>[   29.404662] init: processing action (sys.io.scheduler=*) from (/system/etc/init/lineage-iosched.rc:34)
+<14>[   29.409733] init: processing action (sys.io.scheduler=bfq) from (/system/etc/init/lineage-iosched.rc:59)
+<14>[   29.436232] selinux: SELinux: Skipping restorecon on directory(/data/system_ce/0)\x0a
+<14>[   29.441213] selinux: SELinux: Skipping restorecon on directory(/data/vendor_ce/0)\x0a
+<14>[   29.446132] selinux: SELinux: Skipping restorecon on directory(/data/misc_ce/0)\x0a
+<6>[   29.461374] mtp_bind_config
+<14>[   29.475922] init: Command 'restorecon --recursive /sys/block/mmcblk0/queue' action=sys.io.scheduler=bfq (/system/etc/init/lineage-iosched.rc:60) took 66ms and succeeded
+<11>[   29.476071] selinux: SELinux: Could not get canonical path for /sys/block/mmcblk1/queue restorecon: No such file or directory.\x0a
+<11>[   29.476126] selinux: SELinux: Could not get canonical path for /sys/block/sda/queue restorecon: No such file or directory.\x0a
+<11>[   29.476173] selinux: SELinux: Could not get canonical path for /sys/block/sde/queue restorecon: No such file or directory.\x0a
+<11>[   29.476220] selinux: SELinux: Could not get canonical path for /sys/block/dm-0/queue restorecon: No such file or directory.\x0a
+<6>[   29.488529] zram0: detected capacity change from 0 to 1610612736
+<6>[   29.523684] Adding 1572860k swap on /dev/block/zram0.  Priority:32758 extents:1 across:1572860k SS
+<3>[   29.570741] dwc3_gadget_suspend_interrupt(): state:0. Ignore SUSPEND.
+<11>[   29.639589] init: Unable to set property 'ro.vendor.ril.svlte1x' to 'false' from uid:1001 gid:1001 pid:2259: Read-only property was already set
+<11>[   29.640544] init: Unable to set property 'ro.vendor.ril.svdo' to 'false' from uid:1001 gid:1001 pid:2259: Read-only property was already set
+<3>[   29.792561] kgsl-3d 1c00000.qcom,kgsl-3d0: dev_pm_opp_get_opp_count: device OPP not found (-19)
+<3>[   29.792719] devbw soc:qcom,gpubw: dev_pm_opp_get_opp_count: device OPP not found (-19)
+<6>[   29.804041] msm-dwc3 7000000.ssusb: Avail curr from USB = 0
+<6>[   29.804380] android_work: android_work: sent uevent USB_STATE=DISCONNECTED
+<38>[   29.805986] type=1400 audit(1615583192.759:52): avc: denied { getattr } for comm="light@2.0-servi" path="/sys/devices/soc/7af6000.i2c/i2c-6/6-0045/leds/mx-led/blink" dev="sysfs" ino=30039 scontext=u:r:hal_light_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.806022] type=1400 audit(1615583193.519:53): avc: denied { read } for comm="hvdcp_opti" name="allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.806171] type=1400 audit(1615583193.519:53): avc: denied { read } for comm="hvdcp_opti" name="allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.806184] type=1400 audit(1615583193.519:54): avc: denied { open } for comm="hvdcp_opti" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.806281] type=1400 audit(1615583193.519:54): avc: denied { open } for comm="hvdcp_opti" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/allow_hvdcp3" dev="sysfs" ino=33796 scontext=u:r:hvdcp:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.806294] type=1400 audit(1615583193.519:55): avc: denied { read } for comm="health@2.0-serv" name="present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.806351] type=1400 audit(1615583193.519:55): avc: denied { read } for comm="health@2.0-serv" name="present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.806367] type=1400 audit(1615583193.519:56): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.806419] type=1400 audit(1615583193.519:56): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.806433] type=1400 audit(1615583193.519:57): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<12>[   29.806462] healthd: battery l=71 v=3985 t=32.0 h=2 st=3 c=-522 fc=4060000 chg=
+<12>[   29.807809] healthd: battery l=71 v=3985 t=32.0 h=2 st=3 c=-522 fc=4060000 chg=
+<3>[   29.818355] devbw soc:qcom,cpubw: dev_pm_opp_get_opp_count: device OPP not found (-19)
+<6>[   29.877953] android_work: android_work: sent uevent USB_STATE=CONNECTED
+<6>[   29.882930] android_work: android_work: sent uevent USB_STATE=DISCONNECTED
+<14>[   29.912440] init: Service 'vendor.qcom-post-boot' (pid 2220) exited with status 0
+<6>[   29.978153] android_work: android_work: sent uevent USB_STATE=CONNECTED
+<6>[   29.979678] android_usb gadget: high-speed config #1: 86000c8.android_usb
+<6>[   29.979771] msm-dwc3 7000000.ssusb: Avail curr from USB = 500
+<38>[   29.981405] type=1400 audit(1615583193.519:57): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.981458] type=1400 audit(1615583193.696:58): avc: denied { read } for comm="health@2.0-serv" name="present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.981623] type=1400 audit(1615583193.696:58): avc: denied { read } for comm="health@2.0-serv" name="present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.981643] type=1400 audit(1615583193.696:59): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.981718] type=1400 audit(1615583193.696:59): avc: denied { open } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<38>[   29.981733] type=1400 audit(1615583193.696:60): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<12>[   29.983648] healthd: battery l=71 v=3985 t=32.0 h=2 st=3 c=-522 fc=4060000 chg=u
+<12>[   29.984875] healthd: battery l=71 v=3985 t=32.0 h=2 st=3 c=-522 fc=4060000 chg=u
+<6>[   30.033574] android_work: android_work: sent uevent USB_STATE=CONFIGURED
+<6>[   30.135998] Starting Cirrus GB Enable Get function call, crus_gb_enable = 0
+<6>[   30.136008] CRUS msm_routing_crus_gb_enable_get: crus_gb_enable = 0
+<6>[   30.136098] CRUS msm_routing_crus_gb_enable: crus_set = 1
+<6>[   30.136102] Cirrus GB Enable: Config ENABLE
+<6>[   30.136107] crus_afe_set_param: port = 4102 module = 10596096 param = 0x10203 data_size = 4
+<6>[   30.136111] crus_afe_set_param: Preparing to send apr packet.
+<6>[   30.152217] crus_afe_set_param: crus set_param sent packet with param id 0x00010203 to module 0x00a1af00.
+<6>[   30.152230] crus_afe_set_param: port = 4103 module = 10600192 param = 0x10203 data_size = 4
+<6>[   30.152235] crus_afe_set_param: Preparing to send apr packet.
+<6>[   30.157071] crus_afe_set_param: crus set_param sent packet with param id 0x00010203 to module 0x00a1bf00.
+<6>[   30.159578] Starting Cirrus GB Config Get function call
+<6>[   30.159589] CRUS msm_routing_crus_gb_config_get: crus_config_set = 0
+<6>[   30.159671] Starting Cirrus GB Config function call 0
+<6>[   30.159675] CRUS path of Opalum for Music
+<6>[   30.159680] crus_afe_set_param: port = 4102 module = 10596096 param = 0xa1af02 data_size = 4
+<6>[   30.159685] crus_afe_set_param: Preparing to send apr packet.
+<6>[   30.160697] crus_afe_set_param: crus set_param sent packet with param id 0x00a1af02 to module 0x00a1af00.
+<6>[   30.160997] Starting Cirrus GB External Config Get function call
+<6>[   30.161002] CRUS msm_routing_crus_ext_config_get: crus_ext_config_set = 1
+<6>[   30.161099] Starting Cirrus GB External Config function call 0
+<14>[   30.165848] ueventd: firmware: loading 'crus_gb_config_default.bin' for '/devices/soc/soc:qcom,msm-pcm-routing/firmware/crus_gb_config_default.bin'
+<6>[   30.166681] CRUS msm_routing_crus_ext_config: length = 7584; dataptr = ffffff8001601000
+<6>[   30.166757] CRUS GB EXT Config: Config RX Default
+<6>[   30.166762] crus_afe_send_config: called with module_id = a1af00, string length = 7584
+<14>[   30.166989] ueventd: loading /devices/soc/soc:qcom,msm-pcm-routing/firmware/crus_gb_config_default.bin took 1ms
+<6>[   30.178773] Starting Cirrus GB External Config Get function call
+<6>[   30.178792] CRUS msm_routing_crus_ext_config_get: crus_ext_config_set = 0
+<6>[   30.178885] Starting Cirrus GB External Config function call 3
+<14>[   30.184404] ueventd: firmware: loading 'crus_gb_config_new_tx.bin' for '/devices/soc/soc:qcom,msm-pcm-routing/firmware/crus_gb_config_new_tx.bin'
+<14>[   30.185883] ueventd: loading /devices/soc/soc:qcom,msm-pcm-routing/firmware/crus_gb_config_new_tx.bin took 1ms
+<6>[   30.185978] CRUS msm_routing_crus_ext_config: length = 2392; dataptr = ffffff8001604000
+<6>[   30.185990] CRUS GB EXT Config: Config TX New
+<6>[   30.185995] crus_afe_send_config: called with module_id = a1bf00, string length = 2392
+<6>[   30.192185] Starting Cirrus GB Config Get function call
+<6>[   30.192207] CRUS msm_routing_crus_gb_config_get: crus_config_set = 0
+<6>[   30.192319] Starting Cirrus GB Config function call 2
+<6>[   30.192324] CRUS GB Config: Set Temp Calibration
+<6>[   30.192335] crus_afe_set_param: port = 4102 module = 10596096 param = 0xa1af08 data_size = 12
+<6>[   30.192339] crus_afe_set_param: Preparing to send apr packet.
+<6>[   30.193252] crus_afe_set_param: crus set_param sent packet with param id 0x00a1af08 to module 0x00a1af00.
+<6>[   30.193258] CRUS_GB_CONFIG: set temp cal with Temp-acc = 305742, Count = 16, Ambient = 28
+<6>[   30.193895] msm_quat_mi2s_snd_startup(): substream = subdevice #0  stream = 0, ref_count = 0
+<4>[   30.195543] cs35l35_codec_set_sysclk@712 ++
+<4>[   30.195554] cs35l35_dai_set_sysclk@648 ++
+<6>[   30.195682] msm_quat_mi2s_snd_startup(): configure quat_i2s success
+<4>[   30.195841] cs35l35_get_clk_config: pos = 0, sysclk_func = 12288000, sysclk = 5644800, srate_func = 48000, srate = 44100
+<4>[   30.195847] cs35l35_get_clk_config: pos = 1, sysclk_func = 12288000, sysclk = 5644800, srate_func = 48000, srate = 88200
+<4>[   30.195851] cs35l35_get_clk_config: pos = 2, sysclk_func = 12288000, sysclk = 6144000, srate_func = 48000, srate = 48000
+<4>[   30.195856] cs35l35_get_clk_config: pos = 3, sysclk_func = 12288000, sysclk = 6144000, srate_func = 48000, srate = 96000
+<4>[   30.195861] cs35l35_get_clk_config: pos = 4, sysclk_func = 12288000, sysclk = 11289600, srate_func = 48000, srate = 44100
+<4>[   30.195868] cs35l35_get_clk_config: pos = 5, sysclk_func = 12288000, sysclk = 11289600, srate_func = 48000, srate = 88200
+<4>[   30.195872] cs35l35_get_clk_config: pos = 6, sysclk_func = 12288000, sysclk = 11289600, srate_func = 48000, srate = 176400
+<4>[   30.195876] cs35l35_get_clk_config: pos = 7, sysclk_func = 12288000, sysclk = 12000000, srate_func = 48000, srate = 44100
+<4>[   30.195882] cs35l35_get_clk_config: pos = 8, sysclk_func = 12288000, sysclk = 12000000, srate_func = 48000, srate = 48000
+<4>[   30.195885] cs35l35_get_clk_config: pos = 9, sysclk_func = 12288000, sysclk = 12000000, srate_func = 48000, srate = 88200
+<4>[   30.195890] cs35l35_get_clk_config: pos = 10, sysclk_func = 12288000, sysclk = 12000000, srate_func = 48000, srate = 96000
+<4>[   30.195894] cs35l35_get_clk_config: pos = 11, sysclk_func = 12288000, sysclk = 12000000, srate_func = 48000, srate = 176400
+<4>[   30.195899] cs35l35_get_clk_config: pos = 12, sysclk_func = 12288000, sysclk = 12000000, srate_func = 48000, srate = 192000
+<4>[   30.195906] cs35l35_get_clk_config: pos = 13, sysclk_func = 12288000, sysclk = 12288000, srate_func = 48000, srate = 48000
+<3>[   30.196102] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x40 MSTR_STS:0x0d1300c8 OPER:0x00000090
+<3>[   30.196134] cs35l35 8-0040: Failed to set port config -107
+<3>[   30.196139] cs35l35 8-0040: ASoC: can't set cs35l35-pcm hw params: -107
+<3>[   30.196144] QUAT_MI2S_RX: ASoC: hw_params BE failed -107
+<3>[   30.196148] MSM8x16 LowLatency: ASoC: hw_params BE failed -107
+<3>[   30.196760] q6asm_callback: cmd = 0x10bcd returned error = 0x1
+<3>[   30.196786] __q6asm_cmd: DSP returned error[ADSP_EFAILED] opcode 68557
+<6>[   30.197275] msm_quat_mi2s_snd_shutdown(): substream = subdevice #0  stream = 0
+<6>[   30.199813] Starting Cirrus GB Config Get function call
+<6>[   30.199832] CRUS msm_routing_crus_gb_config_get: crus_config_set = 0
+<6>[   30.199891] Starting Cirrus GB Config function call 3
+<6>[   30.199895] CRUS GB Config: Get Current Temp
+<6>[   30.199901] crus_afe_get_param: port = 4102 module = 10596096 param = 0xa1af07 length = 8
+<6>[   30.199904] crus_afe_get_param: Preparing to send apr packet
+<6>[   30.199944] crus_afe_get_param: crus get_param sent packet with param id 0x00a1af07 to module 0x00a1af00.
+<6>[   30.200826] Cirrus AFE CALLBACK: size = 36
+<6>[   30.203402] CRUS CRUS_AFE_GET_PARAM: returned data = [4]: 8192, [5]: 0
+<6>[   30.203411] CRUS_GB_CONFIG: current temp updated; Temp-acc = 8192, Count = 0
+<6>[   30.203718] Starting Cirrus GB External Config Get function call
+<6>[   30.203724] CRUS msm_routing_crus_ext_config_get: crus_ext_config_set = 3
+<6>[   30.203804] Starting Cirrus GB External Config function call 1
+<14>[   30.209433] ueventd: firmware: loading 'crus_gb_config_default.bin' for '/devices/soc/soc:qcom,msm-pcm-routing/firmware/crus_gb_config_default.bin'
+<14>[   30.210080] ueventd: loading /devices/soc/soc:qcom,msm-pcm-routing/firmware/crus_gb_config_default.bin took 0ms
+<6>[   30.210184] CRUS msm_routing_crus_ext_config: length = 7584; dataptr = ffffff8001606000
+<6>[   30.210191] CRUS GB EXT Config: Config TX Default: function not implemented
+<6>[   30.210803] Starting Cirrus GB Enable Get function call, crus_gb_enable = 1
+<6>[   30.210812] CRUS msm_routing_crus_gb_enable_get: crus_gb_enable = 1
+<6>[   30.210918] CRUS msm_routing_crus_gb_enable: crus_set = 0
+<6>[   30.210922] Cirrus GB Enable: Config DISABLE
+<6>[   30.210927] crus_afe_set_param: port = 4102 module = 10596096 param = 0x10203 data_size = 4
+<6>[   30.210931] crus_afe_set_param: Preparing to send apr packet.
+<6>[   30.211955] crus_afe_set_param: crus set_param sent packet with param id 0x00010203 to module 0x00a1af00.
+<6>[   30.211964] crus_afe_set_param: port = 4103 module = 10600192 param = 0x10203 data_size = 4
+<6>[   30.211968] crus_afe_set_param: Preparing to send apr packet.
+<6>[   30.212976] crus_afe_set_param: crus set_param sent packet with param id 0x00010203 to module 0x00a1bf00.
+<3>[   30.213314] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x40 MSTR_STS:0x091343c8 OPER:0x00000090
+<3>[   30.269104] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x40 MSTR_STS:0x0d1343c8 OPER:0x00000090
+<6>[   30.269438] Starting Cirrus GB Enable Get function call, crus_gb_enable = 0
+<6>[   30.269446] CRUS msm_routing_crus_gb_enable_get: crus_gb_enable = 0
+<6>[   30.269613] CRUS msm_routing_crus_gb_enable: crus_set = 1
+<6>[   30.269618] Cirrus GB Enable: Config ENABLE
+<6>[   30.269625] crus_afe_set_param: port = 4102 module = 10596096 param = 0x10203 data_size = 4
+<6>[   30.269629] crus_afe_set_param: Preparing to send apr packet.
+<6>[   30.270627] crus_afe_set_param: crus set_param sent packet with param id 0x00010203 to module 0x00a1af00.
+<6>[   30.270639] crus_afe_set_param: port = 4103 module = 10600192 param = 0x10203 data_size = 4
+<6>[   30.270644] crus_afe_set_param: Preparing to send apr packet.
+<6>[   30.270781] crus_afe_set_param: crus set_param sent packet with param id 0x00010203 to module 0x00a1bf00.
+<6>[   30.273703] Starting Cirrus GB Config Get function call
+<6>[   30.273716] CRUS msm_routing_crus_gb_config_get: crus_config_set = 0
+<6>[   30.273838] Starting Cirrus GB Config function call 0
+<6>[   30.273841] CRUS path of Opalum for Music
+<6>[   30.273846] crus_afe_set_param: port = 4102 module = 10596096 param = 0xa1af02 data_size = 4
+<6>[   30.273850] crus_afe_set_param: Preparing to send apr packet.
+<6>[   30.274030] crus_afe_set_param: crus set_param sent packet with param id 0x00a1af02 to module 0x00a1af00.
+<6>[   30.274206] Starting Cirrus GB External Config Get function call
+<6>[   30.274211] CRUS msm_routing_crus_ext_config_get: crus_ext_config_set = 1
+<6>[   30.274291] Starting Cirrus GB External Config function call 0
+<14>[   30.278612] ueventd: firmware: loading 'crus_gb_config_default.bin' for '/devices/soc/soc:qcom,msm-pcm-routing/firmware/crus_gb_config_default.bin'
+<14>[   30.279140] ueventd: loading /devices/soc/soc:qcom,msm-pcm-routing/firmware/crus_gb_config_default.bin took 0ms
+<6>[   30.279253] CRUS msm_routing_crus_ext_config: length = 7584; dataptr = ffffff8001609000
+<6>[   30.279260] CRUS GB EXT Config: Config RX Default
+<6>[   30.279265] crus_afe_send_config: called with module_id = a1af00, string length = 7584
+<6>[   30.289096] Starting Cirrus GB External Config Get function call
+<6>[   30.289108] CRUS msm_routing_crus_ext_config_get: crus_ext_config_set = 0
+<6>[   30.289226] Starting Cirrus GB External Config function call 3
+<14>[   30.293247] ueventd: firmware: loading 'crus_gb_config_new_tx.bin' for '/devices/soc/soc:qcom,msm-pcm-routing/firmware/crus_gb_config_new_tx.bin'
+<6>[   30.293820] CRUS msm_routing_crus_ext_config: length = 2392; dataptr = ffffff800160c000
+<6>[   30.293827] CRUS GB EXT Config: Config TX New
+<6>[   30.293832] crus_afe_send_config: called with module_id = a1bf00, string length = 2392
+<14>[   30.293950] ueventd: loading /devices/soc/soc:qcom,msm-pcm-routing/firmware/crus_gb_config_new_tx.bin took 0ms
+<6>[   30.302676] Starting Cirrus GB Config Get function call
+<6>[   30.302687] CRUS msm_routing_crus_gb_config_get: crus_config_set = 0
+<6>[   30.302807] Starting Cirrus GB Config function call 2
+<6>[   30.302811] CRUS GB Config: Set Temp Calibration
+<6>[   30.302817] crus_afe_set_param: port = 4102 module = 10596096 param = 0xa1af08 data_size = 12
+<6>[   30.302821] crus_afe_set_param: Preparing to send apr packet.
+<6>[   30.303747] crus_afe_set_param: crus set_param sent packet with param id 0x00a1af08 to module 0x00a1af00.
+<6>[   30.303757] CRUS_GB_CONFIG: set temp cal with Temp-acc = 305742, Count = 16, Ambient = 28
+<6>[   30.304186] msm_quat_mi2s_snd_startup(): substream = subdevice #0  stream = 0, ref_count = 0
+<4>[   30.306375] cs35l35_codec_set_sysclk@712 ++
+<4>[   30.306390] cs35l35_dai_set_sysclk@648 ++
+<6>[   30.306474] msm_quat_mi2s_snd_startup(): configure quat_i2s success
+<4>[   30.306566] cs35l35_get_clk_config: pos = 0, sysclk_func = 12288000, sysclk = 5644800, srate_func = 48000, srate = 44100
+<4>[   30.306571] cs35l35_get_clk_config: pos = 1, sysclk_func = 12288000, sysclk = 5644800, srate_func = 48000, srate = 88200
+<4>[   30.306575] cs35l35_get_clk_config: pos = 2, sysclk_func = 12288000, sysclk = 6144000, srate_func = 48000, srate = 48000
+<4>[   30.306580] cs35l35_get_clk_config: pos = 3, sysclk_func = 12288000, sysclk = 6144000, srate_func = 48000, srate = 96000
+<4>[   30.306584] cs35l35_get_clk_config: pos = 4, sysclk_func = 12288000, sysclk = 11289600, srate_func = 48000, srate = 44100
+<4>[   30.306588] cs35l35_get_clk_config: pos = 5, sysclk_func = 12288000, sysclk = 11289600, srate_func = 48000, srate = 88200
+<4>[   30.306592] cs35l35_get_clk_config: pos = 6, sysclk_func = 12288000, sysclk = 11289600, srate_func = 48000, srate = 176400
+<4>[   30.306596] cs35l35_get_clk_config: pos = 7, sysclk_func = 12288000, sysclk = 12000000, srate_func = 48000, srate = 44100
+<4>[   30.306600] cs35l35_get_clk_config: pos = 8, sysclk_func = 12288000, sysclk = 12000000, srate_func = 48000, srate = 48000
+<4>[   30.306604] cs35l35_get_clk_config: pos = 9, sysclk_func = 12288000, sysclk = 12000000, srate_func = 48000, srate = 88200
+<4>[   30.306609] cs35l35_get_clk_config: pos = 10, sysclk_func = 12288000, sysclk = 12000000, srate_func = 48000, srate = 96000
+<4>[   30.306613] cs35l35_get_clk_config: pos = 11, sysclk_func = 12288000, sysclk = 12000000, srate_func = 48000, srate = 176400
+<4>[   30.306617] cs35l35_get_clk_config: pos = 12, sysclk_func = 12288000, sysclk = 12000000, srate_func = 48000, srate = 192000
+<4>[   30.306621] cs35l35_get_clk_config: pos = 13, sysclk_func = 12288000, sysclk = 12288000, srate_func = 48000, srate = 48000
+<3>[   30.306817] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x40 MSTR_STS:0x0d1300c8 OPER:0x00000090
+<3>[   30.308577] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x40 MSTR_STS:0x0d1300c8 OPER:0x00000090
+<3>[   30.308694] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x40 MSTR_STS:0x0d1300c8 OPER:0x00000090
+<3>[   30.308805] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x40 MSTR_STS:0x0d1300c8 OPER:0x00000090
+<3>[   30.308901] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x40 MSTR_STS:0x091343c8 OPER:0x00000090
+<3>[   30.308993] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x40 MSTR_STS:0x091343c8 OPER:0x00000090
+<3>[   30.309086] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x40 MSTR_STS:0x0d1343c8 OPER:0x00000090
+<3>[   30.314375] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x40 MSTR_STS:0x0d1300c8 OPER:0x00000090
+<3>[   30.314499] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:2 cur:0 tx) bc(rx:1 tx:1) mode:FIFO slv_addr:0x40 MSTR_STS:0x091343c8 OPER:0x00000010
+<3>[   30.314601] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:2 cur:0 tx) bc(rx:1 tx:1) mode:FIFO slv_addr:0x40 MSTR_STS:0x091343c8 OPER:0x00000010
+<3>[   30.327114] q6asm_callback: payload size of 8 is less than expected.
+<3>[   30.327592] q6asm_callback: payload size of 8 is less than expected.
+<3>[   30.338646] q6asm_callback: payload size of 8 is less than expected.
+<3>[   30.343857] q6asm_callback: payload size of 8 is less than expected.
+<11>[   31.342446] apexd: Can't open /product/apex for reading : No such file or directory
+<14>[   31.622434] init: Received control message 'start' for 'gsid' from pid: 1191 (system_server)
+<14>[   31.622852] init: starting service 'gsid'...
+<6>[   31.629230] cpr3_regulator_measure_aging: apc: average quotient delta=27 (count=10)
+<6>[   31.629254] cpr3_regulator_aging_adjust: apc: aging measurement successful; aging reference adjustment voltage=1428 uV
+<14>[   31.690492] init: Received control message 'stop' for 'gsid' from pid: 1191 (system_server)
+<14>[   31.690544] init: Sending signal 9 to service 'gsid' (pid 2805) process group...
+<14>[   31.696063] libprocessgroup: Successfully killed process cgroup uid 0 pid 2805 in 5ms
+<14>[   31.699069] init: Service 'gsid' (pid 2805) received signal 9
+<38>[   31.717599] type=1400 audit(1615583193.696:60): avc: denied { getattr } for comm="health@2.0-serv" path="/sys/devices/soc/qpnp-smbcharger-17/power_supply/battery/present" dev="sysfs" ino=33769 scontext=u:r:hal_health_default:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+<36>[   31.717638] type=1400 audit(1615583195.432:61): avc: granted { read } for comm="main" name="u:object_r:net_dns_prop:s0" dev="tmpfs" ino=8507 scontext=u:r:untrusted_app_25:s0:c512,c768 tcontext=u:object_r:net_dns_prop:s0 tclass=file
+<6>[   32.752906] mtp_open
+<14>[   33.464306] init: Received control message 'stop' for 'idmap2d' from pid: 1191 (system_server)
+<14>[   33.464356] init: Sending signal 9 to service 'idmap2d' (pid 650) process group...
+<14>[   33.469930] libprocessgroup: Successfully killed process cgroup uid 1000 pid 650 in 5ms
+<14>[   33.471749] init: Service 'idmap2d' (pid 650) received signal 9
+<3>[   34.757185] q6asm_callback: payload size of 8 is less than expected.
+<3>[   34.763039] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x40 MSTR_STS:0x0d1300c8 OPER:0x00000090
+<3>[   34.763157] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x40 MSTR_STS:0x091343c8 OPER:0x00000090
+<3>[   34.763255] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x40 MSTR_STS:0x091343c8 OPER:0x00000090
+<3>[   34.763386] i2c-msm-v2 7af8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x40 MSTR_STS:0x091343c8 OPER:0x00000090

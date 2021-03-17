@@ -69,6 +69,8 @@ static const snd_device_t wsa_combo_devices[] = {
 
 static void update_hardware_info_8x16(struct hardware_info *hw_info, const char *snd_card_name)
 {
+    hw_info->is_stereo_spkr = false;
+
     if (!strcmp(snd_card_name, "msm8x16-snd-card")) {
         strlcpy(hw_info->name, "msm8x16", sizeof(hw_info->name));
     } else if (!strcmp(snd_card_name, "msm8x16-snd-card-mtp")) {
@@ -152,6 +154,7 @@ static void update_hardware_info_8x16(struct hardware_info *hw_info, const char 
     } else if (!strcmp(snd_card_name, "msm8952-sku3-tasha-snd-card")) {
        strlcpy(hw_info->name, "msm8952", sizeof(hw_info->name));
     } else if (!strcmp(snd_card_name, "msm8937-snd-card-mtp")) {
+        hw_info->is_stereo_spkr = false;
         strlcpy(hw_info->name, "msm8937", sizeof(hw_info->name));
     } else if (!strcmp(snd_card_name, "msm8937-tasha-snd-card")) {
         strlcpy(hw_info->name, "msm8937", sizeof(hw_info->name));
