@@ -26,7 +26,7 @@
 <!-- IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                          -->
 <audio_platform_info>
     <bit_width_configs>
-        <device name="" bit_width="24"/>
+        <device name="SND_DEVICE_OUT_SPEAKER" bit_width="24"/>
     </bit_width_configs>
     <interface_names>
         <device name="AUDIO_DEVICE_IN_BUILTIN_MIC" interface="SLIMBUS_0" codec_type="external"/>
