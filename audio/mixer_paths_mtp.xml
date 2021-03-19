@@ -1079,10 +1079,9 @@
     </path>
 
     <path name="speaker">
-        <!--<ctl name="RX3 MIX1 INP1" value="RX1" />
-        <ctl name="SPK" value="Switch" /> -->
         <ctl name="AMP Audio Gain" value="17" />
         <ctl name="CIRRUS GB ENABLE" value="Config GB Enable" />
+        <ctl name="CIRRUS GB CONFIG" value="Path_for_Music" />
     </path>
 
     <path name="speaker-and-hdmi">
@@ -1091,12 +1090,9 @@
     </path>
 
     <path name="wsa-speaker">
-        <!--<ctl name="RX3 MIX1 INP1" value="RX1" />
-        <ctl name="RX3 Digital Volume" value="84" />
-        <ctl name="LINE_OUT" value="Switch" />
-        <ctl name="SpkrMono WSA_RDAC" value="Switch" />-->
         <ctl name="AMP Audio Gain" value="17" />
         <ctl name="CIRRUS GB ENABLE" value="Config GB Enable" />
+        <ctl name="CIRRUS GB CONFIG" value="Path_for_Music" />
    </path>
 
    <path name="spkr-rx-calib">
@@ -1383,28 +1379,5 @@
 
     <path name="wsa-speaker-and-line">
           <path name="wsa-speaker-and-headphones" />
-    </path>
-
-    <path name="cirrus_config_music">
-          <ctl name="CIRRUS GB CONFIG" value="Path_for_Music" />
-          <ctl name="CIRRUS GB EXT CONFIG" value="Config RX Default" />
-    </path>
-
-    <path name="cirrus_config_voice">
-        <ctl name="CIRRUS GB CONFIG" value="Path_for_Voice" />
-        <ctl name="CIRRUS GB EXT CONFIG" value="Config RX New" />
-    </path>
-
-    <path name ="cirrus_config_tx_new">
-        <ctl name="CIRRUS GB EXT CONFIG" value="Config TX New" />
-        <ctl name="CIRRUS GB CONFIG" value="Set Temp Cal" />
-    </path>
-
-    <path name ="cirrus_config_cali">
-        <ctl name="CIRRUS GB CONFIG" value="Set Temp Cal" />
-    </path>
-
-    <path name ="cirrus_config_placeholder">
-        <ctl name="CIRRUS GB CONFIG" value="Get Current Temp" />
     </path>
 </mixer>
