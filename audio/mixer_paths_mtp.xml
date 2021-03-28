@@ -267,14 +267,12 @@
     <ctl name="IIR1 Enable Band5" value="0" />
     <!-- IIR -->
 
-   <ctl name="FBProtect Port" value="QUAT_MI2S_RX" />
-   <ctl name="CIRRUS GB ENABLE" value="Config GB Disable" />
-   <ctl name="AMP Audio Gain" value="4" />
-    <ctl name="CIRRUS GB CONFIG" value="Get Current Temp" />
-    <ctl name="CIRRUS GB EXT CONFIG" value="Config TX Default" />
+    <!-- Cirrus -->
+    <ctl name="Cirrus GB Enable" value="Disable" />
+    <ctl name="AMP Audio Gain" value="4" />
+
     <!-- ADSP testfwk -->
     <ctl name="MI2S_DL_HL Switch" value="0" />
-    <!-- ADSP testfwk end-->
 
     <path name="bt-sco-wb-samplerate">
         <ctl name="Internal BTSCO SampleRate" value="16000" />
@@ -1080,8 +1078,7 @@
 
     <path name="speaker">
         <ctl name="AMP Audio Gain" value="17" />
-        <ctl name="CIRRUS GB ENABLE" value="Config GB Enable" />
-        <ctl name="CIRRUS GB CONFIG" value="Path_for_Music" />
+        <ctl name="Cirrus GB Enable" value="Enable" />
     </path>
 
     <path name="speaker-and-hdmi">
@@ -1091,11 +1088,10 @@
 
     <path name="wsa-speaker">
         <ctl name="AMP Audio Gain" value="17" />
-        <ctl name="CIRRUS GB ENABLE" value="Config GB Enable" />
-        <ctl name="CIRRUS GB CONFIG" value="Path_for_Music" />
+        <ctl name="Cirrus GB Enable" value="Enable" />
    </path>
 
-   <path name="spkr-rx-calib">
+   <path name="spkr-rx-calib"> 
         <ctl name="PRI_MI2S_RX_DL_HL Switch"  value="1" />
     </path>
 
