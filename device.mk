@@ -71,11 +71,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lights.msm8953
 
-# Audio; msm8953 primary HAL is proprietary
+# Audio
 PRODUCT_PACKAGES += \
     audiod \
     audio.a2dp.default \
-    audio.primary.default \
+    audio.primary.msm8953 \
     audio.r_submix.default \
     audio.usb.default \
     libaudio-resampler \
