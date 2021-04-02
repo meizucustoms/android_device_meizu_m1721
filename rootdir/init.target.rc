@@ -58,6 +58,9 @@ on post-fs-data
     chmod 0664 /sys/class/leds/mx-led/brightness
     chmod 0664 /sys/class/leds/mx-led/blink
 
+    # for MSFLv2
+    chmod 777 /proc/msfl
+
 on init
    write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
 
