@@ -274,11 +274,10 @@
     <ctl name="IIR1 Enable Band5" value="0" />
     <!-- IIR -->
 
-   <ctl name="FBProtect Port" value="QUAT_MI2S_RX" />
-   <ctl name="CIRRUS GB ENABLE" value="Config GB Disable" />
-   <ctl name="AMP Audio Gain" value="4" />
-    <ctl name="CIRRUS GB CONFIG" value="Get Current Temp" />
-    <ctl name="CIRRUS GB EXT CONFIG" value="Config TX Default" />
+    <!-- Cirrus -->
+    <ctl name="Cirrus GB Enable" value="Disable" />
+    <ctl name="AMP Audio Gain" value="4" />
+
     <!-- ADSP testfwk -->
     <ctl name="MI2S_DL_HL Switch" value="0" />
     <!-- ADSP testfwk end-->
@@ -1088,7 +1087,7 @@
 
     <path name="speaker">
         <ctl name="AMP Audio Gain" value="17" />
-        <ctl name="CIRRUS GB ENABLE" value="Config GB Enable" />
+        <ctl name="Cirrus GB Enable" value="Enable" />
     </path>
 
     <path name="speaker-and-hdmi">
@@ -1098,7 +1097,7 @@
 
     <path name="wsa-speaker">
         <ctl name="AMP Audio Gain" value="17" />
-        <ctl name="CIRRUS GB ENABLE" value="Config GB Enable" />
+        <ctl name="Cirrus GB Enable" value="Enable" />
    </path>
 
    <path name="spkr-rx-calib">
@@ -1385,23 +1384,5 @@
 
     <path name="wsa-speaker-and-line">
           <path name="wsa-speaker-and-headphones" />
-    </path>
-
-    <path name="cirrus_config_music">
-          <ctl name="CIRRUS GB CONFIG" value="Path_for_Music" />
-          <ctl name="CIRRUS GB EXT CONFIG" value="Config RX Default" />
-    </path>
-
-    <path name ="cirrus_config_tx_new">
-        <ctl name="CIRRUS GB EXT CONFIG" value="Config TX New" />
-        <ctl name="CIRRUS GB CONFIG" value="Set Temp Cal" />
-    </path>
-
-    <path name ="cirrus_config_cali">
-        <ctl name="CIRRUS GB CONFIG" value="Set Temp Cal" />
-    </path>
-
-    <path name ="cirrus_config_placeholder">
-        <ctl name="CIRRUS GB CONFIG" value="Get Current Temp" />
     </path>
 </mixer>
