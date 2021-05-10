@@ -17,7 +17,7 @@
 $(call inherit-product, device/meizu/m1721/full_m1721.mk)
 
 # Inherit some common LineageOS stuff.
-$(call inherit-product, vendor/cm/config/common_full_phone.mk)
+$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 PRODUCT_NAME := lineage_m1721
 BOARD_VENDOR := Meizu
