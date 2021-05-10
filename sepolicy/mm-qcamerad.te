@@ -1,2 +1,0 @@
-allow mm-qcamerad remosaic_daemon_exec:file { entrypoint getattr read };
-allow mm-qcamerad remosaic_service:service_manager { add find };

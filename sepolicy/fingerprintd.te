@@ -1,8 +1,0 @@
-allow fingerprintd goodixfingerprintd_service:service_manager find;
-allow fingerprintd goodixfingerprintd : fd use ;
-allow fingerprintd goodixfingerprintd : binder { call transfer } ; 
-allow fingerprintd fingerprint_service:service_manager find;
-allow fingerprintd tee_device:chr_file rw_file_perms;
-allow fingerprintd uhid_device:chr_file rw_file_perms;
-set_prop(fingerprintd, system_prop)
-r_dir_file(fingerprintd, firmware_file)
