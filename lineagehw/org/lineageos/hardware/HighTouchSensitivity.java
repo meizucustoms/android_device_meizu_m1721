@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The LineageOS Project
+ * Copyright (C) 2017 The LineagsOs Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,33 +14,26 @@
  * limitations under the License.
  */
 
-package org.cyanogenmod.hardware;
+package org.lineageos.hardware;
 
-import org.cyanogenmod.internal.util.FileUtils;
+import org.lineageos.internal.util.FileUtils;
 
-/*
- * Disable capacitive keys
- *
- * This is intended for use on devices in which the capacitive keys
- * can be fully disabled for replacement with a soft navbar. You
- * really should not be using this on a device with mechanical or
- * otherwise visible-when-inactive keys
+/**
+ * Glove mode / high touch sensitivity
  */
-
-public class KeyDisabler {
-
-    private static String CONTROL_PATH = "/proc/touchpanel/capacitive_keys_disable";
+public class HighTouchSensitivity {
+    private static final String CONTROL_PATH = "/sys/class/tp_glove/device/glove_enable";
 
     public static boolean isSupported() {
-        return FileUtils.isFileWritable(CONTROL_PATH);
+	return FileUtils.isFileWritable(CONTROL_PATH);
     }
 
-    public static boolean isActive() {
+    public static boolean isEnabled() {
         return FileUtils.readOneLine(CONTROL_PATH).equals("1");
     }
 
-    public static boolean setActive(boolean state) {
+    public static boolean setEnabled(boolean state) {
         return FileUtils.writeLine(CONTROL_PATH, state ? "1" : "0");
     }
-
 }
+

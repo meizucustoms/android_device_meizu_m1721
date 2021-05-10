@@ -103,11 +103,6 @@ TARGET_TS_MAKEUP := true
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 
-# CMHW
-BOARD_USES_CYANOGEN_HARDWARE := true
-BOARD_HARDWARE_CLASS += \
-    hardware/cyanogen/cmhw \
-    $(DEVICE_PATH)/cmhw
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/enable_dt2w"
 
 # CNE / DPM
@@ -159,6 +154,10 @@ TARGET_ANDROID_FILESYSTEM_CONFIG_H := $(DEVICE_PATH)/android_filesystem_config.h
 TARGET_INIT_VENDOR_LIB := libinit_m1721
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
 TARGET_RECOVERY_DEVICE_MODULES := libinit_m1721
+
+# Lineage Hardware
+BOARD_HARDWARE_CLASS += \
+    $(DEVICE_PATH)/lineagehw
 
 # Keymaster
 TARGET_PROVIDES_KEYMASTER := true
