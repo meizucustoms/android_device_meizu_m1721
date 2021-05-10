@@ -71,7 +71,13 @@ on property:persist.usb.chgdisabled=1
 on property:persist.usb.chgdisabled=0
     write /sys/class/power_supply/battery/charging_enabled 1
 
-service qseecomd /system/bin/qseecomd
+service time_daemon /system/vendor/bin/time_daemon
+    class main
+    user root
+    group root
+    writepid /dev/cpuset/system-background/tasks
+
+service qseecomd /system/vendor/bin/qseecomd
    class core
    user root
    group root
@@ -83,37 +89,24 @@ service thermal-engine /system/vendor/bin/thermal-engine
    socket thermal-send-client stream 0666 system system
    socket thermal-recv-client stream 0660 system system
    socket thermal-recv-passive-client stream 0666 system system
+   socket thermal-send-rule stream 0660 system system
    group root
    writepid /dev/cpuset/system-background/tasks
 
-service time_daemon /system/bin/time_daemon
-   class main
-   user root
-   group root
-   writepid /dev/cpuset/system-background/tasks
-
-service audiod /system/bin/audiod
-   class late_start
-   user system
-   group system
-
-on boot
-    start rmt_storage
-
-service wcnss-service /system/bin/wcnss_service
+service wcnss-service /system/vendor/bin/wcnss_service
     class main
     user system
     group system wifi radio
     oneshot
 
-service imsqmidaemon /system/bin/imsqmidaemon
+service imsqmidaemon /system/vendor/bin/imsqmidaemon
     class main
     user system
     socket ims_qmid stream 0660 system radio
     group radio log diag
     writepid /dev/cpuset/system-background/tasks
 
-service imsdatadaemon /system/bin/imsdatadaemon
+service imsdatadaemon /system/vendor/bin/imsdatadaemon
     class main
     user system
     socket ims_datad stream 0660 system radio
@@ -124,24 +117,19 @@ service imsdatadaemon /system/bin/imsdatadaemon
 on property:sys.ims.QMI_DAEMON_STATUS=1
     start imsdatadaemon
 
-service ims_rtp_daemon /system/bin/ims_rtp_daemon
-   class main
-   user system
-   socket ims_rtpd stream 0660 system radio
-   group radio diag diag inet log
-   writepid /dev/cpuset/system-background/tasks
-   disabled
-
-service imscmservice /system/bin/imscmservice
+service ims_rtp_daemon /system/vendor/bin/ims_rtp_daemon
    class main
    user system
    group radio diag inet log
    writepid /dev/cpuset/system-background/tasks
    disabled
 
-on property:sys.ims.DATA_DAEMON_STATUS=1
-    start ims_rtp_daemon
-    start imscmservice
+service imsrcsservice /system/vendor/bin/imsrcsd
+   class main
+   user system
+   group radio diag inet log
+   writepid /dev/cpuset/system-background/tasks
+   disabled
 
 service ppd /system/vendor/bin/mm-pp-dpps
     class late_start
@@ -149,6 +137,10 @@ service ppd /system/vendor/bin/mm-pp-dpps
     socket pps stream 0660 system system
     group system graphics
     disabled
+
+on property:vendor.ims.DATA_DAEMON_STATUS=1
+   start ims_rtp_daemon
+   start imsrcsservice
 
 on property:init.svc.surfaceflinger=stopped
     stop ppd
@@ -169,24 +161,21 @@ on property:init.svc.zygote=restarting
     stop ppd
 
 on charger
-    wait /dev/block/bootdevice/by-name/system
-    mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
-    load_all_props
-    setprop sys.usb.configfs 0
-    setprop persist.sys.usb.config mass_storage
-    start qcom-post-boot
-    setprop persist.sys.usb.config mass_storage
+    write /sys/devices/system/cpu/cpu2/online 0
+    write /sys/devices/system/cpu/cpu3/online 0
+    write /sys/module/lpm_levels/parameters/sleep_disabled 0
     start hvdcp_opti
+    start thermal-engine
 
-service adsprpcd /system/bin/adsprpcd
-    class main
-    user media
-    group media
-
-service hvdcp_opti /system/bin/hvdcp_opti
+service adsprpcd /system/vendor/bin/adsprpcd
    class main
-   user root
-   group root
+   user media
+   group media
+
+service hvdcp_opti /system/vendor/bin/hvdcp_opti
+    class main
+    user root
+    group system wakelock
 
 on property:init.svc.dts_configurator=stopped
     start dtseagleservice
@@ -210,7 +199,7 @@ on property:init.svc.per_mgr=running
 on property:sys.shutdown.requested=*
     stop per_proxy
 
-service energy-awareness /system/bin/energy-awareness
+service energy-awareness /system/vendor/bin/energy-awareness
     class main
     user root
     group system
@@ -243,3 +232,5 @@ on boot
     chown media system /dev/aw36413_effect2
     chmod 0666 /dev/aw36413_switch
     chown media system /dev/aw36413_switch
+
+    
