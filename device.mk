@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-$(call inherit-product, vendor/xiaomi/mido/mido-vendor.mk)
+$(call inherit-product, vendor/meizu/m1721/m1721-vendor.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_n.mk)
 
 # Overlays
@@ -135,7 +135,7 @@ PRODUCT_PACKAGES += \
 
 # Consumerir
 PRODUCT_PACKAGES += \
-    android.hardware.ir@1.0-service.xiaomi_mido
+    android.hardware.ir@1.0-service.meizu_m1721
 
 # Display
 PRODUCT_PACKAGES += \
@@ -159,7 +159,7 @@ PRODUCT_PACKAGES += \
 
 # Doze mode
 PRODUCT_PACKAGES += \
-    XiaomiDoze
+    MeizuDoze
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -172,7 +172,7 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.0-service.xiaomi_mido
+    android.hardware.biometrics.fingerprint@2.0-service.meizu_m1721
 
 # FM
 PRODUCT_PACKAGES += \
@@ -280,7 +280,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
 
 # Properties
--include device/xiaomi/mido/prop.mk
+-include device/meizu/m1721/prop.mk
 
 # Ramdisk
 PRODUCT_PACKAGES += \
