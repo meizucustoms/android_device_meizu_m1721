@@ -11,9 +11,5 @@
 /(vendor|system/vendor)/usr/idc(/.*)?																	u:object_r:idc_file:s0
 /(vendor|system/vendor)/usr/keylayout(/.*)?																u:object_r:keylayout_file:s0
 
-# Ir
-/dev/lirc[0-9]*																							u:object_r:lirc_device:s0
-
 # HALs
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.0-service\.meizu_m1721		u:object_r:hal_fingerprint_m1721_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.ir@1\.0-service\.meizu_m1721							u:object_r:hal_ir_default_exec:s0
