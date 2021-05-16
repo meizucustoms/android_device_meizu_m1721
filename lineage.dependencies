@@ -1,6 +1,6 @@
 [
  {
-   "repository": "android_kernel_xiaomi_mido",
-   "target_path": "kernel/xiaomi/mido"
+   "repository": "android_kernel_meizu_m1721",
+   "target_path": "kernel/meizu/m1721"
  }
 ]

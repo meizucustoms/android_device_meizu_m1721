@@ -9,8 +9,8 @@
 set -e
 
 # Required!
-DEVICE=mido
-VENDOR=xiaomi
+DEVICE=m1721
+VENDOR=meizu
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
