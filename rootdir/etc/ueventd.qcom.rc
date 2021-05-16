@@ -383,7 +383,3 @@ firmware_directories /vendor/firmware_mnt/image/
 /sys/class/kgsl/kgsl-3d0    force_clk_on             0664    root  system
 /sys/class/kgsl/kgsl-3d0    bus_split                0664    root  system
 /sys/devices/virtual/hdcp/msm_hdcp  min_level_change 0664    system  graphics
-
-# lirc
-/dev/lirc0                0660   system     system
-/dev/peel_ir              0660   system     system
