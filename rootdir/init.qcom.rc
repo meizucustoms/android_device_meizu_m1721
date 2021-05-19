@@ -563,26 +563,14 @@ service time_daemon /vendor/bin/time_daemon
     group root
     writepid /dev/cpuset/system-background/tasks
 
-service gx_fpd /vendor/bin/gx_fpd
-     class core
-     user system
-     group system drmrpc
-     writepid /dev/cpuset/system-background/tasks
+service goodixfpd /vendor/bin/goodixfingerprintd
+    class late_start
+    user root
+    group root system sdcard_rw media_rw
+    writepid /dev/cpuset/system-background/tasks
+
+on property:debug.fp.stop=1
+    stop goodixfpd
 
 on property:dev.bootcomplete=1
     setprop sys.io.scheduler "bfq"
-
-on property:sys.fp.vendor=switchf
-    stop gx_fpd
-    setprop sys.fp.vendor searchf
-    setprop fpc.fp.miui.token 0
-    setprop ro.boot.fpsensor fpc
-    setprop ro.hardware.fingerprint searchf
-    start fps_hal
-
-on property:sys.fp.onstart=1
-   setprop goodix.fp.miui.analyse 1
-   setprop goodix.fp.miui.token 0
-   setprop ro.boot.fpsensor gdx
-   setprop ro.hardware.fingerprint goodix
-   start fps_hal
