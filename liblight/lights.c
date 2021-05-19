@@ -163,8 +163,6 @@ static int set_speaker_light_locked(struct light_device_t *dev,
   int brightness;
   int blink;
   int onMS, offMS;
-  unsigned int colorRGB;
-
   if (!dev) {
     return -1;
   }
@@ -181,8 +179,7 @@ static int set_speaker_light_locked(struct light_device_t *dev,
     break;
   }
 
-  colorRGB = state->color;
-    brightness = rgb_to_brightness(colorRGB);
+  brightness = rgb_to_brightness(state);
 
   if (onMS > 0 && offMS > 0)
       blink = 1;
