@@ -505,7 +505,7 @@ on property:sys.usb.config=diag,serial_smd,rmnet_ipa,adb && property:sys.usb.con
     write /sys/class/android_usb/android0/f_rmnet/transports qti,bam2bam_ipa
     write /sys/class/android_usb/android0/functions diag,serial,rmnet,adb
     write /sys/class/android_usb/android0/enable 1
-    write /sys/class/meizu/usb_charge/usb_charging_only 0
+    write /sys/class/mzhw/usb_charge/usb_charge_only 0
     start adbd
     setprop sys.usb.state ${sys.usb.config}
 
@@ -982,7 +982,7 @@ on property:sys.usb.config=ptp && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/idProduct 200b#904D
     write /sys/class/android_usb/android0/functions ptp
     write /sys/class/android_usb/android0/enable 1
-    write /sys/class/meizu/usb_charge/usb_charging_only 0
+    write /sys/class/mzhw/usb_charge/usb_charge_only 0
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=ptp,adb && property:sys.usb.configfs=0
@@ -992,7 +992,7 @@ on property:sys.usb.config=ptp,adb && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/idProduct 200c#904E
     write /sys/class/android_usb/android0/functions ptp,adb
     write /sys/class/android_usb/android0/enable 1
-    write /sys/class/meizu/usb_charge/usb_charging_only 0
+    write /sys/class/mzhw/usb_charge/usb_charge_only 0
     start adbd
     setprop sys.usb.state ${sys.usb.config}
     
@@ -1003,7 +1003,7 @@ on property:sys.usb.config=bicr && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/idProduct 0001#F003
     write /sys/class/android_usb/android0/functions bicr
     write /sys/class/android_usb/android0/enable 1
-    write /sys/class/meizu/usb_charge/usb_charging_only 0
+    write /sys/class/mzhw/usb_charge/usb_charge_only 0
     setprop sys.usb.state ${sys.usb.config}
     
 on property:sys.usb.config=bicr,adb && property:sys.usb.configfs=0
@@ -1013,7 +1013,7 @@ on property:sys.usb.config=bicr,adb && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/idProduct 0c03#F003
     write /sys/class/android_usb/android0/functions bicr,adb
     write /sys/class/android_usb/android0/enable 1
-    write /sys/class/meizu/usb_charge/usb_charging_only 0
+    write /sys/class/mzhw/usb_charge/usb_charge_only 0
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=mtp && property:sys.usb.configfs=0
@@ -1023,7 +1023,7 @@ on property:sys.usb.config=mtp && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/idProduct 2008#F003
     write /sys/class/android_usb/android0/functions mtp
     write /sys/class/android_usb/android0/enable 1
-    write /sys/class/meizu/usb_charge/usb_charging_only 0
+    write /sys/class/mzhw/usb_charge/usb_charge_only 0
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=mtp,adb && property:sys.usb.configfs=0
@@ -1033,7 +1033,7 @@ on property:sys.usb.config=mtp,adb && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/idProduct 0c02#9039
     write /sys/class/android_usb/android0/functions mtp,adb
     write /sys/class/android_usb/android0/enable 1
-    write /sys/class/meizu/usb_charge/usb_charging_only 0
+    write /sys/class/mzhw/usb_charge/usb_charge_only 0
     start adbd
     setprop sys.usb.state ${sys.usb.config}
 
@@ -1469,7 +1469,7 @@ on property:sys.usb.config=charging && property:sys.usb.configfs=0
     write /sys/class/android_usb/android0/idProduct F006
     write /sys/class/android_usb/android0/functions charging
     write /sys/class/android_usb/android0/enable 1
-    write /sys/class/meizu/usb_charge/usb_charging_only 1
+    write /sys/class/mzhw/usb_charge/usb_charge_only 1
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=diag,serial_smd,rmnet_qti_bam,dpl_qti_bam_dmux && property:sys.usb.configfs=0
