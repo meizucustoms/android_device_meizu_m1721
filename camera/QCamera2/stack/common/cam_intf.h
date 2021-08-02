@@ -601,7 +601,7 @@ typedef struct {
 } cam_stream_img_prop_t;
 
 typedef struct {
-    uint8_t enableStream; /*0 – stop and 1-start */
+    uint8_t enableStream; /*0  stop and 1-start */
 } cam_request_frames;
 
 typedef struct {
@@ -1013,6 +1013,9 @@ typedef struct {
     INCLUDE(CAM_INTF_PARM_JPEG_ENCODE_CROP,             cam_stream_crop_info_t,      1);
     INCLUDE(CAM_INTF_PARM_JPEG_SCALE_DIMENSION,         cam_dimension_t,             1);
     INCLUDE(CAM_INTF_META_FOCUS_DEPTH_INFO,             uint8_t,                     1);
+
+    /* Meizu reserved */
+    INCLUDE(CAM_INTF_MEIZU_RESERVED,                    uint32_t,                    4);
 } metadata_data_t;
 
 /* Update clear_metadata_buffer() function when a new is_xxx_valid is added to

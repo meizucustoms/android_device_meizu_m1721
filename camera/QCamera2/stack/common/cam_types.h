@@ -1699,7 +1699,10 @@ typedef struct {
 
 typedef struct {
     uint32_t num_streams;
-    uint32_t streamID[MAX_NUM_STREAMS];
+
+    // Meizu added 8 stream IDs or field with
+    // 256 bits size
+    uint32_t streamID[MAX_NUM_STREAMS + 8];
 } cam_stream_ID_t;
 
 /*CAC Message posted during pipeline*/
@@ -2224,7 +2227,11 @@ typedef enum {
     CAM_INTF_META_FOCUS_VALUE,
     /*Spot light detection result output from af core*/
     CAM_INTF_META_SPOT_LIGHT_DETECT,
-    CAM_INTF_PARM_MAX
+
+    /* Meizu reserved */
+    CAM_INTF_MEIZU_RESERVED,
+
+    CAM_INTF_PARM_MAX,
 } cam_intf_parm_type_t;
 
 typedef struct {
