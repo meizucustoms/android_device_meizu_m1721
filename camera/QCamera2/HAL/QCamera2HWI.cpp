@@ -82,6 +82,9 @@ volatile uint32_t gCamHalLogLevel = 1;
 extern uint8_t gNumCameraSessions;
 uint32_t QCamera2HardwareInterface::sNextJobId = 1;
 
+/* Meizu changed */
+extern uint32_t gMeizuCameraId;
+
 camera_device_ops_t QCamera2HardwareInterface::mCameraOps = {
     .set_preview_window =        QCamera2HardwareInterface::set_preview_window,
     .set_callbacks =             QCamera2HardwareInterface::set_CallBacks,
@@ -1824,6 +1827,10 @@ int QCamera2HardwareInterface::openCamera(struct hw_device_t **hw_device)
     }
     LOGI("[KPI Perf]: E PROFILE_OPEN_CAMERA camera id %d",
             mCameraId);
+
+    /* Meizu changed */
+    gMeizuCameraId = mCameraId;
+
     m_perfLock.lock_acq_timed(CAMERA_OPEN_PERF_TIME_OUT);
     rc = openCamera();
     if (rc == NO_ERROR){

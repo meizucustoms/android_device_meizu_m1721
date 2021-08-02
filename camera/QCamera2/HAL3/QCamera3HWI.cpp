@@ -114,6 +114,9 @@ extern pthread_mutex_t gCamLock;
 volatile uint32_t gCamHal3LogLevel = 1;
 extern uint8_t gNumCameraSessions;
 
+/* Meizu changed */
+extern uint32_t gMeizuCameraId;
+
 const QCamera3HardwareInterface::QCameraPropMap QCamera3HardwareInterface::CDS_MAP [] = {
     {"On",  CAM_CDS_MODE_ON},
     {"Off", CAM_CDS_MODE_OFF},
@@ -705,6 +708,8 @@ int QCamera3HardwareInterface::openCamera(struct hw_device_t **hw_device)
     m_perfLock.lock_acq();
     LOGI("[KPI Perf]: E PROFILE_OPEN_CAMERA camera id %d",
              mCameraId);
+
+    gMeizuCameraId = mCameraId;
 
     rc = openCamera();
     if (rc == 0) {
