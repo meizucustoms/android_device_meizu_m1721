@@ -399,7 +399,8 @@ on property:sys.boot_completed=1
     chown media audio /sys/kernel/wcd_cpe0/fw_name
 
     # Start remosaic daemon when boot completed
-    start remosaic_daemon
+    # Disabled because of problems with OSS camera HAL!
+    #start remosaic_daemon
 
 on property:vold.decrypt=trigger_restart_framework
     start config_bt_addr
@@ -651,10 +652,11 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     group camera system inet input graphics
 
 # Start remosaic server as daemon
-service remosaic_daemon /system/bin/remosaic_daemon
-    user root
-    group root
-    oneshot
-    disabled
-    seclabel  u:r:mm-qcamerad:s0
+# Disabled because of problems with OSS camera HAL
+#service remosaic_daemon /system/bin/remosaic_daemon
+#    user root
+#    group root
+#    oneshot
+#    disabled
+#    seclabel  u:r:mm-qcamerad:s0
 
