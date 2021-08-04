@@ -348,7 +348,7 @@
 
     <!-- If true, the doze component is not started until after the screen has been
          turned off and the screen off animation has been performed. -->
-    <bool name="config_dozeAfterScreenOff">false</bool>
+    <bool name="config_dozeAfterScreenOff">true</bool>
 
     <!-- Set this to true to enable the platform's auto-power-save modes like doze and
          app standby.  These are not enabled by default because they require a standard
@@ -408,10 +408,4 @@
 
     <!-- Whether device supports double tap to wake -->
     <bool name="config_supportDoubleTapWake">true</bool>
-
-    <!-- Certain sensor firmwares break with having a batch
-         size set. By setting this to false, devices can opt
-         out of setting a batch size, which fixes rotation. -->
-    <bool name="config_useDefaultBatchingForAccel">false</bool>
-
 </resources>
