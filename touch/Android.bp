@@ -13,9 +13,9 @@
 // limitations under the License.
 
 cc_binary {
-    name: "vendor.lineage.touch@1.0-service.xiaomi_mido",
-    init_rc: ["vendor.lineage.touch@1.0-service.xiaomi_mido.rc"],
-    vintf_fragments: ["vendor.lineage.touch@1.0-service.xiaomi_mido.xml"],
+    name: "vendor.lineage.touch@1.0-service.meizu_m1721",
+    init_rc: ["vendor.lineage.touch@1.0-service.meizu_m1721.rc"],
+    vintf_fragments: ["vendor.lineage.touch@1.0-service.meizu_m1721.xml"],
     defaults: ["hidl_defaults"],
     relative_install_path: "hw",
     vendor: true,
