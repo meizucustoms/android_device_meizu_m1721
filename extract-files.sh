@@ -12,8 +12,8 @@ fi
 set -e
 
 # Required!
-DEVICE=mido
-VENDOR=xiaomi
+DEVICE=m1721
+VENDOR=meizu
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
@@ -36,19 +36,20 @@ SECTION=
 
 while [ "${#}" -gt 0 ]; do
     case "${1}" in
-        -n | --no-cleanup )
-                CLEAN_VENDOR=false
-                ;;
-        -k | --kang )
-                KANG="--kang"
-                ;;
-        -s | --section )
-                SECTION="${2}"; shift
-                CLEAN_VENDOR=false
-                ;;
-        * )
-                SRC="${1}"
-                ;;
+    -n | --no-cleanup)
+        CLEAN_VENDOR=false
+        ;;
+    -k | --kang)
+        KANG="--kang"
+        ;;
+    -s | --section)
+        SECTION="${2}"
+        shift
+        CLEAN_VENDOR=false
+        ;;
+    *)
+        SRC="${1}"
+        ;;
     esac
     shift
 done
@@ -61,7 +62,7 @@ fi
 setup_vendor "${DEVICE}" "${VENDOR}" "${ANDROID_ROOT}" false "${CLEAN_VENDOR}"
 
 extract "${MY_DIR}"/proprietary-files.txt "${SRC}" \
-        "${KANG}" --section "${SECTION}"
+    "${KANG}" --section "${SECTION}"
 
 DEVICE_BLOB_ROOT="${ANDROID_ROOT}"/vendor/"${VENDOR}"/"${DEVICE}"/proprietary
 

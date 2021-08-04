@@ -27,7 +27,6 @@
 
 #include <fcntl.h>
 #include <stdlib.h>
-#include <sys/sysinfo.h>
 
 #include "vendor_init.h"
 #include "property_service.h"
@@ -35,29 +34,6 @@
 
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
-
-char const *heaptargetutilization;
-char const *heapminfree;
-char const *heapmaxfree;
-
-void check_device()
-{
-    struct sysinfo sys;
-
-    sysinfo(&sys);
-
-    if (sys.totalram > 2048ull * 1024 * 1024) {
-        // from phone-xhdpi-4096-dalvik-heap.mk
-        heaptargetutilization = "0.6";
-        heapminfree = "8m";
-        heapmaxfree = "16m";
-    } else {
-        // from phone-xhdpi-2048-dalvik-heap.mk
-        heaptargetutilization = "0.75";
-        heapminfree = "512k";
-        heapmaxfree = "8m";
-   }
-}
 
 void property_override(char const prop[], char const value[], bool add = true)
 {
@@ -70,25 +46,12 @@ void property_override(char const prop[], char const value[], bool add = true)
     }
 }
 
-void set_avoid_gfxaccel_config() {
-    struct sysinfo sys;
-    sysinfo(&sys);
-
-    if (sys.totalram <= 2048ull * 1024 * 1024) {
-        // Reduce memory footprint
-        property_override("ro.config.avoid_gfx_accel", "true");
-    }
-}
-
 void vendor_load_properties()
 {
-    check_device();
-    set_avoid_gfxaccel_config();
-
     property_override("dalvik.vm.heapstartsize", "8m");
     property_override("dalvik.vm.heapgrowthlimit", "192m");
     property_override("dalvik.vm.heapsize", "512m");
-    property_override("dalvik.vm.heaptargetutilization", heaptargetutilization);
-    property_override("dalvik.vm.heapminfree", heapminfree);
-    property_override("dalvik.vm.heapmaxfree", heapmaxfree);
+    property_override("dalvik.vm.heaptargetutilization", "0.6");
+    property_override("dalvik.vm.heapminfree", "8m");
+    property_override("dalvik.vm.heapmaxfree", "16m");
 }

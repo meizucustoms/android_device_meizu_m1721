@@ -84,7 +84,6 @@ on boot
 #
 # /sys/class/android_usb/android0/idVendor: Stores Vendor ID
 # Value: 05c6 (Vendor id for Qualcomm Inc)
-# Value: 2717 (Vendor id for XiaoMi)
 #
 # /sys/class/android_usb/android0/idProduct: Stores Product id corresponding to usb composition
 # Value: 0x9xxx for composite interface, 0xFxxx for single interface
