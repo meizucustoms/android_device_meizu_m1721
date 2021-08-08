@@ -57,10 +57,10 @@
     <ctl name="RX1 Digital Volume" value="84" />
     <ctl name="RX2 Digital Volume" value="84" />
     <ctl name="RX3 Digital Volume" value="84" />
-    <ctl name="IIR1 INP1 Volume" value="53" />
-    <ctl name="IIR1 INP2 Volume" value="53" />
-    <ctl name="IIR1 INP3 Volume" value="53" />
-    <ctl name="IIR1 INP4 Volume" value="53" />
+    <ctl name="IIR1 INP1 Volume" value="27" />
+    <ctl name="IIR1 INP2 Volume" value="27" />
+    <ctl name="IIR1 INP3 Volume" value="27" />
+    <ctl name="IIR1 INP4 Volume" value="27" />
     <ctl name="ADC1 Volume" value="4" />
     <ctl name="ADC2 Volume" value="4" />
     <ctl name="ADC3 Volume" value="4" />
@@ -274,6 +274,10 @@
     <ctl name="PRI_MI2S_RX Audio Mixer MultiMedia10" value="0" />
     <ctl name="AFE_PCM_RX Audio Mixer MultiMedia10" value="0" />
     <!-- VoIP over audio -->
+
+    <!-- Cirrus -->
+    <ctl name="Cirrus GB Enable" value="Disable" />
+    <ctl name="Analog Audio Volume" value="4" />
 
     <!-- ADSP testfwk -->
     <ctl name="MI2S_DL_HL Switch" value="0" />
@@ -1223,8 +1227,8 @@
     </path>
 
     <path name="speaker">
-        <ctl name="RX3 MIX1 INP1" value="RX1" />
-        <ctl name="LINE_OUT" value="Switch" />
+        <ctl name="Cirrus GB Enable" value="Enable" />
+        <ctl name="Analog Audio Volume" value="17" />
     </path>
 
     <path name="speaker-and-hdmi">
@@ -1233,10 +1237,8 @@
     </path>
 
     <path name="wsa-speaker">
-        <ctl name="RX3 MIX1 INP1" value="RX1" />
-        <ctl name="RX3 Digital Volume" value="78" />
-        <ctl name="LINE_OUT" value="Switch" />
-        <ctl name="SpkrMono WSA_RDAC" value="Switch" />
+        <ctl name="Cirrus GB Enable" value="Enable" />
+        <ctl name="Analog Audio Volume" value="17" />
    </path>
 
    <!-- VoIP Rx settings -->
