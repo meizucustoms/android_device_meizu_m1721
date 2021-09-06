@@ -50,13 +50,6 @@ cc_library_shared {
     vendor: true
 }
 
-cc_library_shared {
-    name: "libshims_gxfpd",
-    srcs: ["gxfpd_shim.cpp"],
-    compile_multilib: "64",
-    vendor: true
-}
-
 // WFD
 cc_library_shared {
     name: "libshim_wfdmmsink",
