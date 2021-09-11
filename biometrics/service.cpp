@@ -38,7 +38,7 @@ using android::sp;
 static constexpr char kGoodixFpDev[] = "/dev/goodix_fp";
 
 int main() {
-    ALOGI("Start biometrics");
+    ALOGE("Start biometrics");
     android::sp<IBiometricsFingerprint> bio = BiometricsFingerprint::getInstance();
 
     if (access(kGoodixFpDev, F_OK) != 0) {
