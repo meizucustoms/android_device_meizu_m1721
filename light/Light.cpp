@@ -24,11 +24,8 @@
 
 #define LEDS            "/sys/class/leds/"
 
-#define BUTTON_LED      LEDS "button-backlight/"
 #define LCD_LED         LEDS "lcd-backlight/"
-#define RED_LED         LEDS "red/"
-#define GREEN_LED       LEDS "green/"
-#define BLUE_LED        LEDS "blue/"
+#define WHITE_LED         LEDS "mx-led/"
 
 #define BLINK           "blink"
 #define BRIGHTNESS      "brightness"
@@ -91,27 +88,12 @@ static void handleBacklight(const LightState& state) {
     set(LCD_LED BRIGHTNESS, brightness);
 }
 
-static void handleButtons(const LightState& state) {
-     uint32_t brightness = getScaledBrightness(state, MAX_LED_BRIGHTNESS);
-     set(BUTTON_LED BRIGHTNESS, brightness);
-}
-
 static void handleNotification(const LightState& state) {
-    int blink, onMs, offMs, red, green, blue;
-    uint32_t alpha;
+    int blink, onMs, offMs;
+    uint32_t brightness;
 
-    // Extract brightness from AARRGGBB
-    alpha = (state.color >> 24) & 0xff;
-    red = (state.color >> 16) & 0xff;
-    green = (state.color >> 8) & 0xff;
-    blue = state.color & 0xff;
-
-    // Scale RGB brightness if Alpha brightness is not 0xFF
-    if (alpha != 0xff) {
-        red = (red * alpha) / 0xff;
-        green = (green * alpha) / 0xff;
-        blue = (blue * alpha) / 0xff;
-    }
+    // Only this required for our LED
+    brightness = getBrightness(state);
 
     switch (state.flashMode) {
         case Flash::TIMED:
@@ -142,27 +124,17 @@ static void handleNotification(const LightState& state) {
     }
 
     /* Disable blinking. */
-    set(RED_LED BLINK, 0);
-    set(GREEN_LED BLINK, 0);
-    set(BLUE_LED BLINK, 0);
+    set(WHITE_LED BLINK, 0);
 
-    /* Enable blinking */
-    if (blink){
-        if (red)
-            set(RED_LED BLINK, blink);
-        if (green)
-            set(GREEN_LED BLINK, blink);
-        if (blue)
-            set(BLUE_LED BLINK, blink);
+    /* Enable blinking or static light */
+    if (blink) {
+        if (brightness)
+            set(WHITE_LED BLINK, blink);
     } else {
-        if (red == 0 && green == 0 && blue == 0) {
-            set(RED_LED BLINK, 0);
-            set(GREEN_LED BLINK, 0);
-            set(BLUE_LED BLINK, 0);
+        if (!brightness) {
+            set(WHITE_LED BLINK, 0);
         }
-        set(RED_LED BRIGHTNESS, red);
-        set(GREEN_LED BRIGHTNESS, green);
-        set(BLUE_LED BRIGHTNESS, blue);
+        set(WHITE_LED BRIGHTNESS, brightness);
     }
 }
 
@@ -174,9 +146,7 @@ static inline bool isLit(const LightState& state) {
 static std::vector<LightBackend> backends = {
     { Type::ATTENTION, handleNotification },
     { Type::NOTIFICATIONS, handleNotification },
-    { Type::BATTERY, handleNotification },
     { Type::BACKLIGHT, handleBacklight },
-    { Type::BUTTONS, handleButtons },
 };
 
 }  // anonymous namespace
