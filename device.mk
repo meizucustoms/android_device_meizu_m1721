@@ -186,9 +186,7 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.1-service.meizu_m1721 \
-    fakelogprint \
-    libshims_gxfpd
+    android.hardware.biometrics.fingerprint@2.1-service.meizu_m1721
 
 # FM
 PRODUCT_PACKAGES += \
