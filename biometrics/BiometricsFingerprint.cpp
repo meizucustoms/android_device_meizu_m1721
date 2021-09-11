@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 #define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service.meizu_m1721"
-#define LOG_VERBOSE "android.hardware.biometrics.fingerprint@2.1-service.meizu_m1721"
+#define LOG_WARNING "android.hardware.biometrics.fingerprint@2.1-service.meizu_m1721"
 
 #include <hardware/hw_auth_token.h>
 #include <hardware/hardware.h>
@@ -39,6 +39,8 @@ using RequestStatus =
 BiometricsFingerprint *BiometricsFingerprint::sInstance = nullptr;
 
 BiometricsFingerprint::BiometricsFingerprint() : mClientCallback(nullptr), mDevice(nullptr) {
+    ALOGE("Called class constructor");
+
     sInstance = this; // keep track of the most recent instance
     mDevice = openHal();
 
@@ -173,7 +175,7 @@ Return<uint64_t> BiometricsFingerprint::getAuthenticatorId() {
 }
 
 Return<RequestStatus> BiometricsFingerprint::cancel() {
-      /* notify client on cancel hack */
+    /* notify client on cancel hack */
     int ret = mDevice->cancel(mDevice);
     ALOG(LOG_VERBOSE, LOG_TAG, "cancel() %d\n", ret);
     if (ret == 0) {
@@ -225,7 +227,7 @@ IBiometricsFingerprint* BiometricsFingerprint::getInstance() {
 fingerprint_device_t* BiometricsFingerprint::openHal() {
     int err;
     const hw_module_t *hw_mdl = nullptr;
-    ALOGD("Opening fingerprint hal library...");
+    ALOGE("Opening fingerprint hal library...");
     if (0 != (err = hw_get_module(FINGERPRINT_HARDWARE_MODULE_ID, &hw_mdl))) {
         ALOGE("Can't open fingerprint HW Module, error: %d", err);
         return nullptr;
