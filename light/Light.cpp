@@ -146,6 +146,7 @@ static inline bool isLit(const LightState& state) {
 static std::vector<LightBackend> backends = {
     { Type::ATTENTION, handleNotification },
     { Type::NOTIFICATIONS, handleNotification },
+    { Type::BATTERY, handleNotification },
     { Type::BACKLIGHT, handleBacklight },
 };
 
