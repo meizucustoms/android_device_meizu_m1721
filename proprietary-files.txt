@@ -45,6 +45,7 @@ vendor/lib/libacdbrtac.so
 vendor/lib/libacdbmapper.so
 vendor/lib/libadiertac.so
 vendor/lib/libaudcal.so
+vendor/lib/libaudioalsa.so
 vendor/lib64/libacdb-fts.so
 vendor/lib64/libacdbloader.so
 vendor/lib64/libacdbmapper.so
@@ -61,6 +62,11 @@ etc/acdbdata/QRD/QRD_Handset_cal.acdb:vendor/etc/acdbdata/QRD/QRD_Handset_cal.ac
 etc/acdbdata/QRD/QRD_Hdmi_cal.acdb:vendor/etc/acdbdata/QRD/QRD_Hdmi_cal.acdb
 etc/acdbdata/QRD/QRD_Headset_cal.acdb:vendor/etc/acdbdata/QRD/QRD_Headset_cal.acdb
 etc/acdbdata/QRD/QRD_Speaker_cal.acdb:vendor/etc/acdbdata/QRD/QRD_Speaker_cal.acdb
+
+# Audio amplifier - from stock m1721.Flyme_8.0.1592979314
+etc/firmware/crus_gb_config_default.bin:vendor/firmware/crus_gb_config_default.bin
+etc/firmware/crus_gb_config_new_rx.bin:vendor/firmware/crus_gb_config_new_rx.bin
+etc/firmware/crus_gb_config_new_tx.bin:vendor/firmware/crus_gb_config_new_tx.bin
 
 # Bluetooth - from LA.UM.9.6.2.r1-04200-89xx.0
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti|2401640a10df4de23f704b87c4adab2da9ed111d
@@ -252,9 +258,6 @@ vendor/lib/libmmcamera2_stats_modules.so
 vendor/lib/libllvd_smore.so|740de4c339772df80858ddd9390f91ead71eadeb
 vendor/lib/libllvd_sw_tnr.so|406895e2ae614ac84a62d1758bce1810b99c5cda
 vendor/lib/libmmcamera_sw_tnr.so|59b0f350eb0cfa85399c296af14ac680ca99705e
-
-# Camera - from Tissot PKQ1.180917.001.V10.0.24.0.PDHMIXM
-vendor/lib/libmmcamera_ofilm_s5k5e8_eeprom.so|46f0982a89add519c5fc57ceb118140e4cee900f
 
 # Camera actuators - from engineering AOSP (m1721.Flyme_6.0.1500631298)
 vendor/lib/libactuator_ad5816g.so
@@ -1411,8 +1414,17 @@ etc/camera/s5k4e8_dongju_chromatix.xml:vendor/etc/camera/s5k4e8_dongju_chromatix
 etc/camera/s5k4e8_primax_chromatix.xml:vendor/etc/camera/s5k4e8_primax_chromatix.xml
 etc/camera/s5k4e8_qtech_chromatix.xml:vendor/etc/camera/s5k4e8_qtech_chromatix.xml
 
-# Camera firmware - from LA.UM.9.6.2.r1-04200-89xx.0
-vendor/firmware/cpp_firmware_v1_5_0.fw|ac19cd179b7b118bb3ea01a35fdfc78dc58164a1
+# Camera firmware - from stock m1721.Flyme_8.0.1592979314
+etc/firmware/cpp_firmware_v1_10_0.fw:vendor/firmware/cpp_firmware_v1_10_0.fw
+etc/firmware/cpp_firmware_v1_12_0.fw:vendor/firmware/cpp_firmware_v1_12_0.fw
+etc/firmware/cpp_firmware_v1_1_1.fw:vendor/firmware/cpp_firmware_v1_1_1.fw
+etc/firmware/cpp_firmware_v1_1_6.fw:vendor/firmware/cpp_firmware_v1_1_6.fw
+etc/firmware/cpp_firmware_v1_2_0.fw:vendor/firmware/cpp_firmware_v1_2_0.fw
+etc/firmware/cpp_firmware_v1_4_0.fw:vendor/firmware/cpp_firmware_v1_4_0.fw
+etc/firmware/cpp_firmware_v1_5_0.fw:vendor/firmware/cpp_firmware_v1_5_0.fw
+etc/firmware/cpp_firmware_v1_5_2.fw:vendor/firmware/cpp_firmware_v1_5_2.fw
+etc/firmware/cpp_firmware_v1_6_0.fw:vendor/firmware/cpp_firmware_v1_6_0.fw
+etc/firmware/cpp_firmware_v1_8_0.fw:vendor/firmware/cpp_firmware_v1_8_0.fw
 
 # Charger - from LA.UM.9.6.2.r1-04200-89xx.0
 vendor/bin/hvdcp_opti|d160d2193640a21b7eff70425bcdbfc775063cd5
@@ -1556,6 +1568,13 @@ etc/firmware/goodixfp.b04:vendor/firmware/gxf/goodixfp.b04
 etc/firmware/goodixfp.b05:vendor/firmware/gxf/goodixfp.b05
 etc/firmware/goodixfp.b06:vendor/firmware/gxf/goodixfp.b06
 etc/firmware/goodixfp.mdt:vendor/firmware/gxf/goodixfp.mdt
+
+# FM Radio - from LA.UM.9.6.2.r1-04200-89xx.0
+system_ext/lib64/fm_helium.so|55ef376cc802574df92025bebaba1cebcc74a918
+system_ext/lib64/libfm-hci.so|0cfbf3d84724428721973cc7ad22f5d1e1368591
+-system_ext/lib64/vendor.qti.hardware.fm@1.0.so|b6bdde84366a79b7d49f98a2eef932dff4f87981
+vendor/lib64/vendor.qti.hardware.fm@1.0.so|f7494923e84b136a44f02699082a7e0a380f94e9
+vendor/lib64/hw/vendor.qti.hardware.fm@1.0-impl.so|66c50040a46dfa7fcefda85ddd009bff2b76f6b8
 
 # Gatekeeper - from LA.UM.9.6.2.r1-04200-89xx.0
 vendor/lib64/hw/gatekeeper.msm8953.so|391b9ded894fb581fab3f5c742236b11e2e61a7b
