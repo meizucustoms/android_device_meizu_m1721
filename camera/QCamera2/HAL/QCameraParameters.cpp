@@ -60,10 +60,6 @@ extern "C" {
 
 
 namespace qcamera {
-
-/* Meizu changed */
-extern uint32_t gMeizuCameraId;
-
 // Parameter keys to communicate between camera application and driver.
 const char QCameraParameters::KEY_QC_SUPPORTED_HFR_SIZES[] = "hfr-size-values";
 const char QCameraParameters::KEY_QC_PREVIEW_FRAME_RATE_MODE[] = "preview-frame-rate-mode";
@@ -3959,12 +3955,7 @@ int32_t QCameraParameters::setHDRNeed1x(const QCameraParameters& params)
  *==========================================================================*/
 int32_t QCameraParameters::setQuadraCfaMode(uint32_t enable, bool initCommit) {
 
-    int32_t rc = NO_ERROR;
-
-    if (gMeizuCameraId == 1) {
-        LOGE("Meizu changes were triggered!");
-        return rc;
-    }
+   int32_t rc = NO_ERROR;
 
     if (getQuadraCfa()) {
         if (enable) {
@@ -3991,7 +3982,6 @@ int32_t QCameraParameters::setQuadraCfaMode(uint32_t enable, bool initCommit) {
         }
         LOGI("Quadra CFA mode %d ", enable);
     }
-
     return rc;
 }
 
@@ -4011,27 +4001,13 @@ int32_t QCameraParameters::setQuadraCfa(const QCameraParameters& params)
 {
 
     int32_t width = 0,height = 0;
-    bool prev_quadracfa = FALSE;
+    bool prev_quadracfa = getQuadraCfa();
     int32_t rc = NO_ERROR;
     int32_t value;
-
-    if (gMeizuCameraId != 1)
-    {   
-        LOGE("Meizu changes were triggered: not front camera.");
-        prev_quadracfa = getQuadraCfa();
-    }
 
     if (!m_pCapability->is_remosaic_lib_present) {
         LOGD("Quadra CFA mode not supported");
         return rc;
-    }
-
-    LOGE("Meizu changes were triggered: gMeizuCameraId = %d", gMeizuCameraId);
-    
-    if (gMeizuCameraId == 1) {
-        LOGI("Quadra CFA mode not selected (Front camera)");
-        m_bQuadraCfa = FALSE;
-        goto done;
     }
 
     /*Checking if the user selected dim is more than maximum dim supported by
@@ -4051,8 +4027,6 @@ int32_t QCameraParameters::setQuadraCfa(const QCameraParameters& params)
         LOGD("No change in Quadra CFA mode");
     } else {
         if (m_bZslMode && m_bQuadraCfa) {
-            LOGE("Meizu changes were triggered: Turn off ZSL and restart preview.");
-
             m_bNeedRestart = TRUE;
             setZslMode(FALSE);
         } else {
@@ -4067,7 +4041,6 @@ int32_t QCameraParameters::setQuadraCfa(const QCameraParameters& params)
         }
         setReprocCount();
     }
-done:
     LOGH("Quadra CFA mode = %d", m_bQuadraCfa);
     return rc;
 }
@@ -4531,30 +4504,10 @@ int32_t QCameraParameters::setZslMode(bool value)
     } else {
         LOGI("ZSL Mode  -> %s", m_bZslMode_new ? "Enabled" : "Disabled");
         m_bZslMode_new = (value > 0)? true : false;
-
-        if (gMeizuCameraId == 1) {
-            // Force ZSL mode to OFF
-            set(KEY_QC_ZSL, VALUE_OFF);
-            m_bZslMode_new = FALSE;
-            m_bZslMode = FALSE;
-            m_bNeedRestart = TRUE;
-
-            LOGI("Meizu changes were triggered: ZSL Mode  -> %s", 
-                 m_bZslMode_new ? "Enabled" : "Disabled");
-
-            if (ADD_SET_PARAM_ENTRY_TO_BATCH(m_pParamBuf, CAM_INTF_PARM_ZSL_MODE, value)) {
-                rc = BAD_VALUE;
-            }
-
-            goto done;
-        }
-
         if (ADD_SET_PARAM_ENTRY_TO_BATCH(m_pParamBuf, CAM_INTF_PARM_ZSL_MODE, value)) {
             rc = BAD_VALUE;
         }
     }
-
-done:
     LOGH("enabled: %d rc = %d", m_bZslMode_new, rc);
     return rc;
 }
@@ -6878,7 +6831,6 @@ void  QCameraParameters::updateAEInfo(cam_3a_params_t &ae_params)
 
     int32_t prevISO = getInt(KEY_QC_CURRENT_ISO);
     int32_t newISO = ae_params.iso_value;
-
     if (prevISO != newISO) {
         LOGD("update iso: old:%d, new:%d", prevISO, newISO);
         set(KEY_QC_CURRENT_ISO, newISO);
@@ -10280,9 +10232,7 @@ int32_t QCameraParameters::getStreamFormat(cam_stream_type_t streamType,
         }
         break;
     case CAM_STREAM_TYPE_RAW:
-        if ((isRdiMode()) || (getofflineRAW()) || 
-           ((gMeizuCameraId != 1) && 
-            (getQuadraCfa()))) {
+        if ((isRdiMode()) || (getofflineRAW())|| (getQuadraCfa())) {
             format = m_pCapability->rdi_mode_stream_fmt;
         } else if (mPictureFormat >= CAM_FORMAT_YUV_RAW_8BIT_YUYV) {
             format = (cam_format_t)mPictureFormat;
@@ -10299,8 +10249,7 @@ int32_t QCameraParameters::getStreamFormat(cam_stream_type_t streamType,
         }
         break;
     case CAM_STREAM_TYPE_OFFLINE_PROC:
-        if ((gMeizuCameraId != 1) && 
-            (getQuadraCfa())) {
+        if (getQuadraCfa()) {
             if (m_pCapability->color_arrangement == CAM_FILTER_ARRANGEMENT_BGGR) {
                 format = CAM_FORMAT_BAYER_IDEAL_RAW_PLAIN16_10BPP_BGGR;
             } else if (m_pCapability->color_arrangement == CAM_FILTER_ARRANGEMENT_GBRG) {
@@ -10641,11 +10590,6 @@ int QCameraParameters::getPreviewHalPixelFormat()
  *==========================================================================*/
 bool QCameraParameters::getQuadraCfa()
 {
-    if (gMeizuCameraId == 1) {
-        LOGE("Meizu changes were triggered!");
-        return 0;
-    }
-
     return m_bQuadraCfa;
 }
 /*===========================================================================
@@ -11761,8 +11705,7 @@ int32_t QCameraParameters::getSensorOutputSize(cam_dimension_t max_dim, cam_dime
     // If offline raw is enabled, check the dimensions from Picture size since snapshot
     // stream is not added but final JPEG is required of snapshot size
     if (getofflineRAW()) {
-        if ((gMeizuCameraId != 1) && 
-            (getQuadraCfa())) {
+        if (getQuadraCfa()) {
             max_dim.width = m_pCapability->quadra_cfa_dim[0].width;
             max_dim.height = m_pCapability->quadra_cfa_dim[0].height;
         } else {
@@ -11814,8 +11757,7 @@ int32_t QCameraParameters::getSensorOutputSize(cam_dimension_t max_dim, cam_dime
     LOGH("RAW Dimension = %d X %d",sensor_dim.width,sensor_dim.height);
     if (sensor_dim.width == 0 || sensor_dim.height == 0) {
         LOGW("Error getting RAW size. Setting to Capability value");
-        if ((gMeizuCameraId != 1) && 
-            (getQuadraCfa())) {
+        if (getQuadraCfa()) {
             sensor_dim = m_pCapability->quadra_cfa_dim[0];
         } else {
             sensor_dim = m_pCapability->raw_dim[0];
@@ -13390,7 +13332,7 @@ bool QCameraParameters::setStreamConfigure(bool isCapture,
                         stream_config_info.format[stream_config_info.num_streams]);
                 stream_config_info.is_type[stream_config_info.num_streams] = IS_TYPE_NONE;
                 stream_config_info.num_streams++;
-            } else if ((gMeizuCameraId == 1) || (!getQuadraCfa())) {
+            } else if(!getQuadraCfa()) {
                 stream_config_info.type[stream_config_info.num_streams] =
                         CAM_STREAM_TYPE_POSTVIEW;
                 getStreamDimension(CAM_STREAM_TYPE_POSTVIEW,
@@ -13423,7 +13365,7 @@ bool QCameraParameters::setStreamConfigure(bool isCapture,
             || (raw_yuv))) {
         cam_dimension_t max_dim = {0,0};
 
-        if ((gMeizuCameraId == 1) || (!getQuadraCfa())) {
+        if (!getQuadraCfa()) {
             // Find the Maximum dimension admong all the streams
             for (uint32_t j = 0; j < stream_config_info.num_streams; j++) {
                 if (stream_config_info.stream_sizes[j].width > max_dim.width) {
@@ -13634,8 +13576,7 @@ bool QCameraParameters::needThumbnailReprocess(cam_feature_mask_t *pFeatureMask)
             isOptiZoomEnabled() || isUbiRefocus() ||
             isStillMoreEnabled() ||
             (isHDREnabled() && !isHDRThumbnailProcessNeeded())
-            || isUBWCEnabled() || ((gMeizuCameraId != 1)
-            && (getQuadraCfa()))) {
+            || isUBWCEnabled()|| getQuadraCfa()) {
         *pFeatureMask &= ~CAM_QCOM_FEATURE_CHROMA_FLASH;
         *pFeatureMask &= ~CAM_QCOM_FEATURE_UBIFOCUS;
         *pFeatureMask &= ~CAM_QCOM_FEATURE_REFOCUS;
@@ -13692,8 +13633,7 @@ uint8_t QCameraParameters::getNumOfExtraBuffersForImageProc()
         numOfBufs += 1;
     }
 
-    if ((gMeizuCameraId != 1) &&
-        (getQuadraCfa())) {
+    if (getQuadraCfa()) {
         numOfBufs += 1;
     }
 
@@ -14152,8 +14092,7 @@ bool QCameraParameters::isMultiPassReprocessing()
     char value[PROPERTY_VALUE_MAX];
     int multpass = 0;
 
-    if ((gMeizuCameraId != 1) &&
-        (getQuadraCfa())) {
+    if (getQuadraCfa()) {
         multpass = TRUE;
         return TRUE;
     }
@@ -14187,16 +14126,11 @@ void QCameraParameters::setReprocCount()
         return;
     }
 
-    if ((getZoomLevel() != 0 && !getQuadraCfa()
+    if ((getZoomLevel() != 0 && !getQuadraCfa())
             && (getBurstCountForAdvancedCapture()
-            == getNumOfSnapshots()) && 
-            (gMeizuCameraId == 1))) {
+            == getNumOfSnapshots())) {
         LOGD("2 Pass postprocessing enabled");
         mTotalPPCount++;
-    }
-
-    if (gMeizuCameraId == 1) {
-        return;
     }
 
     if (getQuadraCfa()) {
