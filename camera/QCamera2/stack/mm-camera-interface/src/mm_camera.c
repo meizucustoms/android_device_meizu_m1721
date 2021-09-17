@@ -283,9 +283,9 @@ int32_t mm_camera_open(mm_camera_obj_t *my_obj)
     do{
         n_try--;
         errno = 0;
-        my_obj->ctrl_fd = open(dev_name, O_RDWR | O_NONBLOCK);
+        my_obj->ctrl_fd = open(dev_name, 2050);
         l_errno = errno;
-        LOGD("ctrl_fd = %d, errno == %d", my_obj->ctrl_fd, l_errno);
+        LOGE("ctrl_fd = %d, errno == %d", my_obj->ctrl_fd, l_errno);
         if((my_obj->ctrl_fd >= 0) || (errno != EIO && errno != ETIMEDOUT) || (n_try <= 0 )) {
             break;
         }
@@ -304,7 +304,7 @@ int32_t mm_camera_open(mm_camera_obj_t *my_obj)
         goto on_error;
     } else {
         mm_camera_get_session_id(my_obj, &my_obj->sessionid);
-        LOGH("Camera Opened id = %d sessionid = %d", cam_idx, my_obj->sessionid);
+        LOGE("Camera Opened id = %d sessionid = %d", cam_idx, my_obj->sessionid);
     }
 
 #ifdef DAEMON_PRESENT
