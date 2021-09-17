@@ -52,7 +52,7 @@
 #define CEILING2(X)  (((X) + 0x0001) & 0xFFFE)
 
 #define MAX_ZOOMS_CNT 91
-#define MAX_SIZES_CNT 40
+#define MAX_SIZES_CNT 41
 #define MAX_EXP_BRACKETING_LENGTH 32
 #define MAX_ROI 10
 #define MAX_STREAM_NUM_IN_BUNDLE 8
@@ -2232,9 +2232,15 @@ typedef enum {
     CAM_INTF_META_FOCUS_VALUE,
     /*Spot light detection result output from af core*/
     CAM_INTF_META_SPOT_LIGHT_DETECT,
-    /* HAL based HDR*/
-    CAM_INTF_PARM_HAL_BRACKETING_HDR,
-    CAM_INTF_PARM_MAX
+
+    /* Meizu reserved */
+    CAM_INTF_MEIZU_RESERVED_0,
+    CAM_INTF_MEIZU_RESERVED_1,
+    CAM_INTF_MEIZU_RESERVED_2,
+    CAM_INTF_MEIZU_RESERVED_3,
+    CAM_INTF_MEIZU_RESERVED_4,
+
+    CAM_INTF_PARM_MAX,
 } cam_intf_parm_type_t;
 
 typedef struct {
