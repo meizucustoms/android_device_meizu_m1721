@@ -1840,6 +1840,8 @@ uint8_t get_num_of_cameras()
             else
                 break;
         }
+    } else {
+        LOGE("ioctl was good");
     }
     close(sd_fd);
     dev_fd = -1;
@@ -1886,7 +1888,7 @@ uint8_t get_num_of_cameras()
             if(entity.type == MEDIA_ENT_T_DEVNODE_V4L && entity.group_id == QCAMERA_VNODE_GROUP_ID) {
                 strlcpy(g_cam_ctrl.video_dev_name[num_cameras],
                      entity.name, sizeof(entity.name));
-                LOGE("dev_info[id=%d,name='%s']\n",
+                LOGI("dev_info[id=%d,name='%s']\n",
                     (int)num_cameras, g_cam_ctrl.video_dev_name[num_cameras]);
                 num_cameras++;
                 break;
@@ -1905,7 +1907,7 @@ uint8_t get_num_of_cameras()
     sort_camera_info(g_cam_ctrl.num_cam);
     /* unlock the mutex */
     pthread_mutex_unlock(&g_intf_lock);
-    LOGE("num_cameras=%d\n", (int)g_cam_ctrl.num_cam);
+    LOGI("num_cameras=%d\n", (int)g_cam_ctrl.num_cam);
     return(uint8_t)g_cam_ctrl.num_cam;
 }
 
