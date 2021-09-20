@@ -269,10 +269,9 @@ typedef struct{
     float hor_view_angle;                                   /* horizontal view angle */ // meizu pos: 541; oss: 2132
     float ver_view_angle;                                   /* vertical view angle */ // meizu pos: 542; oss: 2136
 
+    size_t preview_sizes_tbl_cnt;                           /* preview sizes table size */ // 2172 flyme; 2252 osc
     volatile char meizu_reserved_00[80];
-
-    size_t preview_sizes_tbl_cnt;                           /* preview sizes table size */ // meizu pos: 2252; oss: 2252
-    cam_dimension_t preview_sizes_tbl[MAX_SIZES_CNT - 10];  /* preiew sizes table */ // mz[0]: 2256, 2256
+    cam_dimension_t preview_sizes_tbl[MAX_SIZES_CNT - 10];  /* preiew sizes table */ // 2176 flyme; 2256 osc; diff: 80
 
     size_t video_sizes_tbl_cnt;                             /* video sizes table size */ // 2504; mz 2504
     cam_dimension_t video_sizes_tbl[MAX_SIZES_CNT];         /* video sizes table */      // 2508; mz 2508
