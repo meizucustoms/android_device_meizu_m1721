@@ -427,10 +427,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <name>IGloveMode</name>
         <instance>default</instance>
         </interface>
-        <interface>
-            <name>IKeyDisabler</name>
-            <instance>default</instance>
-        </interface>
     </hal>
     <hal format="hidl">
         <name>vendor.lineage.trust</name>
