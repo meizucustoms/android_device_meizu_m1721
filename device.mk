@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-$(call inherit-product, vendor/xiaomi/mido/mido-vendor.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_m.mk)
+$(call inherit-product, vendor/meizu/m1721/m1721-vendor.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_n.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
@@ -141,10 +141,6 @@ PRODUCT_PACKAGES += \
     libui_shim \
     Snap
 
-# Consumerir
-PRODUCT_PACKAGES += \
-    android.hardware.ir@1.0-service.xiaomi_mido
-
 # Display
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
@@ -166,7 +162,7 @@ PRODUCT_PACKAGES += \
 
 # Device-specific settings
 PRODUCT_PACKAGES += \
-    XiaomiDoze
+    MeizuDoze
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -176,7 +172,7 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.1-service.xiaomi_mido \
+    android.hardware.biometrics.fingerprint@2.1-service.meizu_m1721 \
     libunwind
 
 # FM
@@ -251,11 +247,11 @@ PRODUCT_PACKAGES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service.xiaomi_mido
+    android.hardware.light@2.0-service.meizu_m1721
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service.xiaomi_mido
+    vendor.lineage.livedisplay@2.0-service.meizu_m1721
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -370,7 +366,7 @@ PRODUCT_COPY_FILES += \
 
 # Touch features
 PRODUCT_PACKAGES += \
-    vendor.lineage.touch@1.0-service.xiaomi_mido
+    vendor.lineage.touch@1.0-service.meizu_m1721
 
 # Trust HAL
 PRODUCT_PACKAGES += \
