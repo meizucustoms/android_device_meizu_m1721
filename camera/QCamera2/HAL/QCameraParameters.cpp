@@ -40,7 +40,7 @@
 #define SYSINFO_H <SYSTEM_HEADER_PREFIX/sysinfo.h>
 #include SYSINFO_H
 #include "gralloc_priv.h"
-#include "system/graphics.h"
+#include "graphics.h"
 
 // Camera dependencies
 #include "QCameraBufferMaps.h"
@@ -492,9 +492,6 @@ const char QCameraParameters::KEY_QC_NOISE_REDUCTION_MODE_VALUES[] = "noise-redu
 const char QCameraParameters::KEY_TS_MAKEUP[] = "tsmakeup";
 const char QCameraParameters::KEY_TS_MAKEUP_WHITEN[] = "tsmakeup_whiten";
 const char QCameraParameters::KEY_TS_MAKEUP_CLEAN[] = "tsmakeup_clean";
-const char QCameraParameters::KEY_XM_MAKEUP[] = "xiaomi-still-beautify-values";
-const char QCameraParameters::KEY_XM_MAKEUP_WHITEN[] = "xiaomi-beauty-skin-color";
-const char QCameraParameters::KEY_XM_MAKEUP_CLEAN[] = "xiaomi-beauty-skin-smooth";
 #endif
 
 //KEY to share HFR batch size with video encoder.
@@ -4181,60 +4178,6 @@ int32_t QCameraParameters::setTsMakeup(const QCameraParameters& params)
     return NO_ERROR;
 }
 
-/*===========================================================================
- * FUNCTION   : setXmMakeup
- *
- * DESCRIPTION: set setXmMakeup from user setting
- *
- * PARAMETERS :
- *   @params  : user setting parameters
- *
- * RETURN     : int32_t type of status
- *              NO_ERROR  -- success
- *              none-zero failure code
- *==========================================================================*/
-int32_t QCameraParameters::setXmMakeup(const QCameraParameters& params)
-{
-    const char *str = params.get(KEY_XM_MAKEUP);
-    const char *prev_str = get(KEY_XM_MAKEUP);
-
-    LOGH("str =%s & prev_str =%s", str, prev_str);
-
-    if (str != NULL) {
-        if (prev_str == NULL) {
-            m_bNeedRestart = true;
-            set(KEY_XM_MAKEUP, str);
-        } else if (strcmp(str, prev_str) != 0) {
-            const char* prev_enabled = strrchr(prev_str, ':');
-            const char* curr_enabled = strrchr(str, ':');
-            if (prev_enabled && curr_enabled) {
-                prev_enabled++;
-                curr_enabled++;
-                m_bNeedRestart = (atoi(prev_enabled) > 0 != atoi(curr_enabled) > 0) ?
-                        true : m_bNeedRestart;
-            }
-            set(KEY_XM_MAKEUP, str);
-        }
-
-        str = params.get(KEY_XM_MAKEUP_WHITEN);
-        prev_str = get(KEY_XM_MAKEUP_WHITEN);
-        if (str != NULL) {
-            if (prev_str == NULL || strcmp(str, prev_str) != 0) {
-                set(KEY_XM_MAKEUP_WHITEN, str);
-            }
-        }
-
-        str = params.get(KEY_XM_MAKEUP_CLEAN);
-        prev_str = get(KEY_XM_MAKEUP_CLEAN);
-        if (str != NULL) {
-            if (prev_str == NULL || strcmp(str, prev_str) != 0) {
-                set(KEY_XM_MAKEUP_CLEAN, str);
-            }
-        }
-    }
-
-    return NO_ERROR;
-}
 #endif
 
 /*===========================================================================
@@ -5355,7 +5298,6 @@ int32_t QCameraParameters::updateParameters(const String8& p,
     if ((rc = updateFlash(false)))                      final_rc = rc;
 #ifdef TARGET_TS_MAKEUP
     if ((rc = setTsMakeup(params)))                     final_rc = rc;
-    if ((rc = setXmMakeup(params)))                     final_rc = rc;
 #endif
     if ((rc = setAdvancedCaptureMode()))                final_rc = rc;
 UPDATE_PARAM_DONE:
@@ -5702,7 +5644,7 @@ int32_t QCameraParameters::initDefaultParameters()
             AUTO_EXPOSURE_MAP,
             PARAM_MAP_SIZE(AUTO_EXPOSURE_MAP));
     set(KEY_QC_SUPPORTED_AUTO_EXPOSURE, autoExposureValues.string());
-    setAutoExposure(AUTO_EXPOSURE_CENTER_WEIGHTED);
+    setAutoExposure(AUTO_EXPOSURE_FRAME_AVG);
 
     // Set Exposure Compensation
     set(KEY_MAX_EXPOSURE_COMPENSATION, m_pCapability->exposure_compensation_max); // 12
@@ -5734,7 +5676,7 @@ int32_t QCameraParameters::initDefaultParameters()
             ANTIBANDING_MODES_MAP,
             PARAM_MAP_SIZE(ANTIBANDING_MODES_MAP));
     set(KEY_SUPPORTED_ANTIBANDING, antibandingValues);
-    setAntibanding(ANTIBANDING_AUTO);
+    setAntibanding(ANTIBANDING_OFF);
 
     // Set Effect
     String8 effectValues = createValuesString(
@@ -6632,15 +6574,6 @@ int32_t QCameraParameters::setPreviewFpsRange(int min_fps,
     /*This property get value should be the fps that user needs*/
     property_get("persist.debug.set.fixedfps", value, "0");
     fixedFpsValue = atoi(value);
-
-    // Workaround backend AEC bug that doesn't set high enough ISO values when the min FPS value
-    // is higher than expected, which resulted in a very dark preview in low light conditions
-    // while recording. The lowest FPS value AEC expects in such conditions is 19.99, so 15fps
-    // as the min FPS value should be sufficient.
-    if (!isHfrMode() && min_fps > 15000) {
-        LOGH("Original min_fps %d, changing min_fps to 15000", min_fps);
-        min_fps = 15000;
-    }
 
     LOGD("E minFps = %d, maxFps = %d , vid minFps = %d, vid maxFps = %d",
                  min_fps, max_fps, vid_min_fps, vid_max_fps);
@@ -10576,29 +10509,15 @@ char* QCameraParameters::getParameters()
 bool QCameraParameters::getTsMakeupInfo(int &whiteLevel, int &cleanLevel) const
 {
     const char* pch_makeup_enable = get(QCameraParameters::KEY_TS_MAKEUP);
-    bool enableMakeup = false;
-    if (pch_makeup_enable != NULL) {
-        enableMakeup =
-                (strcmp(pch_makeup_enable,"On") == 0);
-        if (enableMakeup) {
-            whiteLevel = getInt(QCameraParameters::KEY_TS_MAKEUP_WHITEN);
-            cleanLevel = getInt(QCameraParameters::KEY_TS_MAKEUP_CLEAN);
-        }
-    } else {
-        pch_makeup_enable = get(QCameraParameters::KEY_XM_MAKEUP);
-        if (pch_makeup_enable != NULL) {
-            const char* xm_makeup_enable = strrchr(pch_makeup_enable, ':');
-            if (xm_makeup_enable == NULL) {
-                return false;
-            }
-            xm_makeup_enable++;
-            enableMakeup = atoi(xm_makeup_enable) > 0;
-            LOGD("Xiaomi makeup enable %d", (int)enableMakeup);
-            if (enableMakeup) {
-                whiteLevel = getInt(QCameraParameters::KEY_XM_MAKEUP_WHITEN) * 10;
-                cleanLevel = getInt(QCameraParameters::KEY_XM_MAKEUP_CLEAN) * 10;
-            }
-        }
+    if (pch_makeup_enable == NULL) {
+        LOGH("pch_makeup_enable = null");
+        return false;
+    }
+    bool enableMakeup =
+            (strcmp(pch_makeup_enable,"On") == 0);
+    if (enableMakeup) {
+        whiteLevel = getInt(QCameraParameters::KEY_TS_MAKEUP_WHITEN);
+        cleanLevel = getInt(QCameraParameters::KEY_TS_MAKEUP_CLEAN);
     }
     return enableMakeup;
 }
@@ -14081,7 +14000,9 @@ int32_t QCameraParameters::updatePpFeatureMask(cam_stream_type_t stream_type) {
         }
         break;
     case CAM_FILTER_ARRANGEMENT_Y:
-        if (stream_type == CAM_STREAM_TYPE_ANALYSIS) {
+        if ((stream_type == CAM_STREAM_TYPE_ANALYSIS) ||
+                (stream_type == CAM_STREAM_TYPE_PREVIEW) ||
+                (stream_type == CAM_STREAM_TYPE_VIDEO)) {
             feature_mask |= CAM_QCOM_FEATURE_PAAF;
             LOGH("add PAAF mask to feature_mask for mono device");
         }
@@ -14923,6 +14844,20 @@ int32_t QCameraParameters::setDualCameraMode(const QCameraParameters& params)
         }
     }
     return NO_ERROR;
+}
+
+/*===========================================================================
+ * FUNCTION   : getDualCameraMode
+ *
+ * DESCRIPTION: get dual camera mode
+ *
+ * PARAMETERS :
+ *
+ * RETURN     : Dual camera mode status
+ *==========================================================================*/
+bool QCameraParameters::getDualCameraMode()
+{
+    return m_bDualCameraMode;
 }
 
 /*===========================================================================

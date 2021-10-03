@@ -30,7 +30,7 @@
 // System dependencies
 #include <stdio.h>
 #include <fcntl.h>
-#include <media/msm_cam_sensor-legacy.h>
+#include <media/msm_cam_sensor.h>
 
 // Camera dependencies
 #include "HAL3/QCamera3HWI.h"
@@ -158,7 +158,7 @@ int32_t QCameraFlash::initFlash(const int camera_id)
     if (!hasFlash) {
         LOGE("No flash available for camera id: %d",
                 camera_id);
-        retVal = -ENOSYS;
+        retVal = -EINVAL;
     } else if (m_cameraOpen[camera_id]) {
         LOGE("Camera in use for camera id: %d",
                 camera_id);

@@ -20,7 +20,6 @@
 #ifndef __QCAMERATRACE_H__
 #define __QCAMERATRACE_H__
 
-#include <pthread.h>
 #include <utils/Trace.h>
 
 #ifdef QCAMERA_REDEFINE_LOG
