@@ -32,7 +32,7 @@
 
 // System dependencies
 #include <string.h>
-#include <media/msmb_isp-legacy.h>
+#include <media/msmb_isp.h>
 
 // Camera dependencies
 #include "cam_types.h"
@@ -165,6 +165,12 @@ typedef struct {
     /* Reserved for future use */
     float      reserved[RELCAM_CALIB_RESERVED_MAX];
 } cam_related_system_calibration_data_t;
+
+typedef struct {
+    int meta_type;
+    int data_len;
+    cam_related_system_calibration_data_t otp_data;
+} cam_otp_data_t;
 #pragma pack()
 
 typedef struct {
@@ -179,42 +185,42 @@ typedef struct{
 
     cam_position_t position;                                /* sensor position: front, back */
 
-    uint8_t auto_hdr_supported; // meizu pos: 8; oss: 8
+    uint8_t auto_hdr_supported;
 
     uint16_t isWnrSupported;
     /* supported iso modes */
-    size_t supported_iso_modes_cnt; // oss: 12; meizu: 12
-    cam_iso_mode_type supported_iso_modes[CAM_ISO_MODE_MAX]; // oss: 16; meizu: 16
+    size_t supported_iso_modes_cnt;
+    cam_iso_mode_type supported_iso_modes[CAM_ISO_MODE_MAX];
 
     /* supported flash modes */
-    size_t supported_flash_modes_cnt; // osc: 48; meizu: 48
-    cam_flash_mode_t supported_flash_modes[CAM_FLASH_MODE_MAX];// osc: 52; meizu: 52
+    size_t supported_flash_modes_cnt;
+    cam_flash_mode_t supported_flash_modes[CAM_FLASH_MODE_MAX];
 
-    size_t zoom_ratio_tbl_cnt;                              /* table size for zoom ratios */ // oss: 72; meizu: 72
-    uint32_t zoom_ratio_tbl[MAX_ZOOMS_CNT];                 /* zoom ratios table */ // oss: 76; meizu: 76
+    size_t zoom_ratio_tbl_cnt;                              /* table size for zoom ratios */
+    uint32_t zoom_ratio_tbl[MAX_ZOOMS_CNT];                 /* zoom ratios table */
 
     /* supported effect modes */
-    size_t supported_effects_cnt; // meizu: 440; oss: 440
-    cam_effect_mode_type supported_effects[CAM_EFFECT_MODE_MAX]; // meizu: 444; oss: 444
+    size_t supported_effects_cnt;
+    cam_effect_mode_type supported_effects[CAM_EFFECT_MODE_MAX];
 
     /* supported scene modes */
-    size_t supported_scene_modes_cnt; // oss: 496, meizu: 496
-    cam_scene_mode_type supported_scene_modes[CAM_SCENE_MODE_MAX]; // oss: 500, meizu: 500
+    size_t supported_scene_modes_cnt;
+    cam_scene_mode_type supported_scene_modes[CAM_SCENE_MODE_MAX];
 
     /* supported auto exposure modes */
-    size_t supported_aec_modes_cnt; // oss: 592, meizu: 592
-    cam_auto_exposure_mode_type supported_aec_modes[CAM_AEC_MODE_MAX]; // oss: 596, meizu: 596
+    size_t supported_aec_modes_cnt;
+    cam_auto_exposure_mode_type supported_aec_modes[CAM_AEC_MODE_MAX];
 
-    size_t fps_ranges_tbl_cnt;                              /* fps ranges table size */ // meizu: 628, oss: 628
-    cam_fps_range_t fps_ranges_tbl[MAX_SIZES_CNT];          /* fps ranges table */ // meizu: 632, oss: 632
+    size_t fps_ranges_tbl_cnt;                              /* fps ranges table size */
+    cam_fps_range_t fps_ranges_tbl[MAX_SIZES_CNT];          /* fps ranges table */
 
     /* supported antibanding modes */
-    size_t supported_antibandings_cnt; // 1284; MZ: 1284
-    cam_antibanding_mode_type supported_antibandings[CAM_ANTIBANDING_MODE_MAX]; // 1288; MZ: 1288
+    size_t supported_antibandings_cnt;
+    cam_antibanding_mode_type supported_antibandings[CAM_ANTIBANDING_MODE_MAX];
 
     /* supported white balance modes */
-    size_t supported_white_balances_cnt; // 1312; mz: 1312
-    cam_wb_mode_type supported_white_balances[CAM_WB_MODE_MAX]; // 1316; mz: 1316
+    size_t supported_white_balances_cnt;
+    cam_wb_mode_type supported_white_balances[CAM_WB_MODE_MAX];
 
     /* Capability list of supported insensor HDR types
      * Backend is expected to fill in all the supported types and set appropriate
@@ -224,67 +230,68 @@ typedef struct{
     cam_sensor_hdr_type_t supported_sensor_hdr_types[CAM_SENSOR_HDR_MAX];
 
     /* supported manual wb cct */
-    int32_t min_wb_cct; // mz: 1376; oss: 1376
-    int32_t max_wb_cct; // mz: 1380; oss: 1380
+    int32_t min_wb_cct;
+    int32_t max_wb_cct;
 
     /* supported manual wb rgb gains */
-    float min_wb_gain; // mz: 1384; oss: 1384
-    float max_wb_gain; // mz: 1388; oss: 1388
+    float min_wb_gain;
+    float max_wb_gain;
 
     /* supported focus modes */
-    size_t supported_focus_modes_cnt; // mz: 1392; 1392
-    cam_focus_mode_type supported_focus_modes[CAM_FOCUS_MODE_MAX]; // mz: 1396; 1396
+    size_t supported_focus_modes_cnt;
+    cam_focus_mode_type supported_focus_modes[CAM_FOCUS_MODE_MAX];
 
     /* supported manual focus position */
-    float min_focus_pos[CAM_MANUAL_FOCUS_MODE_MAX]; // 1432; mz: 1432
-    float max_focus_pos[CAM_MANUAL_FOCUS_MODE_MAX]; // 1448; mz: 1448
+    float min_focus_pos[CAM_MANUAL_FOCUS_MODE_MAX];
+    float max_focus_pos[CAM_MANUAL_FOCUS_MODE_MAX];
 
-    int32_t exposure_compensation_min;       /* min value of exposure compensation index */ // mz 1464; 1464
-    int32_t exposure_compensation_max;       /* max value of exposure compensation index */ // mz 1468; 1468
-    int32_t exposure_compensation_default;   /* default value of exposure compensation index */ // mz 1472; 1472
-    float exposure_compensation_step; // mz 1476; 1476
+    int32_t exposure_compensation_min;       /* min value of exposure compensation index */
+    int32_t exposure_compensation_max;       /* max value of exposure compensation index */
+    int32_t exposure_compensation_default;   /* default value of exposure compensation index */
+    float exposure_compensation_step;
     cam_rational_type_t exp_compensation_step;    /* exposure compensation step value */
 
     uint8_t video_stablization_supported; /* flag id video stablization is supported */
 
-    size_t picture_sizes_tbl_cnt;                           /* picture sizes table size */ // 1492; mz: 1492
-    cam_dimension_t picture_sizes_tbl[MAX_SIZES_CNT];       /* picture sizes table */  // 1496; mz: 1496
+    size_t picture_sizes_tbl_cnt;                           /* picture sizes table size */
+    cam_dimension_t picture_sizes_tbl[MAX_SIZES_CNT];       /* picture sizes table */
     /* The minimum frame duration that is supported for each
      * resolution in availableProcessedSizes. Should correspond
      * to the frame duration when only that processed stream
      * is active, with all processing set to FAST */
-    int64_t picture_min_duration[MAX_SIZES_CNT]; 
+    int64_t picture_min_duration[MAX_SIZES_CNT];
 
     /* capabilities specific to HAL 1 */
+
     int32_t modes_supported;                                /* mask of modes supported: 2D, 3D */
-    uint32_t sensor_mount_angle;                            /* sensor mount angle */ // meizu pos: 2156; oss: 2156
+    uint32_t sensor_mount_angle;                            /* sensor mount angle */
 
-    float focal_length;                                     /* focal length */ // meizu pos: 540; oss: 2128
-    float hor_view_angle;                                   /* horizontal view angle */ // meizu pos: 541; oss: 2132
-    float ver_view_angle;                                   /* vertical view angle */ // meizu pos: 542; oss: 2136
+    float focal_length;                                     /* focal length */
+    float hor_view_angle;                                   /* horizontal view angle */
+    float ver_view_angle;                                   /* vertical view angle */
 
-    size_t preview_sizes_tbl_cnt;                           /* preview sizes table size */ // 2172 flyme; 2252 osc
-    volatile char meizu_reserved_00[80];
-    cam_dimension_t preview_sizes_tbl[MAX_SIZES_CNT - 10];  /* preiew sizes table */ // 2176 flyme; 2256 osc; diff: 80
+    size_t preview_sizes_tbl_cnt;                           /* preview sizes table size */
+    cam_dimension_t preview_sizes_tbl[MAX_SIZES_CNT];       /* preiew sizes table */
 
-    size_t video_sizes_tbl_cnt;                             /* video sizes table size */ // 2504; mz 2504
-    cam_dimension_t video_sizes_tbl[MAX_SIZES_CNT];         /* video sizes table */      // 2508; mz 2508
+    size_t video_sizes_tbl_cnt;                             /* video sizes table size */
+    cam_dimension_t video_sizes_tbl[MAX_SIZES_CNT];         /* video sizes table */
 
-    size_t livesnapshot_sizes_tbl_cnt;                      /* livesnapshot sizes table size */ // 2832; mz 2832
-    cam_dimension_t livesnapshot_sizes_tbl[MAX_SIZES_CNT];  /* livesnapshot sizes table */ // 2836; mz 2836
 
-    size_t vhdr_livesnapshot_sizes_tbl_cnt;                 /* vhdr_livesnapshot sizes table size */ // ok
-    cam_dimension_t vhdr_livesnapshot_sizes_tbl[MAX_SIZES_CNT];  /* vhdr_livesnapshot sizes table */ // ok
+    size_t livesnapshot_sizes_tbl_cnt;                      /* livesnapshot sizes table size */
+    cam_dimension_t livesnapshot_sizes_tbl[MAX_SIZES_CNT];  /* livesnapshot sizes table */
 
-    size_t hfr_tbl_cnt;                                     /* table size for HFR */ // ok
-    cam_hfr_info_t hfr_tbl[CAM_HFR_MODE_MAX];               /* HFR table */ // ok
+    size_t vhdr_livesnapshot_sizes_tbl_cnt;                 /* vhdr_livesnapshot sizes table size */
+    cam_dimension_t vhdr_livesnapshot_sizes_tbl[MAX_SIZES_CNT];  /* vhdr_livesnapshot sizes table */
 
-    size_t zzhdr_sizes_tbl_cnt;                             /* Number of resolutions in zzHDR mode*/  // ok
-    cam_dimension_t zzhdr_sizes_tbl[MAX_SIZES_CNT];         /* Table for ZZHDR supported sizes */ // ok
+    size_t hfr_tbl_cnt;                                     /* table size for HFR */
+    cam_hfr_info_t hfr_tbl[CAM_HFR_MODE_MAX];               /* HFR table */
+
+    size_t zzhdr_sizes_tbl_cnt;                             /* Number of resolutions in zzHDR mode*/
+    cam_dimension_t zzhdr_sizes_tbl[MAX_SIZES_CNT];         /* Table for ZZHDR supported sizes */
 
     size_t supported_quadra_cfa_dim_cnt;              /* Number of resolutions in Quadra CFA mode */
-    cam_dimension_t quadra_cfa_dim[MAX_SIZES_CNT];    /* Table for Quadra CFA supported sizes */ // 9852 mz; 9852 oss
-    cam_format_t quadra_cfa_format;                   /* Quadra CFA output format */ // mz 10180; 10180
+    cam_dimension_t quadra_cfa_dim[MAX_SIZES_CNT];    /* Table for Quadra CFA supported sizes */
+    cam_format_t quadra_cfa_format;                   /* Quadra CFA output format */
     uint32_t is_remosaic_lib_present;                 /* Flag indicating if remosaic lib present */
 
     /* supported preview formats */
@@ -307,15 +314,15 @@ typedef struct{
     int64_t raw_min_duration[MAX_SIZES_CNT];
 
     /* 3A version*/
-    cam_q3a_version_t q3a_version; // meizu pos: 12352; oss: 12352
+    cam_q3a_version_t q3a_version;
     /* supported focus algorithms */
     size_t supported_focus_algos_cnt;
     cam_focus_algorithm_type supported_focus_algos[CAM_FOCUS_ALGO_MAX];
 
 
     uint8_t auto_wb_lock_supported;       /* flag if auto white balance lock is supported */
-    uint8_t zoom_supported;               /* flag if zoom is supported */ // meizu pos: 12381; oss: 12141
-    uint8_t smooth_zoom_supported;        /* flag if smooth zoom is supported */ // meizu pos: 12382; oss: 12142
+    uint8_t zoom_supported;               /* flag if zoom is supported */
+    uint8_t smooth_zoom_supported;        /* flag if smooth zoom is supported */
     uint8_t auto_exposure_lock_supported; /* flag if auto exposure lock is supported */
     uint8_t video_snapshot_supported;     /* flag if video snapshot is supported */
 
@@ -556,8 +563,6 @@ typedef struct{
     cam_format_t supported_meta_raw_fmts[CAM_FORMAT_MAX];
     cam_dimension_t raw_meta_dim[MAX_SIZES_CNT];
     cam_sub_format_type_t sub_fmt[CAM_FORMAT_SUBTYPE_MAX];
-
-    volatile char meizu_reserved_01[2056];
 } cam_capability_t;
 
 typedef enum {
@@ -586,6 +591,7 @@ typedef struct {
     /* opaque metadata required for reprocessing */
     int32_t private_data[MAX_METADATA_PRIVATE_PAYLOAD_SIZE_IN_BYTES];
     cam_rect_t crop_rect;
+    uint8_t is_uv_subsampled;
 } cam_reprocess_param;
 
 typedef struct {
@@ -602,7 +608,7 @@ typedef struct {
 } cam_stream_img_prop_t;
 
 typedef struct {
-    uint8_t enableStream; /*0  stop and 1-start */
+    uint8_t enableStream; /*0 – stop and 1-start */
 } cam_request_frames;
 
 typedef struct {
@@ -777,7 +783,6 @@ typedef struct {
 /**************************************************************************************
  *  ID from (cam_intf_metadata_type_t)                DATATYPE                     COUNT
  **************************************************************************************/
-
     /* common between HAL1 and HAL3 */
     INCLUDE(CAM_INTF_META_HISTOGRAM,                    cam_hist_stats_t,               1);
     INCLUDE(CAM_INTF_META_FACE_DETECTION,               cam_face_detection_data_t,      1);
@@ -903,12 +908,6 @@ typedef struct {
     INCLUDE(CAM_INTF_META_SNAP_CROP_INFO_CPP,           cam_stream_crop_info_t,   1);
     INCLUDE(CAM_INTF_META_DCRF,                         cam_dcrf_result_t,        1);
 
-    /* Meizu */
-    INCLUDE(CAM_INTF_MEIZU_RESERVED_0,                  int32_t,                  1);
-    INCLUDE(CAM_INTF_MEIZU_RESERVED_1,                  int32_t,                  1);
-    INCLUDE(CAM_INTF_MEIZU_RESERVED_2,                  int32_t,                  1);
-    INCLUDE(CAM_INTF_MEIZU_RESERVED_3,                  int32_t,                  1);
-
     /* HAL1 specific */
     /* read only */
     INCLUDE(CAM_INTF_PARM_QUERY_FLASH4SNAP,             int32_t,                     1);
@@ -935,7 +934,6 @@ typedef struct {
     INCLUDE(CAM_INTF_PARM_TEMPORAL_DENOISE,             cam_denoise_param_t,         1);
     INCLUDE(CAM_INTF_PARM_HISTOGRAM,                    int32_t,                     1);
     INCLUDE(CAM_INTF_PARM_ASD_ENABLE,                   int32_t,                     1);
-    INCLUDE(CAM_INTF_MEIZU_RESERVED_4,                  int32_t,                     1);
     INCLUDE(CAM_INTF_PARM_RECORDING_HINT,               int32_t,                     1);
     INCLUDE(CAM_INTF_PARM_HDR,                          cam_exp_bracketing_t,        1);
     INCLUDE(CAM_INTF_PARM_FRAMESKIP,                    int32_t,                     1);
@@ -1022,6 +1020,7 @@ typedef struct {
     INCLUDE(CAM_INTF_PARM_JPEG_ENCODE_CROP,             cam_stream_crop_info_t,      1);
     INCLUDE(CAM_INTF_PARM_JPEG_SCALE_DIMENSION,         cam_dimension_t,             1);
     INCLUDE(CAM_INTF_META_FOCUS_DEPTH_INFO,             uint8_t,                     1);
+    INCLUDE(CAM_INTF_PARM_HAL_BRACKETING_HDR,           cam_hdr_param_t,             1);
 } metadata_data_t;
 
 /* Update clear_metadata_buffer() function when a new is_xxx_valid is added to

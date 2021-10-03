@@ -40,7 +40,7 @@
 #define SYSINFO_H <SYSTEM_HEADER_PREFIX/sysinfo.h>
 #include SYSINFO_H
 #include "gralloc_priv.h"
-#include "system/graphics.h"
+#include "graphics.h"
 
 // Camera dependencies
 #include "QCameraBufferMaps.h"
@@ -5644,7 +5644,7 @@ int32_t QCameraParameters::initDefaultParameters()
             AUTO_EXPOSURE_MAP,
             PARAM_MAP_SIZE(AUTO_EXPOSURE_MAP));
     set(KEY_QC_SUPPORTED_AUTO_EXPOSURE, autoExposureValues.string());
-    setAutoExposure(AUTO_EXPOSURE_CENTER_WEIGHTED);
+    setAutoExposure(AUTO_EXPOSURE_FRAME_AVG);
 
     // Set Exposure Compensation
     set(KEY_MAX_EXPOSURE_COMPENSATION, m_pCapability->exposure_compensation_max); // 12
@@ -5676,7 +5676,7 @@ int32_t QCameraParameters::initDefaultParameters()
             ANTIBANDING_MODES_MAP,
             PARAM_MAP_SIZE(ANTIBANDING_MODES_MAP));
     set(KEY_SUPPORTED_ANTIBANDING, antibandingValues);
-    setAntibanding(ANTIBANDING_AUTO);
+    setAntibanding(ANTIBANDING_OFF);
 
     // Set Effect
     String8 effectValues = createValuesString(
@@ -6574,15 +6574,6 @@ int32_t QCameraParameters::setPreviewFpsRange(int min_fps,
     /*This property get value should be the fps that user needs*/
     property_get("persist.debug.set.fixedfps", value, "0");
     fixedFpsValue = atoi(value);
-
-    // Workaround backend AEC bug that doesn't set high enough ISO values when the min FPS value
-    // is higher than expected, which resulted in a very dark preview in low light conditions
-    // while recording. The lowest FPS value AEC expects in such conditions is 19.99, so 15fps
-    // as the min FPS value should be sufficient.
-    if (!isHfrMode() && min_fps > 15000) {
-        LOGH("Original min_fps %d, changing min_fps to 15000", min_fps);
-        min_fps = 15000;
-    }
 
     LOGD("E minFps = %d, maxFps = %d , vid minFps = %d, vid maxFps = %d",
                  min_fps, max_fps, vid_min_fps, vid_max_fps);
@@ -14009,7 +14000,9 @@ int32_t QCameraParameters::updatePpFeatureMask(cam_stream_type_t stream_type) {
         }
         break;
     case CAM_FILTER_ARRANGEMENT_Y:
-        if (stream_type == CAM_STREAM_TYPE_ANALYSIS) {
+        if ((stream_type == CAM_STREAM_TYPE_ANALYSIS) ||
+                (stream_type == CAM_STREAM_TYPE_PREVIEW) ||
+                (stream_type == CAM_STREAM_TYPE_VIDEO)) {
             feature_mask |= CAM_QCOM_FEATURE_PAAF;
             LOGH("add PAAF mask to feature_mask for mono device");
         }
@@ -14851,6 +14844,20 @@ int32_t QCameraParameters::setDualCameraMode(const QCameraParameters& params)
         }
     }
     return NO_ERROR;
+}
+
+/*===========================================================================
+ * FUNCTION   : getDualCameraMode
+ *
+ * DESCRIPTION: get dual camera mode
+ *
+ * PARAMETERS :
+ *
+ * RETURN     : Dual camera mode status
+ *==========================================================================*/
+bool QCameraParameters::getDualCameraMode()
+{
+    return m_bDualCameraMode;
 }
 
 /*===========================================================================
