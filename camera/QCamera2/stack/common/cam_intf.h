@@ -913,8 +913,7 @@ typedef struct {
     /* Meizu */
     INCLUDE(CAM_INTF_MEIZU_RESERVED_0,                  int32_t,                  1);
     INCLUDE(CAM_INTF_MEIZU_RESERVED_1,                  int32_t,                  1);
-    INCLUDE(CAM_INTF_MEIZU_RESERVED_2,                  int32_t,                  1);
-    INCLUDE(CAM_INTF_MEIZU_RESERVED_3,                  int32_t,                  1);
+    INCLUDE(CAM_INTF_MEIZU_RESERVED_2,                  int64_t,                  1);
 
     /* HAL1 specific */
     /* read only */
@@ -942,7 +941,7 @@ typedef struct {
     INCLUDE(CAM_INTF_PARM_TEMPORAL_DENOISE,             cam_denoise_param_t,         1);
     INCLUDE(CAM_INTF_PARM_HISTOGRAM,                    int32_t,                     1);
     INCLUDE(CAM_INTF_PARM_ASD_ENABLE,                   int32_t,                     1);
-    INCLUDE(CAM_INTF_MEIZU_RESERVED_4,                  int32_t,                     1);
+    INCLUDE(CAM_INTF_MEIZU_RESERVED_3,                  int32_t,                     1);
     INCLUDE(CAM_INTF_PARM_RECORDING_HINT,               int32_t,                     1);
     INCLUDE(CAM_INTF_PARM_HDR,                          cam_exp_bracketing_t,        1);
     INCLUDE(CAM_INTF_PARM_FRAMESKIP,                    int32_t,                     1);
