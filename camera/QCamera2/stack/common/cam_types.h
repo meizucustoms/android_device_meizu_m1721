@@ -2232,13 +2232,14 @@ typedef enum {
     CAM_INTF_META_FOCUS_VALUE,
     /*Spot light detection result output from af core*/
     CAM_INTF_META_SPOT_LIGHT_DETECT,
+    /* HAL based HDR*/
+    CAM_INTF_PARM_HAL_BRACKETING_HDR,
 
     /* Meizu reserved */
     CAM_INTF_MEIZU_RESERVED_0,
     CAM_INTF_MEIZU_RESERVED_1,
     CAM_INTF_MEIZU_RESERVED_2,
     CAM_INTF_MEIZU_RESERVED_3,
-    CAM_INTF_MEIZU_RESERVED_4,
 
     CAM_INTF_PARM_MAX,
 } cam_intf_parm_type_t;
