@@ -1578,8 +1578,9 @@ int QCamera3HardwareInterface::configureStreamsPerfLocked(
                  i, newStream->stream_type, newStream->format,
                 newStream->width, newStream->height, newStream->rotation,
                 newStream->usage);
-        if (newStream->stream_type == CAMERA3_STREAM_BIDIRECTIONAL ||
-                newStream->stream_type == CAMERA3_STREAM_INPUT){
+        if ((newStream->stream_type == CAMERA3_STREAM_BIDIRECTIONAL ||
+                newStream->stream_type == CAMERA3_STREAM_INPUT) &&
+                mCameraId != 1){
             isZsl = true;
         }
         if (newStream->stream_type == CAMERA3_STREAM_INPUT){
@@ -11230,7 +11231,7 @@ int QCamera3HardwareInterface::validateStreamRotations(
         bool isImplDef = (newStream->format ==
                 HAL_PIXEL_FORMAT_IMPLEMENTATION_DEFINED);
         bool isZsl = (newStream->stream_type == CAMERA3_STREAM_BIDIRECTIONAL &&
-                isImplDef);
+                isImplDef && mCameraId != 1);
 
         if(newStream->rotation == -1) {
             LOGE("ERROR: Invalid stream rotation requested for stream"
