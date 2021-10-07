@@ -1911,6 +1911,18 @@ etc/firmware/goodixfp.b05:vendor/firmware/gxf/goodixfp.b05
 etc/firmware/goodixfp.b06:vendor/firmware/gxf/goodixfp.b06
 etc/firmware/goodixfp.mdt:vendor/firmware/gxf/goodixfp.mdt
 
+# Flyme camera; ArcSoft libraries
+lib/hw/camera.msm8953.so:vendor/lib/hw/camera.vendor.msm8953.so
+vendor/lib/libarcsoft_dualcam_refocus.so
+vendor/lib/libarcsoft_high_dynamic_range.so
+vendor/lib/libarcsoft_low_light_shot.so
+lib/libarcsoft_makeup.so:vendor/lib/libarcsoft_makeup.so
+libcam.common.meizu.platform.so:vendor/lib/libcam.common.meizu.platform.so
+libcam.common.meizu.so:vendor/lib/libcam.common.meizu.so
+lib/libfilter_effects.so:vendor/lib/libfilter_effects.so
+lib/libmeizucamera.so:vendor/lib/libmeizucamera.so
+lib/libphoto_timestamp.so:vendor/lib/libphoto_timestamp.so
+
 # FM Radio - from LA.UM.9.6.2.r1-04200-89xx.0
 system_ext/lib64/fm_helium.so|55ef376cc802574df92025bebaba1cebcc74a918
 system_ext/lib64/libfm-hci.so|0cfbf3d84724428721973cc7ad22f5d1e1368591
