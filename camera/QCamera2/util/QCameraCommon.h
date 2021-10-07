@@ -30,11 +30,10 @@
 #ifndef __QCAMERA_COMMON_H__
 #define __QCAMERA_COMMON_H__
 
-#include <utils/Timers.h>
-
 // Camera dependencies
 #include "cam_types.h"
 #include "cam_intf.h"
+#include "QCameraFOVControl.h"
 
 namespace qcamera {
 
@@ -49,14 +48,32 @@ public:
     int32_t init(cam_capability_t *cap);
 
     int32_t getAnalysisInfo(
-        bool fdVideoEnabled, bool hal3, cam_feature_mask_t featureMask,
+        bool fdVideoEnabled, cam_feature_mask_t featureMask,
         cam_analysis_info_t *pAnalysisInfo);
     static uint32_t calculateLCM(int32_t num1, int32_t num2);
-    static nsecs_t getBootToMonoTimeOffset();
+    cam_dimension_t getMatchingDimension(
+            cam_dimension_t exp_dim,
+            cam_dimension_t cur_dim);
+    bool isVideoUBWCEnabled();
+    static bool is_target_SDM450();
+    static bool is_target_SDM429();
+    static bool is_target_SDM630();
+    static bool is_target_QM215();
+    static bool is_target_QM2150();
+    static bool is_target_QCM6125();
+    static bool is_target_QCS6125();
+    static bool needHAL1Support();
+    static bool skipAnalysisBundling();
+    bool needAnalysisStream();
+    static dual_cam_type getDualCameraConfig(cam_capability_t *capsMainCam,
+            cam_capability_t *capsAuxCam);
+    static bool isBayer(cam_capability_t *caps);
+    static bool isMono(cam_capability_t *caps);
+    bool isAutoFocusSupported(uint32_t cam_type);
 
 private:
     cam_capability_t *m_pCapability;
-
+    static int parseHWID();
 };
 
 }; // namespace qcamera

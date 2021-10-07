@@ -1,4 +1,4 @@
-/* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -46,7 +46,7 @@ namespace qcamera {
 
 class QCamera3StreamMem {
 public:
-    QCamera3StreamMem(uint32_t maxHeapBuffer, bool queueAll = true);
+    QCamera3StreamMem(uint32_t maxHeapBuffer, bool queueAll = true, bool isSecure = false);
     virtual ~QCamera3StreamMem();
 
     uint32_t getCnt();
@@ -57,6 +57,7 @@ public:
     ssize_t getSize(uint32_t index);
     int invalidateCache(uint32_t index);
     int cleanInvalidateCache(uint32_t index);
+    int cleanCache(uint32_t index);
     int32_t getBufDef(const cam_frame_len_offset_t &offset,
             mm_camera_buf_def_t &bufDef, uint32_t index);
     void *getPtr(uint32_t index);
@@ -85,6 +86,7 @@ public:
     int32_t getGrallocBufferIndex(uint32_t frameNumber);
     int32_t getHeapBufferIndex(uint32_t frameNumber);
     int32_t getBufferIndex(uint32_t frameNumber);
+    void switchMaster(uint32_t masterCam);
 
 private:
     //variables

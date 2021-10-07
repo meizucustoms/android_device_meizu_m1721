@@ -71,7 +71,9 @@ public:
                          cam_is_type_t is_type,
                          uint32_t batchSize,
                          hal3_stream_cb_routine stream_cb,
-                         void *userdata);
+                         void *userdata,
+                         bool isSecureMode,
+                         bool bNeedBundling = false);
     virtual int32_t bufDone(uint32_t index);
     virtual int32_t cancelBuffer(uint32_t index);
     virtual int32_t bufRelease(int32_t index);
@@ -87,17 +89,23 @@ public:
     int32_t getFrameOffset(cam_frame_len_offset_t &offset);
     int32_t getFrameDimension(cam_dimension_t &dim);
     int32_t getFormat(cam_format_t &fmt);
+    int32_t setCropInfo(cam_rect_t crop);
+    int32_t getParameter(cam_stream_parm_buffer_t &param);
     QCamera3StreamMem *getStreamBufs() {return mStreamBufs;};
     uint32_t getMyServerID();
 
     int32_t mapBuf(uint8_t buf_type, uint32_t buf_idx,
             int32_t plane_idx, int fd, void *buffer, size_t size);
     int32_t unmapBuf(uint8_t buf_type, uint32_t buf_idx, int32_t plane_idx);
-    int32_t setParameter(cam_stream_parm_buffer_t &param);
+    int32_t setParameter(cam_stream_parm_buffer_t &param,
+            uint32_t cam_type = CAM_TYPE_MAIN);
     cam_stream_info_t* getStreamInfo() const {return mStreamInfo; };
 
     static void releaseFrameData(void *data, void *user_data);
     int32_t timeoutFrame(int32_t bufIdx);
+    bool isDualStream(){return mDualStream;};
+    void initDCSettings();
+    void switchMaster(uint32_t masterCam);
 
 private:
     uint32_t mCamHandle;
@@ -112,16 +120,21 @@ private:
     void *mUserData;
 
     QCameraQueue     mDataQ;
-    QCameraQueue     mTimeoutFrameQ;
+
+    List<int32_t> mTimeoutFrameQ;
+    Mutex mTimeoutFrameQLock;
+
     QCameraCmdThread mProcTh; // thread for dataCB
 
     QCamera3HeapMemory *mStreamInfoBuf;
     QCamera3StreamMem *mStreamBufs;
     mm_camera_buf_def_t *mBufDefs;
     cam_frame_len_offset_t mFrameLenOffset;
+    cam_rect_t mCropInfo;
     cam_padding_info_t mPaddingInfo;
     QCamera3Channel *mChannel;
     Mutex mLock;    //Lock controlling access to 'mBufDefs'
+    Mutex mParamLock;    //Lock setparam
 
     uint32_t mBatchSize; // 0: No batch, non-0: Number of imaage bufs in a batch
     uint8_t mNumBatchBufs; //Number of batch buffers which can hold image bufs
@@ -145,6 +158,7 @@ private:
                      void *user_data);
     static int32_t invalidate_buf(uint32_t index, void *user_data);
     static int32_t clean_invalidate_buf(uint32_t index, void *user_data);
+    static int32_t clean_buf(uint32_t index, void *user_data);
 
     int32_t getBufs(cam_frame_len_offset_t *offset,
                      uint8_t *num_bufs,
@@ -154,6 +168,7 @@ private:
     int32_t putBufs(mm_camera_map_unmap_ops_tbl_t *ops_tbl);
     int32_t invalidateBuf(uint32_t index);
     int32_t cleanInvalidateBuf(uint32_t index);
+    int32_t cleanBuf(uint32_t index);
     int32_t getBatchBufs(
             uint8_t *num_bufs, uint8_t **initial_reg_flag,
             mm_camera_buf_def_t **bufs,
@@ -166,6 +181,8 @@ private:
 
     static const char* mStreamNames[CAM_STREAM_TYPE_MAX];
     void flushFreeBatchBufQ();
+    bool mDualStream;
+    uint32_t mMasterCam;
 };
 
 }; // namespace qcamera

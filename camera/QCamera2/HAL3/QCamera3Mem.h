@@ -1,4 +1,4 @@
-/* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -32,6 +32,10 @@
 
 // System dependencies
 #include <linux/msm_ion.h>
+#if TARGET_ION_ABI_VERSION >= 2
+#include <ion/ion.h>
+#include <linux/dma-buf.h>
+#endif //TARGET_ION_ABI_VERSION
 #include <utils/Mutex.h>
 
 // Camera dependencies
@@ -40,7 +44,20 @@
 extern "C" {
 #include "mm_camera_interface.h"
 }
+#if TARGET_ION_ABI_VERSION >= 2
+#ifndef CAM_CACHE_OPS
+#define CAM_CACHE_OPS
+enum {
+    CAM_CLEAN_CACHE,
+    CAM_INV_CACHE,
+    CAM_CLEAN_INV_CACHE
+};
 
+#define ION_IOC_CLEAN_CACHES CAM_CLEAN_CACHE
+#define ION_IOC_INV_CACHES CAM_INV_CACHE
+#define ION_IOC_CLEAN_INV_CACHES CAM_CLEAN_INV_CACHE
+#endif //CAM_CACHE_OPS
+#endif //TARGET_ION_ABI_VERSION
 using namespace android;
 
 namespace qcamera {
@@ -103,7 +120,7 @@ protected:
 // parameters, metadata, and internal YUV data for jpeg encoding.
 class QCamera3HeapMemory : public QCamera3Memory {
 public:
-    QCamera3HeapMemory(uint32_t maxCnt);
+    QCamera3HeapMemory(uint32_t maxCnt, bool isSecure = false);
     virtual ~QCamera3HeapMemory();
 
     int allocate(size_t size);
@@ -126,12 +143,13 @@ private:
             unsigned int heap_id, size_t size);
     void deallocOneBuffer(struct QCamera3MemInfo &memInfo);
     uint32_t mMaxCnt;
+    bool m_bIsSecureMode;
 };
 
 // Gralloc Memory shared with frameworks
 class QCamera3GrallocMemory : public QCamera3Memory {
 public:
-    QCamera3GrallocMemory(uint32_t startIdx);
+    QCamera3GrallocMemory(uint32_t startIdx, bool isSecure);
     virtual ~QCamera3GrallocMemory();
 
     int registerBuffer(buffer_handle_t *buffer, cam_stream_type_t type);
@@ -147,6 +165,7 @@ public:
     virtual int32_t getOldestFrameNumber(uint32_t &index);
 
     void *getBufferHandle(uint32_t index);
+    void switchMaster(uint32_t masterCam);
 protected:
     virtual void *getPtrLocked(uint32_t index);
 private:
@@ -156,6 +175,8 @@ private:
     struct private_handle_t *mPrivateHandle[MM_CAMERA_MAX_NUM_FRAMES];
 
     uint32_t mStartIdx;
+    uint32_t mMasterCam;
+    bool m_bIsSecureMode;
 };
 };
 #endif

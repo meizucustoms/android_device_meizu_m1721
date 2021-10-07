@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, 2014, 2016, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -46,7 +46,7 @@ typedef enum {
     CAM_LAST_MODULE
 } cam_modules_t;
 
-/* values that persist.camera.global.debug can be set to */
+/* values that persist.vendor.camera.global.debug can be set to */
 /* all camera modules need to map their internal debug levels to this range */
 typedef enum {
     CAM_GLBL_DBG_NONE  = 0,
@@ -113,6 +113,9 @@ void mm_camera_set_dbg_log_properties(void);
 void mm_camera_debug_log(const cam_modules_t module,
                    const cam_global_debug_level_t level,
                    const char *func, const int line, const char *fmt, ...);
+
+void mm_camera_debug_open(void);
+void mm_camera_debug_close(void);
 
 #else
 

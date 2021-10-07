@@ -1,4 +1,4 @@
-/* Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2015-2016, 2020, The Linux Foundation. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are
@@ -34,6 +34,7 @@
 // Camera dependencies
 #include "QCamera3CropRegionMapper.h"
 #include "QCamera3HWI.h"
+#include "math.h"
 
 extern "C" {
 #include "mm_camera_dbg.h"
@@ -159,16 +160,24 @@ void QCamera3CropRegionMapper::toActiveArray(int32_t& crop_left, int32_t& crop_t
 void QCamera3CropRegionMapper::toSensor(int32_t& crop_left, int32_t& crop_top,
         int32_t& crop_width, int32_t& crop_height)
 {
+   float tmpLeft, tmpTop, tmpWidth, tmpHeight;
+
     if (mSensorW == 0 || mSensorH == 0 ||
             mActiveArrayW == 0 || mActiveArrayH == 0) {
         LOGE("sensor/active array sizes are not initialized!");
         return;
     }
 
-    crop_left = crop_left * mSensorW / mActiveArrayW;
-    crop_top = crop_top * mSensorH / mActiveArrayH;
-    crop_width = crop_width * mSensorW / mActiveArrayW;
-    crop_height = crop_height * mSensorH / mActiveArrayH;
+    tmpLeft = (float)crop_left * mSensorW / mActiveArrayW;
+    tmpTop = (float)crop_top * mSensorH / mActiveArrayH;
+    tmpWidth = (float)crop_width * mSensorW / mActiveArrayW;
+    tmpHeight = (float)crop_height * mSensorH / mActiveArrayH;
+
+
+    crop_left = ceil(tmpLeft);
+    crop_top  = ceil(tmpTop);
+    crop_width = ceil(tmpWidth);
+    crop_height = ceil(tmpHeight);
 
     LOGD("before bounding left %d, top %d, width %d, height %d",
          crop_left, crop_top, crop_width, crop_height);
@@ -267,6 +276,44 @@ void QCamera3CropRegionMapper::toSensor(uint32_t& x, uint32_t& y)
     }
     x = x * mSensorW / mActiveArrayW;
     y = y * mSensorH / mActiveArrayH;
+}
+
+void QCamera3CropRegionMapper::convertFDROI(int32_t& crop_left, int32_t& crop_top,
+        int32_t& crop_width, int32_t& crop_height)
+{
+    float width_ratio, height_ratio, upscale_ratio;
+    int new_width, new_height, new_left, new_top;
+
+    if (mSensorW == 0 || mSensorH == 0 ||
+            mActiveArrayW == 0 || mActiveArrayH == 0) {
+        LOGE("sensor/active array sizes are not initialized!");
+        return;
+    }
+
+    width_ratio = (float)mActiveArrayW / mSensorW;
+    height_ratio = (float)mActiveArrayH / mSensorH;
+
+    if(width_ratio > height_ratio)
+        upscale_ratio = height_ratio;
+    else
+        upscale_ratio = width_ratio;
+
+    new_width = mSensorW * upscale_ratio;
+    new_height = mSensorH * upscale_ratio;
+    new_left = (mActiveArrayW - new_width) / 2;
+    new_top = (mActiveArrayH - new_height) / 2;
+
+
+    width_ratio = (float)new_width / mSensorW;
+    height_ratio = (float)new_height / mSensorH;
+
+    crop_left = crop_left * width_ratio + new_left;
+    crop_top = crop_top * height_ratio + new_top;
+    crop_width = crop_width * width_ratio;
+    crop_height = crop_height * height_ratio;
+
+    boundToSize(crop_left, crop_top, crop_width, crop_height,
+            mActiveArrayW, mActiveArrayH);
 }
 
 }; //end namespace android

@@ -1,4 +1,4 @@
-/* Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -154,7 +154,7 @@ QCameraMuxer::QCameraMuxer(uint32_t num_of_cameras)
 
     //Check whether dual camera images need to be dumped
     char prop[PROPERTY_VALUE_MAX];
-    property_get("persist.camera.dual.camera.dump", prop, "0");
+    property_get("persist.vendor.camera.dual.camera.dump", prop, "0");
     m_bDumpImages = atoi(prop);
     LOGH("dualCamera dump images:%d ", m_bDumpImages);
 }
@@ -558,6 +558,9 @@ int QCameraMuxer::start_preview(struct camera_device * device)
 
     if (cam->numCameras > 1) {
         uint sessionId = 0;
+        /* DUALCAM_SYNC_MECHANISM setting dictates if the camera sync should be
+        enabled or disabled */
+        bool camSync = (DUALCAM_SYNC_MECHANISM == CAM_SYNC_NO_SYNC) ? false : true;
         // Set up sync for camera sessions
         for (uint32_t i = 0; i < cam->numCameras; i++) {
             pCam = gMuxer->getPhysicalCamera(cam, i);
@@ -576,7 +579,7 @@ int QCameraMuxer::start_preview(struct camera_device * device)
                     LOGH("Related cam id: %d, server id: %d sync ON"
                             " related session_id %d",
                             cam->pId[i], cam->sId[i], sessionId);
-                    rc = hwi->bundleRelatedCameras(true, sessionId);
+                    rc = hwi->bundleRelatedCameras(camSync);
                     if (rc != NO_ERROR) {
                         LOGE("Error Bundling physical cameras !! ");
                         return rc;
@@ -590,7 +593,7 @@ int QCameraMuxer::start_preview(struct camera_device * device)
                 LOGH("Related cam id: %d, server id: %d sync ON"
                         " related session_id %d",
                         cam->pId[i], cam->sId[i], sessionId);
-                rc = hwi->bundleRelatedCameras(true, sessionId);
+                rc = hwi->bundleRelatedCameras(camSync);
                 if (rc != NO_ERROR) {
                     LOGE("Error Bundling physical cameras !! ");
                     return rc;
@@ -1105,7 +1108,7 @@ int QCameraMuxer::take_picture(struct camera_device * device)
     CHECK_CAMERA_ERROR(cam);
 
     char prop[PROPERTY_VALUE_MAX];
-    property_get("persist.camera.dual.camera.mpo", prop, "1");
+    property_get("persist.vendor.camera.dual.camera.mpo", prop, "1");
     gMuxer->m_bMpoEnabled = atoi(prop);
     // If only one Physical Camera included in Logical, disable MPO
     int numOfAcitvePhyCam = 0;
@@ -1690,7 +1693,7 @@ int QCameraMuxer::close_camera_device(hw_device_t *hw_dev)
                         LOGH("Related cam id: %d, server id: %d sync OFF"
                                 " related session_id %d",
                                 cam->pId[i], cam->sId[i], sessionId);
-                        rc = hwi->bundleRelatedCameras(false, sessionId);
+                        rc = hwi->bundleRelatedCameras(false);
                         if (rc != NO_ERROR) {
                             LOGE("Error Bundling physical cameras !! ");
                             break;
@@ -1704,7 +1707,7 @@ int QCameraMuxer::close_camera_device(hw_device_t *hw_dev)
                     LOGH("Related cam id: %d, server id: %d sync OFF"
                             " related session_id %d",
                             cam->pId[i], cam->sId[i], sessionId);
-                    rc = hwi->bundleRelatedCameras(false, sessionId);
+                    rc = hwi->bundleRelatedCameras(false);
                     if (rc != NO_ERROR) {
                         LOGE("Error Bundling physical cameras !! ");
                         break;
@@ -1755,11 +1758,11 @@ int QCameraMuxer::setupLogicalCameras()
 
     LOGH("[%d] E: rc = %d", rc);
     // Signifies whether AUX camera has to be exposed as physical camera
-    property_get("persist.camera.aux.camera", prop, "0");
+    property_get("persist.vendor.camera.aux.camera", prop, "0");
     m_bAuxCameraExposed = atoi(prop);
 
     // Signifies whether AUX camera needs to be swapped
-    property_get("persist.camera.auxcamera.swap", prop, "0");
+    property_get("persist.vendor.camera.auxcamera.swap", prop, "0");
     int swapAux = atoi(prop);
     if (swapAux != 0) {
         primaryType = CAM_TYPE_AUX;
@@ -1832,6 +1835,7 @@ int QCameraMuxer::setupLogicalCameras()
             m_pLogicalCamera[index].pId[0] = i;
             m_pLogicalCamera[index].type[0] = CAM_TYPE_MAIN;
             m_pLogicalCamera[index].mode[0] = CAM_MODE_PRIMARY;
+            m_pLogicalCamera[index].sync_3a[0] = CAM_3A_SYNC_FOLLOW;
             m_pLogicalCamera[index].facing = m_pPhyCamera[i].cam_info.facing;
             m_pLogicalCamera[index].numCameras++;
             LOGH("Logical Main Camera ID: %d, facing: %d,"
@@ -1857,6 +1861,7 @@ int QCameraMuxer::setupLogicalCameras()
                     m_pLogicalCamera[j].pId[n] = i;
                     m_pLogicalCamera[j].type[n] = CAM_TYPE_AUX;
                     m_pLogicalCamera[j].mode[n] = CAM_MODE_SECONDARY;
+                    m_pLogicalCamera[j].sync_3a[n] = CAM_3A_SYNC_FOLLOW;
                     m_pLogicalCamera[j].numCameras++;
                     LOGH("Aux %d for Logical Camera ID: %d,"
                         "aux phy id:%d, type: %d mode: %d",
@@ -2107,7 +2112,7 @@ int QCameraMuxer::cameraDeviceOpen(int camera_id,
     }
 
     char prop[PROPERTY_VALUE_MAX];
-    property_get("persist.camera.dc.frame.sync", prop, "1");
+    property_get("persist.vendor.camera.dc.frame.sync", prop, "1");
     m_bFrameSyncEnabled = atoi(prop);
 
     // Get logical camera

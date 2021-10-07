@@ -1,4 +1,4 @@
-/* Copyright (c) 2016, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are
@@ -29,14 +29,23 @@
 
 #define LOG_TAG "QCameraCommon"
 
+#include <cutils/properties.h>
+
 // System dependencies
 #include <utils/Errors.h>
 #include <stdlib.h>
 #include <string.h>
 #include <utils/Log.h>
+#include <math.h>
+#include <fcntl.h>
 
 // Camera dependencies
 #include "QCameraCommon.h"
+
+extern "C" {
+#include "mm_camera_dbg.h"
+#include "mm_camera_interface.h"
+}
 
 using namespace android;
 
@@ -49,6 +58,8 @@ namespace qcamera {
 #ifndef FALSE
 #define FALSE 0
 #endif
+
+#define ASPECT_RATIO_TOLERANCE 0.01
 
 /*===========================================================================
  * FUNCTION   : QCameraCommon
@@ -155,7 +166,6 @@ uint32_t QCameraCommon::calculateLCM(int32_t num1, int32_t num2)
  *==========================================================================*/
 int32_t QCameraCommon::getAnalysisInfo(
         bool fdVideoEnabled,
-        bool hal3,
         cam_feature_mask_t featureMask,
         cam_analysis_info_t *pAnalysisInfo)
 {
@@ -165,7 +175,7 @@ int32_t QCameraCommon::getAnalysisInfo(
 
     pAnalysisInfo->valid = 0;
 
-    if ((fdVideoEnabled == TRUE) && (hal3 == FALSE) &&
+    if ((fdVideoEnabled == TRUE) &&
             (m_pCapability->analysis_info[CAM_ANALYSIS_INFO_FD_VIDEO].hw_analysis_supported) &&
             (m_pCapability->analysis_info[CAM_ANALYSIS_INFO_FD_VIDEO].valid)) {
         *pAnalysisInfo =
@@ -173,9 +183,6 @@ int32_t QCameraCommon::getAnalysisInfo(
     } else if (m_pCapability->analysis_info[CAM_ANALYSIS_INFO_FD_STILL].valid) {
         *pAnalysisInfo =
                 m_pCapability->analysis_info[CAM_ANALYSIS_INFO_FD_STILL];
-        if (hal3 == TRUE) {
-            pAnalysisInfo->analysis_max_res = pAnalysisInfo->analysis_recommended_res;
-        }
     }
 
     if ((featureMask & CAM_QCOM_FEATURE_PAAF) &&
@@ -192,6 +199,12 @@ int32_t QCameraCommon::getAnalysisInfo(
             pAnalysisInfo->analysis_max_res.height =
                 MAX(pAnalysisInfo->analysis_max_res.height,
                 pPaafInfo->analysis_max_res.height);
+            pAnalysisInfo->analysis_recommended_res.width =
+                MAX(pAnalysisInfo->analysis_recommended_res.width,
+                pPaafInfo->analysis_recommended_res.width);
+            pAnalysisInfo->analysis_recommended_res.height =
+                MAX(pAnalysisInfo->analysis_recommended_res.height,
+                pPaafInfo->analysis_recommended_res.height);
             pAnalysisInfo->analysis_padding_info.height_padding =
                 calculateLCM(pAnalysisInfo->analysis_padding_info.height_padding,
                 pPaafInfo->analysis_padding_info.height_padding);
@@ -219,39 +232,382 @@ int32_t QCameraCommon::getAnalysisInfo(
                 pPaafInfo->hw_analysis_supported;
         }
     }
-
     return pAnalysisInfo->valid ? NO_ERROR : BAD_VALUE;
 }
 
 /*===========================================================================
- * FUNCTION   : getBootToMonoTimeOffset
+ * FUNCTION   : getMatchingDimension
  *
- * DESCRIPTION: Calculate offset that is used to convert from
- *              clock domain of boot to monotonic
+ * DESCRIPTION: Get dimension closest to the current, but with matching aspect ratio
  *
  * PARAMETERS :
- *   None
+ *   @exp_dim : The dimension corresponding to desired aspect ratio
+ *   @cur_dim : The dimension which has to be modified
  *
- * RETURN     : clock offset between boottime and monotonic time.
- *
+ * RETURN     : cam_dimension_t new dimensions as per desired aspect ratio
  *==========================================================================*/
-nsecs_t QCameraCommon::getBootToMonoTimeOffset()
+cam_dimension_t QCameraCommon::getMatchingDimension(
+        cam_dimension_t exp_dim,
+        cam_dimension_t cur_dim)
 {
-    // try three times to get the clock offset, choose the one
-    // with the minimum gap in measurements.
-    const int tries = 3;
-    nsecs_t bestGap, measured;
-    for (int i = 0; i < tries; ++i) {
-        const nsecs_t tmono = systemTime(SYSTEM_TIME_MONOTONIC);
-        const nsecs_t tbase = systemTime(SYSTEM_TIME_BOOTTIME);
-        const nsecs_t tmono2 = systemTime(SYSTEM_TIME_MONOTONIC);
-        const nsecs_t gap = tmono2 - tmono;
-        if (i == 0 || gap < bestGap) {
-            bestGap = gap;
-            measured = tbase - ((tmono + tmono2) >> 1);
+    cam_dimension_t expected_dim = cur_dim;
+    if ((exp_dim.width != 0) && (exp_dim.height != 0)) {
+        double cur_ratio, expected_ratio;
+
+        cur_ratio = (double)cur_dim.width / (double)cur_dim.height;
+        expected_ratio = (double)exp_dim.width / (double)exp_dim.height;
+        if (fabs(cur_ratio - expected_ratio) > ASPECT_RATIO_TOLERANCE) {
+            if (cur_ratio < expected_ratio) {
+                expected_dim.height = (int32_t)((double)cur_dim.width / expected_ratio);
+            } else {
+                expected_dim.width = (int32_t)((double)cur_dim.height * expected_ratio);
+            }
+            expected_dim.width &= ~0x1;
+            expected_dim.height &= ~0x1;
         }
+        LOGD("exp ratio: %f, cur ratio: %f, new dim: %d x %d",
+                expected_ratio, cur_ratio, exp_dim.width, exp_dim.height);
     }
-    return measured;
+    return expected_dim;
+}
+
+
+
+/*===========================================================================
+ * FUNCTION   : isVideoUBWCEnabled
+ *
+ * DESCRIPTION: Function to get UBWC hardware support for video.
+ *
+ * PARAMETERS : None
+ *
+ * RETURN     : TRUE -- UBWC format supported
+ *              FALSE -- UBWC is not supported.
+ *==========================================================================*/
+
+bool QCameraCommon::isVideoUBWCEnabled()
+{
+#ifdef UBWC_PRESENT
+    char prop[PROPERTY_VALUE_MAX];
+    memset(prop, 0, sizeof(prop));
+    /* Checking the property set by video
+     * to disable/enable UBWC. And, Android P
+     * onwards we use vendor prefix*/
+#ifdef USE_VENDOR_PROP
+    if (property_get("vendor.video.disable.ubwc", prop, "") > 0) {
+        return (atoi(prop) == 0);
+    }
+#else
+    if (property_get("video.disable.ubwc", prop, "") > 0){
+        return (atoi(prop) == 0);
+    }
+#endif
+    return TRUE;
+#else
+    return FALSE;
+#endif
+}
+
+/*===========================================================================
+ * FUNCTION   : needHAL1Support
+ *
+ * DESCRIPTION: Function to check whether HAL1 is supported or not.
+ *
+ * PARAMETERS : None
+ *
+ * RETURN     : TRUE -- HAL1/HAL3 supported target.
+ *              FALSE -- Only HAL3 supported target.
+ *==========================================================================*/
+bool QCameraCommon::needHAL1Support()
+{
+    char prop[PROPERTY_VALUE_MAX];
+    memset(prop, 0, PROPERTY_VALUE_MAX);
+    property_get("persist.vendor.camera.hal1.enable",prop,"");
+
+    if(0 < strlen(prop))
+    {
+        return (atoi(prop) == 1);
+    }
+
+#ifdef SUPPORT_ONLY_HAL3
+        LOGI("ONLY HAL3 SUPPORTED");
+        return FALSE;
+#else
+    // HAL1/HAL3 is supported
+    LOGI("HAL1/HAL3 IS SUPPORTED");
+    return TRUE;
+#endif
+
+#ifndef HAS_LOW_RAM
+     // QM215, QM2150, QCM6125, QCS6125 non-GO supports only HAL3
+     if ((is_target_QM215() || is_target_QM2150() || is_target_QCM6125() || is_target_QCS6125())) {
+         LOGI("ONLY HAL3 SUPPORTED");
+         return FALSE;
+     }
+#else
+     // HAL1/HAL3 is supported
+     LOGI("HAL1/HAL3 IS SUPPORTED");
+     return TRUE;
+#endif
+}
+
+/*===========================================================================
+ * FUNCTION   : is_target_SDM450
+ *
+ * DESCRIPTION: Function to check whether target is sdm630 or not.
+ *
+ * PARAMETERS : None
+ *
+ * RETURN     : TRUE -- SDM450 target.
+ *              FALSE -- Some other target.
+ *==========================================================================*/
+
+bool QCameraCommon::is_target_SDM450()
+{
+    return (parseHWID() == 338 || parseHWID() == 351);
+}
+
+/*===========================================================================
+ * FUNCTION   : is_target_SDM429
+ *
+ * DESCRIPTION: Function to check whether target is sdm429 or not.
+ *
+ * PARAMETERS : None
+ *
+ * RETURN     : TRUE -- SDM429 target.
+ *              FALSE -- Some other target.
+ *==========================================================================*/
+
+bool QCameraCommon::is_target_SDM429()
+{
+    return (parseHWID() == 354);
+}
+
+/*===========================================================================
+ * FUNCTION   : is_target_QM215
+ *
+ * DESCRIPTION: Function to check whether target is QM215  or not.
+ *
+ * PARAMETERS : None
+ *
+ * RETURN     : TRUE -- QM215 target.
+ *              FALSE -- Some other target.
+ *==========================================================================*/
+
+bool QCameraCommon::is_target_QM215()
+{
+    return (parseHWID() == 386);
+}
+
+/*===========================================================================
+ * FUNCTION   : is_target_QM2150
+ *
+ * DESCRIPTION: Function to check whether target is QM2150  or not.
+ *
+ * PARAMETERS : None
+ *
+ * RETURN     : TRUE -- QM2150 target.
+ *              FALSE -- Some other target.
+ *==========================================================================*/
+
+bool QCameraCommon::is_target_QM2150()
+{
+    return (parseHWID() == 436);
+}
+
+/*===========================================================================
+ * FUNCTION   : is_target_QCM6125
+ *
+ * DESCRIPTION: Function to check whether target is QCM6125  or not.
+ *
+ * PARAMETERS : None
+ *
+ * RETURN     : TRUE -- QCM6125 target.
+ *              FALSE -- Some other target.
+ *==========================================================================*/
+
+bool QCameraCommon::is_target_QCM6125()
+{
+    return (parseHWID() == 467);
+}
+
+/*===========================================================================
+ * FUNCTION   : is_target_QCS6125
+ *
+ * DESCRIPTION: Function to check whether target is QCS6125  or not.
+ *
+ * PARAMETERS : None
+ *
+ * RETURN     : TRUE -- QCS6125 target.
+ *              FALSE -- Some other target.
+ *==========================================================================*/
+
+bool QCameraCommon::is_target_QCS6125()
+{
+    return (parseHWID() == 468);
+}
+
+/*===========================================================================
+ * FUNCTION   : is_target_SDM630
+ *
+ * DESCRIPTION: Function to check whether target is sdm630 or not.
+ *
+ * PARAMETERS : None
+ *
+ * RETURN     : TRUE -- SDM630 target.
+ *              FALSE -- Some other target.
+ *==========================================================================*/
+
+bool QCameraCommon::is_target_SDM630()
+{
+    return  (parseHWID() == 318 || parseHWID() == 327);
+}
+
+
+bool QCameraCommon::skipAnalysisBundling()
+{
+    //Enabling analysis stream dynamically at ISP requires removing
+    //it from bundled list of streams. This has the advantage of power
+    //savings. But as of now, this feature is enabled only via setprop.
+    //So, by default analysis stream gets bundled.
+    char prop[PROPERTY_VALUE_MAX];
+    bool needBundling = true;
+    memset(prop, 0, sizeof(prop));
+    property_get("persist.vendor.camera.isp.analysis_en", prop, "1");
+    needBundling = atoi(prop);
+
+    return !needBundling;
+}
+
+/*===========================================================================
+ * FUNCTION   : needAnalysisStream
+ *
+ * DESCRIPTION: Function to check whether analysis stream is needed or not
+ *
+ * PARAMETERS : None
+ *
+ * RETURN     : TRUE /FALSE
+ *==========================================================================*/
+bool QCameraCommon::needAnalysisStream()
+{
+    bool needAnalysisStream = true;
+    cam_capability_t *caps = (m_pCapability->aux_cam_cap != NULL) ?
+            m_pCapability->aux_cam_cap : m_pCapability;
+    if ((caps->color_arrangement == CAM_FILTER_ARRANGEMENT_Y) &&
+            caps->is_mono_stats_suport) {
+        needAnalysisStream = false;
+    }
+
+    return needAnalysisStream;
+}
+
+/*===========================================================================
+* FUNCTION   : isBayer
+*
+* DESCRIPTION: check whether sensor is bayer type or not
+*
+* PARAMETERS : cam_capability_t
+*
+* RETURN    : true or false
+*==========================================================================*/
+bool QCameraCommon::isBayer(cam_capability_t *caps)
+{
+    return (caps && (caps->color_arrangement == CAM_FILTER_ARRANGEMENT_RGGB ||
+            caps->color_arrangement == CAM_FILTER_ARRANGEMENT_GRBG ||
+            caps->color_arrangement == CAM_FILTER_ARRANGEMENT_GBRG ||
+            caps->color_arrangement == CAM_FILTER_ARRANGEMENT_BGGR));
+}
+
+/*===========================================================================
+* FUNCTION   : isMono
+*
+* DESCRIPTION: check whether sensor is mono or not
+*
+* PARAMETERS : cam_capability_t
+*
+* RETURN    : true or false
+*==========================================================================*/
+bool QCameraCommon::isMono(cam_capability_t *caps)
+{
+    return (caps && (caps->color_arrangement == CAM_FILTER_ARRANGEMENT_Y));
+}
+
+/*===========================================================================
+* FUNCTION   : getDualCameraConfig
+*
+* DESCRIPTION: get dual camera configuration whether B+M/W+T
+*
+* PARAMETERS : capabilities of main and aux cams
+*
+* RETURN    : dual_cam_type
+*==========================================================================*/
+dual_cam_type QCameraCommon::getDualCameraConfig(cam_capability_t *capsMainCam,
+        cam_capability_t *capsAuxCam)
+{
+    dual_cam_type type = DUAL_CAM_WIDE_TELE;
+    if (isBayer(capsMainCam) && isMono(capsAuxCam)) {
+        type = DUAL_CAM_BAYER_MONO;
+    }
+    return type;
+}
+
+/*===========================================================================
+* FUNCTION   : parseHWID
+*
+* DESCRIPTION: get SOC id of current platform
+*
+* PARAMETERS : None
+*
+* RETURN     : Return Soc Id if successfull else -1
+*==========================================================================*/
+int QCameraCommon::parseHWID()
+{
+    static int nHW_ID = -1;
+    if (nHW_ID == -1)
+    {
+#ifdef ANDROID
+        int result = -1;
+        char buffer[PATH_MAX];
+        FILE *device = NULL;
+        device = fopen("/sys/devices/soc0/soc_id", "r");
+        if(device)
+        {
+          /* 4 = 3 (MAX_SOC_ID_LENGTH) + 1 */
+          result = fread(buffer, 1, 4, device);
+          fclose(device);
+        }
+        else
+        {
+          device = fopen("/sys/devices/system/soc/soc0/id", "r");
+          if(device)
+          {
+             result = fread(buffer, 1, 4, device);
+             fclose(device);
+          }
+        }
+        if(result > 0)
+        {
+           nHW_ID = atoi(buffer);
+        }
+        ALOGE("%s: Got HW_ID = %d",__func__, nHW_ID);
+#endif
+    }
+    return nHW_ID;
+}
+
+bool QCameraCommon::isAutoFocusSupported(uint32_t cam_type)
+{
+    bool bAFSupported = false;
+    bool bMainCamAFSupported = (m_pCapability->main_cam_cap->supported_focus_modes_cnt > 1);
+    bool bAuxCamAFSupported = (m_pCapability->aux_cam_cap->supported_focus_modes_cnt > 1);
+    if (cam_type == MM_CAMERA_DUAL_CAM) {
+        bAFSupported =  (bMainCamAFSupported || bAuxCamAFSupported) ;
+    } else if (cam_type == CAM_TYPE_AUX) {
+        bAFSupported =  bAuxCamAFSupported;
+    } else {
+        bAFSupported =  bMainCamAFSupported;
+    }
+    LOGH("bAFSupported: %d cam_type: %d", bAFSupported, cam_type);
+    return bAFSupported;
 }
 
 }; // namespace qcamera

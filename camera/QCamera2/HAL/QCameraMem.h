@@ -1,4 +1,4 @@
-/* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -32,6 +32,10 @@
 
 // System dependencies
 #include <linux/msm_ion.h>
+#if TARGET_ION_ABI_VERSION >= 2
+#include <ion/ion.h>
+#include <linux/dma-buf.h>
+#endif //TARGET_ION_ABI_VERSION
 #include <utils/Mutex.h>
 #include <utils/List.h>
 
@@ -47,13 +51,24 @@
 extern "C" {
 #include "mm_camera_interface.h"
 }
+#if TARGET_ION_ABI_VERSION >= 2
+#ifndef CAM_CACHE_OPS
+#define CAM_CACHE_OPS
+enum {
+    CAM_CLEAN_CACHE,
+    CAM_INV_CACHE,
+    CAM_CLEAN_INV_CACHE
+};
+#define ION_IOC_CLEAN_CACHES CAM_CLEAN_CACHE
+#define ION_IOC_INV_CACHES CAM_INV_CACHE
+#define ION_IOC_CLEAN_INV_CACHES CAM_CLEAN_INV_CACHE
+#endif //CAM_CACHE_OPS
+#endif //TARGET_ION_ABI_VERSION
 
 namespace qcamera {
 
+using namespace android;
 class QCameraMemoryPool;
-
-//OFFSET, SIZE, USAGE, TIMESTAMP, FORMAT
-#define VIDEO_METADATA_NUM_INTS          5
 
 //Buffer identity
 //Note that this macro might have already been
@@ -70,9 +85,22 @@ enum QCameraMemType {
     QCAMERA_MEM_TYPE_COMPRESSED   = (1 << 2),
 };
 
+enum QCameraVideoMetaBufInts {
+    VIDEO_META_OFFSET      = MetaBufferUtil::INT_OFFSET,
+    VIDEO_META_SIZE        = MetaBufferUtil::INT_SIZE,
+    VIDEO_META_USAGE       = MetaBufferUtil::INT_USAGE,
+    VIDEO_META_TIMESTAMP   = MetaBufferUtil::INT_TIMESTAMP,
+    VIDEO_META_FORMAT      = MetaBufferUtil::INT_COLORFORMAT,
+    VIDEO_META_BUFIDX      = MetaBufferUtil::INT_BUFINDEX,
+    VIDEO_META_EVENT       = MetaBufferUtil::INT_BUFEVENT,
+    //Add per frame Ints before this
+    VIDEO_METADATA_NUM_INTS = MetaBufferUtil::INT_TOTAL,
+};
+
 typedef enum {
     STATUS_IDLE,
-    STATUS_SKIPPED
+    STATUS_SKIPPED,
+    STATUS_ACTIVE
 } BufferStatus;
 
 // Base class for all memory types. Abstract.
@@ -91,13 +119,14 @@ public:
     {
         return cacheOps(index, ION_IOC_CLEAN_INV_CACHES);
     }
+
     int getFd(uint32_t index) const;
     ssize_t getSize(uint32_t index) const;
     uint8_t getCnt() const;
     virtual uint8_t getMappable() const;
     virtual uint8_t checkIfAllBuffersMapped() const;
 
-    virtual int allocate(uint8_t count, size_t size, uint32_t is_secure) = 0;
+    virtual int allocate(uint8_t count, size_t size) = 0;
     virtual void deallocate() = 0;
     virtual int allocateMore(uint8_t count, size_t size) = 0;
     virtual int cacheOps(uint32_t index, unsigned int cmd) = 0;
@@ -135,11 +164,10 @@ protected:
         unsigned int heap_id;
     };
 
-    int alloc(int count, size_t size, unsigned int heap_id,
-            uint32_t is_secure);
+    int alloc(int count, size_t size, unsigned int heap_id);
     void dealloc();
     static int allocOneBuffer(struct QCameraMemInfo &memInfo,
-            unsigned int heap_id, size_t size, bool cached, uint32_t is_secure);
+            unsigned int heap_id, size_t size, bool cached, bool is_secure);
     static void deallocOneBuffer(struct QCameraMemInfo &memInfo);
     int cacheOpsInternal(uint32_t index, unsigned int cmd, void *vaddr);
 
@@ -160,7 +188,7 @@ public:
 
     int allocateBuffer(struct QCameraMemory::QCameraMemInfo &memInfo,
             unsigned int heap_id, size_t size, bool cached,
-            cam_stream_type_t streamType, uint32_t is_secure);
+            cam_stream_type_t streamType, bool is_secure);
     void releaseBuffer(struct QCameraMemory::QCameraMemInfo &memInfo,
             cam_stream_type_t streamType);
     void clear();
@@ -182,7 +210,7 @@ public:
     QCameraHeapMemory(bool cached);
     virtual ~QCameraHeapMemory();
 
-    virtual int allocate(uint8_t count, size_t size, uint32_t is_secure);
+    virtual int allocate(uint8_t count, size_t size);
     virtual int allocateMore(uint8_t count, size_t size);
     virtual void deallocate();
     virtual int cacheOps(uint32_t index, unsigned int cmd);
@@ -212,10 +240,10 @@ public:
                         bool cached,
                         QCameraMemoryPool *pool = NULL,
                         cam_stream_type_t streamType = CAM_STREAM_TYPE_DEFAULT,
-                        cam_stream_buf_type buf_Type = CAM_STREAM_BUF_TYPE_MPLANE);
+                        QCameraMemType buf_Type = QCAMERA_MEM_TYPE_DEFAULT);
     virtual ~QCameraStreamMemory();
 
-    virtual int allocate(uint8_t count, size_t size, uint32_t is_secure);
+    virtual int allocate(uint8_t count, size_t size);
     virtual int allocateMore(uint8_t count, size_t size);
     virtual void deallocate();
     virtual int cacheOps(uint32_t index, unsigned int cmd);
@@ -238,20 +266,24 @@ public:
             QCameraMemType bufType = QCAMERA_MEM_TYPE_DEFAULT);
     virtual ~QCameraVideoMemory();
 
-    virtual int allocate(uint8_t count, size_t size, uint32_t is_secure);
+    virtual int allocate(uint8_t count, size_t size);
+    virtual int allocateMetaBufs(uint8_t count, QCameraMemory *previewmem);
     virtual int allocateMore(uint8_t count, size_t size);
     virtual void deallocate();
     virtual camera_memory_t *getMemory(uint32_t index, bool metadata) const;
     virtual int getMatchBufIndex(const void *opaque, bool metadata) const;
-    int allocateMeta(uint8_t buf_cnt, int numFDs, int numInts);
+    int allocateMeta(uint8_t buf_cnt, int numFDs);
     void deallocateMeta();
     void setVideoInfo(int usage, cam_format_t format);
     int getUsage(){return mUsage;};
     int getFormat(){return mFormat;};
     int convCamtoOMXFormat(cam_format_t format);
-    int closeNativeHandle(const void *data, bool metadata);
+    int closeNativeHandle(const void *data, bool metadata = true);
     native_handle_t *getNativeHandle(uint32_t index, bool metadata = true);
     static int closeNativeHandle(const void *data);
+    int32_t updateNativeHandle(native_handle_t *nh,
+            int batch_idx, int fd, int size, int ts = 0);
+    bool needPerfEvent(const void *data, bool metadata = true);
 private:
     camera_memory_t *mMetadata[MM_CAMERA_MAX_NUM_FRAMES];
     uint8_t mMetaBufCount;
@@ -267,11 +299,13 @@ class QCameraGrallocMemory : public QCameraMemory {
         BUFFER_OWNED,
     };
 public:
-    QCameraGrallocMemory(camera_request_memory getMemory, void* cbCookie);
+    QCameraGrallocMemory(camera_request_memory getMemory, void* cbCookie,
+                       QCameraMemType buf_Type = QCAMERA_MEM_TYPE_DEFAULT);
+
     void setNativeWindow(preview_stream_ops_t *anw);
     virtual ~QCameraGrallocMemory();
 
-    virtual int allocate(uint8_t count, size_t size, uint32_t is_secure);
+    virtual int allocate(uint8_t count, size_t size);
     virtual int allocateMore(uint8_t count, size_t size);
     virtual void deallocate();
     virtual int cacheOps(uint32_t index, unsigned int cmd);
@@ -292,12 +326,17 @@ public:
     void setMaxFPS(int maxFPS);
     int32_t enqueueBuffer(uint32_t index, nsecs_t timeStamp = 0);
     int32_t dequeueBuffer();
+    inline bool isBufActive(uint32_t index){return (mBufferStatus[index] == STATUS_ACTIVE);};
     inline bool isBufSkipped(uint32_t index){return (mBufferStatus[index] == STATUS_SKIPPED);};
+    inline bool hasPendingRef(uint32_t index){return (mRefCount[index]);};
     void setBufferStatus(uint32_t index, BufferStatus status);
+    void setRefCount(uint32_t index,uint8_t count);
+    pthread_mutex_t mStatusLock;
 private:
     buffer_handle_t *mBufferHandle[MM_CAMERA_MAX_NUM_FRAMES];
     int mLocalFlag[MM_CAMERA_MAX_NUM_FRAMES];
-    bool mBufferStatus[MM_CAMERA_MAX_NUM_FRAMES];
+    int mBufferStatus[MM_CAMERA_MAX_NUM_FRAMES];
+    uint8_t mRefCount[MM_CAMERA_MAX_NUM_FRAMES];
     struct private_handle_t *mPrivateHandle[MM_CAMERA_MAX_NUM_FRAMES];
     preview_stream_ops_t *mWindow;
     int mWidth, mHeight, mFormat, mStride, mScanline, mUsage;

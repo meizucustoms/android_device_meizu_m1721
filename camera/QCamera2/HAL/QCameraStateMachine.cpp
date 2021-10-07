@@ -330,6 +330,19 @@ int32_t QCameraStateMachine::stateMachine(qcamera_sm_evt_enum_t evt, void *paylo
         break;
     }
 
+    if (m_parent->isDualCamera()) {
+        /* Update the FOVControl dual camera result state based on the current state.
+         Update the result only in previewing and recording states */
+        bool updateResultState = false;
+        if (((m_state == QCAMERA_SM_STATE_PREVIEWING) ||
+                (m_state == QCAMERA_SM_STATE_RECORDING)) && !m_parent->mActiveAF
+                && !m_parent->m_bPreparingHardware) {
+            updateResultState = true;
+        }
+        m_parent->m_pFovControl->UpdateFlag(FOVCONTROL_FLAG_UPDATE_RESULT_STATE,
+                &updateResultState);
+    }
+
     return rc;
 }
 
@@ -638,7 +651,7 @@ int32_t QCameraStateMachine::procEvtPreviewStoppedState(qcamera_sm_evt_enum_t ev
             LOGW("Free video handle %d %d", evt, m_state);
             QCameraVideoMemory::closeNativeHandle((const void *)payload);
         }
-	break;
+        break;
     case QCAMERA_SM_EVT_PRE_START_RECORDING:
     case QCAMERA_SM_EVT_RESTART_STOP_PREVIEW:
     case QCAMERA_SM_EVT_RESTART_START_PREVIEW:
@@ -1059,7 +1072,7 @@ int32_t QCameraStateMachine::procEvtPreviewReadyState(qcamera_sm_evt_enum_t evt,
             LOGW("Free video handle %d %d", evt, m_state);
             QCameraVideoMemory::closeNativeHandle((const void *)payload);
         }
-	break;
+        break;
     case QCAMERA_SM_EVT_PRE_START_RECORDING:
     case QCAMERA_SM_EVT_RESTART_STOP_PREVIEW:
     case QCAMERA_SM_EVT_RESTART_START_PREVIEW:
@@ -1596,7 +1609,7 @@ int32_t QCameraStateMachine::procEvtPreviewingState(qcamera_sm_evt_enum_t evt,
             LOGW("Free video handle %d %d", evt, m_state);
             QCameraVideoMemory::closeNativeHandle((const void *)payload);
         }
-	break;
+        break;
     case QCAMERA_SM_EVT_RELEASE:
         {
             LOGE("Error!! cannot handle evt(%d) in state(%d)", evt, m_state);
@@ -1662,8 +1675,14 @@ int32_t QCameraStateMachine::procEvtPreviewingState(qcamera_sm_evt_enum_t evt,
             case QCAMERA_INTERNAL_EVT_ZSL_CAPTURE_DONE:
                 rc = m_parent->processZSLCaptureDone();
                 break;
-            case QCAMERA_INTERNAL_EVT_DUAL_CAM_UPDATE:
-                rc = m_parent->processDualCameraUpdate(internal_evt->repro_info);
+            case QCAMERA_INTERNAL_EVT_DUAL_CAMERA_FOV_CONTROL:
+                m_parent->processDualCamFovControl();
+                break;
+            case QCAMERA_INTERNAL_EVT_LED_CALIB_UPDATE:
+                rc = m_parent->processLEDCalibration(internal_evt->led_calib_result);
+                break;
+            case QCAMERA_INTERNAL_EVT_RTB_METADATA:
+                rc = m_parent->processRTBData(internal_evt->rtb_data);
                 break;
             default:
                 LOGE("Invalid internal event %d in state(%d)",
@@ -1850,8 +1869,11 @@ int32_t QCameraStateMachine::procEvtPrepareSnapshotState(qcamera_sm_evt_enum_t e
             case QCAMERA_INTERNAL_EVT_ZSL_CAPTURE_DONE:
                 rc = m_parent->processZSLCaptureDone();
                 break;
-            case QCAMERA_INTERNAL_EVT_DUAL_CAM_UPDATE:
-                rc = m_parent->processDualCameraUpdate(internal_evt->repro_info);
+            case QCAMERA_INTERNAL_EVT_LED_CALIB_UPDATE:
+                rc = m_parent->processLEDCalibration(internal_evt->led_calib_result);
+                break;
+            case QCAMERA_INTERNAL_EVT_RTB_METADATA:
+                rc = m_parent->processRTBData(internal_evt->rtb_data);
                 break;
             default:
                 LOGE("Invalid internal event %d in state(%d)",
@@ -1868,6 +1890,8 @@ int32_t QCameraStateMachine::procEvtPrepareSnapshotState(qcamera_sm_evt_enum_t e
                 {
                     // Send internal events to stop indefinite wait on prepare
                     // snapshot done event.
+                    m_state = QCAMERA_SM_STATE_PREVIEWING;
+
                     result.status = rc;
                     result.request_api = QCAMERA_SM_EVT_PREPARE_SNAPSHOT;
                     result.result_type = QCAMERA_API_RESULT_TYPE_DEF;
@@ -2258,8 +2282,11 @@ int32_t QCameraStateMachine::procEvtPicTakingState(qcamera_sm_evt_enum_t evt,
             case QCAMERA_INTERNAL_EVT_ZSL_CAPTURE_DONE:
                 rc = m_parent->processZSLCaptureDone();
                 break;
-            case QCAMERA_INTERNAL_EVT_DUAL_CAM_UPDATE:
-                rc = m_parent->processDualCameraUpdate(internal_evt->repro_info);
+            case QCAMERA_INTERNAL_EVT_LED_CALIB_UPDATE:
+                rc = m_parent->processLEDCalibration(internal_evt->led_calib_result);
+                break;
+            case QCAMERA_INTERNAL_EVT_RTB_METADATA:
+                rc = m_parent->processRTBData(internal_evt->rtb_data);
                 break;
             default:
                 break;
@@ -2745,8 +2772,14 @@ int32_t QCameraStateMachine::procEvtRecordingState(qcamera_sm_evt_enum_t evt,
             case QCAMERA_INTERNAL_EVT_ZSL_CAPTURE_DONE:
                 rc = m_parent->processZSLCaptureDone();
                 break;
-            case QCAMERA_INTERNAL_EVT_DUAL_CAM_UPDATE:
-                rc = m_parent->processDualCameraUpdate(internal_evt->repro_info);
+            case QCAMERA_INTERNAL_EVT_DUAL_CAMERA_FOV_CONTROL:
+                m_parent->processDualCamFovControl();
+                break;
+            case QCAMERA_INTERNAL_EVT_LED_CALIB_UPDATE:
+                rc = m_parent->processLEDCalibration(internal_evt->led_calib_result);
+                break;
+            case QCAMERA_INTERNAL_EVT_RTB_METADATA:
+                rc = m_parent->processRTBData(internal_evt->rtb_data);
                 break;
             default:
                 break;
@@ -3128,8 +3161,11 @@ int32_t QCameraStateMachine::procEvtVideoPicTakingState(qcamera_sm_evt_enum_t ev
             case QCAMERA_INTERNAL_EVT_ZSL_CAPTURE_DONE:
                 rc = m_parent->processZSLCaptureDone();
                 break;
-            case QCAMERA_INTERNAL_EVT_DUAL_CAM_UPDATE:
-                rc = m_parent->processDualCameraUpdate(internal_evt->repro_info);
+            case QCAMERA_INTERNAL_EVT_LED_CALIB_UPDATE:
+                rc = m_parent->processLEDCalibration(internal_evt->led_calib_result);
+                break;
+            case QCAMERA_INTERNAL_EVT_RTB_METADATA:
+                rc = m_parent->processRTBData(internal_evt->rtb_data);
                 break;
             default:
                 break;
@@ -3640,8 +3676,11 @@ int32_t QCameraStateMachine::procEvtPreviewPicTakingState(qcamera_sm_evt_enum_t 
             case QCAMERA_INTERNAL_EVT_ZSL_CAPTURE_DONE:
                 rc = m_parent->processZSLCaptureDone();
                 break;
-            case QCAMERA_INTERNAL_EVT_DUAL_CAM_UPDATE:
-                rc = m_parent->processDualCameraUpdate(internal_evt->repro_info);
+            case QCAMERA_INTERNAL_EVT_LED_CALIB_UPDATE:
+                rc = m_parent->processLEDCalibration(internal_evt->led_calib_result);
+                break;
+            case QCAMERA_INTERNAL_EVT_RTB_METADATA:
+                rc = m_parent->processRTBData(internal_evt->rtb_data);
                 break;
             default:
                 break;

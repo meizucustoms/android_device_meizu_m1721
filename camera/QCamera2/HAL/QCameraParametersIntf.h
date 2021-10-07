@@ -35,6 +35,7 @@
 #include "cam_intf.h"
 #include "cam_types.h"
 #include "QCameraThermalAdapter.h"
+#include "QCameraFOVControl.h"
 
 extern "C" {
 #include <mm_camera_interface.h>
@@ -66,17 +67,17 @@ public:
     QCameraParametersIntf();
     ~QCameraParametersIntf();
 
-    int32_t allocate();
+    int32_t allocate(uint8_t bufCount = 1);
     int32_t init(cam_capability_t *capabilities,
                  mm_camera_vtbl_t *mmOps,
-                 QCameraAdjustFPS *adjustFPS);
+                 QCameraAdjustFPS *adjustFPS,
+                 QCameraFOVControl *fovControl);
 
     void deinit();
     int32_t updateParameters(const String8& params, bool &needRestart);
     int32_t commitParameters();
 
     char* getParameters();
-    bool getDualCameraMode();
     void getPreviewFpsRange(int *min_fps, int *max_fps) const;
 #ifdef TARGET_TS_MAKEUP
     bool getTsMakeupInfo(int &whiteLevel, int &cleanLevel) const;
@@ -94,9 +95,10 @@ public:
 
 
     int32_t getStreamDimension(cam_stream_type_t streamType,
-            cam_dimension_t &dim);
+            cam_dimension_t &dim, uint32_t cam_type = MM_CAMERA_TYPE_MAIN);
 
     void getThumbnailSize(int *width, int *height) const;
+    uint8_t getSecureQueueDepth();
     uint8_t getZSLBurstInterval();
     uint8_t getZSLQueueDepth();
     uint8_t getZSLBackLookCount();
@@ -104,17 +106,21 @@ public:
     bool isZSLMode();
     bool isRdiMode();
     bool isSecureMode();
-    bool isNoDisplayMode();
+    cam_stream_secure_mode_t getSecureSessionType();
+    cam_stream_type_t getSecureStreamType();
+    bool isNoDisplayMode(uint32_t cam_type = CAM_TYPE_MAIN);
     bool isWNREnabled();
     bool isTNRSnapshotEnabled();
     int32_t getCDSMode();
     bool isLTMForSeeMoreEnabled();
+    bool isVideoFaceBeautification();
     bool isHfrMode();
     void getHfrFps(cam_fps_range_t &pFpsRange);
     uint8_t getNumOfSnapshots();
     uint8_t getNumOfRetroSnapshots();
     uint8_t getNumOfExtraHDRInBufsIfNeeded();
     uint8_t getNumOfExtraHDROutBufsIfNeeded();
+    uint8_t getNumOfExtraEISBufsIfNeeded();
 
     bool getRecordingHintValue();
     uint32_t getJpegQuality();
@@ -156,6 +162,7 @@ public:
     int32_t setFrameSkip(enum msm_vfe_frame_skip_pattern pattern);
     qcamera_thermal_mode getThermalMode();
     int32_t updateRecordingHintValue(int32_t value);
+    int32_t updateCaptureRequest(uint8_t value);
     int32_t setHDRAEBracket(cam_exp_bracketing_t hdrBracket);
     bool isHDREnabled();
     bool isAutoHDREnabled();
@@ -188,6 +195,7 @@ public:
     bool isPreviewFlipChanged();
     bool isVideoFlipChanged();
     bool isSnapshotFlipChanged();
+    bool isZoomChanged();
     void setHDRSceneEnable(bool bflag);
     int32_t updateAWBParams(cam_awb_params_t &awb_params);
 
@@ -195,7 +203,7 @@ public:
     bool isHDRThumbnailProcessNeeded();
     void setMinPpMask(cam_feature_mask_t min_pp_mask);
     bool setStreamConfigure(bool isCapture,
-            bool previewAsPostview, bool resetConfig, uint32_t* sessionId);
+            bool previewAsPostview, bool resetConfig);
     int32_t addOnlineRotation(uint32_t rotation, uint32_t streamId,
             int32_t device_rotation);
     uint8_t getNumOfExtraBuffersForImageProc();
@@ -234,7 +242,7 @@ public:
     bool isUBWCEnabled();
 
     int getBrightness();
-    int32_t updateOisValue(bool oisValue);
+    int32_t updateOisMode(cam_ois_mode_t oisMode);
     int32_t setIntEvent(cam_int_evt_params_t params);
     bool getofflineRAW();
     bool getQuadraCfa();
@@ -261,6 +269,9 @@ public:
     bool isLLNoiseEnabled();
     void setCurPPCount(int8_t count);
     int32_t setQuadraCfaMode(uint32_t value, bool initCommit);
+    int32_t setRawCaptureMode(uint32_t value);
+    bool getRawZsl();
+    bool getRawZslCapture();
     int32_t setToneMapMode(uint32_t value, bool initCommit);
     void setTintless(bool enable);
     uint8_t getLongshotStages();
@@ -291,9 +302,10 @@ public:
     bool isFrameSyncEnabled(void);
     int32_t getRelatedCamCalibration(
             cam_related_system_calibration_data_t* calib);
-    int32_t bundleRelatedCameras(bool sync, uint32_t sessionid);
+    int32_t bundleRelatedCameras(bool sync);
     uint8_t fdModeInVideo();
     bool isOEMFeatEnabled();
+    uint8_t isOEMFeatFrameSkipEnabled();
 
     int32_t setZslMode(bool value);
     int32_t updateZSLModeValue(bool value);
@@ -307,11 +319,27 @@ public:
 
     int32_t getAnalysisInfo(
         bool fdVideoEnabled,
-        bool hal3,
         cam_feature_mask_t featureMask,
         cam_analysis_info_t *pAnalysisInfo);
     int32_t updateDtVc(int32_t *dt, int32_t *vc);
-
+    bool needSnapshotPP();
+    int32_t SetDualCamera(bool value);
+    cam_hal_pp_type_t getHalPPType();
+    int32_t setCameraControls(uint32_t controls, bool bundleSnap, cam_fallback_mode_t fallbackMode);
+    int32_t setSwitchCamera(uint32_t camMaster);
+    int32_t setDCDeferCamera(cam_dual_camera_defer_cmd_t type);
+    int32_t getDualLedCalibration();
+    bool isDCmAsymmetricSnapMode();
+    bool isDCAsymmetricPrevMode ();
+    int32_t setDCLowPowerMode(uint32_t state);
+    void initDCSettings(int32_t state, uint32_t camMaster,
+        bool bundleSnapshot, cam_fallback_mode_t fallbackMode);
+    bool needAnalysisStream();
+    void setLowPower(bool value);
+    uint32_t getBlurLevel();
+    void setBokehSnaphot(bool enable);
+    void getDepthMapSize(int &width, int &height);
+    bool isAutoFocusSupported(uint32_t cam_type);
 private:
     QCameraParameters *mImpl;
     mutable Mutex mLock;

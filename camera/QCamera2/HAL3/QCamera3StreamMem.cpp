@@ -1,4 +1,4 @@
-/* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -48,9 +48,9 @@ namespace qcamera {
  *
  * RETURN     : None
  *==========================================================================*/
-QCamera3StreamMem::QCamera3StreamMem(uint32_t maxHeapBuffer, bool queueHeapBuffers) :
-        mHeapMem(maxHeapBuffer),
-        mGrallocMem(maxHeapBuffer),
+QCamera3StreamMem::QCamera3StreamMem(uint32_t maxHeapBuffer, bool queueHeapBuffers, bool isSecure) :
+        mHeapMem(maxHeapBuffer, isSecure),
+        mGrallocMem(maxHeapBuffer, isSecure),
         mMaxHeapBuffers(maxHeapBuffer),
         mQueueHeapBuffers(queueHeapBuffers)
 {
@@ -189,6 +189,29 @@ int QCamera3StreamMem::cleanInvalidateCache(uint32_t index)
     else
         return mGrallocMem.cleanInvalidateCache(index);
 }
+
+/*===========================================================================
+ * FUNCTION   : cleanCache
+ *
+ * DESCRIPTION: clean the cache of the indexed buffer
+ *
+ * PARAMETERS :
+ *   @index   : index of the buffer
+ *
+ * RETURN     : int32_t type of status
+ *              NO_ERROR  -- success
+ *              none-zero failure code
+ *==========================================================================*/
+int QCamera3StreamMem::cleanCache(uint32_t index)
+{
+    Mutex::Autolock lock(mLock);
+
+    if (index < mMaxHeapBuffers)
+        return mHeapMem.cleanCache(index);
+    else
+        return mGrallocMem.cleanCache(index);
+}
+
 
 /*===========================================================================
  * FUNCTION   : getBufDef
@@ -539,6 +562,9 @@ int32_t QCamera3StreamMem::getBufferIndex(uint32_t frameNumber)
         return index;
 }
 
-
+void QCamera3StreamMem::switchMaster(uint32_t masterCam)
+{
+    mGrallocMem.switchMaster(masterCam);
+}
 
 }; //namespace qcamera

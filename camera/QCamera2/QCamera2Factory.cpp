@@ -1,4 +1,4 @@
-/* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are
@@ -45,6 +45,7 @@
 #include "HAL3/QCamera3HWI.h"
 #include "util/QCameraFlash.h"
 #include "QCamera2Factory.h"
+#include "QCameraTrace.h"
 extern "C" {
 #include "mm_camera_dbg.h"
 }
@@ -65,9 +66,6 @@ uint8_t gNumCameraSessions = 0;
 
 volatile uint32_t gKpiDebugLevel = 1;
 
-/* Meizu changed */
-uint32_t gMeizuCameraId = 0;
-
 /*===========================================================================
  * FUNCTION   : QCamera2Factory
  *
@@ -82,10 +80,11 @@ QCamera2Factory::QCamera2Factory()
     mHalDescriptors = NULL;
     mCallbacks = NULL;
     mNumOfCameras = get_num_of_cameras();
+    mNumOfCameras_expose = get_num_of_cameras_to_expose();
     int bDualCamera = 0;
     char propDefault[PROPERTY_VALUE_MAX];
     char prop[PROPERTY_VALUE_MAX];
-    property_get("persist.camera.HAL3.enabled", prop, "1");
+    property_get("persist.vendor.camera.HAL3.enabled", prop, "1");
     int isHAL3Enabled = atoi(prop);
 #ifndef QCAMERA_HAL1_SUPPORT
     isHAL3Enabled = 1;
@@ -93,7 +92,7 @@ QCamera2Factory::QCamera2Factory()
 
     // Signifies whether system has to enable dual camera mode
     snprintf(propDefault, PROPERTY_VALUE_MAX, "%d", isDualCamAvailable(isHAL3Enabled));
-    property_get("persist.camera.dual.camera", prop, propDefault);
+    property_get("persist.vendor.camera.dual.camera", prop, propDefault);
     bDualCamera = atoi(prop);
     LOGH("dualCamera:%d ", bDualCamera);
 #ifndef QCAMERA_HAL1_SUPPORT
@@ -306,7 +305,7 @@ int QCamera2Factory::set_torch_mode(const char* camera_id, bool on)
  *==========================================================================*/
 int QCamera2Factory::getNumberOfCameras()
 {
-    return mNumOfCameras;
+    return mNumOfCameras_expose;
 }
 
 /*===========================================================================
@@ -408,6 +407,7 @@ int QCamera2Factory::cameraDeviceOpen(int camera_id,
             camera_id, mHalDescriptors[camera_id].device_version);
 
     if ( mHalDescriptors[camera_id].device_version == CAMERA_DEVICE_API_VERSION_3_0 ) {
+        CAMSCOPE_INIT(CAMSCOPE_SECTION_HAL);
         QCamera3HardwareInterface *hw = new QCamera3HardwareInterface(mHalDescriptors[camera_id].cameraId,
                 mCallbacks);
         if (!hw) {
@@ -500,7 +500,7 @@ int QCamera2Factory::openLegacy(
 {
     int rc = NO_ERROR;
 
-    LOGI("openLegacy halVersion: %d", halVersion);
+    LOGI("openLegacy halVersion: %d cameraId = %d", halVersion, cameraId);
     //Assumption: all cameras can support legacy API version
     if (cameraId < 0 || cameraId >= gQCamera2Factory->getNumberOfCameras())
         return -ENODEV;
@@ -510,6 +510,7 @@ int QCamera2Factory::openLegacy(
 #ifdef QCAMERA_HAL1_SUPPORT
         case CAMERA_DEVICE_API_VERSION_1_0:
         {
+            CAMSCOPE_INIT(CAMSCOPE_SECTION_HAL);
             QCamera2HardwareInterface *hw =
                 new QCamera2HardwareInterface((uint32_t)cameraId);
             if (!hw) {

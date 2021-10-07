@@ -1,4 +1,4 @@
-/* Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2013-2016,2019, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -41,6 +41,8 @@ extern "C" {
 #include "mm_camera_dbg.h"
 }
 
+#define CLIENT_NAME "camera_bw"
+
 using namespace android;
 
 namespace qcamera {
@@ -58,7 +60,8 @@ QCameraThermalAdapter::QCameraThermalAdapter() :
                                         mRegister(NULL),
                                         mUnregister(NULL),
                                         mCameraHandle(0),
-                                        mCamcorderHandle(0)
+                                        mCamcorderHandle(0),
+                                        mInstanceCount(0)
 {
 }
 
@@ -68,6 +71,16 @@ int QCameraThermalAdapter::init(QCameraThermalCallback *thermalCb)
     int rc = NO_ERROR;
 
     LOGD("E");
+
+    {
+        Mutex::Autolock l(mInstanceLock);
+        mInstanceCount++;
+        if (mInstanceCount > 1) {
+            LOGD("Thermal adapter already initialized, skip this");
+            return NO_ERROR;
+        }
+    }
+
     mHandle = dlopen("/vendor/lib/libthermalclient.so", RTLD_NOW);
     if (!mHandle) {
         error = dlerror();
@@ -86,6 +99,22 @@ int QCameraThermalAdapter::init(QCameraThermalCallback *thermalCb)
     }
     *(void **)&mUnregister = dlsym(mHandle, "thermal_client_unregister_callback");
     if (!mUnregister) {
+        error = dlerror();
+        LOGE("dlsym failed with error code %s",
+                     error ? error: "");
+        rc = UNKNOWN_ERROR;
+        goto error2;
+    }
+    *(void **)&mSetPerfLevel = dlsym(mHandle, "thermal_bandwidth_client_request");
+    if (!mSetPerfLevel) {
+        error = dlerror();
+        LOGE("dlsym failed with error code %s",
+                     error ? error: "");
+        rc = UNKNOWN_ERROR;
+        goto error2;
+    }
+    *(void **)&mReset = dlsym(mHandle, "thermal_bandwidth_client_cancel_request");
+    if (!mReset) {
         error = dlerror();
         LOGE("dlsym failed with error code %s",
                      error ? error: "");
@@ -129,6 +158,15 @@ error:
 void QCameraThermalAdapter::deinit()
 {
     LOGD("E");
+    {
+        Mutex::Autolock l(mInstanceLock);
+        mInstanceCount--;
+        if (mInstanceCount > 0) {
+            LOGD("Still active clients, skip this");
+            return;
+        }
+    }
+    Reset();
     if (mUnregister) {
         if (mCameraHandle) {
             mUnregister(mCameraHandle);
@@ -151,6 +189,9 @@ void QCameraThermalAdapter::deinit()
 
 char QCameraThermalAdapter::mStrCamera[] = "camera";
 char QCameraThermalAdapter::mStrCamcorder[] = "camcorder";
+  // initializing prevPerfLevel to -1, to ensure 0 is send to thermal
+  // module.
+int  QCameraThermalAdapter::prevPerfLevel = -1;
 
 int QCameraThermalAdapter::thermalCallback(int level,
                 void *userdata, void *data)
@@ -167,6 +208,38 @@ int QCameraThermalAdapter::thermalCallback(int level,
     return rc;
 }
 
+int QCameraThermalAdapter::SetPerfLevel(int level) {
+    // Change has been done to handle the use case
+    // When modem changes from say level 2 to level 1
+    // It has to send level 0 then level 1.
+    int result=0;
+    if (prevPerfLevel > level) {
+        // First send 0 then lower perf Level
+        result=mSetPerfLevel((char*)CLIENT_NAME, 0);
+        LOGE("Prev Level greater than New Level\n");
+        result=mSetPerfLevel((char*)CLIENT_NAME, level);
+    } else if (prevPerfLevel == level) {
+        // no need to send
+        result=mSetPerfLevel((char*)CLIENT_NAME, level);
+        // But sending, because sometimes modem might not
+        // have received the previous level based on its
+        // state.
+        // To be removed - once modem state handling is
+        // incorporated.
+        LOGE("Prev Level same as New Level\n");
+    } else {
+        // send the new level
+        result=mSetPerfLevel((char*)CLIENT_NAME, level);
+        LOGE("Prev Level smaller than New Level\n");
+    }
+    prevPerfLevel=level;
+    return result;
+}
+
+void QCameraThermalAdapter::Reset() {
+    return mReset((char*)CLIENT_NAME);
+}
+
 qcamera_thermal_level_enum_t *QCameraThermalCallback::getThermalLevel() {
     return &mLevel;
 }
@@ -174,4 +247,7 @@ qcamera_thermal_level_enum_t *QCameraThermalCallback::getThermalLevel() {
 void QCameraThermalCallback::setThermalLevel(qcamera_thermal_level_enum_t level) {
     mLevel = level;
 }
+
+
+
 }; //namespace qcamera

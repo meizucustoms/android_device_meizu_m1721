@@ -35,6 +35,8 @@
 #include "QCamera3HALHeader.h"
 #include "QCameraCmdThread.h"
 #include "QCameraQueue.h"
+#include "QCameraPerf.h"
+#include "QCameraPprocManager.h"
 
 extern "C" {
 #include "mm_camera_interface.h"
@@ -69,6 +71,10 @@ typedef struct {
     metadata_buffer_t *metadata;
     mm_camera_super_buf_t *src_metadata;
     jpeg_settings_t *jpeg_settings;
+    bool halPPAllocatedBuf;
+    mm_camera_buf_def_t *hal_pp_bufs;  // bufs allocates for HAL PP
+    QCameraHeapMemory *snapshot_heap; // heap memory of snapshot buffer
+    QCameraHeapMemory *metadata_heap; // heap memory of metadata buffer
 } qcamera_hal3_jpeg_data_t;
 
 typedef struct {
@@ -77,7 +83,11 @@ typedef struct {
     qcamera_fwk_input_pp_data_t *fwk_src_frame;// source frame
     metadata_buffer_t *metadata;
     jpeg_settings_t *jpeg_settings;
+    jpeg_settings_t *ppOutput_jpeg_settings;
     mm_camera_super_buf_t *src_metadata;
+    mm_camera_super_buf_t *reprocessed_src_frame; // reprocessed output, valid in multi reprocess pass case
+    int8_t pp_ch_idx;
+    uint32_t frameNumber;
 } qcamera_hal3_pp_data_t;
 
 typedef struct {
@@ -87,6 +97,30 @@ typedef struct {
 } qcamera_hal3_pp_buffer_t;
 
 #define MAX_HAL3_EXIF_TABLE_ENTRIES 50
+typedef struct {
+    mm_camera_super_buf_t *metabuf;
+    uint32_t metaFrameNumber;
+    bool dropFrame;
+}qcamera_hal3_meta_pp_buffer_t;
+
+typedef struct {
+    qcamera_hal3_pp_buffer_t *reprocBuf;
+    qcamera_hal3_meta_pp_buffer_t *metaBuffer;
+}ReprocessBuffer;
+
+typedef struct {
+    qcamera_hal3_jpeg_data_t *jpeg_job;
+    mm_jpeg_output_t jpeg_image;
+    void * user_data;
+}qcamera_hal3_mpo_data_t;
+
+typedef struct {
+    mm_jpeg_output_t main_image;
+    mm_jpeg_output_t aux_images[MM_JPEG_MAX_MPO_IMAGES -1];
+    mm_jpeg_output_t output;
+    uint32_t num_of_aux_image;
+}qcamera_hal3_mpo_compose_info_t;
+
 class QCamera3Exif
 {
 public:
@@ -113,24 +147,41 @@ public:
 
     int32_t init(QCamera3StreamMem *mMemory);
     int32_t initJpeg(jpeg_encode_callback_t jpeg_cb,
-            cam_dimension_t *m_max_pic_dim,
-            void *user_data);
+                     mpo_encode_callback_t mpo_cb,
+                     cam_dimension_t *m_max_pic_dim,
+                     void *user_data);
     int32_t deinit();
     int32_t start(const reprocess_config_t &config);
-    int32_t stop();
+    int32_t stop(bool isHDR = false);
     int32_t flush();
     int32_t processData(qcamera_fwk_input_pp_data_t *frame);
     int32_t processData(mm_camera_super_buf_t *input,
             buffer_handle_t *output, uint32_t frameNumber);
     int32_t processData(mm_camera_super_buf_t *input);
-    int32_t processPPData(mm_camera_super_buf_t *frame);
-    int32_t processPPMetadata(mm_camera_super_buf_t *reproc_meta);
+    int32_t cancelFramePProc(uint32_t framenum);
+    int32_t processPPData(mm_camera_super_buf_t *frame, const metadata_buffer_t *p_metadata = NULL);
+    int32_t processPPMetadata(mm_camera_super_buf_t *reproc_meta,uint32_t framenum, bool dropFrame);
     int32_t processJpegSettingData(jpeg_settings_t *jpeg_settings);
+    static void processJpegData(jpeg_job_status_t status,
+                                      uint32_t /*client_hdl*/,
+                                      uint32_t jobId,
+                                      mm_jpeg_output_t *p_output,
+                                      void *userdata);
+    int32_t composeMpo(qcamera_hal3_mpo_compose_info_t &mpo_info, void *userdata);
+    void doNextJob();
     qcamera_hal3_pp_data_t *dequeuePPJob(uint32_t frameNumber);
     qcamera_hal3_jpeg_data_t *findJpegJobByJobId(uint32_t jobId);
     void releaseJpegJobData(qcamera_hal3_jpeg_data_t *job);
     int32_t releaseOfflineBuffers(bool all);
     void releasePPJobData(qcamera_hal3_pp_data_t *job);
+    int32_t timeoutFrame(uint32_t frameNumber);
+    bool releaseReprocMetaBuffer(uint32_t);
+    static void processHalPPDataCB(qcamera_hal_pp_data_t *pOutput, void* pUserData);
+    static void releaseSuperBufCb(mm_camera_super_buf_t *super_buf, void* pUserData);
+    void setMpoMode(bool enable) {m_bMpoEnabled = enable;}
+    bool isMpoEnabled() { return m_bMpoEnabled; }
+    int releaseFreeJpegSessions();
+    void eraseJpegSetting(uint32_t resultFrameNumber);
 
 private:
     int32_t sendEvtNotify(int32_t msg_type, int32_t ext1, int32_t ext2);
@@ -138,7 +189,8 @@ private:
     mm_jpeg_format_t getJpegImgTypeFromImgFmt(cam_format_t img_fmt);
     int32_t getJpegEncodeConfig(mm_jpeg_encode_params_t& encode_parm,
                                   QCamera3Stream *main_stream,
-                                  jpeg_settings_t *jpeg_settings);
+                                  jpeg_settings_t *jpeg_settings,
+                                   mm_camera_buf_def_t *input_buf = NULL);
     int32_t getFWKJpegEncodeConfig(mm_jpeg_encode_params_t& encode_parm,
             qcamera_fwk_input_pp_data_t *frame,
             jpeg_settings_t *jpeg_settings);
@@ -156,26 +208,41 @@ private:
     static void releasePPInputData(void *data, void *user_data);
     static void releaseMetadata(void *data, void *user_data);
     static void releaseOngoingPPData(void *data, void *user_data);
-
+    static bool matchMetaFrameNum(void *data, void *user_data, void *match_data);
+    static bool matchReprocessFrameNum(void *data, void *user_data, void *match_data);
+    static bool matchJpegSetting(void *data, void *user_data, void *match_data);
     static void *dataProcessRoutine(void *data);
-
+    qcamera_hal3_meta_pp_buffer_t * isMetaMatched(uint32_t resultFrameNumber);
+    qcamera_hal3_pp_buffer_t * isFrameMatched(uint32_t resultFrameNumber);
     bool needsReprocess(qcamera_fwk_input_pp_data_t *frame);
+    int32_t processHalPPData(qcamera_hal_pp_data_t *pData);
+    void createHalPPManager();
+    int32_t initHalPPManager();
+    bool isHalPPEnabled() { return (m_pHalPPManager != NULL);}
+    QCamera3Channel *getChannelByHandle(uint32_t channelHandle);
 
 private:
     QCamera3ProcessingChannel  *m_parent;
     jpeg_encode_callback_t     mJpegCB;
+    mpo_encode_callback_t      mMpoCB;
     void *                     mJpegUserData;
     mm_jpeg_ops_t              mJpegHandle;
+    mm_jpeg_mpo_ops_t          mMpoHandle;
     uint32_t                   mJpegClientHandle;
     uint32_t                   mJpegSessionId;
     cam_jpeg_metadata_t        mJpegMetadata;
 
     uint32_t                   m_bThumbnailNeeded;
     QCamera3StreamMem          *mOutputMem;
-    QCamera3ReprocessChannel *  m_pReprocChannel;
+    int8_t                      m_ppChannelCnt;
+    QCamera3ReprocessChannel *  m_pReprocChannel[2];
+    bool                        m_bMpoEnabled;
+    uint32_t             mReprocessFrameNum;
+    List<ReprocessBuffer> mReprocessNode;
 
     QCameraQueue m_inputPPQ;            // input queue for postproc
     QCameraQueue m_inputFWKPPQ;         // framework input queue for postproc
+    QCameraQueue m_inputMultiReprocQ;
     QCameraQueue m_ongoingPPQ;          // ongoing postproc queue
     QCameraQueue m_inputJpegQ;          // input jpeg job queue
     QCameraQueue m_ongoingJpegQ;        // ongoing jpeg job queue
@@ -184,7 +251,17 @@ private:
     QCameraQueue m_jpegSettingsQ;       // input jpeg setting queue
     QCameraCmdThread m_dataProcTh;      // thread for data processing
 
+    QCameraPerfLockMgr mPerfLockMgr;
     pthread_mutex_t mReprocJobLock;
+    pthread_mutex_t mHDRJobLock;
+    pthread_cond_t mProcChStopCond;
+    QCameraHALPPManager *m_pHalPPManager; // HAL Post process block
+    mm_dimension max_pic_size;
+public:
+    bool mChannelStop;
+    static List<qcamera_hal3_mpo_data_t> mMpoInputData;
+    List<uint32_t> mFreeJpegSessions;
+    List<uint32_t> mCancelpprocReqFrameList;
 };
 
 }; // namespace qcamera
