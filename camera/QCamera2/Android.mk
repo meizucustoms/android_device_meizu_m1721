@@ -92,7 +92,6 @@ ifeq ($(TARGET_USES_MEDIA_EXTENSIONS), true)
 LOCAL_CFLAGS += -DUSE_MEDIA_EXTENSIONS
 endif
 
-<<<<<<< HEAD
 #USE_DISPLAY_SERVICE from Android O onwards
 #to receive vsync event from display
 ifeq ($(call is-platform-sdk-version-at-least,26),true)
@@ -108,9 +107,7 @@ ifeq ($(call is-platform-sdk-version-at-least,28),true)
 LOCAL_CFLAGS += -DUSE_VENDOR_PROP
 endif
 
-=======
-LOCAL_CFLAGS += -std=c++11 -std=gnu++0x -Wno-error
->>>>>>> e7ded62e (m1721: compile camera with -Wno-error)
+LOCAL_CFLAGS += -Wno-error
 #HAL 1.0 Flags
 LOCAL_CFLAGS += -DDEFAULT_DENOISE_MODE_ON -DHAL3 -DQCAMERA_REDEFINE_LOG
 LOCAL_LDFLAGS += -Wl,--wrap=open -Wl,--wrap=close -Wl,--wrap=socket -Wl,--wrap=pipe -Wl,--wrap=mmap -Wl,--wrap=__open_2
