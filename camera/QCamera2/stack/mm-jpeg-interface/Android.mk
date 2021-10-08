@@ -22,7 +22,7 @@ ifneq ($(TARGET_KERNEL_VERSION),$(filter $(TARGET_KERNEL_VERSION),3.18 4.4 4.9))
   endif
 endif
 
-LOCAL_HEADER_LIBRARIES := generated_kernel_headers
+LOCAL_HEADER_LIBRARIES += generated_kernel_headers
 
 LIB2D_ROTATION=false
 

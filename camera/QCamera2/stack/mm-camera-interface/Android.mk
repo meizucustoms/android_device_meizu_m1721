@@ -64,7 +64,7 @@ LOCAL_MODULE           := libmmcamera_interface
 
 LOCAL_SHARED_LIBRARIES := libdl libcutils liblog \
                           libhal_dbg
-LOCAL_HEADER_LIBRARIES := generated_kernel_headers
+LOCAL_HEADER_LIBRARIES += generated_kernel_headers
 
 LOCAL_MODULE_TAGS := optional
 LOCAL_VENDOR_MODULE := true
