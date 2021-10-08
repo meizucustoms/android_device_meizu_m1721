@@ -34,6 +34,9 @@ TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a53
 # Build
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 
+# Camera
+TARGET_SUPPORT_HAL1 := false
+
 # Device Properties
 TARGET_ODM_PROP := $(DEVICE_PATH)/odm.prop
 TARGET_PRODUCT_PROP := $(DEVICE_PATH)/product.prop
