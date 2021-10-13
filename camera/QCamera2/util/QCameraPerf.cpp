@@ -183,20 +183,6 @@ static int32_t perfLockParamsTakeSnapshotQM2150[] = {
     MPCTLV3_MIN_ONLINE_CPU_CLUSTER_BIG,     0x4
 };
 
-static int32_t perfLockParamsTakeSnapshotQCM6125[] = {
-    // Disable power collapse
-    MPCTLV3_ALL_CPUS_PWR_CLPS_DIS,          0x1,
-    MPCTLV3_MIN_FREQ_CLUSTER_BIG_CORE_0,    0x613,
-    MPCTLV3_MIN_ONLINE_CPU_CLUSTER_BIG,     0x4
-};
-
-static int32_t perfLockParamsTakeSnapshotQCS6125[] = {
-    // Disable power collapse
-    MPCTLV3_ALL_CPUS_PWR_CLPS_DIS,          0x1,
-    MPCTLV3_MIN_FREQ_CLUSTER_BIG_CORE_0,    0x613,
-    MPCTLV3_MIN_ONLINE_CPU_CLUSTER_BIG,     0x4
-};
-
 static int32_t perfLockParamsBokehSnapshot[] = {
     #ifndef TARGET_MSM8996
     // Make sure big cluster is online
@@ -455,18 +441,6 @@ QCameraPerfLock* QCameraPerfLock::create(
                         sizeof(perfLockParamsTakeSnapshotQM2150));
                 mPerfLockInfo[perfLockType].perfLockParamsCount =
                 sizeof(perfLockParamsTakeSnapshotQM2150)/sizeof(int32_t);
-            } else if((perfLockType == PERF_LOCK_TAKE_SNAPSHOT) &&
-                       (QCameraCommon::is_target_QCM6125())) {
-                memcpy (perfLockParamsTakeSnapshot,perfLockParamsTakeSnapshotQCM6125,
-                        sizeof(perfLockParamsTakeSnapshotQCM6125));
-                mPerfLockInfo[perfLockType].perfLockParamsCount =
-                sizeof(perfLockParamsTakeSnapshotQCM6125)/sizeof(int32_t);
-            } else if((perfLockType == PERF_LOCK_TAKE_SNAPSHOT) &&
-                       (QCameraCommon::is_target_QCS6125())) {
-                memcpy (perfLockParamsTakeSnapshot,perfLockParamsTakeSnapshotQCS6125,
-                        sizeof(perfLockParamsTakeSnapshotQCS6125));
-                mPerfLockInfo[perfLockType].perfLockParamsCount =
-                sizeof(perfLockParamsTakeSnapshotQCS6125)/sizeof(int32_t);
            } else if ((perfLockType == PERF_LOCK_TAKE_SNAPSHOT) &&
                        (QCameraCommon::is_target_SDM429())) {
                 memcpy (perfLockParamsTakeSnapshot,perfLockParamsTakeSnapshotSDM429,

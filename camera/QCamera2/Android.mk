@@ -4,6 +4,9 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
+LOCAL_COPY_HEADERS_TO := qcom/camera
+LOCAL_COPY_HEADERS := QCameraFormat.h
+
 ifneq ($(call is-platform-sdk-version-at-least,28),true)
 IS_QC_BOKEH_SUPPORTED := true
 else
@@ -39,10 +42,9 @@ LOCAL_SRC_FILES += \
         HAL3/QCamera3CropRegionMapper.cpp \
         HAL3/QCamera3StreamMem.cpp
 
-LOCAL_CFLAGS := -Wall -Wextra -Werror -Wno-unused-parameter -Wno-unused-variable -Wno-error
+LOCAL_CFLAGS := -Wall -Wextra -Werror
 LOCAL_CFLAGS += -DFDLEAK_FLAG
 LOCAL_CFLAGS += -DMEMLEAK_FLAG
-
 #HAL 1.0 source
 
 ifeq ($(TARGET_SUPPORT_HAL1),false)
@@ -94,9 +96,9 @@ endif
 ifeq ($(call is-platform-sdk-version-at-least,26),true)
 USE_DISPLAY_SERVICE := true
 LOCAL_CFLAGS += -DUSE_DISPLAY_SERVICE
-LOCAL_CFLAGS += -std=c++14 -std=gnu++1z
+LOCAL_CFLAGS += -std=c++11 -std=gnu++1y
 else
-LOCAL_CFLAGS += -std=c++14 -std=gnu++1z
+LOCAL_CFLAGS += -std=c++11 -std=gnu++0x
 endif
 
 #Android P onwards we use vendor prefix
@@ -104,7 +106,6 @@ ifeq ($(call is-platform-sdk-version-at-least,28),true)
 LOCAL_CFLAGS += -DUSE_VENDOR_PROP
 endif
 
-LOCAL_CFLAGS += -Wno-error
 #HAL 1.0 Flags
 LOCAL_CFLAGS += -DDEFAULT_DENOISE_MODE_ON -DHAL3 -DQCAMERA_REDEFINE_LOG
 LOCAL_LDFLAGS += -Wl,--wrap=open -Wl,--wrap=close -Wl,--wrap=socket -Wl,--wrap=pipe -Wl,--wrap=mmap -Wl,--wrap=__open_2
@@ -118,8 +119,8 @@ LOCAL_C_INCLUDES := \
         $(LOCAL_PATH)/stack/mm-camera-interface/inc \
         $(LOCAL_PATH)/util \
         $(LOCAL_PATH)/HAL3 \
-        $(call project-path-for,qcom-media)/libstagefrighthw \
-        $(call project-path-for,qcom-media)/mm-core/inc \
+        hardware/qcom/media/libstagefrighthw \
+        hardware/qcom/media/mm-core/inc \
         $(TARGET_OUT_HEADERS)/mm-camera-lib/cp/prebuilt
 
 ifneq (,$(filter $(TRINKET),$(TARGET_BOARD_PLATFORM)))
@@ -127,17 +128,12 @@ LOCAL_CFLAGS += -DTARGET_TRINKET
 endif
 
 ifneq ($(TARGET_KERNEL_VERSION),$(filter $(TARGET_KERNEL_VERSION),3.18 4.4 4.9))
-  ifneq ($(LIBION_HEADER_PATH_WRAPPER), )
-    include $(LIBION_HEADER_PATH_WRAPPER)
-    LOCAL_C_INCLUDES += $(LIBION_HEADER_PATHS)
-  else
-    LOCAL_C_INCLUDES += \
-            system/core/libion/kernel-headers \
-            system/core/libion/include
-  endif
+LOCAL_C_INCLUDES += \
+        system/core/libion/kernel-headers \
+        system/core/libion/include
 endif
 
-LOCAL_HEADER_LIBRARIES += media_plugin_headers
+LOCAL_HEADER_LIBRARIES := media_plugin_headers
 LOCAL_HEADER_LIBRARIES += libandroid_sensor_headers
 LOCAL_HEADER_LIBRARIES += libcutils_headers
 LOCAL_HEADER_LIBRARIES += libsystem_headers
@@ -145,10 +141,11 @@ LOCAL_HEADER_LIBRARIES += libhardware_headers
 
 #HAL 1.0 Include paths
 LOCAL_C_INCLUDES += \
-        $(LOCAL_PATH)/HAL
+        hardware/qcom/camera/QCamera2/HAL
 
 ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
-LOCAL_HEADER_LIBRARIES += generated_kernel_headers
+LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
+LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 endif
 ifeq ($(TARGET_TS_MAKEUP),true)
 LOCAL_CFLAGS += -DTARGET_TS_MAKEUP
@@ -170,7 +167,9 @@ LOCAL_CFLAGS += -DUSE_CAMERA_METABUFFER_UTILS
 
 #LOCAL_STATIC_LIBRARIES := libqcamera2_util
 LOCAL_C_INCLUDES += \
-        $(call project-path-for,qcom-display)/libqservice
+        $(TARGET_OUT_HEADERS)/qcom/display
+LOCAL_C_INCLUDES += \
+        hardware/qcom/display/libqservice
 LOCAL_SHARED_LIBRARIES := liblog libhardware libutils libcutils libdl libsync
 LOCAL_SHARED_LIBRARIES += libmmcamera_interface libmmjpeg_interface libui libcamera_metadata
 LOCAL_SHARED_LIBRARIES += libqdMetaData libqservice libbinder
@@ -184,10 +183,7 @@ LOCAL_SHARED_LIBRARIES += libdualcameraddm
 LOCAL_CFLAGS += -DENABLE_QC_BOKEH
 endif
 ifeq ($(USE_DISPLAY_SERVICE),true)
-LOCAL_SHARED_LIBRARIES += android.frameworks.displayservice@1.0 libhidlbase libhidltransport
-  ifneq ($(filter P% p% Q% q%,$(TARGET_PLATFORM_VERSION)),)
-    LOCAL_SHARED_LIBRARIES += libhidltransport
-  endif
+LOCAL_SHARED_LIBRARIES += android.frameworks.displayservice@1.0 android.hidl.base@1.0 libhidlbase libhidltransport
 else
 LOCAL_SHARED_LIBRARIES += libgui
 endif
@@ -202,28 +198,16 @@ ifneq (,$(filter $(TRINKET) msm8937_32go-userdebug, $(TARGET_BOARD_PLATFORM)))
 LOCAL_CFLAGS += -DSUPPORT_ONLY_HAL3
 endif
 
-ifneq (,$(filter $(strip $(TARGET_KERNEL_VERSION)),4.14 4.19))
-    ifeq ($(TARGET_BOARD_PLATFORM), sdm660)
-        LOCAL_CFLAGS += -DSUPPORT_ONLY_HAL3
-    endif
-endif
-
 LOCAL_STATIC_LIBRARIES := android.hardware.camera.common@1.0-helper
-LOCAL_HEADER_LIBRARIES += display_headers
-LOCAL_HEADER_LIBRARIES += camera_common_headers
+
 
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_MODULE := camera.$(TARGET_BOARD_PLATFORM)
-LOCAL_VENDOR_MODULE := true
+LOCAL_MODULE_PATH_32 := $(TARGET_OUT_VENDOR)/lib
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_32_BIT_ONLY := $(BOARD_QTI_CAMERA_32BIT_ONLY)
 include $(BUILD_SHARED_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := camera_common_headers
-LOCAL_EXPORT_C_INCLUDE_DIRS := $(LOCAL_PATH)/stack/common
-include $(BUILD_HEADER_LIBRARY)
 
 include $(call first-makefiles-under,$(LOCAL_PATH))
 endif

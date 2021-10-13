@@ -338,8 +338,8 @@ bool QCameraCommon::needHAL1Support()
 #endif
 
 #ifndef HAS_LOW_RAM
-     // QM215, QM2150, QCM6125, QCS6125 non-GO supports only HAL3
-     if ((is_target_QM215() || is_target_QM2150() || is_target_QCM6125() || is_target_QCS6125())) {
+     // QM215, QM2150 non-GO supports only HAL3
+     if ((is_target_QM215() || is_target_QM2150())) {
          LOGI("ONLY HAL3 SUPPORTED");
          return FALSE;
      }
@@ -412,38 +412,6 @@ bool QCameraCommon::is_target_QM215()
 bool QCameraCommon::is_target_QM2150()
 {
     return (parseHWID() == 436);
-}
-
-/*===========================================================================
- * FUNCTION   : is_target_QCM6125
- *
- * DESCRIPTION: Function to check whether target is QCM6125  or not.
- *
- * PARAMETERS : None
- *
- * RETURN     : TRUE -- QCM6125 target.
- *              FALSE -- Some other target.
- *==========================================================================*/
-
-bool QCameraCommon::is_target_QCM6125()
-{
-    return (parseHWID() == 467);
-}
-
-/*===========================================================================
- * FUNCTION   : is_target_QCS6125
- *
- * DESCRIPTION: Function to check whether target is QCS6125  or not.
- *
- * PARAMETERS : None
- *
- * RETURN     : TRUE -- QCS6125 target.
- *              FALSE -- Some other target.
- *==========================================================================*/
-
-bool QCameraCommon::is_target_QCS6125()
-{
-    return (parseHWID() == 468);
 }
 
 /*===========================================================================

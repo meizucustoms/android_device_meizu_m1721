@@ -43,8 +43,6 @@
 #define IOCTL_H <SYSTEM_HEADER_PREFIX/ioctl.h>
 #include IOCTL_H
 
-#define EXTRA_ENTRY 6
-
 // Camera dependencies
 #include "mm_camera_dbg.h"
 #include "mm_camera_interface.h"
@@ -2732,15 +2730,7 @@ uint8_t get_num_of_cameras()
     cfg.cfgtype = CFG_SINIT_PROBE_WAIT_DONE;
     cfg.cfg.setting = NULL;
     if (ioctl(sd_fd, VIDIOC_MSM_SENSOR_INIT_CFG, &cfg) < 0) {
-        LOGI("failed...Camera Daemon may not up so try again");
-        for(i = 0; i < (MM_CAMERA_EVT_ENTRY_MAX + EXTRA_ENTRY); i++) {
-            if (ioctl(sd_fd, VIDIOC_MSM_SENSOR_INIT_CFG, &cfg) < 0) {
-                LOGI("failed...Camera Daemon may not up so try again");
-                continue;
-            }
-            else
-                break;
-        }
+        LOGE("failed");
     }
     close(sd_fd);
 #endif
@@ -2789,7 +2779,7 @@ uint8_t get_num_of_cameras()
                 MEDIA_ENT_T_DEVNODE_V4L)) {
                 strlcpy(g_cam_ctrl.video_dev_name[num_cameras],
                      entity.name, sizeof(entity.name));
-                LOGE("dev_info[id=%d,name='%s']\n",
+                LOGI("dev_info[id=%d,name='%s']\n",
                     (int)num_cameras, g_cam_ctrl.video_dev_name[num_cameras]);
                 num_cameras++;
                 break;
@@ -2808,7 +2798,7 @@ uint8_t get_num_of_cameras()
     sort_camera_info(g_cam_ctrl.num_cam);
     /* unlock the mutex */
     pthread_mutex_unlock(&g_intf_lock);
-    LOGE("num_cameras=%d\n", (int)g_cam_ctrl.num_cam);
+    LOGI("num_cameras=%d\n", (int)g_cam_ctrl.num_cam);
     return(uint8_t)g_cam_ctrl.num_cam;
 }
 

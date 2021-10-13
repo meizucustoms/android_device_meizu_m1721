@@ -737,7 +737,7 @@ int32_t QCameraFOVControl::translateInputParams(
             mFovControlParm.zoom_valid = 1;
             mFovControlParm.zoom_value = userZoom;
             useCropRegion = true;
-            LOGH("user zoomRatio: %f", ratio);
+            LOGD("user zoomRatio: %f", ratio);
         }
 
         // Translate zoom in HAL1
@@ -1626,7 +1626,7 @@ void QCameraFOVControl::generateFovControlResult()
             (mFovControlResult.activeCameras & camWide) ? "Active" : "LPM");
     LOGD("Tele camera status : %s",
             (mFovControlResult.activeCameras & camTele) ? "Active" : "LPM");
-    LOGH("transition state: %s", ((mFovControlData.camState == STATE_WIDE) ? "STATE_WIDE" :
+    LOGD("transition state: %s", ((mFovControlData.camState == STATE_WIDE) ? "STATE_WIDE" :
             ((mFovControlData.camState == STATE_TELE) ? "STATE_TELE" : "STATE_TRANSITION" )));
     LOGD("OIS mode: %s", ((mFovControlResult.oisMode == OIS_MODE_ACTIVE) ? "ACTIVE" :
             ((mFovControlResult.oisMode == OIS_MODE_HOLD) ? "HOLD" : "INACTIVE")));

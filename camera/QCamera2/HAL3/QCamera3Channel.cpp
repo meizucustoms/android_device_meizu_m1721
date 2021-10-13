@@ -1,4 +1,4 @@
-/* Copyright (c) 2012-2020, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are
@@ -39,7 +39,6 @@
 #include <stdlib.h>
 #include "hardware/gralloc.h"
 #include <utils/Timers.h>
-#include <sys/stat.h>
 
 // Camera dependencies
 #include "QCamera3Channel.h"
@@ -897,14 +896,12 @@ QCamera3ProcessingChannel::QCamera3ProcessingChannel(uint32_t cam_handle,
             mJpegMemory(numBuffers, true, isSecureMode()),
             mCamera3Stream(stream),
             mAllocDone(FALSE),
-            m_bSkipConfig(false),
             m_bQuadraChannel(false)
 {
     char prop[PROPERTY_VALUE_MAX];
     property_get("persist.vendor.debug.sf.showfps", prop, "0");
     mDebugFPS = (uint8_t) atoi(prop);
     mReqFrameNumList.clear();
-    mAllocThread = 0;
 
     int32_t rc = m_postprocessor.init(&mMemory);
     if (rc != 0) {
@@ -4030,14 +4027,7 @@ int32_t QCamera3YUVChannel::request(buffer_handle_t *buffer,
         ppInfo.offlinePpFlag = false;
         if ((mBypass) && !pInputBuffer &&
             !(hal_obj->m_bQuadraCfaRequest && m_bQuadraChannel)) {
-            if (QCAMERA3_VENDOR_STREAM_CONFIGURATION_PP_DISABLED_MODE == hal_obj->mOpMode)
-            {
-                ppInfo.offlinePpFlag = false;
-            }
-            else
-            {
-                ppInfo.offlinePpFlag = needsFramePostprocessing(metadata) || m_bZSL;
-            }
+            ppInfo.offlinePpFlag = needsFramePostprocessing(metadata) || m_bZSL;
             ppInfo.output = buffer;
             mOfflinePpInfoList.push_back(ppInfo);
         }
