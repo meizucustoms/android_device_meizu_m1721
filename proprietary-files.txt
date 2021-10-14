@@ -314,9 +314,8 @@ vendor/lib/libflash_i2c.so
 # Camera sensors - from LA.UM.9.6.2.r1-04100-89xx.0
 vendor/lib/libmmcamera_imx362.so
 vendor/lib/libmmcamera_s5k2l7.so
-
-# Camera sensors - from Flyme 6.1.4.3G (Flyme_6.0.1528193190)
 vendor/lib/libmmcamera_s5k3p8sp03.so
+vendor/lib/libmmcamera_s5k4e8.so
 
 # Charger - from LA.UM.9.6.2.r1-04200-89xx.0
 vendor/bin/hvdcp_opti|d160d2193640a21b7eff70425bcdbfc775063cd5
