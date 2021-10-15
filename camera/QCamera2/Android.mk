@@ -160,15 +160,8 @@ endif
 
 LOCAL_CFLAGS += -DUSE_CAMERA_METABUFFER_UTILS
 
-#LOCAL_STATIC_LIBRARIES := libqcamera2_util
 LOCAL_C_INCLUDES += \
-<<<<<<< HEAD
-        $(TARGET_OUT_HEADERS)/qcom/display
-LOCAL_C_INCLUDES += \
-        hardware/qcom/display/libqservice
-=======
         $(call project-path-for,qcom-display)/libqservice
->>>>>>> 8d72a938 (m1721: camera: Switch to display_headers lib include)
 LOCAL_SHARED_LIBRARIES := liblog libhardware libutils libcutils libdl libsync
 LOCAL_SHARED_LIBRARIES += libmmcamera_interface libmmjpeg_interface libui libcamera_metadata
 LOCAL_SHARED_LIBRARIES += libqdMetaData libqservice libbinder
