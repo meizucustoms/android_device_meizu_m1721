@@ -892,6 +892,15 @@ int QCamera2HardwareInterface::pre_take_picture(struct camera_device *device)
     return ret;
 }
 
+void QCamera2HardwareInterface::debugDump() {
+    LOGE("Camera HAL information Begin\n");
+    LOGE("Camera ID: %d\n", getCameraId());
+    LOGE("StoreMetaDataInFrame: %d\n", mStoreMetaDataInFrame);
+    LOGE("Configuration: %s", mParameters.dump().string());
+    LOGE("State Information: %s", m_stateMachine.dump().string());
+    LOGE("Camera HAL information End\n");
+}
+
 /*===========================================================================
  * FUNCTION   : take_picture
  *
@@ -920,6 +929,9 @@ int QCamera2HardwareInterface::take_picture(struct camera_device *device)
         hw->m_perfLock.lock_acq();
     }
     qcamera_api_result_t apiResult;
+
+    LOGE("dumping debug information (takePicture)");
+    hw->debugDump();
 
    /** Added support for Retro-active Frames:
      *  takePicture() is called before preparing Snapshot to indicate the

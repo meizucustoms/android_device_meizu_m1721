@@ -253,6 +253,8 @@ public:
     static int prepare_preview(struct camera_device *);
     static int prepare_snapshot(struct camera_device *device);
 
+    void debugDump();
+
 public:
     QCamera2HardwareInterface(uint32_t cameraId);
     virtual ~QCamera2HardwareInterface();
