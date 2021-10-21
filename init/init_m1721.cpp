@@ -48,10 +48,24 @@ void property_override(char const prop[], char const value[], bool add = true)
 
 void vendor_load_properties()
 {
+    // Dalvik
     property_override("dalvik.vm.heapstartsize", "8m");
     property_override("dalvik.vm.heapgrowthlimit", "192m");
     property_override("dalvik.vm.heapsize", "512m");
     property_override("dalvik.vm.heaptargetutilization", "0.6");
     property_override("dalvik.vm.heapminfree", "8m");
     property_override("dalvik.vm.heapmaxfree", "16m");
+
+    // HWUI
+    property_override("ro.hwui.texture_cache_size", "72");
+    property_override("ro.hwui.layer_cache_size", "48");
+    property_override("ro.hwui.r_buffer_cache_size", "8");
+    property_override("ro.hwui.path_cache_size", "32");
+    property_override("ro.hwui.gradient_cache_size", "1");
+    property_override("ro.hwui.drop_shadow_cache_size", "6");
+    property_override("ro.hwui.texture_cache_flushrate", "0.4");
+    property_override("ro.hwui.text_small_cache_width", "1024");
+    property_override("ro.hwui.text_small_cache_height", "1024");
+    property_override("ro.hwui.text_large_cache_width", "2048");
+    property_override("ro.hwui.text_large_cache_height", "1024");
 }
