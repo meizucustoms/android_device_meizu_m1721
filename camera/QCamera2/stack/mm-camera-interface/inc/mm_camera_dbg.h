@@ -75,7 +75,7 @@ if (g_cam_log[module][level]) {                                  \
     CLOGx(module, CAM_GLBL_DBG_INFO, fmt, ##args)
 #undef CLOGD
 #define CLOGD(module, fmt, args...)                \
-    CLOGx(module, CAM_GLBL_DBG_DEBUG, fmt, ##args)
+    CLOGx(module, CAM_GLBL_DBG_WARN, fmt, ##args)
 #undef CLOGL
 #define CLOGL(module, fmt, args...)                \
     CLOGx(module, CAM_GLBL_DBG_LOW, fmt, ##args)
@@ -127,7 +127,7 @@ void mm_camera_debug_log(const cam_modules_t module,
 #undef LOGE
 #define LOGE(fmt, args...) ALOGE(fmt, ##args)
 #undef LOGI
-#define LOGI(fmt, args...) ALOGV(fmt, ##args)
+#define LOGI(fmt, args...) ALOGI(fmt, ##args)
 
 #endif
 

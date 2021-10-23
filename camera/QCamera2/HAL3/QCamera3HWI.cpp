@@ -5072,6 +5072,56 @@ void QCamera3HardwareInterface::dump(int fd)
     return;
 }
 
+void QCamera3HardwareInterface::dump()
+{
+    pthread_mutex_lock(&mMutex);
+    LOGE("\n Camera HAL3 information Begin \n");
+
+    LOGE("\nNumber of pending requests: %zu \n",
+        mPendingRequestsList.size());
+    LOGE("-------+-------------------+-------------+----------+---------------------\n");
+    LOGE(" Frame | Number of Buffers |   Req Id:   | Blob Req | Input buffer present\n");
+    LOGE("-------+-------------------+-------------+----------+---------------------\n");
+    for(pendingRequestIterator i = mPendingRequestsList.begin();
+            i != mPendingRequestsList.end(); i++) {
+        LOGE(" %5d | %17d | %11d | %8d | %p \n",
+        i->frame_number, i->num_buffers, i->request_id, i->blob_request,
+        i->input_buffer);
+    }
+    LOGE("\nPending buffer map: Number of buffers: %u\n",
+                mPendingBuffersMap.get_num_overall_buffers());
+    LOGE("-------+------------------\n");
+    LOGE(" Frame | Stream type mask \n");
+    LOGE("-------+------------------\n");
+    for(auto &req : mPendingBuffersMap.mPendingBuffersInRequest) {
+        for(auto &j : req.mPendingBufferList) {
+            QCamera3Channel *channel = (QCamera3Channel *)(j.stream->priv);
+            LOGE(" %5d | %11d \n",
+                    req.frame_number, channel->getStreamTypeMask());
+        }
+    }
+    LOGE("-------+------------------\n");
+
+    LOGE("\nPending frame drop list: %zu\n",
+        mPendingFrameDropList.size());
+    LOGE("-------+-----------\n");
+    LOGE(" Frame | Stream ID \n");
+    LOGE("-------+-----------\n");
+    for(List<PendingFrameDropInfo>::iterator i = mPendingFrameDropList.begin();
+        i != mPendingFrameDropList.end(); i++) {
+        LOGE(" %5d | %9d \n",
+            i->frame_number, i->stream_ID);
+    }
+    LOGE("-------+-----------\n");
+
+    LOGE("\n Camera HAL3 information End \n");
+
+    /* use dumpsys media.camera as trigger to send update debug level event */
+    mUpdateDebugLevel = true;
+    pthread_mutex_unlock(&mMutex);
+    return;
+}
+
 /*===========================================================================
  * FUNCTION   : flush
  *
