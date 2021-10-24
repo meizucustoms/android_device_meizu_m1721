@@ -5,13 +5,13 @@ service vendor.fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.
     disabled
     user system
     group system input uhid
-    writepid /dev/cpuset/system-background/tasks
+    task_profiles ServiceCapacityLow
 
 service vendor.gx_fpd /vendor/bin/goodixfingerprintd
     disabled
     user system
     group system
-    writepid /dev/cpuset/system-background/tasks
+    task_profiles ServiceCapacityLow
 
 on boot
     # Fingerprint Permissions
