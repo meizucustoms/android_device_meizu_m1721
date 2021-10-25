@@ -220,6 +220,7 @@ public:
     void orchestrateNotify(camera3_notify_msg_t *notify_msg);
 
     void dump(int fd);
+    void dump();
     int flushPerf();
 
     int setFrameParameters(camera3_capture_request_t *request,
