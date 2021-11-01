@@ -498,6 +498,8 @@ const char QCameraParameters::KEY_TS_MAKEUP_WHITEN[] = "tsmakeup_whiten";
 const char QCameraParameters::KEY_TS_MAKEUP_CLEAN[] = "tsmakeup_clean";
 #endif
 
+const char QCameraParameters::KEY_MZ_FRAMEBUFFER_MODE[] = "mzfb-enable";
+
 //KEY to share HFR batch size with video encoder.
 const char QCameraParameters::KEY_QC_VIDEO_BATCH_SIZE[] = "video-batch-size";
 
@@ -1719,6 +1721,10 @@ int32_t QCameraParameters::setVideoSize(const QCameraParameters& params)
     } else {
         params.getVideoSize(&width, &height);
     }
+
+    bool is4k = width == 3840 && height == 2160;
+
+    set4k_video_hint(is4k);
 
     // Validate the video size
     for (size_t i = 0; i < m_pCapability->video_sizes_tbl_cnt; ++i) {
@@ -5342,6 +5348,7 @@ int32_t QCameraParameters::updateParameters(const String8& p,
     setVideoBatchSize();
     setLowLightCapture();
 
+    if ((rc = setMzFbMode(params)))                     final_rc = rc;
     if ((rc = updateFlash(false)))                      final_rc = rc;
 #ifdef TARGET_TS_MAKEUP
     if ((rc = setTsMakeup(params)))                     final_rc = rc;
@@ -10747,6 +10754,16 @@ uint8_t QCameraParameters::getMaxUnmatchedFramesInQueue()
     return (uint8_t)(m_pCapability->min_num_pp_bufs);
 }
 
+int32_t QCameraParameters::set4k_video_hint(int32_t value) {
+    LOGH("is 4k video = %d", value);
+
+    if (ADD_SET_PARAM_ENTRY_TO_BATCH(m_pParamBuf, CAM_INTF_MEIZU_IS_4K_VIDEO, value)) {
+        return BAD_VALUE;
+    }
+
+    return NO_ERROR;
+}
+
 /*===========================================================================
  * FUNCTION   : setRecordingHintValue
  *
@@ -14721,6 +14738,44 @@ void QCameraParameters::setLowLightCapture()
     if (!m_LLCaptureEnabled) {
         m_LowLightLevel = CAM_LOW_LIGHT_OFF;
     }
+}
+
+/*===========================================================================
+ * FUNCTION   : setMzFbMode
+ *
+ * DESCRIPTION: Set Meizu framebuffer mode
+ *==========================================================================*/
+int32_t QCameraParameters::setMzFbMode(const QCameraParameters& params) {
+    int32_t rc = NO_ERROR;
+    int32_t fbMode;
+
+    if (m_pParamBuf == NULL)
+        return -ENODEV;
+
+    const char *mode = params.get(KEY_MZ_FRAMEBUFFER_MODE);
+    if (mode != NULL) {
+        fbMode = atoi(mode);
+    } else {
+        fbMode = -1;
+    }
+
+    if (initBatchUpdate(m_pParamBuf) < 0) {
+        LOGE("Failed to initialize group update table");
+        return BAD_TYPE;
+    }
+
+    if (ADD_SET_PARAM_ENTRY_TO_BATCH(m_pParamBuf,
+            CAM_INTF_MEIZU_FRAMEBUFFER_MODE, fbMode)) {
+        LOGE("%s:Failed to update table");
+        return BAD_VALUE;
+    }
+
+    rc = commitSetBatch();
+    if (rc != NO_ERROR) {
+        LOGE("Failed to set stream info parm");
+        return rc;
+    }
+    return rc;
 }
 
 /*===========================================================================
