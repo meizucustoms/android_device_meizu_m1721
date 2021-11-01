@@ -910,13 +910,9 @@ typedef struct {
     INCLUDE(CAM_INTF_META_SNAP_CROP_INFO_CPP,           cam_stream_crop_info_t,   1);
     INCLUDE(CAM_INTF_META_DCRF,                         cam_dcrf_result_t,        1);
 
-    /* Meizu */
-    INCLUDE(CAM_INTF_MEIZU_RESERVED_0,                  int32_t,                  1);
-    INCLUDE(CAM_INTF_MEIZU_RESERVED_1,                  int32_t,                  1);
-    INCLUDE(CAM_INTF_MEIZU_RESERVED_2,                  int64_t,                  1);
-
     /* HAL1 specific */
     /* read only */
+    INCLUDE(CAM_INTF_MEIZU_UNKNOWN_0,                   cam_intf_parm_manual_3a_t,   1);
     INCLUDE(CAM_INTF_PARM_QUERY_FLASH4SNAP,             int32_t,                     1);
     INCLUDE(CAM_INTF_PARM_EXPOSURE,                     int32_t,                     1);
     INCLUDE(CAM_INTF_PARM_SHARPNESS,                    int32_t,                     1);
@@ -941,7 +937,7 @@ typedef struct {
     INCLUDE(CAM_INTF_PARM_TEMPORAL_DENOISE,             cam_denoise_param_t,         1);
     INCLUDE(CAM_INTF_PARM_HISTOGRAM,                    int32_t,                     1);
     INCLUDE(CAM_INTF_PARM_ASD_ENABLE,                   int32_t,                     1);
-    INCLUDE(CAM_INTF_MEIZU_RESERVED_3,                  int32_t,                     1);
+    INCLUDE(CAM_INTF_MEIZU_IS_4K_VIDEO,                 int32_t,                     1);
     INCLUDE(CAM_INTF_PARM_RECORDING_HINT,               int32_t,                     1);
     INCLUDE(CAM_INTF_PARM_HDR,                          cam_exp_bracketing_t,        1);
     INCLUDE(CAM_INTF_PARM_FRAMESKIP,                    int32_t,                     1);
@@ -973,7 +969,6 @@ typedef struct {
     INCLUDE(CAM_INTF_PARM_QUADRA_CFA,                   int32_t,                     1);
     INCLUDE(CAM_INTF_META_RAW,                          cam_dimension_t,             1);
     INCLUDE(CAM_INTF_META_STREAM_INFO_FOR_PIC_RES,      cam_stream_size_info_t,      1);
-
 
     /* HAL3 specific */
     INCLUDE(CAM_INTF_META_STREAM_INFO,                  cam_stream_size_info_t,      1);
@@ -1029,6 +1024,10 @@ typedef struct {
     INCLUDE(CAM_INTF_PARM_JPEG_SCALE_DIMENSION,         cam_dimension_t,             1);
     INCLUDE(CAM_INTF_META_FOCUS_DEPTH_INFO,             uint8_t,                     1);
     INCLUDE(CAM_INTF_PARM_HAL_BRACKETING_HDR,           cam_hdr_param_t,             1);
+
+    /* Flyme camera / ArcSoft */
+    INCLUDE(CAM_INTF_MEIZU_FRAMEBUFFER_MODE,            int32_t,                  1);
+    INCLUDE(CAM_INTF_MEIZU_UNKNOWN_1,                   int32_t,                  1);
 } metadata_data_t;
 
 /* Update clear_metadata_buffer() function when a new is_xxx_valid is added to
