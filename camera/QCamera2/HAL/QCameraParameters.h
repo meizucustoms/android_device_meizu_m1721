@@ -617,6 +617,8 @@ private:
     static const char KEY_TS_MAKEUP_WHITEN[];
     static const char KEY_TS_MAKEUP_CLEAN[];
 #endif
+    static const char KEY_MZ_FRAMEBUFFER_MODE[];
+
     //param key for HFR batch size
     static const char KEY_QC_VIDEO_BATCH_SIZE[];
     enum {
@@ -1046,6 +1048,8 @@ private:
     int32_t setCDSMode(int32_t cds_mode, bool initCommit);
     int32_t setEztune();
     void setLowLightCapture();
+    int32_t setMzFbMode(const QCameraParameters& params);
+    int set4k_video_hint(int32_t value);
     int setRecordingHintValue(int32_t value); // set local copy of video hint and send to server
                                               // no change in parameters value
     int32_t updateFlash(bool commitSettings);
