@@ -96,4 +96,7 @@ sed -i -e '$a\\    capabilities NET_BIND_SERVICE' "${DEVICE_BLOB_ROOT}"/vendor/e
 # Goodix
 sed -i "s|/system/etc/firmware|/vendor/firmware/gxf|g" "${DEVICE_BLOB_ROOT}"/vendor/lib64/libgf_ca.so
 
+# IMS
+"${PATCHELF}" --add-needed "libims-shim.so" "${DEVICE_BLOB_ROOT}"/system_ext/lib64/lib-imsvideocodec.so
+
 "${MY_DIR}/setup-makefiles.sh"
