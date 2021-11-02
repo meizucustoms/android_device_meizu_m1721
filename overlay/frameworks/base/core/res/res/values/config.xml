@@ -26,15 +26,56 @@
          when adapting to brighter or darker environments.  This parameter controls how quickly
          brightness changes occur in response to an observed change in light level that exceeds the
          hysteresis threshold. -->
+    <integer name="config_autoBrightnessBrighteningLightDebounce">2000</integer>
     <integer name="config_autoBrightnessDarkeningLightDebounce">4000</integer>
 
-    <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
-         The N entries of this array define N  1 zones as follows:
-         Zone 0:        0 <= LUX < array[0]
-         Zone 1:        array[0] <= LUX < array[1]
+    <!-- Initial light sensor event rate in milliseconds for automatic brightness control. This is
+         used for obtaining the first light sample when the device stops dozing.
+         Set this to -1 to disable this feature. -->
+    <integer name="config_autoBrightnessInitialLightSensorRate">0</integer>
+
+    <!-- Light sensor event rate in milliseconds for automatic brightness control. -->
+    <integer name="config_autoBrightnessLightSensorRate">500</integer>
+
+    <!-- The maximum range of gamma adjustment possible using the screen
+         auto-brightness adjustment setting. -->
+    <fraction name="config_autoBrightnessAdjustmentMaxGamma">200%</fraction>
+
+    <!-- Array of lux values to define the minimum brightness curve, which guarantees that any
+         brightness curve that dips below it is rejected by the system.
+         This prevents auto-brightness from setting the screen so dark as to prevent the user from
+         resetting or disabling it.
+         The values must be non-negative and strictly increasing, and correspond to the values in
+         the config_minimumBrightnessCurveNits array. -->
+    <array name="config_minimumBrightnessCurveLux">
+    </array>
+
+    <!-- Array of nits values to define the minimum brightness curve, which guarantees that any
+         brightness curve that dips below it is rejected by the system.
+         This should map lux to the absolute minimum nits that are still readable in that ambient
+         brightness.
+         The values must be non-negative and non-decreasing, and correspond to the values in the
+         config_minimumBrightnessCurveLux array. -->
+    <array name="config_minimumBrightnessCurveNits">
+    </array>
+
+
+
+    <!-- Array of light sensor lux values to define our levels for auto backlight brightness support.
+         The N entries of this array define N + 1 control points as follows:
+         (1-based arrays)
+         Point 1:            (0, value[1]):             lux <= 0
+         Point 2:     (level[1], value[2]):  0        < lux <= level[1]
+         Point 3:     (level[2], value[3]):  level[2] < lux <= level[3]
          ...
-         Zone N:        array[N - 1] <= LUX < array[N]
-         Zone N  1     array[N] <= LUX < infinity
+         Point N+1: (level[N], value[N+1]):  level[N] < lux
+         The control points must be strictly increasing.  Each control point
+         corresponds to an entry in the brightness backlight values arrays.
+         For example, if lux == level[1] (first element of the levels array)
+         then the brightness will be determined by value[2] (second element
+         of the brightness values array).
+         Spline interpolation is used to determine the auto-brightness
+         backlight values for lux levels between these control points.
          Must be overridden in platform specific overlays -->
      <integer-array name="config_autoBrightnessLevels">
         <item>2</item>
