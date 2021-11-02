@@ -121,6 +121,7 @@ service wcnss-service /vendor/bin/wcnss_service
     user system
     group system wifi radio
     oneshot
+    writepid /dev/cpuset/system-background/tasks
 
 on property:init.svc.surfaceflinger=stopped
     stop ppd
