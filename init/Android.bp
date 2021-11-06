@@ -19,7 +19,6 @@ cc_library_static {
     recovery_available: true,
     srcs: ["init_m1721.cpp"],
     include_dirs: [
-        "system/core/base/include",
         "system/core/init"
     ],
     shared_libs: [
