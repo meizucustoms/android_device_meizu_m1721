@@ -78,14 +78,27 @@ on post-fs
     write /dev/ipa 1
 
 on post-fs-data
-#Create folder for mm-qcamera-daemon
-mkdir /data/vendor/qcam/ 0770 camera camera
+    #Create folder for mm-qcamera-daemon
+    mkdir /data/vendor/qcam/ 0770 camera camera
+
+on property:sys.boot_completed=1
+    # Start remosaic daemon when boot completed
+    start remosaic_daemon
 
 #start camera server as daemon
 service vendor.qcamerasvr /vendor/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
+    writepid /dev/cpuset/system-background/tasks
+
+#start remosaic server as daemon
+service vendor.remosaic /vendor/bin/remosaic_daemon
+    user root
+    group root
+    oneshot
+    disabled
+    seclabel u:r:mm-qcamerad:s0
     writepid /dev/cpuset/system-background/tasks
 
 #Start up peripheral manager
@@ -181,3 +194,5 @@ service ppd /vendor/bin/mm-pp-dpps
     group system graphics
     socket pps stream 0660 system system
     disabled
+
+
