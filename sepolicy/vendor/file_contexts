@@ -21,9 +21,6 @@
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.0-service\.meizu_m1721                  u:object_r:hal_lineage_livedisplay_qti_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.meizu_m1721                        u:object_r:hal_lineage_touch_default_exec:s0
 
-# Ir
-/dev/lirc[0-9]*					u:object_r:lirc_device:s0
-
 # Legacy root dirs
 /firmware(/.*)?                                 u:object_r:firmware_file:s0
 /persist(/.*)?                                  u:object_r:mnt_vendor_file:s0
