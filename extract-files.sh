@@ -94,12 +94,7 @@ sed -i "s|libandroid.so|libcamshim.so|g" "${DEVICE_BLOB_ROOT}"/vendor/lib/libmmc
 sed -i -e '$a\\    capabilities NET_BIND_SERVICE' "${DEVICE_BLOB_ROOT}"/vendor/etc/init/android.hardware.gnss@2.1-service-qti.rc
 
 # Goodix
-"${PATCHELF}" --remove-needed "libunwind.so" "${DEVICE_BLOB_ROOT}"/vendor/bin/gx_fpd
-"${PATCHELF}" --remove-needed "libbacktrace.so" "${DEVICE_BLOB_ROOT}"/vendor/bin/gx_fpd
-"${PATCHELF}" --add-needed "libshims_gxfpd.so" "${DEVICE_BLOB_ROOT}"/vendor/bin/gx_fpd
-"${PATCHELF}" --add-needed "fakelogprint.so" "${DEVICE_BLOB_ROOT}"/vendor/bin/gx_fpd
-"${PATCHELF}" --add-needed "fakelogprint.so" "${DEVICE_BLOB_ROOT}"/vendor/lib64/hw/fingerprint.goodix.so
-"${PATCHELF}" --add-needed "fakelogprint.so" "${DEVICE_BLOB_ROOT}"/vendor/lib64/hw/gxfingerprint.default.so
+sed -i "s|/system/etc/firmware|/vendor/firmware/gxf|g" "${DEVICE_BLOB_ROOT}"/vendor/lib64/libgf_ca.so
 
 # Wcnss_service - libqmiservices_shim
 "${PATCHELF}" --add-needed "libqmiservices_shim.so" "${DEVICE_BLOB_ROOT}"/vendor/bin/wcnss_service
