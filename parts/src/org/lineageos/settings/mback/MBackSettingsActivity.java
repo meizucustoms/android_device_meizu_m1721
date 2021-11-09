@@ -17,12 +17,14 @@
 
 package org.lineageos.settings.mback;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class MBackSettingsActivity extends Activity {
+import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
+import com.android.settingslib.collapsingtoolbar.R;
+
+public class MBackSettingsActivity extends CollapsingToolbarBaseActivity {
 
     private MBackSettings mMBackSettingsFragment;
 
@@ -30,13 +32,11 @@ public class MBackSettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-
         Fragment fragment = getFragmentManager().findFragmentById(android.R.id.content);
         if (fragment == null) {
             mMBackSettingsFragment = new MBackSettings();
             getFragmentManager().beginTransaction()
-                    .add(android.R.id.content, mMBackSettingsFragment)
+                    .add(R.id.content_frame, mMBackSettingsFragment)
                     .commit();
         } else {
             mMBackSettingsFragment = (MBackSettings) fragment;
