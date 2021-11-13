@@ -1,6 +1,11 @@
 typeattribute mm-qcamerad binder_in_vendor_violators;
+
+# Allow binder use
 binder_use(mm-qcamerad);
 vndbinder_use(mm-qcamerad);
+
+# Add services
+add_service(mm-qcamerad, remosaic_daemon_service)
 
 allow mm-qcamerad sensorservice_service:service_manager find;
 
