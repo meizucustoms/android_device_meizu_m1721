@@ -17,3 +17,4 @@ allow init_fingerprint system_data_file:file r_file_perms;
 allow init_fingerprint goodixfingerprintd_data_file:dir { getattr read search open write rmdir remove_name };
 allow init_fingerprint goodixfingerprintd_data_file:file r_file_perms;
 allow init_fingerprint goodixfingerprintd_data_file:file { getattr unlink };
+allow init_fingerprint persist_file:dir search;
