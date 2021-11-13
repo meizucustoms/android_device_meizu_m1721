@@ -1,10 +1,9 @@
 typeattribute mm-qcamerad binder_in_vendor_violators;
 binder_use(mm-qcamerad);
+vndbinder_use(mm-qcamerad);
 
 allow mm-qcamerad sensorservice_service:service_manager find;
 
 allow mm-qcamerad system_server:unix_stream_socket { read write };
 
 allow mm-qcamerad diag_device:chr_file { ioctl open read write };
-
-allow mm-qcamerad vndbinder_device:chr_file { read write };
