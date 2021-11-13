@@ -35,6 +35,7 @@ r_dir_file(goodixfingerprintd, firmware_file)
 
 # Allow read/write property
 set_prop(goodixfingerprintd, system_prop)
+set_prop(goodixfingerprintd, debug_prop)
 
 # Ignore all logging requests
 dontaudit goodixfingerprintd storage_file:dir search;
