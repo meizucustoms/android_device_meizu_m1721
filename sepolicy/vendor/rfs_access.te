@@ -1,1 +1,2 @@
 allow rfs_access unlabeled:dir { search open read setattr };
+allow rfs_access persist_file:dir { read search };

@@ -6,5 +6,6 @@ type_transition tee system_data_file:{ dir file } goodixfingerprintd_data_file;
 # allow storing goodix data
 allow tee mnt_vendor_file:dir { search };
 allow tee system_data_file:dir create_dir_perms;
+allow tee persist_file:dir { read search };
 allow tee { persist_drm_file goodixfingerprintd_data_file fingerprintd_data_file }:dir create_dir_perms;
 allow tee { persist_drm_file goodixfingerprintd_data_file fingerprintd_data_file }:file create_file_perms;
