@@ -9,3 +9,6 @@ allow ueventd {
 }:file getattr;
 
 allow ueventd persist_file:dir { read search };
+
+# WCNSS firmware load
+allow ueventd persist_file:file { getattr open read };
