@@ -1032,6 +1032,21 @@ int enable_audio_route(struct audio_device *adev,
             str_parms_destroy(parms);
         }
     }
+
+    ALOGE("%s: snd_device=(%d:%s), snd_dev_ref_cnt=%d, adev->mode=%d, usecase->type=%d",
+        __func__, (unsigned int)snd_device, platform_get_snd_device_name(snd_device),
+        adev->snd_dev_ref_cnt[snd_device], (unsigned int)adev->mode,
+        (unsigned int)usecase->type);
+    if (strstr(mixer_path, "speaker")) {
+        if ((adev->mode == AUDIO_MODE_NORMAL || adev->mode == AUDIO_MODE_RINGTONE)
+            && adev->snd_dev_ref_cnt[snd_device] == 1) {
+            ALOGE("%s: mixer_path %s, Cirrus config: Music",
+                __func__, mixer_path);
+            audio_route_apply_and_update_path(adev->audio_route, "cirrus-config-rx");
+            audio_route_apply_and_update_path(adev->audio_route, "cirrus-config-tx");
+            adev->cirrus_path_enabled = true;
+        }
+    }
     ALOGV("%s: exit", __func__);
     return 0;
 }
@@ -1060,6 +1075,17 @@ int disable_audio_route(struct audio_device *adev,
     if ((usecase->type == PCM_PLAYBACK) &&
             (usecase->stream.out != NULL))
         usecase->stream.out->pspd_coeff_sent = false;
+
+    if (strstr(mixer_path, "speaker")) {
+        if ((adev->mode == AUDIO_MODE_NORMAL || adev->mode == AUDIO_MODE_RINGTONE)
+            && adev->snd_dev_ref_cnt[snd_device] == 1) {
+            ALOGE("%s: mixer_path %s, Cirrus config: Music", 
+                  __func__, mixer_path);
+
+            audio_route_reset_and_update_path(adev->audio_route, "cirrus-config-rx");
+            audio_route_reset_and_update_path(adev->audio_route, "cirrus-config-tx");
+        }
+    }
     ALOGV("%s: exit", __func__);
     return 0;
 }
@@ -3384,6 +3410,14 @@ int start_output_stream(struct stream_out *out)
     // sending it from start of streamtream
 
     platform_set_swap_channels(adev, true);
+
+    if (adev->cirrus_path_enabled) {
+        adev->cirrus_path_enabled = false;
+        audio_route_apply_and_update_path(adev->audio_route,
+                                          "cirrus-current-temp");
+        audio_route_apply_and_update_path(adev->audio_route,
+                                          "cirrus-set-calibration");
+    }
 
     ATRACE_END();
     enable_gcov();
