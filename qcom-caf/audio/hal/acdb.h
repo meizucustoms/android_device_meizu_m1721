@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2020, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
  * Not a Contribution.
  *
  * Copyright (C) 2013 The Android Open Source Project
@@ -28,9 +28,11 @@
 #define CVD_VERSION_MIXER_CTL "CVD Version"
 #define ACDB_METAINFO_KEY_MODULE_NAME_LEN 100
 
-
-#define PLATFORM_INFO_XML_PATH_NAME "audio_platform_info.xml"
-
+#ifdef LINUX_ENABLED
+#define PLATFORM_INFO_XML_PATH "/etc/audio_platform_info.xml"
+#else
+#define PLATFORM_INFO_XML_PATH "/vendor/etc/audio_platform_info.xml"
+#endif
 
 enum {
         ACDB_LOADER_INIT_V1 = 1,
@@ -48,7 +50,6 @@ typedef int  (*acdb_init_v3_t)(const char *, char *, struct listnode *);
 typedef int  (*acdb_init_v4_t)(void *, int);
 typedef void (*acdb_send_audio_cal_t)(int, int, int , int);
 typedef void (*acdb_send_audio_cal_v3_t)(int, int, int, int, int);
-typedef void (*acdb_send_audio_cal_v4_t)(int, int, int, int, int, int);
 typedef void (*acdb_send_voice_cal_t)(int, int);
 typedef int (*acdb_reload_vocvoltable_t)(int);
 typedef int  (*acdb_get_default_app_type_t)(void);

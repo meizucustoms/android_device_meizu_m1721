@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
+* Copyright (c) 2016-2017, The Linux Foundation. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are
@@ -35,9 +35,8 @@
 #include <utils/Log.h>
 #include <stdlib.h>
 #include <cutils/list.h>
-#include <pthread.h>
+
 #include <hardware/audio.h>
-#include <hardware/sound_trigger.h>
 #include "qahw.h"
 
 #define NO_ERROR 0
@@ -45,13 +44,8 @@
 
 /*
  * The current HAL API version.
- * version 1.0 has support for voice only in new stream based APIS
  */
-#ifdef QAHW_MODULE_API_VERSION_1_0
-#define QAHW_MODULE_API_VERSION_CURRENT QAHW_MODULE_API_VERSION_1_0
-#else
 #define QAHW_MODULE_API_VERSION_CURRENT QAHW_MODULE_API_VERSION_0_0
-#endif
 
 
 typedef uint64_t (*qahwi_out_write_v2_t)(audio_stream_out_t *out, const void* buffer,
@@ -66,8 +60,6 @@ typedef int (*qahwi_set_param_data_t) (audio_hw_device_t *,
 typedef uint64_t (*qahwi_in_read_v2_t)(audio_stream_in_t *in, void* buffer,
                                        size_t bytes, int64_t *timestamp);
 
-typedef int (*qahwi_in_stop_t)(audio_stream_in_t *in);
-
 typedef int (*qahwi_out_set_param_data_t)(struct audio_stream_out *out,
                                       qahw_param_id param_id,
                                       qahw_param_payload *payload);
@@ -75,10 +67,6 @@ typedef int (*qahwi_out_set_param_data_t)(struct audio_stream_out *out,
 typedef int (*qahwi_out_get_param_data_t)(struct audio_stream_out *out,
                                       qahw_param_id param_id,
                                       qahw_param_payload *payload);
-
-typedef int (*qahwi_loopback_set_param_data_t)(audio_patch_handle_t patch_handle,
-                                               qahw_loopback_param_id param_id,
-                                               qahw_loopback_param_payload *payload);
 
 typedef struct {
     audio_hw_device_t *audio_device;
@@ -91,7 +79,6 @@ typedef struct {
     const hw_module_t* module;
     qahwi_get_param_data_t qahwi_get_param_data;
     qahwi_set_param_data_t qahwi_set_param_data;
-    qahwi_loopback_set_param_data_t qahwi_loopback_set_param_data;
 } qahw_module_t;
 
 typedef struct {
@@ -116,7 +103,6 @@ typedef struct {
     struct listnode list;
     pthread_mutex_t lock;
     qahwi_in_read_v2_t qahwi_in_read_v2;
-    qahwi_in_stop_t qahwi_in_stop;
 } qahw_stream_in_t;
 
 typedef enum {
@@ -127,7 +113,6 @@ typedef enum {
 static struct listnode qahw_module_list;
 static int qahw_list_count;
 static pthread_mutex_t qahw_module_init_lock = PTHREAD_MUTEX_INITIALIZER;
-sound_trigger_hw_device_t *st_hw_device = NULL;
 
 
 /** Start of internal functions */
@@ -1043,31 +1028,6 @@ exit:
 }
 
 /*
- * Stop input stream. Returns zero on success.
- */
-int qahw_in_stop_l(qahw_stream_handle_t *in_handle)
-{
-    int rc = -EINVAL;
-    qahw_stream_in_t *qahw_stream_in = (qahw_stream_in_t *)in_handle;
-    audio_stream_in_t *in = NULL;
-
-    if (!is_valid_qahw_stream_l((void *)qahw_stream_in, STREAM_DIR_IN)) {
-        ALOGV("%s::Invalid in handle %p", __func__, in_handle);
-        goto exit;
-    }
-    ALOGD("%s", __func__);
-
-    in = qahw_stream_in->stream;
-
-    if (qahw_stream_in->qahwi_in_stop)
-        rc = qahw_stream_in->qahwi_in_stop(in);
-    ALOGD("%s: exit", __func__);
-
-exit:
-    return rc;
-}
-
-/*
  * Return the amount of input frames lost in the audio driver since the
  * last call of this function.
  * Audio driver is expected to reset the value to 0 and restart counting
@@ -1476,34 +1436,6 @@ exit:
      return ret;
 }
 
-int qahw_loopback_set_param_data_l(qahw_module_handle_t *hw_module,
-                                   audio_patch_handle_t handle,
-                                   qahw_loopback_param_id param_id,
-                                   qahw_loopback_param_payload *payload)
-
-{
-    int ret = -EINVAL;
-    qahw_module_t *qahw_module = (qahw_module_t *)hw_module;
-
-    if (!payload) {
-        ALOGE("%s:: invalid param", __func__);
-        goto exit;
-    }
-
-    if (qahw_module->qahwi_loopback_set_param_data) {
-        ret = qahw_module->qahwi_loopback_set_param_data(handle,
-                                                         param_id,
-                                                         payload);
-    } else {
-        ret = -ENOSYS;
-        ALOGE("%s not supported\n", __func__);
-    }
-
-exit:
-    return ret;
-
-}
-
 /* Fills the list of supported attributes for a given audio port.
  * As input, "port" contains the information (type, role, address etc...)
  * needed by the HAL to identify the port.
@@ -1751,7 +1683,6 @@ int qahw_open_input_stream_l(qahw_module_handle_t *hw_module,
     qahw_module_t *qahw_module_temp = NULL;
     audio_hw_device_t *audio_device = NULL;
     qahw_stream_in_t *qahw_stream_in = NULL;
-    const char *error;
 
     pthread_mutex_lock(&qahw_module_init_lock);
     qahw_module_temp = get_qahw_module_by_ptr_l(qahw_module);
@@ -1781,7 +1712,6 @@ int qahw_open_input_stream_l(qahw_module_handle_t *hw_module,
     if (rc) {
         ALOGE("%s::open input stream failed %d",__func__, rc);
         free(qahw_stream_in);
-        goto exit;
     } else {
         qahw_stream_in->module = hw_module;
         *in_handle = (void *)qahw_stream_in;
@@ -1790,8 +1720,8 @@ int qahw_open_input_stream_l(qahw_module_handle_t *hw_module,
     }
 
     /* dlsym qahwi_in_read_v2 if timestamp flag is used */
-    if (!rc && ((flags & QAHW_INPUT_FLAG_TIMESTAMP) ||
-                (flags & QAHW_INPUT_FLAG_PASSTHROUGH))) {
+    if (!rc && (flags & QAHW_INPUT_FLAG_TIMESTAMP)) {
+        const char *error;
 
         /* clear any existing errors */
         dlerror();
@@ -1803,16 +1733,7 @@ int qahw_open_input_stream_l(qahw_module_handle_t *hw_module,
         }
     }
 
-    /* clear any existing errors */
-    dlerror();
-    qahw_stream_in->qahwi_in_stop = (qahwi_in_stop_t)
-        dlsym(qahw_module->module->dso, "qahwi_in_stop");
-    if ((error = dlerror()) != NULL) {
-        ALOGI("%s: dlsym error %s for qahwi_in_stop", __func__, error);
-        qahw_stream_in->qahwi_in_stop = NULL;
-    }
-
- exit:
+exit:
     pthread_mutex_unlock(&qahw_module->lock);
     return rc;
 }
@@ -1853,45 +1774,6 @@ exit:
 /*returns current QTI HAL verison */
 int qahw_get_version_l() {
     return QAHW_MODULE_API_VERSION_CURRENT;
-}
-
-/* Load AHAL module to run audio and sva concurrency */
-static void load_st_hal()
-{
-#ifdef SVA_AUDIO_CONC
-    int rc = -EINVAL;
-    const hw_module_t* module = NULL;
-
-    rc = hw_get_module_by_class(SOUND_TRIGGER_HARDWARE_MODULE_ID, "primary", &module);
-    if (rc) {
-        ALOGE("%s: AHAL Loading failed %d", __func__, rc);
-        goto error;
-    }
-
-    rc = sound_trigger_hw_device_open(module, &st_hw_device);
-    if (rc) {
-        ALOGE("%s: AHAL Device open failed %d", __func__, rc);
-        st_hw_device = NULL;
-    }
-error:
-    return;
-#else
-    return;
-#endif /*SVA_AUDIO_CONC*/
-}
-
-static void unload_st_hal()
-{
-#ifdef SVA_AUDIO_CONC
-    if (st_hw_device == NULL) {
-        ALOGE("%s: audio device is NULL",__func__);
-        return;
-    }
-    sound_trigger_hw_device_close(st_hw_device);
-    st_hw_device = NULL;
-#else
-    return;
-#endif /*SVA_AUDIO_CONC*/
 }
 
 /* convenience API for opening and closing an audio HAL module */
@@ -1965,12 +1847,6 @@ qahw_module_handle_t *qahw_load_module_l(const char *hw_module_id)
     if (!qahw_module->qahwi_set_param_data)
          ALOGD("%s::qahwi_set_param_data api is not defined\n",__func__);
 
-    qahw_module->qahwi_loopback_set_param_data = (qahwi_loopback_set_param_data_t)
-                                                  dlsym(module->dso,
-                                                  "qahwi_loopback_set_param_data");
-    if (!qahw_module->qahwi_loopback_set_param_data)
-         ALOGD("%s::qahwi_loopback_set_param_data api is not defined\n", __func__);
-
     if (!qahw_list_count)
         list_init(&qahw_module_list);
     qahw_list_count++;
@@ -1991,7 +1867,7 @@ qahw_module_handle_t *qahw_load_module_l(const char *hw_module_id)
 
     /* Add module list to global module list */
     list_add_tail(&qahw_module_list, &qahw_module->module_list);
-    load_st_hal();
+
 
 error_exit:
     pthread_mutex_unlock(&qahw_module_init_lock);
@@ -2048,7 +1924,6 @@ int qahw_unload_module_l(qahw_module_handle_t *hw_module)
                "is not closed", __func__);
         rc = -EINVAL;
     }
-    unload_st_hal();
 
 error_exit:
     pthread_mutex_unlock(&qahw_module_init_lock);

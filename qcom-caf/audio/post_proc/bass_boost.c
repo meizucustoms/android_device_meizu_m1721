@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2015, 2017-2019, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2013-2015, 2017-2018, The Linux Foundation. All rights reserved.
  * Not a Contribution.
  *
  * Copyright (C) 2013 The Android Open Source Project
@@ -31,8 +31,6 @@
 
 #include "effect_api.h"
 #include "bass_boost.h"
-
-#define BASSBOOST_MAX_LATENCY 30
 
 /* Offload bassboost UUID: 2c4a8c24-1581-487f-94f6-0002a5d5c51b */
 const effect_descriptor_t bassboost_descriptor = {
@@ -98,6 +96,7 @@ int bass_get_parameter(effect_context_t *context, effect_param_t *p,
     int32_t *param_tmp = (int32_t *)p->data;
     int32_t param = *param_tmp++;
     void *value = p->data + voffset;
+    int i;
 
     ALOGV("%s", __func__);
 
@@ -113,11 +112,6 @@ int bass_get_parameter(effect_context_t *context, effect_param_t *p,
         if (p->vsize < sizeof(int16_t))
            p->status = -EINVAL;
         p->vsize = sizeof(int16_t);
-        break;
-    case BASSBOOST_PARAM_LATENCY:
-        if (p->vsize < sizeof(uint32_t))
-           p->status = -EINVAL;
-        p->vsize = sizeof(uint32_t);
         break;
     default:
         p->status = -EINVAL;
@@ -143,10 +137,6 @@ int bass_get_parameter(effect_context_t *context, effect_param_t *p,
             *(int16_t *)value = bassboost_get_strength(&(bass_ctxt->bassboost_ctxt));
         else
             *(int16_t *)value = 0;
-        break;
-
-    case BASSBOOST_PARAM_LATENCY:
-        *(uint32_t *)value = BASSBOOST_MAX_LATENCY;
         break;
 
     default:
@@ -203,9 +193,6 @@ int bass_set_device(effect_context_t *context, uint32_t device)
         ALOGV("%s: set PBE mode, device: %x", __func__, device);
     } else if (device == AUDIO_DEVICE_OUT_WIRED_HEADSET ||
         device == AUDIO_DEVICE_OUT_WIRED_HEADPHONE ||
-        device == AUDIO_DEVICE_OUT_USB_HEADSET ||
-        device == AUDIO_DEVICE_OUT_USB_DEVICE ||
-        device == AUDIO_DEVICE_OUT_USB_ACCESSORY ||
         device == AUDIO_DEVICE_OUT_BLUETOOTH_A2DP ||
         device == AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES) {
         ALOGV("%s: set BB mode, device: %x", __func__, device);
@@ -349,9 +336,6 @@ int bassboost_set_device(effect_context_t *context, uint32_t device)
     bass_ctxt->device = device;
     if (device == AUDIO_DEVICE_OUT_WIRED_HEADSET ||
         device == AUDIO_DEVICE_OUT_WIRED_HEADPHONE ||
-        device == AUDIO_DEVICE_OUT_USB_HEADSET ||
-        device == AUDIO_DEVICE_OUT_USB_DEVICE ||
-        device == AUDIO_DEVICE_OUT_USB_ACCESSORY ||
         device == AUDIO_DEVICE_OUT_BLUETOOTH_A2DP ||
         device == AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES) {
         if (bass_ctxt->temp_disabled) {
@@ -389,16 +373,18 @@ int bassboost_set_device(effect_context_t *context, uint32_t device)
     return 0;
 }
 
-int bassboost_reset(effect_context_t *context __unused)
+int bassboost_reset(effect_context_t *context)
 {
+    bassboost_context_t *bass_ctxt = (bassboost_context_t *)context;
+
     return 0;
 }
 
 int bassboost_init(effect_context_t *context)
 {
     bassboost_context_t *bass_ctxt = (bassboost_context_t *)context;
-    ALOGV("%s: ctxt %p", __func__, bass_ctxt);
 
+    ALOGV("%s: ctxt %p", __func__, bass_ctxt);
     context->config.inputCfg.accessMode = EFFECT_BUFFER_ACCESS_READ;
     context->config.inputCfg.channels = AUDIO_CHANNEL_OUT_STEREO;
     context->config.inputCfg.format = AUDIO_FORMAT_PCM_16_BIT;
@@ -577,8 +563,10 @@ int pbe_set_device(effect_context_t *context, uint32_t device)
     return 0;
 }
 
-int pbe_reset(effect_context_t *context __unused)
+int pbe_reset(effect_context_t *context)
 {
+    pbe_context_t *pbe_ctxt = (pbe_context_t *)context;
+
     return 0;
 }
 

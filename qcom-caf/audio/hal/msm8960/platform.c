@@ -357,8 +357,7 @@ struct audio_custom_mtmx_params *
     platform_get_custom_mtmx_params
     (
         void *platform __unused,
-        struct audio_custom_mtmx_params_info *info __unused,
-        uint32_t *idx __unused
+        struct audio_custom_mtmx_params_info *info __unused
     )
 {
     ALOGW("%s: not implemented!", __func__);
@@ -370,20 +369,6 @@ int platform_add_custom_mtmx_params
         void *platform __unused,
         struct audio_custom_mtmx_params_info *info __unused
     )
-{
-    ALOGW("%s: not implemented!", __func__);
-    return -ENOSYS;
-}
-
-struct audio_custom_mtmx_in_params *platform_get_custom_mtmx_in_params(void *platform,
-                                   struct audio_custom_mtmx_in_params_info *info)
-{
-    ALOGW("%s: not implemented!", __func__);
-    return -ENOSYS;
-}
-
-int platform_add_custom_mtmx_in_params(void *platform,
-                                    struct audio_custom_mtmx_in_params_info *info)
 {
     ALOGW("%s: not implemented!", __func__);
     return -ENOSYS;
@@ -438,12 +423,7 @@ void platform_add_backend_name(char *mixer_path, snd_device_t snd_device,
 
 int platform_get_pcm_device_id(audio_usecase_t usecase, int device_type)
 {
-    int device_id = -1;
-
-    if ((usecase >= AUDIO_USECASE_MAX) || (usecase <= USECASE_INVALID)) {
-        ALOGE("%s: invalid usecase case idx %d", __func__, usecase);
-        return device_id;
-    }
+    int device_id;
     if (device_type == PCM_PLAYBACK)
         device_id = pcm_device_table[usecase][0];
     else
@@ -472,13 +452,6 @@ int platform_get_snd_device_acdb_id(snd_device_t snd_device __unused)
 {
     ALOGE("%s: Not implemented", __func__);
     return -ENOSYS;
-}
-
-void platform_add_external_specific_device(snd_device_t snd_device __unused,
-                                           const char *name __unused,
-                                           unsigned int acdb_id __unused)
-{
-    return;
 }
 
 int platform_set_snd_device_bit_width(snd_device_t snd_device __unused,
@@ -551,7 +524,7 @@ int platform_send_audio_calibration(void *platform, struct audio_usecase *usecas
                    voice_is_in_call_rec_stream(usecase->stream.in))
         snd_device = voice_get_incall_rec_snd_device(usecase->in_snd_device);
     else if ((usecase->type == PCM_HFP_CALL) || (usecase->type == PCM_CAPTURE))
-        snd_device = platform_get_input_snd_device(adev->platform, NULL,
+        snd_device = platform_get_input_snd_device(adev->platform,
                                             adev->primary_output->devices);
     acdb_dev_id = acdb_device_table[snd_device];
     if (acdb_dev_id < 0) {
@@ -820,22 +793,20 @@ exit:
     return snd_device;
 }
 
-snd_device_t platform_get_input_snd_device(void *platform,
-                                           struct stream_in *in,
-                                           audio_devices_t out_device)
+snd_device_t platform_get_input_snd_device(void *platform, audio_devices_t out_device)
 {
     struct platform_data *my_data = (struct platform_data *)platform;
     struct audio_device *adev = my_data->adev;
-    audio_mode_t mode = adev->mode;
+    audio_source_t  source = (adev->active_input == NULL) ?
+                                AUDIO_SOURCE_DEFAULT : adev->active_input->source;
+
+    audio_mode_t    mode   = adev->mode;
+    audio_devices_t in_device = ((adev->active_input == NULL) ?
+                                    AUDIO_DEVICE_NONE : adev->active_input->device)
+                                & ~AUDIO_DEVICE_BIT_IN;
+    audio_channel_mask_t channel_mask = (adev->active_input == NULL) ?
+                                AUDIO_CHANNEL_IN_MONO : adev->active_input->channel_mask;
     snd_device_t snd_device = SND_DEVICE_NONE;
-
-    if (in == NULL)
-        in = adev_get_active_input(adev);
-
-    audio_source_t source = (in == NULL) ? AUDIO_SOURCE_DEFAULT : in->source;
-    audio_devices_t in_device =
-        ((in == NULL) ? AUDIO_DEVICE_NONE : in->device) & ~AUDIO_DEVICE_BIT_IN;
-    audio_channel_mask_t channel_mask = (in == NULL) ? AUDIO_CHANNEL_IN_MONO : in->channel_mask;
 
     ALOGV("%s: enter: out_device(%#x) in_device(%#x)",
           __func__, out_device, in_device);
@@ -910,8 +881,8 @@ snd_device_t platform_get_input_snd_device(void *platform,
     } else if (source == AUDIO_SOURCE_VOICE_COMMUNICATION) {
         if (out_device & AUDIO_DEVICE_OUT_SPEAKER)
             in_device = AUDIO_DEVICE_IN_BACK_MIC;
-        if (in) {
-            if (in->enable_aec) {
+        if (adev->active_input) {
+            if (adev->active_input->enable_aec) {
                 if (in_device & AUDIO_DEVICE_IN_BACK_MIC) {
                     snd_device = SND_DEVICE_IN_SPEAKER_MIC_AEC;
                 } else if (in_device & AUDIO_DEVICE_IN_BUILTIN_MIC) {

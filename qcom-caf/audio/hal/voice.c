@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2020, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2013-2019, The Linux Foundation. All rights reserved.
  * Not a contribution.
  *
  * Copyright (C) 2013 The Android Open Source Project
@@ -48,10 +48,6 @@ struct pcm_config pcm_config_voice_call = {
     .format = PCM_FORMAT_S16_LE,
 };
 
-#ifdef PLATFORM_AUTO
-struct pcm *voice_loopback_tx = NULL;
-struct pcm *voice_loopback_rx = NULL;
-#endif
 static struct voice_session *voice_get_session_from_use_case(struct audio_device *adev,
                               audio_usecase_t usecase_id)
 {
@@ -77,20 +73,15 @@ static bool voice_is_sidetone_device(snd_device_t out_device,
         strlcpy(mixer_path, "sidetone-handset", MIXER_PATH_MAX_LENGTH);
         break;
     case SND_DEVICE_OUT_VOICE_HEADPHONES:
-    case SND_DEVICE_OUT_VOICE_HEADSET:
     case SND_DEVICE_OUT_VOICE_ANC_HEADSET:
     case SND_DEVICE_OUT_VOICE_ANC_FB_HEADSET:
         is_sidetone_dev = true;
         strlcpy(mixer_path, "sidetone-headphones", MIXER_PATH_MAX_LENGTH);
         break;
-    case SND_DEVICE_OUT_VOICE_USB_HEADSET:
     case SND_DEVICE_OUT_USB_HEADSET:
-        // USB does not use a QC mixer.
-        mixer_path[0] = '\0';
         is_sidetone_dev = true;
         break;
     default:
-        ALOGW("%s: %d is not a sidetone device", __func__, out_device);
         is_sidetone_dev = false;
         break;
     }
@@ -167,11 +158,11 @@ int voice_stop_usecase(struct audio_device *adev, audio_usecase_t usecase_id)
     session->state.current = CALL_INACTIVE;
 
     /* Disable sidetone only when no calls are active */
-    if (!voice_is_call_state_active_in_call(adev))
+    if (!voice_is_call_state_active(adev))
         voice_set_sidetone(adev, uc_info->out_snd_device, false);
 
     /* Disable aanc only when no calls are active */
-    if (!voice_is_call_state_active_in_call(adev))
+    if (!voice_is_call_state_active(adev))
         voice_check_and_update_aanc_path(adev, uc_info->out_snd_device, false);
 
     ret = platform_stop_voice_call(adev->platform, session->vsid);
@@ -186,16 +177,6 @@ int voice_stop_usecase(struct audio_device *adev, audio_usecase_t usecase_id)
         session->pcm_tx = NULL;
     }
 
-#ifdef PLATFORM_AUTO
-    if(voice_loopback_rx) {
-        pcm_close(voice_loopback_rx);
-        voice_loopback_rx = NULL;
-    }
-    if(voice_loopback_tx) {
-        pcm_close(voice_loopback_tx);
-        voice_loopback_tx = NULL;
-    }
-#endif
     /* 2. Get and set stream specific mixer controls */
     disable_audio_route(adev, uc_info);
 
@@ -215,24 +196,15 @@ int voice_start_usecase(struct audio_device *adev, audio_usecase_t usecase_id)
     int ret = 0;
     struct audio_usecase *uc_info;
     int pcm_dev_rx_id, pcm_dev_tx_id;
-#ifdef PLATFORM_AUTO
-    int pcm_dev_loopback_rx_id, pcm_dev_loopback_tx_id;
-#endif
     uint32_t sample_rate = 8000;
     struct voice_session *session = NULL;
     struct pcm_config voice_config = pcm_config_voice_call;
-    bool is_in_call = (AUDIO_MODE_IN_CALL == adev->mode);
 
     ALOGD("%s: enter usecase:%s", __func__, use_case_table[usecase_id]);
 
     session = (struct voice_session *)voice_get_session_from_use_case(adev, usecase_id);
     if (!session) {
         ALOGE("start_call: couldn't find voice session");
-        return -EINVAL;
-    }
-
-    if (!adev->current_call_output) {
-        ALOGE("start_call: invalid current call output");
         return -EINVAL;
     }
 
@@ -245,12 +217,11 @@ int voice_start_usecase(struct audio_device *adev, audio_usecase_t usecase_id)
     uc_info->id = usecase_id;
     uc_info->type = VOICE_CALL;
     uc_info->stream.out = adev->current_call_output;
-    list_init(&uc_info->device_list);
-    assign_devices(&uc_info->device_list, &adev->current_call_output->device_list);
+    uc_info->devices = adev->current_call_output->devices;
 
-    if (is_in_call && list_length(&uc_info->device_list) == 2) {
+    if (popcount(uc_info->devices) == 2) {
         ALOGE("%s: Invalid combo device(%#x) for voice call", __func__,
-              get_device_types(&uc_info->device_list));
+              uc_info->devices);
         ret = -EIO;
         goto error_start_voice;
     }
@@ -259,7 +230,7 @@ int voice_start_usecase(struct audio_device *adev, audio_usecase_t usecase_id)
     uc_info->out_snd_device = SND_DEVICE_NONE;
     adev->voice.use_device_mute = false;
 
-    if (is_sco_out_device_type(&uc_info->device_list) && !adev->bt_sco_on) {
+    if (audio_is_bluetooth_sco_device(uc_info->devices) && !adev->bt_sco_on) {
         ALOGE("start_call: couldn't find BT SCO, SCO is not ready");
         adev->voice.in_call = false;
         ret = -EIO;
@@ -270,10 +241,6 @@ int voice_start_usecase(struct audio_device *adev, audio_usecase_t usecase_id)
 
     select_devices(adev, usecase_id);
 
-#ifdef PLATFORM_AUTO
-    pcm_dev_loopback_rx_id = HOST_LESS_RX_ID;
-    pcm_dev_loopback_tx_id = HOST_LESS_TX_ID;
-#endif
     pcm_dev_rx_id = platform_get_pcm_device_id(uc_info->id, PCM_PLAYBACK);
     pcm_dev_tx_id = platform_get_pcm_device_id(uc_info->id, PCM_CAPTURE);
 
@@ -315,63 +282,18 @@ int voice_start_usecase(struct audio_device *adev, audio_usecase_t usecase_id)
         goto error_start_voice;
     }
 
-#ifdef PLATFORM_AUTO
-    voice_loopback_rx = pcm_open(adev->snd_card,
-                                 pcm_dev_loopback_rx_id,
-                                 PCM_OUT, &voice_config);
-    if (voice_loopback_rx < 0 || !pcm_is_ready(voice_loopback_rx)) {
-        ALOGE("%s: Either could not open pcm_dev_loopback_rx_id %d or %s",
-              __func__, pcm_dev_loopback_rx_id, pcm_get_error(voice_loopback_rx));
-        ret = -EIO;
-        goto error_start_voice;
-    }
-
-    voice_loopback_tx = pcm_open(adev->snd_card,
-                                 pcm_dev_loopback_tx_id,
-                                 PCM_IN, &voice_config);
-    if (voice_loopback_tx < 0 || !pcm_is_ready(voice_loopback_tx)) {
-         ALOGE("%s: Either could not open pcm_dev_loopback_tx_id %d or %s",
-               __func__, pcm_dev_loopback_tx_id, pcm_get_error(voice_loopback_tx));
-         ret = -EIO;
-         goto error_start_voice;
-    }
-#endif
-
-    if (adev->mic_break_enabled)
+    if(adev->mic_break_enabled)
         platform_set_mic_break_det(adev->platform, true);
 
-    ret = pcm_start(session->pcm_tx);
-    if (ret != 0) {
-        ALOGE("%s: %s", __func__, pcm_get_error(session->pcm_tx));
-        goto error_start_voice;
-    }
-
-    ret = pcm_start(session->pcm_rx);
-    if (ret != 0) {
-        ALOGE("%s: %s", __func__, pcm_get_error(session->pcm_rx));
-        goto error_start_voice;
-    }
-
-#ifdef PLATFORM_AUTO
-    ret = pcm_start(voice_loopback_tx);
-    if (ret != 0) {
-        ALOGE("%s: %s", __func__, pcm_get_error(voice_loopback_tx));
-        goto error_start_voice;
-    }
-
-    ret = pcm_start(voice_loopback_rx);
-    if (ret != 0) {
-        ALOGE("%s: %s", __func__, pcm_get_error(voice_loopback_rx));
-        goto error_start_voice;
-    }
-#endif
+    pcm_start(session->pcm_tx);
+    pcm_start(session->pcm_rx);
 
     /* Enable aanc only when no calls are active */
-    if (!voice_is_call_state_active_in_call(adev))
+    if (!voice_is_call_state_active(adev))
         voice_check_and_update_aanc_path(adev, uc_info->out_snd_device, true);
 
     /* Enable sidetone only when no calls are already active */
-    if (!voice_is_call_state_active_in_call(adev))
+    if (!voice_is_call_state_active(adev))
         voice_set_sidetone(adev, uc_info->out_snd_device, true);
 
     voice_set_volume(adev, adev->voice.volume);
@@ -393,10 +315,8 @@ done:
     return ret;
 }
 
-/*
-* helper function to check whether call is active or not.
-*/
-static inline bool voice_is_active(struct audio_device *adev) {
+bool voice_is_call_state_active(struct audio_device *adev)
+{
     bool call_state = false;
     int ret = 0;
 
@@ -408,29 +328,7 @@ static inline bool voice_is_active(struct audio_device *adev) {
     return call_state;
 }
 
-/*
-* checks if call is active and in IN_CALL mode.
-*/
-bool voice_is_call_state_active_in_call(struct audio_device *adev)
-{
-    bool call_state = voice_is_active(adev);
-    return call_state && adev->mode == AUDIO_MODE_IN_CALL;
-}
-
-/*
-* returns true if call is active no matter what mode is.
-*/
-bool voice_is_call_state_active(struct audio_device *adev)
-{
-    return voice_is_active(adev);
-}
-
 bool voice_is_in_call(const struct audio_device *adev)
-{
-    return adev->voice.in_call && adev->mode == AUDIO_MODE_IN_CALL;
-}
-
-bool voice_is_in_call_or_call_screen(const struct audio_device *adev)
 {
     return adev->voice.in_call;
 }
@@ -472,7 +370,7 @@ bool voice_check_voicecall_usecases_active(struct audio_device *adev)
 
     list_for_each(node, &adev->usecase_list) {
         usecase = node_to_item(node, struct audio_usecase, list);
-        if (usecase->type == VOICE_CALL && adev->mode != AUDIO_MODE_CALL_SCREEN) {
+        if (usecase->type == VOICE_CALL) {
             ALOGV("%s: voice usecase:%s is active", __func__,
                    use_case_table[usecase->id]);
             return true;
@@ -523,8 +421,6 @@ int voice_check_and_set_incall_rec_usecase(struct audio_device *adev,
         session_id = voice_get_active_session_id(adev);
         ret = platform_set_incall_recording_session_id(adev->platform,
                                                        session_id, rec_mode);
-        platform_set_incall_recording_session_channels(adev->platform,
-                                                       in->config.channels);
         ALOGV("%s: Update usecase to %d",__func__, in->usecase);
     } else {
         /*
@@ -628,7 +524,7 @@ int voice_set_mic_mute(struct audio_device *adev, bool state)
     adev->voice.mic_mute = state;
 
     if (audio_extn_hfp_is_active(adev)) {
-        err = audio_extn_hfp_set_mic_mute2(adev, state);
+        err = hfp_set_mic_mute(adev, state);
     } else if (adev->mode == AUDIO_MODE_IN_CALL) {
        /* Use device mute if incall music delivery usecase is in progress */
         if (adev->voice.use_device_mute)
@@ -703,9 +599,6 @@ int voice_start_call(struct audio_device *adev)
     int ret = 0;
 
     adev->voice.in_call = true;
-
-    voice_set_mic_mute(adev, adev->voice.mic_mute);
-
     ret = voice_extn_start_call(adev);
     if (ret == -ENOSYS) {
         ret = voice_start_usecase(adev, USECASE_VOICE_CALL);
@@ -778,23 +671,8 @@ int voice_set_parameters(struct audio_device *adev, struct str_parms *parms)
         if (tty_mode != adev->voice.tty_mode) {
             adev->voice.tty_mode = tty_mode;
             adev->acdb_settings = (adev->acdb_settings & TTY_MODE_CLEAR) | tty_mode;
-            if (voice_is_call_state_active_in_call(adev))
+            if (voice_is_call_state_active(adev))
                voice_update_devices_for_all_voice_usecases(adev);
-        }
-    }
-
-    err = str_parms_get_str(parms, AUDIO_PARAMETER_KEY_HAC,
-                            value, sizeof(value));
-    if (err >= 0) {
-        bool hac = false;
-        str_parms_del(parms, AUDIO_PARAMETER_KEY_HAC);
-        if (strcmp(value, AUDIO_PARAMETER_VALUE_HAC_ON) == 0)
-            hac = true;
-
-        if (hac != adev->voice.hac) {
-            adev->voice.hac = hac;
-            if (voice_is_in_call(adev))
-                voice_update_devices_for_all_voice_usecases(adev);
         }
     }
 
@@ -817,18 +695,13 @@ done:
 void voice_init(struct audio_device *adev)
 {
     int i = 0;
-    int max_voice_sessions = MAX_VOICE_SESSIONS;
-
-    if (!voice_extn_is_multi_session_supported())
-        max_voice_sessions = 1;
 
     memset(&adev->voice, 0, sizeof(adev->voice));
     adev->voice.tty_mode = TTY_MODE_OFF;
-    adev->voice.hac = false;
     adev->voice.volume = 1.0f;
     adev->voice.mic_mute = false;
     adev->voice.in_call = false;
-    for (i = 0; i < max_voice_sessions; i++) {
+    for (i = 0; i < MAX_VOICE_SESSIONS; i++) {
         adev->voice.session[i].pcm_rx = NULL;
         adev->voice.session[i].pcm_tx = NULL;
         adev->voice.session[i].state.current = CALL_INACTIVE;
