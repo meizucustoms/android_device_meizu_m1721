@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017, 2020, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
  * Not a Contribution.
  *
  * Copyright (C) 2010 The Android Open Source Project
@@ -70,7 +70,7 @@
 
 /* DS1-DDP Endp Params */
 #define DDP_ENDP_NUM_PARAMS 17
-#define DDP_ENDP_NUM_DEVICES 20
+#define DDP_ENDP_NUM_DEVICES 21
 static int ddp_endp_params_id[DDP_ENDP_NUM_PARAMS] = {
     PARAM_ID_MAX_OUTPUT_CHANNELS, PARAM_ID_CTL_RUNNING_MODE,
     PARAM_ID_CTL_ERROR_CONCEAL, PARAM_ID_CTL_ERROR_MAX_RPTS,
@@ -141,6 +141,9 @@ static struct ddp_endp_params {
               {8, 0, 0, 0, 0, 0, 0, 21, 1, 6, 0, 0, 0, 0, 0, 0, 0},
               {1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0} },
           {AUDIO_DEVICE_OUT_FM, 2,
+              {8, 0, 0, 0, 0, 0, 0, 21, 1, 6, 0, 0, 0, 0, 0, 0, 0},
+              {1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0} },
+          {AUDIO_DEVICE_OUT_FM_TX, 2,
               {8, 0, 0, 0, 0, 0, 0, 21, 1, 6, 0, 0, 0, 0, 0, 0, 0},
               {1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0} },
           {AUDIO_DEVICE_OUT_PROXY, 2,
@@ -242,8 +245,8 @@ void send_ddp_endp_params(struct audio_device *adev,
 
     list_for_each(node, &adev->usecase_list) {
         usecase = node_to_item(node, struct audio_usecase, list);
-        if (usecase->stream.out && (usecase->type == PCM_PLAYBACK) &&
-            (compare_device_type(&usecase->device_list, ddp_dev)) &&
+        if ((usecase->type == PCM_PLAYBACK) &&
+            (usecase->devices & ddp_dev) &&
             (usecase->stream.out->flags & AUDIO_OUTPUT_FLAG_COMPRESS_OFFLOAD) &&
             ((usecase->stream.out->format == AUDIO_FORMAT_AC3) ||
              (usecase->stream.out->format == AUDIO_FORMAT_E_AC3) ||
@@ -260,8 +263,8 @@ void audio_extn_dolby_send_ddp_endp_params(struct audio_device *adev)
     struct audio_usecase *usecase;
     list_for_each(node, &adev->usecase_list) {
         usecase = node_to_item(node, struct audio_usecase, list);
-        if (usecase->stream.out && (usecase->type == PCM_PLAYBACK) &&
-            is_audio_out_device_type(&usecase->device_list) &&
+        if ((usecase->type == PCM_PLAYBACK) &&
+            (usecase->devices & AUDIO_DEVICE_OUT_ALL) &&
             (usecase->stream.out->flags & AUDIO_OUTPUT_FLAG_COMPRESS_OFFLOAD) &&
             ((usecase->stream.out->format == AUDIO_FORMAT_AC3) ||
              (usecase->stream.out->format == AUDIO_FORMAT_E_AC3) ||
@@ -270,14 +273,11 @@ void audio_extn_dolby_send_ddp_endp_params(struct audio_device *adev)
              * Use wfd /hdmi sink channel cap for dolby params if device is wfd
              * or hdmi. Otherwise use stereo configuration
              */
-            int channel_cap = compare_device_type(&usecase->device_list,
-                                                  AUDIO_DEVICE_OUT_AUX_DIGITAL) ?
+            int channel_cap = usecase->devices & AUDIO_DEVICE_OUT_AUX_DIGITAL ?
                               adev->cur_hdmi_channels :
-                              compare_device_type(&usecase->device_list,
-                                                  AUDIO_DEVICE_OUT_PROXY) ?
+                              usecase->devices & AUDIO_DEVICE_OUT_PROXY ?
                               adev->cur_wfd_channels : 2;
-            send_ddp_endp_params_stream(usecase->stream.out,
-                                        get_device_types(&usecase->device_list),
+            send_ddp_endp_params_stream(usecase->stream.out, usecase->devices,
                                         channel_cap, false /* set cache */);
         }
     }
@@ -302,7 +302,7 @@ void audio_extn_ddp_set_parameters(struct audio_device *adev,
                             sizeof(value));
     if (ret >= 0) {
         ddp_dev = atoi(value);
-        if (!audio_is_output_device(ddp_dev))
+        if (!(AUDIO_DEVICE_OUT_ALL & ddp_dev))
             return;
     } else
         return;
@@ -367,18 +367,16 @@ void audio_extn_dolby_set_endpoint(struct audio_device *adev)
 {
     struct listnode *node;
     struct audio_usecase *usecase;
-    struct listnode devices;
     struct mixer_ctl *ctl;
     const char *mixer_ctl_name = "DS1 DAP Endpoint";
     int endpoint = 0, ret;
     bool send = false;
 
-    list_init(&devices);
     list_for_each(node, &adev->usecase_list) {
         usecase = node_to_item(node, struct audio_usecase, list);
         if ((usecase->type == PCM_PLAYBACK) &&
             (usecase->id != USECASE_AUDIO_PLAYBACK_LOW_LATENCY)) {
-            append_devices(&devices, &usecase->device_list);
+            endpoint |= usecase->devices & AUDIO_DEVICE_OUT_ALL;
             send = true;
         }
     }
@@ -391,9 +389,6 @@ void audio_extn_dolby_set_endpoint(struct audio_device *adev)
               __func__, mixer_ctl_name);
         return;
     }
-    // FIXME: It is not recommended to store more than one device on bitfields
-    // This handling should be updated here and in driver code.
-    endpoint = get_device_types(&devices);
     ret = mixer_ctl_set_value(ctl, 0, endpoint);
     if (ret)
         ALOGE("%s: Dolby set endpint cannot be set error:%d",__func__, ret);
@@ -526,25 +521,20 @@ int audio_extn_dap_hal_deinit() {
 void audio_extn_dolby_ds2_set_endpoint(struct audio_device *adev) {
     struct listnode *node;
     struct audio_usecase *usecase;
-    struct listnode devices;
     int endpoint = 0;
     bool send = false;
 
-    list_init(&devices);
     list_for_each(node, &adev->usecase_list) {
         usecase = node_to_item(node, struct audio_usecase, list);
         if ((usecase->type == PCM_PLAYBACK) &&
             (usecase->id != USECASE_AUDIO_PLAYBACK_LOW_LATENCY)) {
-            append_devices(&devices, &usecase->device_list);
+            endpoint |= usecase->devices & AUDIO_DEVICE_OUT_ALL;
             send = true;
         }
     }
     if (!send)
         return;
 
-    // FIXME: It is not recommended to store more than one device on bitfields
-    // This handling should be updated here and in driver code.
-    endpoint = get_device_types(&devices);
     if (ds2extnmod.dap_hal_set_hw_info) {
         ds2extnmod.dap_hal_set_hw_info(HW_ENDPOINT, (void*)(&endpoint));
         ALOGE("%s: Dolby set endpint :0x%x",__func__, endpoint);

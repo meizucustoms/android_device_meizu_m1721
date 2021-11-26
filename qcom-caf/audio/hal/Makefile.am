@@ -26,7 +26,7 @@ c_sources += audio_extn/fm.c
 endif
 
 if USBAUDIO
-AM_CFLAGS += -DUSB_TUNNEL_ENABLED
+AM_CFLAGS += -DUSB_HEADSET_ENABLED
 c_sources += audio_extn/usb.c
 endif
 
@@ -38,7 +38,7 @@ endif
 if SSR
 AM_CFLAGS += -DSSR_ENABLED
 c_sources += audio_extn/ssr.c
-AM_CFLAGS +=  -I ${WORKSPACE}/audio/mm-audio-external-noship/surround_sound_3mic/libsurround_3mic_proc/surround_rec_interface/inc/
+AM_CFLAGS +=  -I ${WORKSPACE}/audio/mm-audio-noship/surround_sound_3mic/libsurround_3mic_proc/surround_rec_interface/inc/
 endif
 
 if MULTI_VOICE_SESSIONS
@@ -93,11 +93,11 @@ AM_CFLAGS += -DSOURCE_TRACKING_ENABLED
 c_sources += audio_extn/source_track.c
 endif
 
-#if LISTEN
-#AM_CFLAGS += -DAUDIO_LISTEN_ENABLED
-#AM_CFLAGS += -I ${WORKSPACE}/audio/mm-audio-external-noship/audio-listen
-#c_sources += audio_extn/listen.c
-#endif
+if LISTEN
+AM_CFLAGS += -DAUDIO_LISTEN_ENABLED
+AM_CFLAGS += -I ${WORKSPACE}/audio/mm-audio-noship/audio-listen
+c_sources += audio_extn/listen.c
+endif
 
 if SOUND_TRIGGER
 AM_CFLAGS += -DSOUND_TRIGGER_ENABLED
@@ -170,8 +170,8 @@ AM_CFLAGS += -DAUDIO_EXTN_ADSP_HDLR_ENABLED
 c_sources += audio_extn/adsp_hdlr.c
 endif
 
-if A2DP_OFFLOAD
-AM_CFLAGS += -DA2DP_OFFLOAD_ENABLED
+if SPLIT_A2DP
+AM_CFLAGS += -DSPLIT_A2DP_ENABLED
 c_sources += audio_extn/a2dp.c
 endif
 
@@ -187,7 +187,6 @@ endif
 
 if AUDIO_HW_LOOPBACK
 AM_CFLAGS += -DAUDIO_HW_LOOPBACK_ENABLED
-AM_CFLAGS += -DCOMPRESS_METADATA_NEEDED
 c_sources += audio_extn/hw_loopback.c
 endif
 
@@ -207,10 +206,6 @@ endif
 
 if INSTANCE_ID
 AM_CFLAGS += -DINSTANCE_ID_ENABLED
-endif
-
-if LL_AS_PRIMARY_OUTPUT
-AM_CFLAGS += -DUSE_LL_AS_PRIMARY_OUTPUT
 endif
 
 h_sources = audio_extn/audio_defs.h \
@@ -233,5 +228,5 @@ audio_primary_default_la_CFLAGS += -Dstrlcat=g_strlcat
 audio_primary_default_la_CFLAGS += -DINT_MAX=0x7fffffff
 audio_primary_default_la_CFLAGS += -D__unused=__attribute__\(\(__unused__\)\)
 audio_primary_default_la_CFLAGS += -DLINUX_ENABLED $(TARGET_CFLAGS) -DAUDIO_EXTN_FORMATS_ENABLED
-audio_primary_default_la_CFLAGS += -DNDEBUG
+audio_primary_default_la_CFLAGS += -DNDEBUG -D_GNU_SOURCE
 audio_primary_default_la_LDFLAGS = -module -shared -avoid-version

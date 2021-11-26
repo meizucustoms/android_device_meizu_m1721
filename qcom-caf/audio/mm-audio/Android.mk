@@ -1,4 +1,3 @@
-ifneq ($(AUDIO_USE_STUB_HAL), true)
 LOCAL_CFLAGS += -Wno-unused-variable
 LOCAL_CFLAGS += -Wno-sign-compare
 LOCAL_CFLAGS += -Wno-unused-parameter
@@ -12,5 +11,4 @@ LOCAL_CFLAGS += -Wno-unused-local-typedef
 
 ifeq ($(strip $(TARGET_USES_QCOM_MM_AUDIO)),true)
 include $(call all-subdir-makefiles)
-endif
 endif

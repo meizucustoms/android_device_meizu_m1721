@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2020, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -39,15 +39,14 @@
 #include "audio_hw.h"
 #include "platform.h"
 #include "platform_api.h"
-#include <pthread.h>
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <dlfcn.h>
 #include <math.h>
+#include <pthread.h>
 #include <cutils/properties.h>
 #include "audio_extn.h"
 #include "audio_hw.h"
-#include <pthread.h>
 
 #ifdef DYNAMIC_LOG_ENABLED
 #include <log_xml_parser.h>
@@ -429,15 +428,15 @@ int audio_extn_gef_retrieve_audio_cal(void* dev, int acdb_dev_id,
 #endif
 
 //this will be called from HAL to notify GEF of new device configuration
-void audio_extn_gef_notify_device_config(struct listnode *audio_devices,
+void audio_extn_gef_notify_device_config(audio_devices_t audio_device,
     audio_channel_mask_t channel_mask, int sample_rate, int acdb_id, int app_type)
 {
     ALOGV("%s: Enter", __func__);
 
     //call into GEF to share channel mask and device info
     if (gef_hal_handle.handle && gef_hal_handle.device_config_cb) {
-        gef_hal_handle.device_config_cb(gef_hal_handle.gef_ptr, get_device_types(audio_devices),
-            channel_mask, sample_rate, acdb_id, app_type);
+        gef_hal_handle.device_config_cb(gef_hal_handle.gef_ptr, audio_device, channel_mask,
+            sample_rate, acdb_id, app_type);
     }
 
     ALOGV("%s: Exit", __func__);

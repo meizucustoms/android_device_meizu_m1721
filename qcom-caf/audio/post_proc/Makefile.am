@@ -19,6 +19,11 @@ AM_CFLAGS += -DHW_ACCELERATED_EFFECTS
 c_sources += hw_accelerator.c
 endif
 
+if AUDIOSPHERE
+AM_CFLAGS += -DAUDIOSPHERE_ENABLED
+c_sources += asphere.c
+endif
+
 library_include_HEADERS = $(h_sources)
 library_includedir = $(includedir)
 
