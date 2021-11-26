@@ -289,6 +289,8 @@
     <!-- Cirrus -->
     <ctl name="Cirrus GB Enable" value="Disable" />
     <ctl name="Analog Audio Volume" value="4" />
+    <ctl name="Cirrus GB Config" value="Get Current Temp" />
+    <ctl name="Cirrus GB Ext Config" value="Default" />
 
     <!-- ADSP testfwk -->
     <ctl name="MI2S_DL_HL Switch" value="0" />
@@ -1728,4 +1730,21 @@
           <path name="wsa-speaker-and-headphones" />
     </path>
 
+    <path name="cirrus-config-rx">
+          <ctl name="Cirrus GB Config" value="Opalum Music" />
+          <ctl name="Cirrus GB Ext Config" value="RX Default" />
+    </path>
+
+    <path name ="cirrus-config-tx">
+        <ctl name="Cirrus GB Ext Config" value="TX New" />
+        <ctl name="Cirrus GB Config" value="Set Temp Calibration" />
+    </path>
+
+    <path name ="cirrus-set-calibration">
+        <ctl name="Cirrus GB Config" value="Set Temp Calibration" />
+    </path>
+
+    <path name ="cirrus-current-temp">
+        <ctl name="Cirrus GB Config" value="Get Current Temp" />
+    </path>
 </mixer>
