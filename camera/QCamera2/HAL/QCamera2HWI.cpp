@@ -82,9 +82,6 @@ volatile uint32_t gCamHalLogLevel = 1;
 extern uint8_t gNumCameraSessions;
 uint32_t QCamera2HardwareInterface::sNextJobId = 1;
 
-/* Meizu changed */
-extern uint32_t gMeizuCameraId;
-
 camera_device_ops_t QCamera2HardwareInterface::mCameraOps = {
     .set_preview_window =        QCamera2HardwareInterface::set_preview_window,
     .set_callbacks =             QCamera2HardwareInterface::set_CallBacks,
@@ -1828,9 +1825,6 @@ int QCamera2HardwareInterface::openCamera(struct hw_device_t **hw_device)
     LOGI("[KPI Perf]: E PROFILE_OPEN_CAMERA camera id %d",
             mCameraId);
 
-    /* Meizu changed */
-    gMeizuCameraId = mCameraId;
-
     m_perfLock.lock_acq_timed(CAMERA_OPEN_PERF_TIME_OUT);
     rc = openCamera();
     if (rc == NO_ERROR){
@@ -3519,6 +3513,8 @@ int QCamera2HardwareInterface::startPreview()
 
     m_perfLock.lock_acq();
 
+    mParameters.setCameraId(mCameraId);
+
     updateThermalLevel((void *)&mThermalLevel);
 
     setDisplayFrameSkip();
@@ -4544,6 +4540,13 @@ int QCamera2HardwareInterface::takePicture()
     // Get number of retro-active snapshots
     uint8_t numRetroSnapshots = mParameters.getNumOfRetroSnapshots();
     LOGH("E");
+
+    if (mCameraId == 1 && mParameters.getQuadraCfa()) {
+        if (mParameters.isZSLMode())
+            mParameters.setZslMode(false);
+
+        mParameters.setFrontRemosaic(true);
+    }
 
     //Set rotation value from user settings as Jpeg rotation
     //to configure back-end modules.
@@ -9267,6 +9270,10 @@ bool QCamera2HardwareInterface::isPreviewRestartEnabled()
     memset(prop, 0, sizeof(prop));
     property_get("persist.camera.feature.restart", prop, "0");
     int earlyRestart = atoi(prop);
+
+    if (mParameters.getQuadraCfa() || mParameters.getFrontRemosaic())
+        return true;
+
     return earlyRestart == 1;
 }
 
@@ -10069,6 +10076,8 @@ void *QCamera2HardwareInterface::deferredWorkRoutine(void *obj)
                                     CAMERA_ERROR_UNKNOWN, 0);
                             break;
                         }
+
+                        pme->mParameters.setCameraId(camId);
 
                         // Now PostProc need calibration data as initialization
                         // time for jpeg_open and calibration data is a

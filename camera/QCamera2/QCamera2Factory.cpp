@@ -65,9 +65,6 @@ uint8_t gNumCameraSessions = 0;
 
 volatile uint32_t gKpiDebugLevel = 1;
 
-/* Meizu changed */
-uint32_t gMeizuCameraId = 0;
-
 /*===========================================================================
  * FUNCTION   : QCamera2Factory
  *
