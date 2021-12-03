@@ -1188,7 +1188,7 @@ int32_t QCameraReprocessChannel::addReprocStreamsFromSource(
             } else {
                 type = streamInfo->reprocess_config.online.input_stream_type;
             }
-            if (type == CAM_STREAM_TYPE_SNAPSHOT) {
+            if (type == CAM_STREAM_TYPE_SNAPSHOT || param.getFrontRemosaic()) {
                 int flipMode = param.getFlipMode(type);
                 if (flipMode > 0) {
                     streamInfo->reprocess_config.pp_feature_config.feature_mask |=

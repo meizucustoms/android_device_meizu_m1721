@@ -238,6 +238,10 @@ public:
     int32_t setIntEvent(cam_int_evt_params_t params);
     bool getofflineRAW();
     bool getQuadraCfa();
+    void setFrontRemosaic(bool value);
+    bool getFrontRemosaic();
+    bool isFrontCamera();
+    void setCameraId(int32_t value);
     int32_t updatePpFeatureMask(cam_stream_type_t stream_type);
     int32_t getStreamPpMask(cam_stream_type_t stream_type, cam_feature_mask_t &pp_mask);
     int32_t getSharpness();

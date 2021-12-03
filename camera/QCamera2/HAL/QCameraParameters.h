@@ -819,6 +819,10 @@ public:
     int32_t setIntEvent(cam_int_evt_params_t params);
     bool getofflineRAW() {return mOfflineRAW;}
     bool getQuadraCfa();
+    bool getFrontRemosaic();
+    void setCameraId(int32_t value);
+    void setFrontRemosaic(bool value);
+    bool isFrontCamera();
     int32_t updatePpFeatureMask(cam_stream_type_t stream_type);
     int32_t getStreamPpMask(cam_stream_type_t stream_type, cam_feature_mask_t &pp_mask);
     int32_t getSharpness() {return m_nSharpness;};
@@ -1271,6 +1275,8 @@ private:
     bool m_bDualCameraMode;
     int32_t mDualCamId;
     bool m_bMainCamera;
+    bool m_bFrontRemosaic;
+    int32_t m_CameraId;
 };
 
 }; // namespace qcamera

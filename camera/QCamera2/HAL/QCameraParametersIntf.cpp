@@ -1069,6 +1069,34 @@ bool QCameraParametersIntf::getQuadraCfa()
     return mImpl->getQuadraCfa();
 }
 
+bool QCameraParametersIntf::getFrontRemosaic()
+{
+    Mutex::Autolock lock(mLock);
+    CHECK_PARAM_INTF(mImpl);
+    return mImpl->getFrontRemosaic();
+}
+
+void QCameraParametersIntf::setFrontRemosaic(bool value)
+{
+    Mutex::Autolock lock(mLock);
+    CHECK_PARAM_INTF(mImpl);
+    mImpl->setFrontRemosaic(value);
+}
+
+bool QCameraParametersIntf::isFrontCamera()
+{
+    Mutex::Autolock lock(mLock);
+    CHECK_PARAM_INTF(mImpl);
+    return mImpl->isFrontCamera();
+}
+
+void QCameraParametersIntf::setCameraId(int32_t value)
+{
+    Mutex::Autolock lock(mLock);
+    CHECK_PARAM_INTF(mImpl);
+    mImpl->setCameraId(value);
+}
+
 int32_t QCameraParametersIntf::updatePpFeatureMask(cam_stream_type_t stream_type)
 {
     Mutex::Autolock lock(mLock);
