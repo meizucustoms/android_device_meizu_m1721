@@ -1299,7 +1299,7 @@
 
     <!-- These are actual sound device specific mixer settings -->
     <path name="adc1">
-        <ctl name="ADC1 Volume" value="6" />
+        <ctl name="ADC1 Volume" value="4" />
         <ctl name="DEC1 MUX" value="ADC1" />
         <ctl name="ADC1_INP1 Switch" value="1" />
     </path>
@@ -1310,7 +1310,7 @@
     </path>
 
     <path name="adc3">
-        <ctl name="ADC3 Volume" value="6" />
+        <ctl name="ADC3 Volume" value="4" />
         <ctl name="DEC1 MUX" value="ADC2" />
 	<ctl name="MI2S_TX Channels" value="One" />
         <ctl name="ADC2 MUX" value="INP3" />
@@ -1588,7 +1588,7 @@
     <!-- Dual MIC devices -->
     <path name="speaker-dmic-endfire">
         <path name="adc1" />
-        <ctl name="ADC3 Volume" value="6" />
+        <ctl name="ADC3 Volume" value="4" />
         <ctl name="DEC2 MUX" value="ADC2" />
         <ctl name="MI2S_TX Channels" value="Two" />
         <ctl name="ADC2 MUX" value="INP3" />
@@ -1608,10 +1608,10 @@
 
     <path name="voice-speaker-dmic-ef">
         <ctl name="MI2S_TX Channels" value="Two" />
-        <ctl name="ADC3 Volume" value="6" />
+        <ctl name="ADC3 Volume" value="4" />
         <ctl name="DEC1 MUX" value="ADC2" />
         <ctl name="ADC2 MUX" value="INP3" />
-        <ctl name="ADC1 Volume" value="6" />
+        <ctl name="ADC1 Volume" value="4" />
         <ctl name="DEC2 MUX" value="ADC1" />
     </path>
 
@@ -1635,7 +1635,7 @@
 
     <path name="speaker-dmic-broadside">
         <path name="adc1" />
-        <ctl name="ADC3 Volume" value="6" />
+        <ctl name="ADC3 Volume" value="4" />
         <ctl name="DEC2 MUX" value="ADC2" />
         <ctl name="ADC2 MUX" value="INP3" />
         <ctl name="MI2S_TX Channels" value="Two" />
