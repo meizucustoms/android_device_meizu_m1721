@@ -178,6 +178,14 @@ on charger
 on boot
     chown system system /sys/kernel/hbtp/display_pwr
 
+    # Battery life saver
+    chown system system /sys/class/power_supply/battery/charging_enabled
+    chmod 0666 /sys/class/power_supply/battery/charging_enabled
+    chown system system /sys/class/power_supply/battery/capacity
+    chmod 0666 /sys/class/power_supply/battery/capacity
+    chown system system /sys/class/power_supply/battery/temp
+    chmod 0666 /sys/class/power_supply/battery/temp
+
 # Update cpusets on boot and we want better load balancing
     write /dev/cpuset/top-app/cpus 0-7
     write /dev/cpuset/foreground/cpus 0-6
