@@ -562,7 +562,8 @@ typedef struct{
     cam_dimension_t raw_meta_dim[MAX_SIZES_CNT];
     cam_sub_format_type_t sub_fmt[CAM_FORMAT_SUBTYPE_MAX];
 
-    volatile char meizu_reserved_01[2056];
+    uint8_t arcsoft_caldata[2048];
+    size_t arcsoft_caldata_size;
 } cam_capability_t;
 
 typedef enum {
