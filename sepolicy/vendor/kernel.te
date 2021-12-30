@@ -3,3 +3,5 @@ allow kernel kernel:capability { kill };
 # cirrus playback driver requires access
 # to block devices (proinfo)
 allow kernel block_device:dir search;
+
+allow kernel self:socket create;

@@ -2,6 +2,7 @@ typeattribute hal_fingerprint_default binder_in_vendor_violators;
 
 # Allow Binder communication
 vndbinder_use(hal_fingerprint_default)
+allow hal_fingerprint_default vndbinder_device:chr_file { ioctl };
 binder_call(hal_fingerprint_default, goodixfingerprintd)
 binder_call(hal_fingerprint_default, keystore)
 
@@ -46,3 +47,5 @@ allow hal_fingerprint_default mnt_user_file:dir { search };
 allow hal_fingerprint_default mnt_user_file:lnk_file { read };
 allow hal_fingerprint_default sdcardfs:dir { search };
 allow hal_fingerprint_default sdcardfs:file { getattr };
+allow hal_fingerprint_default media_rw_data_file:dir { search read open };
+allow hal_fingerprint_default system_data_file:file { read open getattr };

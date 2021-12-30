@@ -1,2 +1,4 @@
 allow platform_app hal_alarm_qti_default:binder call;
 allow platform_app hal_alarm_qti_hwservice:hwservice_manager find;
+
+get_prop(platform_app, exported_audio_prop);

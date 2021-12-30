@@ -14,3 +14,5 @@ allow mm-qcamerad system_server:unix_stream_socket { read write };
 allow mm-qcamerad diag_device:chr_file { ioctl open read write };
 
 allow mm-qcamerad persist_file:dir { read search };
+
+allow mm-qcamerad property_socket:sock_file write;

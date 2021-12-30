@@ -22,6 +22,7 @@ genfscon proc /sys/vm/swappiness                                      u:object_r
 
 # Touchscreen
 genfscon proc /touchpanel                                             u:object_r:proc_touchpanel:s0
+genfscon proc /mback_disable                                          u:object_r:proc_touchpanel:s0
 
 # MeizuParts (Sound-Control nodes)
 genfscon sysfs /kernel/sound_control/headphone_gain                u:object_r:sysfs_hgain:s0
