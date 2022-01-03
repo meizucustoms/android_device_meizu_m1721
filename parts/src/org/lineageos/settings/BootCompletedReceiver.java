@@ -40,10 +40,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         Log.d(TAG, "Starting Doze service");
       DozeUtils.startService(context);
     }
-
-    KeyHandler.setData(
-        Settings.Secure.getInt(context.getContentResolver(), 
-                               MBackSettings.KEY_VIBRO_STRENGTH, 110));
     
     FileUtils.setValue(
         TorchSettings.TORCH_1_BRIGHTNESS_PATH,

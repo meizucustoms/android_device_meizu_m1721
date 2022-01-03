@@ -9,3 +9,7 @@
 -keep class org.lineageos.settings.mback.* {
   *;
 }
+
+-keep class org.lineageos.settings.mback.* {
+  *;
+}
