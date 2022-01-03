@@ -18,28 +18,36 @@
 package org.lineageos.settings.mback;
 
 import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
+import android.os.VibrationEffect;
 import android.provider.Settings;
 import android.util.Log;
+import android.media.AudioManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragment;
 import androidx.preference.ListPreference;
 import org.lineageos.settings.R;
+import org.lineageos.settings.preferences.CustomSeekBarPreference;
 import org.lineageos.settings.preferences.FileUtils;
 import org.lineageos.settings.mback.KeyHandler;
+
+import java.lang.Math;
 
 public class MBackSettings extends PreferenceFragment 
                            implements Preference.OnPreferenceChangeListener {
     public static final String KEY_VIBRO_STRENGTH = "mback_vibration_strength";
-    private static final String GOODIX_PATH = "/proc/gf_vibration";
+    public static final String KEY_TOUCH_SOUND = "mback_touch_sound_volume";
     private Preference mStrengthPreference;
+    private CustomSeekBarPreference mVolumePreference;
 
     private String getVibrationMode() {
         String modes[] = getResources().getStringArray(org.lineageos.settings.R.array.vibration_strength_entries);
 
-        switch (KeyHandler.getData()) {
+        switch (Settings.Secure.getInt(getContext().getContentResolver(), KEY_VIBRO_STRENGTH, 110)) {
             case 110:
                 return modes[3];
             case 90:
@@ -55,21 +63,40 @@ public class MBackSettings extends PreferenceFragment
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.mback_settings, rootKey);
         mStrengthPreference = (ListPreference) findPreference(KEY_VIBRO_STRENGTH);
-        mStrengthPreference.setEnabled(FileUtils.fileWritable(GOODIX_PATH));
+        mStrengthPreference.setEnabled(true);
         mStrengthPreference.setOnPreferenceChangeListener(this);
+        mStrengthPreference.setSummary(getVibrationMode());
 
-        if (FileUtils.fileWritable(GOODIX_PATH))
-            mStrengthPreference.setSummary(getVibrationMode());
+        mVolumePreference = (CustomSeekBarPreference) findPreference(KEY_TOUCH_SOUND);
+        mVolumePreference.setEnabled(true);
+        mVolumePreference.setOnPreferenceChangeListener(this);
+        mVolumePreference.setMax(
+            ((AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE)).getStreamMaxVolume(AudioManager.STREAM_MUSIC));
+        mVolumePreference.setValue(Settings.Secure.getInt(getContext().getContentResolver(), 
+                                                          MBackSettings.KEY_TOUCH_SOUND, 10));
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
-        (new KeyHandler(getContext())).setDuration(Integer.parseInt((String) value), true);
+        switch (preference.getKey()) {
+        case KEY_VIBRO_STRENGTH:
+            int val = Integer.parseInt((String) value);
+            Settings.Secure.putInt(getContext().getContentResolver(), KEY_VIBRO_STRENGTH, val);
+            
+            Vibrator v = getContext().getSystemService(Vibrator.class);
+            if (val > 0)
+                v.vibrate(VibrationEffect.createOneShot(val, VibrationEffect.DEFAULT_AMPLITUDE));
 
-        // Save new value
-        Settings.Secure.putInt(getContext().getContentResolver(), 
-                               KEY_VIBRO_STRENGTH, Integer.parseInt((String) value));
-        mStrengthPreference.setSummary(getVibrationMode());
+            mStrengthPreference.setSummary(getVibrationMode());
+            break;
+
+        case KEY_TOUCH_SOUND:
+            Settings.Secure.putInt(getContext().getContentResolver(), 
+                                   KEY_TOUCH_SOUND, (int) value);
+            mVolumePreference.setValue((int) value);
+            break;
+        }
+        
         return true;
     }
 }

@@ -29,9 +29,11 @@
 
     <!-- mBack -->
     <string name="mback_title">mBack settings</string>
-    <string name="mback_summary">Control mBack vibration strength</string>
+    <string name="mback_summary">Control mBack vibration and sound</string>
     <string name="mback_vibration_strength_title">Vibration control</string>
     <string name="vibration_strength_list_title">Vibration strength</string>
+    <string name="mback_touch_sound_volume_title">Touch sound volume</string>
+    <string name="mback_volume_title">Volume control</string>
     <string-array name="vibration_strength_entries">
         <item>Turned off</item>
         <item>Low</item>

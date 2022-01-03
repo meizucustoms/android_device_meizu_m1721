@@ -14,7 +14,22 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
+                  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:key="mback_volume_category"
+        android:title="@string/mback_volume_title">
+
+        <org.lineageos.settings.preferences.SecureSettingCustomSeekBarPreference
+            android:defaultValue="0"
+            android:key="mback_touch_sound_volume"
+            android:max="100"
+            app:min="0"
+            android:icon="@drawable/ic_volume"
+            android:title="@string/mback_touch_sound_volume_title" />
+
+    </PreferenceCategory>
 
     <PreferenceCategory
         android:key="mback_vibration_category"
