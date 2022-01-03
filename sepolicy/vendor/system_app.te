@@ -4,12 +4,13 @@ allow system_app {
     sysfs_mgain
     sysfs_sgain
     sysfs_torch
+    procfs_mback
 }:file rw_file_perms;
 
 allow system_app {
     sysfs_leds
+    procfs_mback
 }:dir search;
-
 
 # zram
 r_dir_file(system_app sysfs_zram)

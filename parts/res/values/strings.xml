@@ -26,4 +26,22 @@
     <string name="torch_summary">Flashlight white/yellow control</string>
     <string name="yellow_torch_brightness_title">Yellow Torch Brightness</string>
     <string name="white_torch_brightness_title">White Torch Brightness</string>
+
+    <!-- mBack -->
+    <string name="mback_title">mBack settings</string>
+    <string name="mback_summary">Control mBack vibration strength</string>
+    <string name="mback_vibration_strength_title">Vibration control</string>
+    <string name="vibration_strength_list_title">Vibration strength</string>
+    <string-array name="vibration_strength_entries">
+        <item>Turned off</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </string-array>
+    <string-array name="vibration_strength_values" translatable="false">
+        <item>0</item>
+        <item>70</item>
+        <item>90</item>
+        <item>110</item>
+    </string-array>
 </resources>
