@@ -72,5 +72,18 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".mback.MBackSettingsActivity"
+            android:exported="false"
+            android:label="@string/mback_title">
+            <intent-filter>
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.category"
+                       android:value="com.android.settings.category.ia.sound" />
+            <meta-data android:name="com.android.settings.summary"
+                       android:resource="@string/mback_summary" />
+        </activity>
+
     </application>
 </manifest>

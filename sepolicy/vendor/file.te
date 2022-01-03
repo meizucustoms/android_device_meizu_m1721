@@ -24,3 +24,4 @@ type sysfs_hgain, sysfs_type, fs_type;
 type sysfs_mgain, sysfs_type, fs_type;
 type sysfs_sgain, sysfs_type, fs_type;
 type sysfs_torch, sysfs_type, fs_type;
+type procfs_mback, proc_type, fs_type;
