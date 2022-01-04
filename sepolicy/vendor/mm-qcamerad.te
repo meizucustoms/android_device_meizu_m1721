@@ -16,3 +16,6 @@ allow mm-qcamerad diag_device:chr_file { ioctl open read write };
 allow mm-qcamerad persist_file:dir { read search };
 
 allow mm-qcamerad property_socket:sock_file write;
+
+get_prop(hal_camera_default, bootanim_system_prop);
+get_prop(hal_camera_default, camera_prop);
