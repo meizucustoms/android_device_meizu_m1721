@@ -24,7 +24,6 @@ import android.provider.Settings;
 import android.util.Log;
 import org.lineageos.settings.doze.DozeUtils;
 import org.lineageos.settings.preferences.FileUtils;
-import org.lineageos.settings.torch.TorchSettings;
 import org.lineageos.settings.mback.MBackSettings;
 import org.lineageos.settings.mback.KeyHandler;
 
@@ -40,14 +39,5 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         Log.d(TAG, "Starting Doze service");
       DozeUtils.startService(context);
     }
-    
-    FileUtils.setValue(
-        TorchSettings.TORCH_1_BRIGHTNESS_PATH,
-        Settings.Secure.getInt(context.getContentResolver(),
-                               TorchSettings.KEY_WHITE_TORCH_BRIGHTNESS, 100));
-    FileUtils.setValue(
-        TorchSettings.TORCH_2_BRIGHTNESS_PATH,
-        Settings.Secure.getInt(context.getContentResolver(),
-                               TorchSettings.KEY_YELLOW_TORCH_BRIGHTNESS, 100));
   }
 }
