@@ -16,23 +16,23 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Custom seekbar -->
-    <string name="custom_seekbar_value">Value: <xliff:g id="v">%s</xliff:g></string>
+    <string name="custom_seekbar_value">Valore: <xliff:g id="v">%s</xliff:g></string>
     <string name="custom_seekbar_default_value">Default</string>
-    <string name="custom_seekbar_default_value_to_set">Default value: <xliff:g id="v">%s</xliff:g>\nLong press to set</string>
-    <string name="custom_seekbar_default_value_is_set">Default value is set</string>
+    <string name="custom_seekbar_default_value_to_set">Valore di default: <xliff:g id="v">%s</xliff:g>\nPremere a lungo per impostare</string>
+    <string name="custom_seekbar_default_value_is_set">Il valore predefinito è impostato</string>
 
     <!-- mBack -->
-    <string name="mback_title">mBack settings</string>
-    <string name="mback_summary">Control mBack vibration and sound</string>
-    <string name="mback_vibration_strength_title">Vibration control</string>
-    <string name="vibration_strength_list_title">Vibration strength</string>
-    <string name="mback_touch_sound_volume_title">Touch sound volume</string>
-    <string name="mback_volume_title">Volume control</string>
+    <string name="mback_title">Impostazioni mBack</string>
+    <string name="mback_summary">Controlla la vibrazione e il suono di mBack</string>
+    <string name="mback_vibration_strength_title">Controllo della vibrazione</string>
+    <string name="vibration_strength_list_title">Intensità della vibrazione</string>
+    <string name="mback_touch_sound_volume_title">Volume del suono al tocco</string>
+    <string name="mback_volume_title">Controllo del volume</string>
     <string-array name="vibration_strength_entries">
-        <item>Turned off</item>
-        <item>Low</item>
-        <item>Medium</item>
-        <item>High</item>
+        <item>Spenta</item>
+        <item>Leggera</item>
+        <item>Media</item>
+        <item>Forte</item>
     </string-array>
     <string-array name="vibration_strength_values" translatable="false">
         <item>0</item>
