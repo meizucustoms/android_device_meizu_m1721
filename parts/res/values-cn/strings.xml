@@ -1,0 +1,37 @@
+ ​<?​xml​ version​=​"​1.0​"​ encoding​=​"​utf-8​"​?> 
+ ​<!--​ Copyright (C) 2018 The Asus-SDM660 Project 
+ ​     Copyright (C) 2017-2021 The LineageOS Project 
+  
+ ​     Licensed under the Apache License, Version 2.0 (the "License"); 
+ ​     you may not use this file except in compliance with the License. 
+ ​     You may obtain a copy of the License at 
+  
+ ​          http://www.apache.org/licenses/LICENSE-2.0 
+  
+ ​     Unless required by applicable law or agreed to in writing, software 
+ ​     distributed under the License is distributed on an "AS IS" BASIS, 
+ ​     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+ ​     See the License for the specific language governing permissions and 
+ ​     limitations under the License. 
+ ​--> 
+ ​<​resources​ ​xmlns​:​xliff​=​"​urn:oasis:names:tc:xliff:document:1.2​"​> 
+ ​    ​<!--​ 自定义搜索栏 ​--> 
+ ​    <​string​ ​name​=​"​custom_seekbar_value​"​>自定义设置: <​xliff​:​g​ ​id​=​"​v​"​>%s</​xliff​:​g​></​string​> 
+ ​    <​string​ ​name​=​"​custom_seekbar_default_value​"​>默认设置</​string​> 
+ ​    <​string​ ​name​=​"​custom_seekbar_default_value_to_set​"​>修改默认设置: <​xliff​:​g​ ​id​=​"​v​"​>%s</​xliff​:​g​>\长按检测</​string​> 
+ ​    <​string​ ​name​=​"​custom_seekbar_default_value_is_set​"​>默认设置已修改</​string​> 
+  
+ ​    ​<!--​ mBack ​--> 
+ ​    <​string​ ​name​=​"​mback_title​"​>mBack 设置</​string​> 
+ ​    <​string​ ​name​=​"​mback_summary​"​>mBack 震感反馈和触摸音量设置</​string​> 
+ ​    <​string​ ​name​=​"​mback_vibration_strength_title​"​>震感反馈设置</​string​> 
+ ​    <​string​ ​name​=​"​vibration_strength_list_title​"​>震感反馈强度</​string​> 
+ ​    <​string​ ​name​=​"​mback_touch_sound_volume_title​"​>触摸反馈音量</​string​> 
+ ​    <​string​ ​name​=​"​mback_volume_title​"​>音量设置</​string​> 
+ ​    <​string-array​ ​name​=​"​vibration_strength_entries​"​> 
+ ​        <​item​>关闭</​item​> 
+ ​        <​item​>轻微</​item​> 
+ ​        <​item​>适中</​item​> 
+ ​        <​item​>酥麻</​item​> 
+ ​    </​string-array​> 
+ ​</​resources​>
