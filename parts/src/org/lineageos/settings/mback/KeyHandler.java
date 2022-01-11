@@ -23,10 +23,12 @@ import com.android.internal.os.DeviceKeyHandler;
 
 public class KeyHandler implements DeviceKeyHandler {
     private static final String TAG = "KeyHandler";
+    private static final int GOODIX_LONG_PRESS_TIMEOUT = 500;
     private Context mContext;
     private Vibrator mVibrator;
     private AudioManager mAudioManager;
-    private long prevTime;
+    private long prevKeyBackDownTime;
+    private long prevKeyHomeDownTime = 0; /* may be undefined for some minutes after boot */
 
     private int getVibrationData() {
         return Settings.Secure.getInt(mContext.getContentResolver(), MBackSettings.KEY_VIBRO_STRENGTH, 110);
@@ -70,13 +72,20 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     public KeyEvent handleKeyEvent(KeyEvent event) {
-        if (event.getScanCode() == 158 && event.getAction() == KeyEvent.ACTION_DOWN && prevTime != event.getEventTime()) {
+        if (event.getScanCode() == 158 && event.getAction() == KeyEvent.ACTION_DOWN && prevKeyBackDownTime != event.getEventTime()) {
             // Avoid double handling
-            prevTime = event.getEventTime();
+            prevKeyBackDownTime = event.getEventTime();
+
+            // Ignore annoying back key press after home press 
+            if (prevKeyHomeDownTime + GOODIX_LONG_PRESS_TIMEOUT >= prevKeyBackDownTime)
+                return null;
 
             mBackVibrate();
             mBackPlaySound();
         }
+
+        if (event.getScanCode() == 102 && event.getAction() == KeyEvent.ACTION_UP)
+            prevKeyHomeDownTime = event.getEventTime();
 
         return event;
     }
