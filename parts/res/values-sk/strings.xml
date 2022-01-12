@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2018 The Asus-SDM660 Project
+     Copyright (C) 2017-2021 The LineageOS Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Custom seekbar -->
+    <string name="custom_seekbar_value">Hodnota: <xliff:g id="v">%s</xliff:g></string>
+    <string name="custom_seekbar_default_value">Pôvodná</string>
+    <string name="custom_seekbar_default_value_to_set">Pôvodná hodnota: <xliff:g id="v">%s</xliff:g>\nPodržte pre nastavenie</string>
+    <string name="custom_seekbar_default_value_is_set">Pôvodná hodnota je nastavená na</string>
+
+    <!-- mBack -->
+    <string name="mback_title">mBack nastavenia</string>
+    <string name="mback_summary">Nastavte si zvuk a vibráciu tlačidla mBack</string>
+    <string name="mback_vibration_strength_title">Nastavenie vibrácie</string>
+    <string name="vibration_strength_list_title">Sila vibrácie</string>
+    <string name="mback_touch_sound_volume_title">Hlasitosť dotyku</string>
+    <string name="mback_volume_title">Nastavenie hlasitosti</string>
+    <string-array name="vibration_strength_entries">
+        <item>Vypnutá</item>
+        <item>Slabá</item>
+        <item>Stredná</item>
+        <item>Silná</item>
+    </string-array>
+</resources>
