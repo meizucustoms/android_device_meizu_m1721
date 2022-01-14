@@ -50,7 +50,7 @@ public class KeyHandler implements DeviceKeyHandler {
         if (mAudioManager.getRingerModeInternal() == AudioManager.RINGER_MODE_NORMAL) {
             int settingsVolume = getTouchData();
             int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-            float realVolume = settingsVolume / maxVolume;
+            float realVolume = (float)settingsVolume / maxVolume;
 
             mAudioManager.playSoundEffect(AudioManager.FX_FOCUS_NAVIGATION_DOWN, realVolume);
         }
