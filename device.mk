@@ -426,6 +426,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libstdc++.vendor
 
+# vndservicemanager
+PRODUCT_PACKAGES += \
+    vndservicemanager
+
 # Wi-Fi
 PRODUCT_PACKAGES += \
     WifiResM1721
