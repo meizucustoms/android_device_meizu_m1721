@@ -9,11 +9,7 @@ allow init adsprpcd_file:filesystem { getattr mount relabelfrom relabelto };
 # Firmware
 allow init firmware_file:filesystem getattr;
 
-<<<<<<< HEAD
-# LEDs
-=======
 # Leds
->>>>>>> 3c0542c9 (mido: Update sepolicy for S)
 allow init sysfs_leds:lnk_file read;
 
 # Power
