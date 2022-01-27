@@ -7,12 +7,14 @@
 package org.lineageos.settings.mback;
 import android.content.Context;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.os.Vibrator;
 import android.os.VibrationEffect;
 import android.os.ServiceManager;
 import android.app.Fragment;
 import android.app.Activity;
+import android.hardware.display.DisplayManager;
 import android.provider.Settings;
 import android.media.AudioManager;
 import org.lineageos.settings.mback.MBackSettings;
@@ -46,6 +48,16 @@ public class KeyHandler implements DeviceKeyHandler {
         Settings.Secure.putInt(mContext.getContentResolver(), MBackSettings.KEY_TOUCH_SOUND, data);
     }
 
+    private boolean isScreenInteractive() {
+        DisplayManager dm = (DisplayManager) mContext.getSystemService(Context.DISPLAY_SERVICE);
+        for (Display display : dm.getDisplays()) {
+            if (display.getState() != Display.STATE_OFF) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void mBackPlaySound() {
         if (mAudioManager.getRingerModeInternal() == AudioManager.RINGER_MODE_NORMAL) {
             int settingsVolume = getTouchData();
@@ -73,6 +85,11 @@ public class KeyHandler implements DeviceKeyHandler {
 
     public KeyEvent handleKeyEvent(KeyEvent event) {
         if (event.getScanCode() == 158 && event.getAction() == KeyEvent.ACTION_DOWN && prevKeyBackDownTime != event.getEventTime()) {
+            // When fingerprint unlock is disabled, Goodix reports
+            // KeyEvents when screen is off.
+            if (!isScreenInteractive())
+                return null;
+
             // Avoid double handling
             prevKeyBackDownTime = event.getEventTime();
 
