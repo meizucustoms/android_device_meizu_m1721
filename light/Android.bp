@@ -16,6 +16,7 @@ cc_binary {
     relative_install_path: "hw",
     defaults: ["hidl_defaults"],
     name: "android.hardware.light@2.0-service.meizu_m1721",
+    overrides: ["android.hardware.lights-service.qti"],
     proprietary: true,
     init_rc: ["android.hardware.light@2.0-service.meizu_m1721.rc"],
     vintf_fragments: ["android.hardware.light@2.0-service.meizu_m1721.xml"],

@@ -11,7 +11,7 @@ LOCAL_CFLAGS+= -D_ANDROID_ -DQCAMERA_REDEFINE_LOG
 
 LOCAL_CFLAGS += -Wall -Wextra -Werror -Wno-unused-parameter
 
-LOCAL_HEADER_LIBRARIES += generated_kernel_headers
+LOCAL_HEADER_LIBRARIES += qti_kernel_headers
 
 LIB2D_ROTATION=false
 

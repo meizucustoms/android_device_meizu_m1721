@@ -16,20 +16,25 @@
 
 DEVICE_PATH := device/meizu/m1721
 
+# AOSPA best ROM
+BUILD_BROKEN_DUP_RULES := true
+BUILD_BROKEN_USES_BUILD_COPY_HEADERS := true
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := generic
-TARGET_CPU_VARIANT_RUNTIME := cortex-a53
-
+	
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := generic
-TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a53
+TARGET_2ND_CPU_VARIANT := cortex-a53
+
+TARGET_CPU_CORTEX_A53 := true
 
 TARGET_BOARD_PLATFORM := msm8953
 
@@ -38,18 +43,21 @@ TARGET_BOARD_SUFFIX := _64
 # Device Properties
 TARGET_ODM_PROP := $(DEVICE_PATH)/odm.prop
 TARGET_PRODUCT_PROP := $(DEVICE_PATH)/product.prop
-TARGET_SYSTEM_EXT_PROP := $(DEVICE_PATH)/system_ext.prop
 TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
 TARGET_VENDOR_PROP := $(DEVICE_PATH)/vendor.prop
 
 # Kernel
-TARGET_KERNEL_CONFIG := m1721_defconfig
+TARGET_KERNEL_CONFIG := ../m1721_defconfig
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78af000 loop.max_part=16 androidboot.usbconfigfs=true
+
+# TEMPORARY!!!!
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+SELINUX_IGNORE_NEVERALLOWS := true
+
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE :=  2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
-TARGET_KERNEL_CLANG_COMPILE := true
 TARGET_KERNEL_SOURCE := kernel/meizu/m1721
 TARGET_KERNEL_VERSION := 4.9
 
@@ -58,7 +66,6 @@ BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Audio
 USE_DEVICE_SPECIFIC_AUDIO := true
-DEVICE_SPECIFIC_AUDIO_PATH := $(DEVICE_PATH)/qcom-caf/audio
 AUDIO_FEATURE_ENABLED_COMPRESS_VOIP := true
 AUDIO_FEATURE_ENABLED_HIFI_AUDIO := true
 AUDIO_FEATURE_ENABLED_EXT_HDMI := false
@@ -103,6 +110,8 @@ TARGET_NO_BOOTLOADER := true
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 BOARD_HAVE_BLUETOOTH_QCOM := true
+TARGET_FWK_SUPPORTS_FULL_VALUEADDS := true
+TARGET_USE_QTI_BT_STACK := true
 
 # Bootanimation
 TARGET_BOOTANIMATION_HALF_RES := true
@@ -142,9 +151,10 @@ TARGET_NO_RPC := true
 USE_DEVICE_SPECIFIC_GPS := true
 
 # HIDL
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += $(DEVICE_PATH)/framework_compatibility_matrix.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := $(DEVICE_PATH)/framework_manifest.xml
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
-DEVICE_MATRIX_FILE   := $(DEVICE_PATH)/compatibility_matrix.xml
+DEVICE_MATRIX_FILE   := device/qcom/common/compatibility_matrix.xml
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
@@ -177,7 +187,6 @@ DISABLE_RILD_OEM_HOOK := true
 VENDOR_SECURITY_PATCH := 2021-08-04
 
 # SELinux
-include device/qcom/sepolicy-legacy-um/SEPolicy.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 
 # Treble

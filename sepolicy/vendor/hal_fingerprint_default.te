@@ -1,4 +1,4 @@
-typeattribute hal_fingerprint_default binder_in_vendor_violators;
+typeattribute hal_fingerprint_default data_between_core_and_vendor_violators;
 
 # Allow Binder communication
 vndbinder_use(hal_fingerprint_default)
