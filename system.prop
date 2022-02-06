@@ -12,9 +12,6 @@ ro.config.media_vol_steps=25
 ro.config.vc_call_vol_steps=6
 vendor.fastrpc.disable.adsprpcd_sensorspd.daemon=1
 
-# BPF
-ro.kernel.ebpf.supported=true
-
 # Camera
 persist.camera.mct.debug=0
 persist.camera.iface.logs=0
