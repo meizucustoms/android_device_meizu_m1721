@@ -18,9 +18,6 @@ ro.surface_flinger.supports_background_blur=0
 ro.sf.blurs_are_expensive=1
 persist.sys.sf.disable_blurs=1
 
-# BPF
-ro.kernel.ebpf.supported=true
-
 # Camera
 persist.vendor.camera.display.lmax=1280x720
 persist.vendor.camera.display.umax=1920x1080
