@@ -95,6 +95,7 @@ PRODUCT_PACKAGES += \
     audio.primary.msm8953 \
     audio.r_submix.default \
     audio.usb.default \
+    liba2dpoffload \
     libaacwrapper \
     libaudio-resampler \
     libqcomvisualizer \
@@ -117,7 +118,7 @@ PRODUCT_COPY_FILES += \
 
 # Audio XML configuration files
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/audio/bluetooth_qti_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
+    vendor/qcom/opensource/audio-hal/primary-hal/configs/common/bluetooth_qti_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_qti_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
@@ -128,17 +129,19 @@ PRODUCT_COPY_FILES += \
 
 # Bluetooth
 PRODUCT_PACKAGES += \
-    vendor.qti.hardware.btconfigstore@1.0.vendor:64 \
-    vendor.qti.hardware.btconfigstore@2.0.vendor:64 \
-    android.hardware.bluetooth@1.0.vendor:64 \
-    android.hardware.bluetooth.audio@2.0-impl:32 \
-    android.hardware.bluetooth.audio@2.1.vendor:32 \
+    vendor.qti.hardware.btconfigstore@1.0.vendor \
+    vendor.qti.hardware.btconfigstore@2.0.vendor \
+    android.hardware.bluetooth@1.0.vendor \
+    android.hardware.bluetooth.audio@2.0-impl \
+    android.hardware.bluetooth.audio@2.1.vendor \
     android.hardware.bluetooth.a2dp@1.0.vendor \
+    com.qualcomm.qti.bluetooth_audio@1.0.vendor \
     audio.bluetooth_qti.default:32 \
     audio.bluetooth.default:32 \
     liba2dpoffload \
     libbluetooth_qti \
     libbtconfigstore \
+    libbthost_if
 
 # Camera
 PRODUCT_PACKAGES += \
