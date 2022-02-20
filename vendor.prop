@@ -56,9 +56,10 @@ vendor.audio.feature.vbat.enable=true
 vendor.audio.feature.wsa.enable=true
 
 # Bluetooth
-persist.vendor.qcom.bluetooth.soc=smd
-vendor.qcom.bluetooth.soc=smd
-persist.vendor.qcom.bluetooth.enable.splita2dp=false
+persist.vendor.qcom.bluetooth.soc=pronto
+persist.vendor.bt.a2dp.aac_whitelist=false
+persist.vendor.qcom.bluetooth.enable.splita2dp=true
+persist.vendor.qcom.bluetooth.a2dp_offload_cap=sbc-aptx-aac
 ro.bluetooth.hfp.ver=1.7
 ro.vendor.bluetooth.wipower=false
 

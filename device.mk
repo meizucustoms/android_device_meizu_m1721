@@ -21,8 +21,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_n.mk)
 OVERRIDE_PRODUCT_COMPRESSED_APEX := false
 
 # Overlays
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay-aospa
+DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay \
+    $(LOCAL_PATH)/overlay-aospa \
+    $(LOCAL_PATH)/overlay-system
 
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
@@ -37,7 +39,9 @@ $(call inherit-product, $(LOCAL_PATH)/configs/memconfig/phone-xxhdpi-3072-dalvik
 
 # RRO (Runtime Resource Overlay)
 PRODUCT_ENFORCE_RRO_TARGETS := *
-PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += $(LOCAL_PATH)/overlay/packages/apps/CarrierConfig
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += \
+    $(LOCAL_PATH)/overlay/packages/apps/CarrierConfig \
+    $(LOCAL_PATH)/overlay-system
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
@@ -119,6 +123,7 @@ PRODUCT_COPY_FILES += \
 # Audio XML configuration files
 PRODUCT_COPY_FILES += \
     vendor/qcom/opensource/audio-hal/primary-hal/configs/common/bluetooth_qti_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_qti_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
@@ -131,17 +136,20 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.btconfigstore@1.0.vendor \
     vendor.qti.hardware.btconfigstore@2.0.vendor \
+    vendor.qti.hardware.bluetooth_audio@2.0.vendor \
+    vendor.qti.hardware.bluetooth_audio@2.1.vendor \
     android.hardware.bluetooth@1.0.vendor \
     android.hardware.bluetooth.audio@2.0-impl \
+    android.hardware.bluetooth.audio@2.1-impl \
     android.hardware.bluetooth.audio@2.1.vendor \
     android.hardware.bluetooth.a2dp@1.0.vendor \
-    com.qualcomm.qti.bluetooth_audio@1.0.vendor \
+    com.qualcomm.qti.bluetooth_audio@2.1.vendor \
     audio.bluetooth_qti.default:32 \
     audio.bluetooth.default:32 \
     liba2dpoffload \
     libbluetooth_qti \
-    libbtconfigstore \
-    libbthost_if
+    libbthost_if \
+    libbtconfigstore
 
 # Camera
 PRODUCT_PACKAGES += \
