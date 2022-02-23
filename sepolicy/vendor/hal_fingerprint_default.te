@@ -47,3 +47,6 @@ allow hal_fingerprint_default sdcardfs:dir { search };
 allow hal_fingerprint_default sdcardfs:file { getattr };
 allow hal_fingerprint_default media_rw_data_file:dir { search read open };
 allow hal_fingerprint_default system_data_file:file { read open getattr };
+
+# Allow fp to read boot status prop
+get_prop(hal_fingerprint_default, boot_status_prop)
