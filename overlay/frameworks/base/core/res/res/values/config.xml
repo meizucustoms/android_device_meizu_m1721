@@ -368,4 +368,15 @@
 
     <!-- Disable rounded corners on windows to improve graphics performance -->
     <bool name="config_supportsRoundedCornersOnWindows">false</bool>
+
+    <!-- Indicate available ColorDisplayManager.COLOR_MODE_xxx. -->
+    <integer-array name="config_availableColorModes">
+        <item>0</item>
+    </integer-array>
+
+    <!-- Mapping for default ColorDisplayManager.COLOR_MODE_xxx to other color modes, if
+         if applicable. By default, all map to the same value. -->
+    <integer-array name="config_mappedColorModes">
+        <item>0</item> <!-- COLOR_MODE_NATURAL -->
+    </integer-array>
 </resources>

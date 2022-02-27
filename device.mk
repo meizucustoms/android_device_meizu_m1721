@@ -23,8 +23,7 @@ OVERRIDE_PRODUCT_COMPRESSED_APEX := false
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-aospa \
-    $(LOCAL_PATH)/overlay-system
+    $(LOCAL_PATH)/overlay-aospa
 
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
@@ -50,6 +49,8 @@ PRODUCT_SOONG_NAMESPACES += \
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.low_latency.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.camera.full.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.full.xml \
@@ -133,6 +134,13 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/mixer_paths_mtp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_mtp.xml
 
 # Bluetooth
+TARGET_USE_QTI_BT_STACK := false
+TARGET_USE_BT_DUN := false
+include vendor/qcom/opensource/commonsys-intf/bluetooth/bt-commonsys-intf-legacy-aosp-board.mk
+
+$(call inherit-product, vendor/qcom/opensource/commonsys-intf/bluetooth/bt-system-opensource-product.mk)
+$(call inherit-product-if-exists, vendor/qcom/common/system/bt/bt-vendor.mk)
+
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.btconfigstore@1.0.vendor \
     vendor.qti.hardware.btconfigstore@2.0.vendor \
@@ -143,7 +151,7 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth.audio@2.1-impl \
     android.hardware.bluetooth.audio@2.1.vendor \
     android.hardware.bluetooth.a2dp@1.0.vendor \
-    com.qualcomm.qti.bluetooth_audio@2.1.vendor \
+    com.qualcomm.qti.bluetooth_audio@1.0.vendor \
     audio.bluetooth_qti.default:32 \
     audio.bluetooth.default:32 \
     liba2dpoffload \
@@ -351,7 +359,6 @@ PRODUCT_PACKAGES += \
 TARGET_COMMON_QTI_COMPONENTS += \
     adreno-legacy \
     av \
-    bt \
     overlay \
     perf \
     telephony \
