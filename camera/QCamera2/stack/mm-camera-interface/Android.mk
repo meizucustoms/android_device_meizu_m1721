@@ -54,7 +54,7 @@ LOCAL_SHARED_LIBRARIES := libdl libcutils liblog
 LOCAL_HEADER_LIBRARIES := libhardware_headers
 LOCAL_HEADER_LIBRARIES += camera_common_headers
 LOCAL_HEADER_LIBRARIES += media_plugin_headers
-LOCAL_HEADER_LIBRARIES += generated_kernel_headers
+LOCAL_HEADER_LIBRARIES += qti_kernel_headers
 LOCAL_MODULE_TAGS := optional
 LOCAL_VENDOR_MODULE := true
 
