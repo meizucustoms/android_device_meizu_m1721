@@ -318,6 +318,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libjson
 
+# QTI
+TARGET_COMMON_QTI_COMPONENTS += \
+    adreno-legacy
+
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
