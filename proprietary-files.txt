@@ -2328,6 +2328,9 @@ vendor/lib64/lib-rtpsl.so|16009ce0421c7fbd10f437e7aa5bdc67275ce09b
 vendor/lib64/vendor.qti.imsrtpservice@3.0-service-Impl.so|31759a9a5f6045b1139d00103044d9b55607eac1
 vendor/lib64/vendor.qti.imsrtpservice@3.0.so|25517caf74691b812320b46b477a3f4161cc1bcf
 
+# RILD - from lineage_m1721-eng.tdrk.20220130.140152
+vendor/bin/hw/rild
+
 # Sensors - from LA.UM.9.6.2.r1-04200-89xx.0
 system_ext/lib/vendor.qti.hardware.sensorscalibrate@1.0.so|81934fd454fd30282ef1a8a90b7374317f6c42de
 system_ext/lib64/vendor.qti.hardware.sensorscalibrate@1.0.so|32257292ed8c5b2e2f905571b82bb26383a1a041
