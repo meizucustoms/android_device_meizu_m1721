@@ -1,5 +1,3 @@
-typeattribute mm-qcamerad data_between_core_and_vendor_violators;
-
 # Allow binder use
 binder_use(mm-qcamerad);
 vndbinder_use(mm-qcamerad);
