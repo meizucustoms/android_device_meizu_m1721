@@ -26,42 +26,18 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.INJECT_EVENTS"/>
 
-    <protected-broadcast android:name="com.android.systemui.doze.pulse" />
-
     <uses-sdk
         android:minSdkVersion="24"
         android:targetSdkVersion="24"/>
 
     <application
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/device_settings_app_name"
-        android:persistent="true"
-        android:theme="@style/Theme.Main">
-
-        <receiver android:name=".BootCompletedReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
-        <service android:name=".doze.DozeService"
-                 android:permission="MeizuDozeService">
-        </service>
-
-        <activity
-            android:name=".doze.DozeSettingsActivity"
-            android:label="@string/ambient_display_title">
-            <intent-filter>
-                <action android:name="org.lineageos.settings.device.DOZE_SETTINGS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        android:label="@string/mback_title"
+        android:persistent="true">
 
         <activity
             android:name=".mback.MBackSettingsActivity"
-            android:exported="false"
-            android:label="@string/mback_title">
+            android:label="@string/mback_title"
+            android:theme="@style/Theme.Main">
             <intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />
             </intent-filter>
