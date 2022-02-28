@@ -1,5 +1,7 @@
 ifeq ($(TARGET_ARCH),$(filter $(TARGET_ARCH),arm arm64))
 
+LOCAL_PATH := $(call my-dir)
+
 include $(CLEAR_VARS)
 LOCAL_MODULE := mm-image-codec_headers
 LOCAL_EXPORT_C_INCLUDE_DIRS := \
