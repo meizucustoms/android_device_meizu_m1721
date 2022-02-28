@@ -74,8 +74,6 @@ endif
 LOCAL_CFLAGS += -DDEFAULT_DENOISE_MODE_ON -DHAL3 -DQCAMERA_REDEFINE_LOG
 
 LOCAL_C_INCLUDES := \
-        $(LOCAL_PATH)/../mm-image-codec/qexif \
-        $(LOCAL_PATH)/../mm-image-codec/qomx_core \
         $(LOCAL_PATH)/include \
         $(LOCAL_PATH)/stack/mm-camera-interface/inc \
         $(LOCAL_PATH)/util \
@@ -125,6 +123,7 @@ LOCAL_SHARED_LIBRARIES += libts_face_beautify_hal libts_detected_face_hal
 endif
 LOCAL_HEADER_LIBRARIES += display_headers
 LOCAL_HEADER_LIBRARIES += camera_common_headers
+LOCAL_HEADER_LIBRARIES += mm-image-codec_headers
 
 LOCAL_STATIC_LIBRARIES := android.hardware.camera.common@1.0-helper
 
