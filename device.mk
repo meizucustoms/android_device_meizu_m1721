@@ -321,6 +321,9 @@ PRODUCT_PACKAGES += \
     libstagefrighthw \
     libstagefright_enc_common
 
+# Platform
+TARGET_BOARD_PLATFORM := msm8953
+
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power-service-qti \
