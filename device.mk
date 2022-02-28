@@ -323,7 +323,8 @@ TARGET_COMMON_QTI_COMPONENTS += \
     adreno-legacy \
     av \
     overlay \
-    perf
+    perf \
+    telephony
 
 # Ramdisk
 PRODUCT_PACKAGES += \
