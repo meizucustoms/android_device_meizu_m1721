@@ -36,8 +36,7 @@
 
         <activity
             android:name=".mback.MBackSettingsActivity"
-            android:label="@string/mback_title"
-            android:theme="@style/Theme.Main">
+            android:label="@string/mback_title">
             <intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />
             </intent-filter>
