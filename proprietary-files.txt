@@ -2048,6 +2048,15 @@ vendor/lib64/vendor.qti.hardware.alarm@1.0.so|57d936014f89811481712ac7a08d104b85
 # Power-off charging daemon
 -sbin/charger:bin/chargeonlymode|664dfa548b81cac348f1699222160f8d2b4d247c
 
+# Qcrild - from LA.UM.9.6.2.r1-03600-89xx.0
+vendor/bin/hw/qcrild|d25d2f28227b032fbce336abb01bf93053d85ac9
+vendor/etc/init/qcrild.rc|63c8ffc9bd8a33b56222a471044ee504970b2998
+vendor/lib64/libqcrilFramework.so|da3c0216ddad60f48b1fc90b31a6d6d1114e95be
+vendor/lib64/libqcrildatactl.so|de52eb977508a0dd0af224220fb3f718ff4b8775
+vendor/lib64/libril-qc-hal-qmi.so|75385897c070c56a8cc6d1864c06e5e113026ac8
+vendor/lib64/libril-qc-logger.so|9eed72d839a52d4347755af64e9ad0ca8095f8e5
+vendor/lib64/qcrild_librilutils.so|69354ed8d4f5b18dc890e292bcbfec01fa37edf7
+
 # QMI - from Tissot PKQ1.180917.001 V10.0.24.0.PDHMIXM
 vendor/lib/libdsi_netctrl.so|78206e2c94d0a9ceb69712aeec99ed90f8fc63b3
 vendor/lib/libdsutils.so|bfc2e8fb927ccd35158ceaf4389fe54186091132
