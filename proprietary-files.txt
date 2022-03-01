@@ -1853,22 +1853,9 @@ vendor/etc/diracmobile.config
 vendor/lib/libDiracAPI_SHARED.so
 vendor/lib/soundfx/libdirac.so
 
-# DPM - from LA.UM.9.6.2.r1-04200-89xx.0
-system_ext/bin/dpmd|9d53950064e2937c8859a329dcaa8153b89a5485
-system_ext/etc/dpm/dpm.conf|95e27da8c989e96c6faea6f0697bce11955b62a5
-system_ext/etc/init/dpmd.rc|738b638ff04cda368e22c03e16baf90ba157a6fc
-system_ext/etc/permissions/com.qti.dpmframework.xml|c4b7ad0879d00c1eba4f3fe3a88ddb8aa153629a
-system_ext/etc/permissions/dpmapi.xml|9158c9789cc7135a685b3fb27f8cc27108b51fef
-system_ext/framework/com.qti.dpmframework.jar|96a29e28b3abffb9223daadd67459e3f5a3271df
-system_ext/framework/dpmapi.jar|2e2fbe2257a697b96a644c774136da0554430d3f
-system_ext/lib64/com.qualcomm.qti.dpm.api@1.0.so|7003110f7d18b164929960ee0a67797ca9a524fe
-system_ext/lib64/libdpmctmgr.so|7635c7c314e7328e14bf08ccebce55c76a28c022
-system_ext/lib64/libdpmfdmgr.so|de47c07b4d092e91eebfc58a2a9424c0f84a6b87
-system_ext/lib64/libdpmtcm.so|dd2417890101f44304456560b802533b834649ff
-system_ext/lib64/libdpmframework.so|040e38cd46a218593800bcbfa2d1aea637c1c79c
--system_ext/priv-app/dpmserviceapp/dpmserviceapp.apk|74ec0d8e2ef3d7e3b0a730da9b97237921778ac4
+# DPM - from LA.UM.9.6.2.r1-03600-89xx.0
 vendor/bin/dpmQmiMgr|4fe936478b0da1ee20c6222234b80d478a72cc2a
-vendor/etc/init/dpmQmiMgr.rc|1538743661a5c48c15cd105beaad20f72953885a
+vendor/etc/init/dpmQmiMgr.rc|d4d813ad5dbb955adac550c032607613fa58dae8
 vendor/lib64/com.qualcomm.qti.dpm.api@1.0.so|c5c893e86d38b8aa8cd277ccb8b011fb2f19995e
 vendor/lib64/libdpmqmihal.so|ffcd85e1f6bf7d54f37953edc2cb2c4a61fc894a
 
