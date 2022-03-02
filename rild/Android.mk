@@ -1,7 +1,5 @@
 # Copyright 2006 The Android Open Source Project
 
-ifndef ENABLE_VENDOR_RIL_SERVICE
-
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
@@ -40,5 +38,3 @@ LOCAL_INIT_RC := rild.legacy.rc
 endif
 
 include $(BUILD_EXECUTABLE)
-
-endif
