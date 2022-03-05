@@ -1,0 +1,8 @@
+android_app {
+    name: "HaxUceShimService",
+    srcs: ["src/**/*.java"],
+    sdk_version: "current",
+    static_libs: ["androidx.core_core"],
+    system_ext_specific: true,
+    overrides: ["uceShimService"],
+} 

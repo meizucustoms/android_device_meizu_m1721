@@ -392,6 +392,10 @@ PRODUCT_PACKAGES += \
     qti-telephony-utils \
     qti_telephony_utils.xml
 
+PRODUCT_PACKAGES += \
+    HaxUceShimService \
+    HAX_QAS_DVC_MSP
+
 # Sensors
 PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl:64 \

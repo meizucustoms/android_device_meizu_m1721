@@ -1,0 +1,8 @@
+android_app {
+    name: "HAX_QAS_DVC_MSP",
+    srcs: ["src/**/*.java"],
+    sdk_version: "current",
+    static_libs: ["androidx.core_core"],
+    system_ext_specific: true,
+    overrides: ["QAS_DVC_MSP"],
+} 
