@@ -18,11 +18,6 @@
 $(call inherit-product, vendor/meizu/m1721/m1721-vendor.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_n.mk)
 
-# Overlays
-DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-aospa
-
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
@@ -33,11 +28,6 @@ TARGET_SCREEN_WIDTH := 1080
 
 # Dalvik VM configs
 $(call inherit-product, $(LOCAL_PATH)/configs/memconfig/phone-xxhdpi-3072-dalvik-heap.mk)
-
-# RRO (Runtime Resource Overlay)
-PRODUCT_ENFORCE_RRO_TARGETS := *
-PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += $(LOCAL_PATH)/overlay/packages/apps/CarrierConfig
-PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += $(LOCAL_PATH)/overlay/packages/apps/Snap
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
@@ -254,7 +244,6 @@ PRODUCT_PACKAGES += \
 
 # IMS
 PRODUCT_PACKAGES += \
-    CarrierConfigOverlay \
     ims-ext-common \
     ims_ext_common.xml
 
@@ -321,6 +310,18 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libstagefrighthw \
     libstagefright_enc_common
+
+# Overlays
+PRODUCT_PACKAGES += \
+    AOSPAM1721Frameworks \
+    M1721CarrierConfig \
+    M1721Frameworks \
+    M1721Settings \
+    M1721SettingsProvider \
+    M1721SystemUI \
+    M1721Telephony \
+    M1721Tethering \
+    M1721Wifi
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8953
@@ -430,8 +431,6 @@ PRODUCT_PACKAGES += \
     libwpa_client \
     hostapd \
     libwifi-hal-qcom \
-    TetheringConfigOverlay \
-    WifiOverlay \
     wpa_supplicant \
     wpa_supplicant.conf
 
