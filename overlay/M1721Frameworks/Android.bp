@@ -17,5 +17,5 @@
 runtime_resource_overlay {
     name: "M1721Frameworks",
     sdk_version: "current",
-    vendor: true,
+    system_ext_specific: true,
 } 
