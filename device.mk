@@ -355,7 +355,6 @@ TARGET_COMMON_QTI_COMPONENTS += \
     av \
     bt \
     overlay \
-    perf \
     telephony \
     vibrator
 
