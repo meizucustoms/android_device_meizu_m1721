@@ -2042,12 +2042,25 @@ vendor/lib64/libqti-perfd-client.so|660d1d2a58e10616971c807b638f95b139b5a8e0
 vendor/lib64/libqti-perfd.so|003d9c728a25a50535fe7a77c3616b4079761166
 vendor/lib64/libqti-util.so|45a80be449435d277f09cc59e4a315fa86072c41
 
+# Perf - from LA.UM.9.14.r1-18900-LAHAINA.QSSI12.0
+vendor/lib/vendor.qti.hardware.perf@2.0.so
+vendor/lib/vendor.qti.hardware.perf@2.1.so
+vendor/lib64/vendor.qti.hardware.perf@2.0.so
+vendor/lib64/vendor.qti.hardware.perf@2.1.so
+
 # Perf (configs) - from LA.UM.9.6.2.r1-04200-89xx.0
 vendor/etc/perf/commonresourceconfigs.xml|459a18579580713fd839f93c86d6b1f7f028be1e
 vendor/etc/perf/perfboostsconfig.xml|5c870f997fc67bd3a9e9c2d093b823344dd58e1d
 vendor/etc/perf/perfconfigstore.xml|de7a673eca27fb44b7dcd34c60d21f7ffbd2b9d8
 vendor/etc/perf/targetconfig.xml|aa20c25397df1455206965737f82d44d44430e45
 vendor/etc/perf/targetresourceconfigs.xml|a913faa5efddec9542ef0db3b57a60ddb6bb6e1b
+
+# Perf (system) - from LA.QSSI.12.0.r1-05800-qssi.0
+etc/permissions/com.qualcomm.qti.Performance.xml|7976f2fd46b8d07814310cc957a70f829bdd6932
+etc/permissions/com.qualcomm.qti.UxPerformance.xml|d92749d80c5d956db8251b08ea6388d3f107a32c
+-framework/QXPerformance.jar
+-framework/QPerformance.jar
+-framework/UxPerformance.jar
 
 # Peripheral manager - from LA.UM.9.6.3.r1-04400-89xx.0
 vendor/bin/pm-proxy|cfa016d416eb95949c76090bde8ccffcd5517159
