@@ -326,6 +326,10 @@ PRODUCT_PACKAGES += \
 TARGET_BOARD_PLATFORM := msm8953
 
 # Power
+PRODUCT_BOOT_JARS += \
+    QPerformance \
+    UxPerformance
+
 PRODUCT_PACKAGES += \
     android.hardware.power-service-qti \
     android.hardware.power.stats@1.0-service.mock \
