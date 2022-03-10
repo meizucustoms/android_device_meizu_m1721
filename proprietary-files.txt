@@ -2027,46 +2027,74 @@ vendor/lib/libvqzip.so|f85628ea634df1c31d69380d960ad7ea3396e7b2
 vendor/lib64/libmmosal.so|e9fdb48163e92b089cea0c397723a8416436c272
 vendor/lib64/libvpplibrary.so|30e8e7cf1495fb88162beeb65e6273f28563b43b
 
-# Perf - from LA.UM.8.6.2.r1-08600-89xx.0
+# Perf - from LA.UM.9.6.2.r1-04100-89xx.0
 vendor/bin/energy-awareness|056792da4f0bcfc34b1f85e3ee67820d8c80627f
-vendor/bin/hw/vendor.qti.hardware.perf@2.1-service|2e3be88cad2d9b9aa4edc8e68ad5f4d4e7eeaedc
-vendor/etc/init/vendor.qti.hardware.perf@2.1-service.rc|36cb02ce67ce55a34eff5c0081ea955fd4ccb19f
+vendor/bin/hw/vendor.qti.hardware.perf@2.2-service|2e3be88cad2d9b9aa4edc8e68ad5f4d4e7eeaedc
+vendor/etc/init/vendor.qti.hardware.perf@2.2-service.rc|36cb02ce67ce55a34eff5c0081ea955fd4ccb19f
 vendor/lib/libperfconfig.so|e44d84d1b38e375a6e13422a8fe21c7876fc8068
 vendor/lib/libperfgluelayer.so|39bfe9f4414537084cb6fcc30c1a95c3192583fd
+vendor/lib/libperfioctl.so
 vendor/lib/libqti-perfd-client.so|59515ed57886d7c37c98c7da6314f21ff6694474
 vendor/lib/libqti-perfd.so|e80a02f21e5a4ee31afcaf1222b34144112a77da
 vendor/lib/libqti-util.so|7f1b080e1d5c2e03261b80699232b3153146d215
+vendor/lib/vendor.qti.hardware.iop@2.0.so
+vendor/lib/vendor.qti.hardware.perf@2.0.so
+vendor/lib/vendor.qti.hardware.perf@2.1.so
+vendor/lib/vendor.qti.hardware.perf@2.2.so
 vendor/lib64/libperfconfig.so|cc082d4be56372ca49e6fcdc040ba05b27ae72bf
 vendor/lib64/libperfgluelayer.so|06f15511aa43ea3ebfff624e425952dcb7577701
+vendor/lib64/libperfioctl.so
 vendor/lib64/libqti-perfd-client.so|660d1d2a58e10616971c807b638f95b139b5a8e0
 vendor/lib64/libqti-perfd.so|003d9c728a25a50535fe7a77c3616b4079761166
 vendor/lib64/libqti-util.so|45a80be449435d277f09cc59e4a315fa86072c41
-
-# Perf - from LA.UM.9.14.r1-18900-LAHAINA.QSSI12.0
-vendor/lib/vendor.qti.hardware.perf@2.0.so
-vendor/lib/vendor.qti.hardware.perf@2.1.so
+vendor/lib64/vendor.qti.hardware.iop@2.0.so
 vendor/lib64/vendor.qti.hardware.perf@2.0.so
 vendor/lib64/vendor.qti.hardware.perf@2.1.so
+vendor/lib64/vendor.qti.hardware.perf@2.2.so
 
-# Perf (configs) - from LA.UM.9.6.2.r1-04200-89xx.0
+# Perf (configs) - from LA.UM.9.6.2.r1-04100-89xx.0
 vendor/etc/perf/commonresourceconfigs.xml|459a18579580713fd839f93c86d6b1f7f028be1e
 vendor/etc/perf/perfboostsconfig.xml|5c870f997fc67bd3a9e9c2d093b823344dd58e1d
 vendor/etc/perf/perfconfigstore.xml|de7a673eca27fb44b7dcd34c60d21f7ffbd2b9d8
 vendor/etc/perf/targetconfig.xml|aa20c25397df1455206965737f82d44d44430e45
 vendor/etc/perf/targetresourceconfigs.xml|a913faa5efddec9542ef0db3b57a60ddb6bb6e1b
 
-# Perf (servicetracker) - from LA.UM.9.14.r1-18900-LAHAINA.QSSI12.0
+# Perf (servicetracker) - from LA.UM.9.6.2.r1-04100-89xx.0
 vendor/bin/hw/vendor.qti.hardware.servicetracker@1.2-service
 vendor/etc/init/vendor.qti.hardware.servicetracker@1.2-service.rc
 -vendor/etc/vintf/manifest/vendor.qti.hardware.servicetracker@1.2-service.xml
 vendor/lib/hw/vendor.qti.hardware.servicetracker@1.2-impl.so
 vendor/lib64/hw/vendor.qti.hardware.servicetracker@1.2-impl.so
 
-# Perf (system) - from LA.QSSI.12.0.r1-05800-qssi.0
-etc/permissions/com.qualcomm.qti.Performance.xml|7976f2fd46b8d07814310cc957a70f829bdd6932
-etc/permissions/com.qualcomm.qti.UxPerformance.xml|d92749d80c5d956db8251b08ea6388d3f107a32c
--framework/QXPerformance.jar
+# Perf (system) - from LA.UM.9.6.2.r1-04100-89xx.0
+lib/libtflite.so
+lib64/libtflite.so
+system_ext/bin/perfservice
+system_ext/etc/init/perfservice.rc
+system_ext/etc/perf/wlc_model.tflite
+system_ext/etc/seccomp_policy/perfservice.policy
+system_ext/lib/libbeluga.so
+system_ext/lib/libqti-at.so
+system_ext/lib/libqti-iopd-client_system.so
+system_ext/lib/libqti-perfd-client_system.so
+system_ext/lib/libqti_performance.so
+system_ext/lib/libqti_workloadclassifiermodel.so
+system_ext/lib/vendor.qti.hardware.iop@2.0.so
+system_ext/lib/vendor.qti.hardware.perf@2.0.so
+system_ext/lib/vendor.qti.hardware.perf@2.1.so
+system_ext/lib/vendor.qti.hardware.perf@2.2.so
+system_ext/lib64/libbeluga.so
+system_ext/lib64/libqti-at.so
+system_ext/lib64/libqti-iopd-client_system.so
+system_ext/lib64/libqti-perfd-client_system.so
+system_ext/lib64/libqti_performance.so
+system_ext/lib64/libqti_workloadclassifiermodel.so
+system_ext/lib64/vendor.qti.hardware.iop@2.0.so
+system_ext/lib64/vendor.qti.hardware.perf@2.0.so
+system_ext/lib64/vendor.qti.hardware.perf@2.1.so
+system_ext/lib64/vendor.qti.hardware.perf@2.2.so
 -framework/QPerformance.jar
+-framework/QXPerformance.jar
 -framework/UxPerformance.jar
 
 # Peripheral manager - from LA.UM.9.6.3.r1-04400-89xx.0

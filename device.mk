@@ -325,19 +325,24 @@ PRODUCT_PACKAGES += \
 # Platform
 TARGET_BOARD_PLATFORM := msm8953
 
-# Power
+# Perf
 PRODUCT_BOOT_JARS += \
     QPerformance \
     UxPerformance
 
 PRODUCT_PACKAGES += \
-    android.hardware.power-service-qti \
-    android.hardware.power.stats@1.0-service.mock \
+    android.hardware.thermal@2.0 \
+    libavservices_minijail \
     vendor.qti.hardware.perf@2.0.vendor \
     vendor.qti.hardware.perf@2.1.vendor \
     vendor.qti.hardware.servicetracker@1.0.vendor \
     vendor.qti.hardware.servicetracker@1.1.vendor \
-    vendor.qti.hardware.servicetracker@1.2.vendor \
+    vendor.qti.hardware.servicetracker@1.2.vendor
+
+# Power
+PRODUCT_PACKAGES += \
+    android.hardware.power-service-qti \
+    android.hardware.power.stats@1.0-service.mock \
     android.hardware.power@1.2.vendor
 
 PRODUCT_COPY_FILES += \
