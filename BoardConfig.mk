@@ -56,7 +56,6 @@ TARGET_KERNEL_VERSION := 4.9
 
 # SELinux workarounds (temporary)
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
-SELINUX_IGNORE_NEVERALLOWS := true
 
 # ANT
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
