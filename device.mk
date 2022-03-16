@@ -367,7 +367,8 @@ TARGET_COMMON_QTI_COMPONENTS += \
     bt \
     overlay \
     telephony \
-    vibrator
+    vibrator \
+    wlan
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -435,23 +436,3 @@ PRODUCT_PACKAGES += \
 # VNDK
 PRODUCT_PACKAGES += \
     libstdc++.vendor
-
-# Wifi
-PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service \
-    libcld80211 \
-    libwpa_client \
-    hostapd \
-    libwifi-hal-qcom \
-    TetheringConfigOverlay \
-    WifiOverlay \
-    wpa_supplicant \
-    wpa_supplicant.conf
-
-PRODUCT_PACKAGES += \
-    wpa_supplicant_overlay.conf \
-    p2p_supplicant_overlay.conf \
-    hostapd_default.conf \
-    hostapd.accept \
-    hostapd.deny \
-    WCNSS_qcom_cfg.ini
