@@ -432,3 +432,7 @@ PRODUCT_PACKAGES += \
 # VNDK
 PRODUCT_PACKAGES += \
     libstdc++.vendor
+
+# Wi-Fi
+PRODUCT_PACKAGES += \
+    WifiResM1721

@@ -1,0 +1,5 @@
+runtime_resource_overlay {
+    name: "WifiResM1721",
+    vendor: true,
+    sdk_version: "current",
+}
