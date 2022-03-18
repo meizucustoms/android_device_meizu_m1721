@@ -1,0 +1,5 @@
+runtime_resource_overlay {
+    name: "AOSPAFrameworksResM1721",
+    product_specific: true,
+    sdk_version: "current",
+}
