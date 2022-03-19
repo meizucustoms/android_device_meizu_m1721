@@ -314,12 +314,14 @@ PRODUCT_PACKAGES += \
     libstagefright_enc_common
 
 # Overlays
-DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay
-
 PRODUCT_PACKAGES += \
     AOSPAFrameworksResM1721 \
-    FrameworksResM1721
+    FrameworksResM1721 \
+    SettingsProviderResM1721 \
+    SettingsResM1721 \
+    SystemUIResM1721 \
+    TelephonyResM1721 \
+    WifiResM1721
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8953

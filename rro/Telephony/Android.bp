@@ -1,5 +1,5 @@
 runtime_resource_overlay {
-    name: "AOSPAFrameworksResM1721",
+    name: "TelephonyResM1721",
     vendor: true,
     sdk_version: "current",
 }
