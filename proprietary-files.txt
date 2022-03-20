@@ -1946,7 +1946,6 @@ vendor/lib64/liblocationservice.so|66eef6f95eef5f50c8d3e574feec402817c051c4
 vendor/lib64/liblocationservice_glue.so|95f05d44ea815d85e8f0e024dd8e7b045813d488
 vendor/lib64/liblowi_client.so|e7ada622935a9c0cc45ece63a48176af92051892
 vendor/lib64/liblowi_wifihal.so|041b728e4d9fae50c387c0c0591ff470efdbda63
-vendor/lib64/libqcc_file_agent.so|cd70ce305d5036a027060aa989b0dcbcfab8edb6
 vendor/lib64/libxtadapter.so|495af82c252ccca8257c5281ba699da214fd1539
 vendor/lib64/vendor.qti.gnss@1.0.so|2124968c16a20ad8447dd716b6c71a50edfadf49
 vendor/lib64/vendor.qti.gnss@1.1.so|179015abd3ff92b7c69d9d23e8ac84c94e4d1fe9
@@ -1956,7 +1955,6 @@ vendor/lib64/vendor.qti.gnss@2.1.so|7268f261947ab66c535d48113eabe7e1878d915f
 vendor/lib64/vendor.qti.gnss@3.0.so|6bf537748ba0d0b0a81c880699a5cc9c0fb6f36b
 vendor/lib64/vendor.qti.gnss@4.0-service.so|04233086636be1aeaaedf88d3126803b0c40c11d
 vendor/lib64/vendor.qti.gnss@4.0.so|6e1dfd080383908c1d1d9b2fcef0a152276cd0bf
-vendor/lib64/vendor.qti.hardware.qccsyshal@1.0.so|3ff445db2dd2db1a1068fe70a54a6c04fbdd3123
 
 # GPS (configs) - from LA.UM.9.6.2.r1-04200-89xx.0
 vendor/etc/izat.conf|a795b79b68e3705c0334432dded0c0d246f47cb3
@@ -2028,6 +2026,22 @@ vendor/lib64/vendor.qti.hardware.alarm@1.0.so|3c182fd3343942c431e1d27d87f8fe1146
 
 # Power-off charging daemon
 -sbin/charger:bin/chargeonlymode|664dfa548b81cac348f1699222160f8d2b4d247c
+
+# QCC - from LA.UM.9.6.2.r1-04100-89xx.0
+lib64/hw/vendor.qti.hardware.qccsyshal@1.0-impl.so
+system_ext/bin/qccsyshalservice
+system_ext/etc/init/vendor.qti.hardware.qccsyshal@1.0-service.rc
+system_ext/lib64/libqcc_file_agent_sys.so
+system_ext/lib64/vendor.qti.hardware.qccsyshal@1.0-halimpl.so
+system_ext/lib64/vendor.qti.hardware.qccsyshal@1.0.so
+system_ext/lib64/vendor.qti.hardware.qccvndhal@1.0.so
+vendor/bin/hw/vendor.qti.hardware.qccvndhal@1.0-service
+vendor/etc/init/vendor.qti.hardware.qccvndhal@1.0-service.rc
+vendor/lib64/hw/vendor.qti.hardware.qccvndhal@1.0-impl.so
+vendor/lib64/libqcc_file_agent.so
+vendor/lib64/vendor.qti.hardware.qccvndhal@1.0-halimpl.so
+vendor/lib64/vendor.qti.hardware.qccvndhal@1.0.so
+vendor/lib64/vendor.qti.hardware.qccsyshal@1.0.so
 
 # QMI (diag) - from LA.UM.9.6.3.r1-04400-89xx.0
 system_ext/lib64/libdiag_system.so|c50a093e89c9a33277e6f6a2687a6cd74571b9b8
