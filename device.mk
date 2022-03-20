@@ -29,6 +29,12 @@ TARGET_SCREEN_WIDTH := 1080
 # Dalvik VM configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.heapminfree=4m \
+    dalvik.vm.heapstartsize=16m \
+    dalvik.vm.heapgrowthlimit=128m \
+    dalvik.vm.heapsize=256m
+
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
