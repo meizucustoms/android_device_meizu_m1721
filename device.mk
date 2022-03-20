@@ -262,10 +262,6 @@ PRODUCT_PACKAGES += \
     ipacm \
     IPACM_cfg.xml
 
-# IRQ
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/msm_irqbalance.conf:$(TARGET_COPY_OUT_VENDOR)/etc/msm_irqbalance.conf
-
 # IRSC
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
@@ -326,20 +322,6 @@ PRODUCT_PACKAGES += \
 # Platform
 TARGET_BOARD_PLATFORM := msm8953
 
-# Perf
-PRODUCT_BOOT_JARS += \
-    QPerformance \
-    UxPerformance
-
-PRODUCT_PACKAGES += \
-    android.hardware.thermal@2.0 \
-    libavservices_minijail \
-    vendor.qti.hardware.perf@2.0.vendor \
-    vendor.qti.hardware.perf@2.1.vendor \
-    vendor.qti.hardware.servicetracker@1.0.vendor \
-    vendor.qti.hardware.servicetracker@1.1.vendor \
-    vendor.qti.hardware.servicetracker@1.2.vendor
-
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power-service-qti \
@@ -347,8 +329,7 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.2.vendor
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml \
-    $(LOCAL_PATH)/configs/perf/perf-profile0.conf:$(TARGET_COPY_OUT_VENDOR)/etc/perf/perf-profile0.conf
+    $(LOCAL_PATH)/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
 
 # Public libraries
 PRODUCT_COPY_FILES += \
@@ -367,6 +348,7 @@ TARGET_COMMON_QTI_COMPONENTS += \
     av \
     bt \
     overlay \
+    perf \
     telephony \
     vibrator \
     wlan
