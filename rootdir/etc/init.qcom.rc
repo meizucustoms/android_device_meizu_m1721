@@ -319,8 +319,16 @@ service vendor.qcom-post-boot /vendor/bin/init.qcom.post_boot.sh
     disabled
     oneshot
 
+service vendor.mem-tweaks /vendor/bin/init.mem.sh
+    class late_start
+    user root
+    group root
+    disabled
+    oneshot
+
 on property:sys.boot_completed=1
     start vendor.qcom-post-boot
+    start vendor.mem-tweaks
 
 service vendor.charger /system/bin/chargeonlymode
     class charger

@@ -2,5 +2,5 @@
 # product.prop for m1721
 #
 
-# Default to BFQ I/O scheduler
-persist.sys.io.scheduler=bfq
+# Default to noop I/O scheduler
+persist.sys.io.scheduler=noop

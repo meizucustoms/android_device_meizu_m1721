@@ -775,9 +775,9 @@ else
 
     configure_zram_parameters
 
-    configure_read_ahead_kb_values
+    #configure_read_ahead_kb_values
 
-    enable_swap
+    #enable_swap
 fi
 }
 
