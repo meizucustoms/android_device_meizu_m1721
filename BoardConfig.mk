@@ -47,14 +47,6 @@ TARGET_PRODUCT_PROP := $(DEVICE_PATH)/product.prop
 TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
 TARGET_VENDOR_PROP := $(DEVICE_PATH)/vendor.prop
 
-# Dexpreopt
-PRODUCT_DEXPREOPT_SPEED_APPS += \
-    Launcher3 \
-    Settings \
-    SystemUI
-
-PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := everything
-
 # Kernel
 TARGET_KERNEL_CONFIG := ../m1721_defconfig
 BOARD_KERNEL_BASE := 0x80000000
