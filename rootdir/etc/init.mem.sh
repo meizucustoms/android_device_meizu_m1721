@@ -15,15 +15,6 @@
 # limitations under the License.
 #
 
-set_read_ahead() {
-    echo "$1" > /sys/class/block/mmcblk0/queue/read_ahead_kb
-}
-
-set_scheduler() {
-    setprop persist.sys.io.scheduler "$1"
-    echo "$1" > /sys/class/block/mmcblk0/queue/scheduler
-}
-
 get_emmc_size() {
     blocks=$(cat /sys/class/block/mmcblk0/size)
     bytes=$(expr $blocks \* 512)
@@ -46,15 +37,6 @@ set_dirty_writeback_centisecs() {
     echo "$1" > /proc/sys/vm/dirty_writeback_centisecs
 }
 
-if [ "$(get_emmc_size)" -gt 32 ]; then
-    set_read_ahead 3072
-elif [ "$(get_emmc_size)" -gt 16 ]; then
-    set_read_ahead 2048
-else
-    set_read_ahead 1024
-fi
-
-set_scheduler noop
 set_dirty_ratio 99
 set_dirty_bg_ratio 50
 set_dirty_expire_centisecs 60000
