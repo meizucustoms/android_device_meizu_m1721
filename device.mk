@@ -43,7 +43,8 @@ PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := everything
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH)
+    $(LOCAL_PATH) \
+    kernel/meizu/m1721
 
 # Permissions
 PRODUCT_COPY_FILES += \
