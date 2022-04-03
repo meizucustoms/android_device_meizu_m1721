@@ -6161,7 +6161,7 @@ setprop persist.vendor.mmi.misc_dev_path $real_path
 
 # Setup 2GB of vbswap
 echo 2147483648 > /sys/devices/virtual/block/vbswap0/disksize
-echo 200 > /proc/sys/vm/swappiness
+echo 100 > /proc/sys/vm/swappiness
 mkswap /dev/block/vbswap0
 swapon /dev/block/vbswap0
 
