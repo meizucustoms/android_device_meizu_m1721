@@ -76,7 +76,6 @@ persist.vendor.mwqem.enable=1
 
 # Display
 debug.hwui.use_buffer_age=false
-debug.hwui.renderer=vulkan
 persist.hwc.downscale_threshold=1.15
 ro.hardware.vulkan=adreno
 ro.hardware.egl=adreno
