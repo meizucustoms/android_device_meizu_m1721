@@ -191,6 +191,9 @@ PRODUCT_PACKAGES += \
     libvulkan \
     vendor.display.config@1.0.vendor
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hwui.use_vulkan=true
+
 # Device-specific settings
 PRODUCT_PACKAGES += \
     MeizuParts

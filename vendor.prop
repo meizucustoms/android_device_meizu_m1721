@@ -76,6 +76,7 @@ persist.vendor.mwqem.enable=1
 
 # Display
 debug.hwui.use_buffer_age=false
+debug.hwui.renderer=skiavk
 ro.hardware.vulkan=adreno
 ro.hardware.egl=adreno
 ro.opengles.version=196610
