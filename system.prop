@@ -82,6 +82,9 @@ vendor.video.disable.ubwc=1
 # Qualcomm
 ro.vendor.qti.va_aosp.support=1
 
+# ScalarConfig
+vendor.display.disable_scaler=1
+
 # Shutdown
 ro.build.shutdown_timeout=2
 
