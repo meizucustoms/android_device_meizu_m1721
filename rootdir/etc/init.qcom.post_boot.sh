@@ -6167,3 +6167,6 @@ swapon /dev/block/vbswap0
 
 # Enable SIGKILL memory reap
 echo 1 > /proc/sys/vm/reap_mem_on_sigkill
+
+# Zygote Preforking (override)
+setprop persist.device_config.runtime_native.usap_pool_enabled true
