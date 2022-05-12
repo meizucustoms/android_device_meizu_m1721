@@ -1037,12 +1037,17 @@ int enable_audio_route(struct audio_device *adev,
         __func__, (unsigned int)snd_device, platform_get_snd_device_name(snd_device),
         adev->snd_dev_ref_cnt[snd_device], (unsigned int)adev->mode,
         (unsigned int)usecase->type);
-    if (strstr(mixer_path, "speaker")) {
-        if ((adev->mode == AUDIO_MODE_NORMAL || adev->mode == AUDIO_MODE_RINGTONE)
-            && adev->snd_dev_ref_cnt[snd_device] == 1) {
+    if (strstr(mixer_path, "speaker") && adev->card_status == CARD_STATUS_ONLINE) {
+        if (adev->mode <= AUDIO_MODE_RINGTONE && adev->snd_dev_ref_cnt[snd_device] == 1) {
             ALOGE("%s: mixer_path %s, Cirrus config: Music",
                 __func__, mixer_path);
             audio_route_apply_and_update_path(adev->audio_route, "cirrus-config-rx");
+            audio_route_apply_and_update_path(adev->audio_route, "cirrus-config-tx");
+            adev->cirrus_path_enabled = true;
+        } else if (usecase->type >= PCM_CAPTURE) {
+            ALOGE("%s: mixer_path %s, Cirrus config: Voice",
+                __func__, mixer_path);
+            audio_route_apply_and_update_path(adev->audio_route, "cirrus-config-rx-voice");
             audio_route_apply_and_update_path(adev->audio_route, "cirrus-config-tx");
             adev->cirrus_path_enabled = true;
         }
