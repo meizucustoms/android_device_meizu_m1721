@@ -37,7 +37,7 @@ set_dirty_writeback_centisecs() {
     echo "$1" > /proc/sys/vm/dirty_writeback_centisecs
 }
 
-set_dirty_ratio 99
-set_dirty_bg_ratio 50
-set_dirty_expire_centisecs 60000
-set_dirty_writeback_centisecs 60000
+set_dirty_ratio 40
+set_dirty_bg_ratio 20
+set_dirty_expire_centisecs 30000
+set_dirty_writeback_centisecs 5000
