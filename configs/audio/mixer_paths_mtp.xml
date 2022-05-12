@@ -1735,6 +1735,11 @@
           <ctl name="Cirrus GB Ext Config" value="RX Default" />
     </path>
 
+    <path name="cirrus-config-rx-voice">
+          <ctl name="Cirrus GB Config" value="Opalum Voice" />
+          <ctl name="Cirrus GB Ext Config" value="RX New" />
+    </path>
+
     <path name ="cirrus-config-tx">
         <ctl name="Cirrus GB Ext Config" value="TX New" />
         <ctl name="Cirrus GB Config" value="Set Temp Calibration" />
