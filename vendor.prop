@@ -3,9 +3,10 @@
 #
 
 # Audio
+af.fast_track_multiplier=1
 audio.deep_buffer.media=true
 audio.offload.min.duration.secs=30
-audio.offload.video=true
+audio.offload.video=false
 persist.vendor.audio.fluence.speaker=false
 persist.vendor.audio.fluence.voicecall=true
 persist.vendor.audio.fluence.voicerec=false
@@ -14,6 +15,8 @@ persist.vendor.audio.speaker.prot.enable=true
 ro.af.client_heap_size_kbyte=7168
 ro.vendor.audio.sdk.fluencetype=fluence
 ro.vendor.audio.sdk.ssr=false
+vendor.audio.dolby.ds2.enabled=true
+vendor.audio.dolby.ds2.hardbypass=true
 vendor.audio.flac.sw.decoder.24bit=true
 vendor.audio.hal.boot.timeout.ms=20000
 vendor.audio.hw.aac.encoder=true
@@ -21,6 +24,7 @@ vendor.audio.offload.buffer.size.kb=64
 vendor.audio.offload.gapless.enabled=true
 vendor.audio.offload.multiaac.enable=true
 vendor.audio.offload.multiple.enabled=false
+vendor.audio.offload.passthrough=false
 vendor.audio.offload.track.enable=true
 vendor.audio.parser.ip.buffer.size=262144
 vendor.audio.playback.mch.downsample=true
@@ -28,13 +32,14 @@ vendor.audio.safx.pbe.enabled=false
 vendor.audio.tunnel.encode=false
 vendor.audio.use.sw.alac.decoder=true
 vendor.audio.use.sw.ape.decoder=true
-vendor.audio_hal.period_size=192
+vendor.audio_hal.period_size=480
 vendor.audio.read.wsatz.type=true
 vendor.voice.conc.fallbackpath=deep-buffer
 vendor.voice.path.for.pcm.voip=true
 vendor.voice.playback.conc.disabled=true
 vendor.voice.record.conc.disabled=false
 vendor.voice.voip.conc.disabled=true
+flac.sw.decoder.24bit.support=true
 
 # Audio dynamic feature flags
 vendor.audio.feature.anc_headset.enable=true
