@@ -378,6 +378,7 @@ TARGET_COMMON_QTI_COMPONENTS += \
     av \
     bt \
     gps \
+    media-legacy \
     overlay \
     perf \
     telephony \
