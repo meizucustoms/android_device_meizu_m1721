@@ -380,6 +380,7 @@ TARGET_COMMON_QTI_COMPONENTS += \
     bt \
     display \
     gps \
+    init \
     media-legacy \
     overlay \
     perf \
@@ -390,20 +391,11 @@ TARGET_COMMON_QTI_COMPONENTS += \
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
+    init.qcom.usb.rc \
+    init.target.rc \
     init.goodix.sh \
     init.mem.sh \
-    init.msm.usb.configfs.rc \
-    init.qcom.early_boot.sh \
-    init.qcom.post_boot.sh \
-    init.qcom.rc \
-    init.qcom.sh \
-    init.qcom.usb.rc \
-    init.recovery.qcom.rc \
-    init.recovery.qcom.usb.rc \
-    init.parts.rc \
-    init.target.rc \
-    init.veth_ipa_config.sh \
-    ueventd.qcom.rc
+    init.target.post_boot.sh
 
 # RIL
 PRODUCT_PACKAGES += \
