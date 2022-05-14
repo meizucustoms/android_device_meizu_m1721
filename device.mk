@@ -375,6 +375,7 @@ PRODUCT_PACKAGES += \
 # QTI
 TARGET_COMMON_QTI_COMPONENTS += \
     adreno-legacy \
+    audio \
     av \
     bt \
     gps \
