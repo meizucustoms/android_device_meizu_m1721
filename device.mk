@@ -373,21 +373,7 @@ PRODUCT_PACKAGES += \
     libjson
 
 # QTI
-TARGET_COMMON_QTI_COMPONENTS += \
-    adreno-legacy \
-    audio \
-    av \
-    bt \
-    display \
-    gps \
-    init \
-    media-legacy \
-    overlay \
-    perf \
-    telephony \
-    usb \
-    vibrator \
-    wlan
+TARGET_COMMON_QTI_COMPONENTS += all
 
 # Ramdisk
 PRODUCT_PACKAGES += \
