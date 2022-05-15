@@ -2,6 +2,8 @@ on init
     # Notification LED
     chown system system /sys/class/leds/mx-led/blink
     chown system system /sys/class/leds/mx-led/brightness
+    # Screen
+    chown system system /sys/class/leds/lcd-backlight/brightness
 
 service vendor.light-hal-2-0 /vendor/bin/hw/android.hardware.light@2.0-service.meizu_m1721
     interface android.hardware.light@2.0::ILight default
