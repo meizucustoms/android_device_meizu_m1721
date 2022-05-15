@@ -2071,8 +2071,10 @@ etc/firmware/a506_zap.b00:vendor/firmware/a506_zap.b00
 etc/firmware/a506_zap.b01:vendor/firmware/a506_zap.b01
 etc/firmware/a506_zap.b02:vendor/firmware/a506_zap.b02
 etc/firmware/a506_zap.mdt:vendor/firmware/a506_zap.mdt
-etc/firmware/a530_pfp.fw:vendor/firmware/a530_pfp.fw
-etc/firmware/a530_pm4.fw:vendor/firmware/a530_pm4.fw
+
+# Graphics firmware - from LA.UM.9.6.2.r1-04200-89xx.0
+vendor/firmware/a530_pfp.fw|35b72dce880191ff087af2524205afce40ea8c97
+vendor/firmware/a530_pm4.fw|b1cf625b5552b99839687f479c124ac5daca2ca2
 
 # IRQ Balance - from LA.UM.9.6.2.r1-04200-89xx.0
 vendor/bin/msm_irqbalance|e5706bc0acab394b53fafdc1d7f342f69c6f5649
