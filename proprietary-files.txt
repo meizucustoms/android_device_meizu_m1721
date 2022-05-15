@@ -1858,6 +1858,10 @@ vendor/etc/diracmobile.config
 vendor/lib/libDiracAPI_SHARED.so
 vendor/lib/soundfx/libdirac.so
 
+# Dolby
+vendor/lib/libhwdaphal.so
+vendor/lib64/libhwdaphal.so
+
 # DPM - from LA.UM.9.6.3.r1-06200-89xx.0
 system_ext/bin/dpmd|8a582ec5f23d8f43922566a12840da8ced8e6ab7
 system_ext/etc/dpm/dpm.conf|95e27da8c989e96c6faea6f0697bce11955b62a5
