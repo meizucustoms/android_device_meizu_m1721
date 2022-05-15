@@ -178,6 +178,28 @@ on charger
 on boot
     chown system system /sys/kernel/hbtp/display_pwr
 
+    # Focaltech DT2W
+    chown system system /sys/devices/platform/soc/78b7000.i2c/i2c-3/3-0038/enable_dt2w
+    chmod 0664 /sys/devices/platform/soc/78b7000.i2c/i2c-3/3-0038/enable_dt2w
+
+    # Goodix DT2W
+    chown system system /sys/devices/platform/soc/78b7000.i2c/i2c-3/3-005d/enable_dt2w
+    chmod 0664 /sys/devices/platform/soc/78b7000.i2c/i2c-3/3-005d/enable_dt2w
+
+    # Graphics
+    chown system graphics /sys/class/graphics/fb0/idle_time
+    chmod 0664 /sys/class/graphics/fb0/idle_time
+    chown system graphics /sys/class/graphics/fb0/dynamic_fps
+    chmod 0664 /sys/class/graphics/fb0/dynamic_fps
+    chown system graphics /sys/class/graphics/fb0/dyn_pu
+    chmod 0664 /sys/class/graphics/fb0/dyn_pu
+    chown system graphics /sys/class/graphics/fb0/modes
+    chmod 0664 /sys/class/graphics/fb0/modes
+    chown system graphics /sys/class/graphics/fb0/mode
+    chmod 0664 /sys/class/graphics/fb0/mode
+    chown system graphics /sys/class/graphics/fb0/msm_cmd_autorefresh_en
+    chmod 0664 /sys/class/graphics/fb0/msm_cmd_autorefresh_en
+
 # Update cpusets on boot and we want better load balancing
     write /dev/cpuset/top-app/cpus 0-7
     write /dev/cpuset/foreground/cpus 0-6
@@ -206,7 +228,7 @@ service vendor.mem-tweaks /vendor/bin/init.mem.sh
 service vendor.target-post-boot /vendor/bin/init.target.post_boot.sh
     class late_start
     user root
-    group root
+    group root system
     disabled
     oneshot
 
