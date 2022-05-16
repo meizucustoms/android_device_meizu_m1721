@@ -15,9 +15,9 @@
 # limitations under the License.
 #
 
-# Setup 2GB of vbswap
-echo 2147483648 > /sys/devices/virtual/block/vbswap0/disksize
-echo 100 > /proc/sys/vm/swappiness
+# Setup 1GB of vbswap
+echo 1073741824 > /sys/devices/virtual/block/vbswap0/disksize
+echo 40 > /proc/sys/vm/swappiness
 mkswap /dev/block/vbswap0
 swapon /dev/block/vbswap0
 
