@@ -346,9 +346,6 @@ PRODUCT_PACKAGES += \
     TelephonyResM1721 \
     WifiResM1721
 
-# Performance
-TARGET_HAS_LOW_PERFORMANCE := true
-
 # Platform
 TARGET_BOARD_PLATFORM := msm8953
 
