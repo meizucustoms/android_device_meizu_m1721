@@ -393,7 +393,6 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.rc \
     init.target.rc \
     init.goodix.sh \
-    init.mem.sh \
     init.target.post_boot.sh
 
 # RIL
