@@ -101,6 +101,9 @@ vendor.hw.fm.init=0
 # Frp
 ro.frp.pst=/dev/block/bootdevice/by-name/config
 
+# Init
+vendor.post_boot.custom=true
+
 # LMK
 ro.lmk.low=1001
 ro.lmk.medium=800
