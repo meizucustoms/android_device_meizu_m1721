@@ -6160,8 +6160,9 @@ misc_link=$(ls -l /dev/block/bootdevice/by-name/misc)
 real_path=${misc_link##*>}
 setprop persist.vendor.mmi.misc_dev_path $real_path
 
-# Setup 3GB of zRAM
+# Setup 3GB of VBSWAP
 echo 3221225472 > /sys/devices/virtual/block/vbswap0/disksize
+echo 200 > /proc/sys/vm/swappiness
 mkswap /dev/block/vbswap0
 swapon /dev/block/vbswap0
 
