@@ -6164,7 +6164,7 @@ setprop persist.vendor.mmi.misc_dev_path $real_path
 echo 3221225472 > /sys/devices/virtual/block/vbswap0/disksize
 echo 200 > /proc/sys/vm/swappiness
 mkswap /dev/block/vbswap0
-swapon /dev/block/vbswap0
+swapon -p 32767 /dev/block/vbswap0
 
 # Zygote Preforking (override)
 setprop persist.device_config.runtime_native.usap_pool_enabled true
