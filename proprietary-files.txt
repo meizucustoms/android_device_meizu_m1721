@@ -2074,7 +2074,6 @@ etc/firmware/a530_pm4.fw:vendor/firmware/a530_pm4.fw
 
 # IRQ Balance - from LA.UM.9.6.2.r1-04200-89xx.0
 vendor/bin/msm_irqbalance|e5706bc0acab394b53fafdc1d7f342f69c6f5649
-vendor/etc/msm_irqbalance.conf|3e45e1da03ab49ce9d3f855011aca00f1e417a53
 
 # Keystore - from LA.UM.9.6.2.r1-04200-89xx.0
 vendor/lib64/hw/keystore.msm8953.so|0a68ac29004f72237f48008cea188dd98d6c6560
@@ -2162,14 +2161,12 @@ vendor/lib64/vendor.qti.hardware.alarm@1.0.so|dcfdc04b4e0c6e6a4ffa60e1694268bd03
 system_ext/lib64/libdiag_system.so|1e0006fd3be67cbb50fb28ecfec028bddcead4fe
 system_ext/lib64/vendor.qti.diaghal@1.0.so|abe51fdbdcbf3449012395cf0ade8aa8d267dbe6
 vendor/bin/irsc_util|121deb2d6fd21b122c6a8ca8b30ef167f6b90f61
-vendor/etc/sec_config|38ed44170badad7ae9a05f53223e1addf8780083
 vendor/lib/libdiag.so|1a946b18fcd5de254df8d631cd7677f595b3b2c8
 vendor/lib64/libdiag.so|8d92025445dcf905778a15e76adc1afdc3395642
 
 # QMI (shared dependencies) - LA.UM.9.6.3.r1-06200-89xx.0
 etc/permissions/privapp-permissions-qti.xml|3eda27003bad39514039190d0d7eb675ba034cb9
 etc/sysconfig/qti_whitelist.xml|e280dc9a012bd864c3fa91cf4439338d54218730
-vendor/etc/qmi_fw.conf|7aa8186a05b3e1ac6ce556bb6e9ae613df0e82c1
 vendor/lib64/libdsi_netctrl.so|6cd16a99432f27d76f2dffd920dedde1baac3bbc
 vendor/lib64/libdsutils.so|3628bfbb317348a5047aa38c8d12924088d361ab
 vendor/lib64/libidl.so|857f7a75a51ade7d3621f7fa6da0e9461244ca01
