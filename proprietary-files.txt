@@ -84,7 +84,7 @@ vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.1.so|5de4a802667afa2c05b9c75ae6
 system_ext/lib64/libaptX_encoder.so|df1c89d7af1bb35808d5fe3496b04ba066c10cbc
 system_ext/lib64/libaptXHD_encoder.so|e13fa70c97caaa24d061678bdee608eb8850a69e
 
-# Camera actuators - from Flyme 6.1.4.3G (Flyme_6.0.1528193190)
+# Camera actuators - from Flyme 8.0.5.0A (Flyme_8.0.1592979314)
 vendor/lib/libactuator_ad5816g.so
 vendor/lib/libactuator_ad5823.so
 vendor/lib/libactuator_ak7345.so
@@ -104,7 +104,7 @@ vendor/lib/libactuator_lc898217xc.so
 vendor/lib/libactuator_pseudo.so
 vendor/lib/libactuator_rohm_bu64243gwz.so
 
-# Camera base - from Flyme 6.1.4.3G (Flyme_6.0.1528193190)
+# Camera base - from Flyme 8.0.5.0A (Flyme_8.0.1592979314)
 bin/mm-qcamera-daemon:vendor/bin/mm-qcamera-daemon
 bin/remosaic_daemon:vendor/bin/remosaic_daemon
 vendor/lib/libChamomilePA.so
@@ -276,6 +276,9 @@ vendor/lib/libtrueportrait.so
 -vendor/lib/libts_detected_face_hal.so
 -vendor/lib/libts_face_beautify_hal.so
 vendor/lib/libubifocus.so
+vendor/lib64/libremosaic_daemon.so
+vendor/lib64/libremosaiclib.so
+vendor/lib64/libremosaic_tuning.so
 vendor/lib64/libmmcamera2_frame_algorithm.so
 vendor/lib64/libmmcamera2_is.so
 vendor/lib64/libmmcamera2_q3a_core.so
@@ -284,11 +287,8 @@ vendor/lib64/libmmcamera_cac3_lib.so
 vendor/lib64/libmmcamera_dbg.so
 vendor/lib64/libmmcamera_tintless_algo.so
 vendor/lib64/libmmcamera_tintless_bg_pca_algo.so
-vendor/lib64/libremosaic_daemon.so
-vendor/lib64/libremosaiclib.so
-vendor/lib64/libremosaic_tuning.so
 
-# Camera chromatix - from Flyme 6.1.4.3G (Flyme_6.0.1528193190)
+# Camera chromatix - from Flyme 8.0.5.0A (Flyme_8.0.1592979314)
 vendor/lib/libchromatix_c5490_a3_default_preview.so
 vendor/lib/libchromatix_c5490_a3_default_video.so
 vendor/lib/libchromatix_c5490_a3_hfr_120.so
@@ -1558,6 +1558,7 @@ vendor/lib/libchromatix_s5k3p3sm_preview.so
 vendor/lib/libchromatix_s5k3p3sm_qtech_common.so
 vendor/lib/libchromatix_s5k3p3sm_qtech_cpp_liveshot.so
 vendor/lib/libchromatix_s5k3p3sm_qtech_cpp_preview.so
+vendor/lib/libchromatix_s5k3p3sm_qtech_cpp_snapshot_night.so
 vendor/lib/libchromatix_s5k3p3sm_qtech_cpp_snapshot_remosaic.so
 vendor/lib/libchromatix_s5k3p3sm_qtech_cpp_snapshot.so
 vendor/lib/libchromatix_s5k3p3sm_qtech_cpp_video.so
@@ -1573,6 +1574,7 @@ vendor/lib/libchromatix_s5k3p3sm_snapshot.so
 vendor/lib/libchromatix_s5k3p3sm_stech_common.so
 vendor/lib/libchromatix_s5k3p3sm_stech_cpp_liveshot.so
 vendor/lib/libchromatix_s5k3p3sm_stech_cpp_preview.so
+vendor/lib/libchromatix_s5k3p3sm_stech_cpp_snapshot_night.so
 vendor/lib/libchromatix_s5k3p3sm_stech_cpp_snapshot_remosaic.so
 vendor/lib/libchromatix_s5k3p3sm_stech_cpp_snapshot.so
 vendor/lib/libchromatix_s5k3p3sm_stech_cpp_video.so
@@ -1703,7 +1705,7 @@ vendor/lib/libchromatix_s5k4e8_snapshot.so
 vendor/lib/libchromatix_s5k4e8_zsl_preview.so
 vendor/lib/libchromatix_s5k4e8_zsl_video.so
 
-# Camera configs - from Flyme 6.1.4.3G (Flyme_6.0.1528193190)
+# Camera configs - from Flyme 8.0.5.0A (Flyme_8.0.1592979314)
 etc/camera/c5490_chromatix.xml:vendor/etc/camera/c5490_chromatix.xml
 etc/camera/camera_config.xml:vendor/etc/camera/camera_config.xml
 etc/camera/csidtg_camera.xml:vendor/etc/camera/csidtg_camera.xml
@@ -1762,7 +1764,7 @@ etc/camera/s5k4e8_qtech_chromatix.xml:vendor/etc/camera/s5k4e8_qtech_chromatix.x
 # Camera debug config - from LA.UM.5.6.r1-04300-89xx.0
 vendor/etc/camera/debugconf.txt|19fcd7651e3daf1bcfeafb87a5c24314
 
-# Camera firmware - from Flyme 6.1.4.3G (Flyme_6.0.1528193190)
+# Camera firmware - from Flyme 8.0.5.0A (Flyme_8.0.1592979314)
 etc/firmware/cpp_firmware_v1_10_0.fw:vendor/firmware/cpp_firmware_v1_10_0.fw
 etc/firmware/cpp_firmware_v1_12_0.fw:vendor/firmware/cpp_firmware_v1_12_0.fw
 etc/firmware/cpp_firmware_v1_1_1.fw:vendor/firmware/cpp_firmware_v1_1_1.fw
@@ -1774,7 +1776,7 @@ etc/firmware/cpp_firmware_v1_5_2.fw:vendor/firmware/cpp_firmware_v1_5_2.fw
 etc/firmware/cpp_firmware_v1_6_0.fw:vendor/firmware/cpp_firmware_v1_6_0.fw
 etc/firmware/cpp_firmware_v1_8_0.fw:vendor/firmware/cpp_firmware_v1_8_0.fw
 
-# Camera postprocessing - from Flyme 6.1.4.3G (Flyme_6.0.1528193190)
+# Camera postprocessing - from Flyme 8.0.5.0A (Flyme_8.0.1592979314)
 vendor/lib/libarcsoft_dualcam_refocus.so
 vendor/lib/libarcsoft_high_dynamic_range.so
 vendor/lib/libarcsoft_low_light_shot.so
