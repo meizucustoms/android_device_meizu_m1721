@@ -1026,8 +1026,9 @@ typedef struct {
     INCLUDE(CAM_INTF_PARM_HAL_BRACKETING_HDR,           cam_hdr_param_t,             1);
 
     /* Flyme camera / ArcSoft */
-    INCLUDE(CAM_INTF_MEIZU_FRAMEBUFFER_MODE,            int32_t,                  1);
-    INCLUDE(CAM_INTF_MEIZU_UNKNOWN_1,                   int32_t,                  1);
+    INCLUDE(CAM_INTF_MEIZU_FRAMEBUFFER_MODE,            uint32_t,                    1);
+    INCLUDE(CAM_INTF_MEIZU_ARCSOFT_UNKNOWN_0,           uint32_t,                    1);
+    INCLUDE(CAM_INTF_MEIZU_UNKNOWN_1,                   uint32_t,                    1);
 } metadata_data_t;
 
 /* Update clear_metadata_buffer() function when a new is_xxx_valid is added to

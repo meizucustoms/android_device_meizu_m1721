@@ -107,10 +107,10 @@ service vendor.qcamerasvr /vendor/bin/mm-qcamera-daemon
 
 #start remosaic server as daemon
 service vendor.remosaic /vendor/bin/remosaic_daemon
+    class late_start
     user root
     group root
     oneshot
-    disabled
     seclabel u:r:mm-qcamerad:s0
     task_profiles ServiceCapacityLow
 

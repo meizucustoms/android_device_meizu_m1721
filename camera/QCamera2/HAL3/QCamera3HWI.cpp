@@ -5734,7 +5734,7 @@ QCamera3HardwareInterface::translateFromHalMetadata(
     }
 
     IF_META_AVAILABLE(int64_t, sensorExpTime, CAM_INTF_META_SENSOR_EXPOSURE_TIME, metadata) {
-        LOGD("sensorExpTime = %lld", *sensorExpTime);
+        LOGE("sensorExpTime = %lld", *sensorExpTime);
         camMetadata.update(ANDROID_SENSOR_EXPOSURE_TIME , sensorExpTime, 1);
     }
 
@@ -7450,6 +7450,8 @@ int QCamera3HardwareInterface::initStaticMetadata(uint32_t cameraId)
 
     staticInfo.update(ANDROID_SENSOR_INFO_PHYSICAL_SIZE,
             gCamCapability[cameraId]->sensor_physical_size, SENSOR_PHYSICAL_SIZE_CNT);
+
+    LOGE("Exp time range [%d]: %lld -> %lld", cameraId, gCamCapability[cameraId]->exposure_time_range[0], gCamCapability[cameraId]->exposure_time_range[1])
 
     staticInfo.update(ANDROID_SENSOR_INFO_EXPOSURE_TIME_RANGE,
             gCamCapability[cameraId]->exposure_time_range, EXPOSURE_TIME_RANGE_CNT);
@@ -10091,7 +10093,7 @@ int QCamera3HardwareInterface::translateToHalMetadata
     if (frame_settings.exists(ANDROID_SENSOR_EXPOSURE_TIME)) {
         int64_t sensorExpTime =
                 frame_settings.find(ANDROID_SENSOR_EXPOSURE_TIME).data.i64[0];
-        LOGD("setting sensorExpTime %lld", sensorExpTime);
+        LOGE("setting sensorExpTime %lld", sensorExpTime);
         if (ADD_SET_PARAM_ENTRY_TO_BATCH(hal_metadata, CAM_INTF_META_SENSOR_EXPOSURE_TIME,
                 sensorExpTime)) {
             rc = BAD_VALUE;
