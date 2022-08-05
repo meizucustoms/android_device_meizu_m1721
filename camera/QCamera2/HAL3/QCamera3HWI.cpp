@@ -4982,20 +4982,9 @@ no_error:
     //Block on conditional variable
     while ((mPendingLiveRequest >= mMinInFlightRequests) && !pInputBuffer &&
             (mState != ERROR) && (mState != DEINIT)) {
-        if (!isValidTimeout) {
-            LOGD("Blocking on conditional wait");
-            pthread_cond_wait(&mRequestCond, &mMutex);
-        }
-        else {
-            LOGD("Blocking on timed conditional wait");
-            rc = pthread_cond_timedwait(&mRequestCond, &mMutex, &ts);
-            if (rc == ETIMEDOUT) {
-                rc = -ENODEV;
-                LOGE("Unblocked on timeout!!!!");
-                break;
-            }
-        }
-        LOGD("Unblocked");
+        LOGE("Blocking on conditional wait");
+        pthread_cond_wait(&mRequestCond, &mMutex);
+        LOGE("Unblocked");
         if (mWokenUpByDaemon) {
             mWokenUpByDaemon = false;
             if (mPendingLiveRequest < mMaxInFlightRequests)
