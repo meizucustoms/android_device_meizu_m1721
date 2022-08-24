@@ -16,7 +16,7 @@
     <string name="custom_seekbar_value">数值: <xliff:g id="v">%s</xliff:g></string>
     <string name="custom_seekbar_default_value">默认</string>
     <string name="custom_seekbar_default_value_to_set">默认数值: <xliff:g id="v">%s</xliff:g>\n长按以设置</string>
-    <string name="custom_seekbar_default_value_is_set">默认数值已设定</string>
+    <string name="custom_seekbar_default_value_is_set">已设为默认数值</string>
 
     <!-- mBack -->
     <string name="mback_title">mBack 设置</string>
